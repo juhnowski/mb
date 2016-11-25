@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="tableForm" prependId="false">
+            <h:link value="Добавить" outcome="edit?faces-redirect=true"/>
+
+            <h:panelGroup>
+                <rich:dataTable id="rulesTable"
+                                value="#{refAntifraudRules.antifraudRulesList}"
+                                var="rule">
+                    <rich:column style="text-align: center;">
+                        <f:facet name="header">ID в системе</f:facet>
+                        <h:outputText value="#{rule.id}" size="10"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">Название в системе</f:facet>
+                        <h:outputText value="#{rule.name}" size="35"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">Код</f:facet>
+                        <h:outputText value="#{rule.code}" size="45"/>
+                    </rich:column>
+                    <rich:column style="text-align: center;">
+                        <f:facet name="header">Действия</f:facet>
+
+                        <h:panelGrid columns="2">
+                            <h:panelGroup>
+                                <h:link outcome="edit?faces-redirect=true">
+                                    <f:param name="ruleId" value="#{rule.id}"/>
+                                    <h:graphicImage value="/resources/icons/edit.gif" title="редактировать"/>
+                                </h:link>
+                            </h:panelGroup>
+                            <h:panelGroup style="margin-left:8px">
+                                <h:commandLink actionListener="#{refAntifraudRules.deleteRule}"
+                                               onclick="return confirm('Удалить запись?');">
+                                    <f:attribute name="ruleId" value="#{rule.id}"/>
+                                    <a4j:ajax render="tableForm"/>
+                                    <h:graphicImage value="/resources/icons/delete.gif" title="удалить"/>
+                                </h:commandLink>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                    </rich:column>
+                </rich:dataTable>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>

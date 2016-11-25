@@ -1,0 +1,844 @@
+<!--#set var="typePage" value="lk" -->
+<!--#set var="page" value="overview" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'overview'">
+<head>
+    <!--#include file="include/_head.shtml"-->
+    <script src="js/overview_new.js"></script>
+
+    <style>
+        .btn--download {
+            background: #fdb92e;
+            color: #393740;
+        }
+
+        select.input {
+            color: #5f6a7c;
+            background: #fff;
+            padding: 0 12px;
+            width: 320px;
+            float: left;
+            margin-right: 10px;
+            font-size: 13px;
+            font-weight: 300;
+            border: 0;
+            border-radius: 5px;
+            height: 38px;
+            line-height: 14px;
+        }
+    </style>
+</head>
+
+<body ng-controller="MainCtrl">
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main ng-controller="CreditRequestCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <!--
+                    <div class="right-block-new" ng-if="hasVariant == 1">
+
+                        <h4><span>Ваша заявка не одобрена!</span> мы готовы предложить вам варианты займа:</h4>
+
+                        <h3 class="h3">Параметры займа <a href="" class="podat-zajavku">Подать заявку</a></h3>
+
+                        <div class="box-20">
+                            <table class="table-1">
+                                <tr>
+                                    <td><i class="ico green-rub"></i></td>
+                                    <td>Сумма</td>
+                                    <td>13 500</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="ico red-prev"></i></td>
+                                    <td>Срок</td>
+                                    <td>30 дней</td>
+                                </tr>
+
+                                <tr>
+                                    <td><i class="ico i-procent"></i></td>
+                                    <td>Процент займа</td>
+                                    <td>3%</td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+
+                        <h3 class="h3">Параметры займа <a href="" class="podat-zajavku">Подать заявку</a></h3>
+
+                        <div class="box-20">
+                            <table class="table-1">
+                                <tr>
+                                    <td><i class="ico green-rub"></i></td>
+                                    <td>Сумма</td>
+                                    <td>13 500</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="ico red-prev"></i></td>
+                                    <td>Срок</td>
+                                    <td>30 дней</td>
+                                </tr>
+
+                                <tr>
+                                    <td><i class="ico i-procent"></i></td>
+                                    <td>Процент займа</td>
+                                    <td>3%</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+            -->
+
+            <div class="right-block td">
+                <!-- остальные стейты главной страницы -->
+                <form>
+                    <h3 class="h3 h3--bt1">
+                        <span ng-if="lastCreditReq.viewState != 3">Моя заявка</span>
+                        <span ng-if="lastCreditReq.viewState == 3">Мой заем</span>
+
+
+                        <a class="h3__right h3__right--green" href="schedule.shtml"
+                           ng-if="lastCreditReq.viewState == 3">
+                            <i class="ico ico--rect"></i>График платежей
+                        </a>
+
+                        <a class="h3__right h3__right--green"
+                           ng-if="lastCreditReq.viewState == 1 || lastCreditReq.viewState == 2"
+                           ng-click="refuse()">
+                            Отказаться
+                        </a>
+                    </h3>
+
+
+                    <!-- нет активного кредита -->
+                    <div class="box-20" ng-if="lastCreditReq.viewState == 0">
+                        <table class="table-1">
+                            <tr>
+                                <td>Текущий статус</td>
+                                <td ng-bind="lastCreditReq.lastCreditRequest_status"></td>
+                            </tr>
+                            <tr>
+                                <td>Номер заявки</td>
+                                <td ng-bind="lastCreditReq.lastCreditRequest_uniqueNomer"></td>
+                            </tr>
+                            <tr>
+                                <td>Заявка принята</td>
+                                <td>
+                                    <span ng-bind="lastCreditReq.lastCreditRequest_dateContest"></span>
+                                    <span class="sep">в</span>
+                                    <span ng-bind="lastCreditReq.lastCreditRequest_dateContestTime"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <!-- есть заявка, но не одобрена-->
+                    <div class="box-20" ng-if="lastCreditReq.viewState == 1">
+                        <table class="table-1">
+                            <tr>
+                                <td>Текущий статус</td>
+                                <td ng-bind="lastCreditReq.creditRequest_status"></td>
+                            </tr>
+                            <tr>
+                                <td>Запрашиваемая сумма</td>
+                                <td><span ng-bind="lastCreditReq.creditRequest_creditSum"></span> руб.</td>
+                            </tr>
+                            <tr>
+                                <td>Номер заявки</td>
+                                <td ng-bind="lastCreditReq.creditRequest_uniqueNomer"></td>
+                            </tr>
+                            <tr>
+                                <td>Заявка принята</td>
+                                <td>
+                                    <span ng-bind="lastCreditReq.creditRequest_dateContest"></span>
+                                    <span class="sep">в</span>
+                                    <span ng-bind="lastCreditReq.creditRequest_dateContestTime"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <!-- есть заявка, одобрена, кредит не получен-->
+                    <div class="box-20" ng-if="lastCreditReq.viewState == 2">
+                        <table class="table-1">
+                            <tr>
+                                <td>Текущий статус</td>
+                                <td ng-bind="lastCreditReq.creditRequest_status"></td>
+                            </tr>
+                            <tr>
+                                <td>Сумма займа</td>
+                                <td ng-bind-template="{{ lastCreditReq.creditRequest_creditSum }} руб."></td>
+                            </tr>
+                            <tr>
+                                <td>Номер заявки</td>
+                                <td ng-bind="lastCreditReq.creditRequest_uniqueNomer"></td>
+                            </tr>
+                            <tr>
+                                <td>Заявка принята</td>
+                                <td>
+                                    <span ng-bind="lastCreditReq.creditRequest_dateContest"></span>
+                                    <span class="sep">в</span>
+                                    <span ng-bind="lastCreditReq.creditRequest_dateContestTime"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <!-- активный кредит -->
+                    <div class="box-20" ng-if="lastCreditReq.viewState == 3">
+                        <table class="table-1">
+                            <tr ng-if="lastCreditReq.sumIdPay == 2">
+                                <td colspan="2">
+                                    Мы получили заявку на пролонгацию.<br/>
+                                    Чтобы продлить Ваш заём, требуется оплатить проценты
+                                    <span ng-bind="lastCreditReq.percentSum"></span> рублей на
+                                    <a href="repay.shtml">странице погашения займа</a>.
+                                </td>
+                            </tr>
+                            <tr ng-if="lastCreditReq.sumIdPay == 3">
+                                <td colspan="2">
+                                    Мы получили заявку на рефинансирование.<br/>
+                                    Чтобы рефинансировать Ваш заём, требуется оплатить сумму
+                                    <span ng-bind="lastCreditReq.refinanceSum"></span> рублей на
+                                    <a href="repay.shtml">странице погашения займа</a>.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Текущий статус</td>
+                                <td ng-bind="lastCreditReq.creditRequest_status"></td>
+                            </tr>
+                            <tr>
+                                <td>Сумма займа</td>
+                                <td><span ng-bind="lastCreditReq.creditRequest_creditSum"></span> руб.</td>
+                            </tr>
+                            <tr ng-if="lastCreditReq.paySum">
+                                <td>Вы погасили</td>
+                                <td><span ng-bind="lastCreditReq.paySum"></span> руб.</td>
+                            </tr>
+                            <tr>
+                                <td>Сумма к погашению</td>
+                                <td><span ng-bind="lastCreditReq.credit_creditSumBack"></span> руб.</td>
+                            </tr>
+                            <tr>
+                                <td>Дата погашения</td>
+                                <td ng-bind="lastCreditReq.credit_creditDataEnd"></td>
+                            </tr>
+                            <tr>
+                                <td>Процентная ставка</td>
+                                <td><span ng-bind="(lastCreditReq.credit_creditPercent * 100).toFixed(1)"></span>%</td>
+                            </tr>
+                            <tr>
+                                <td>Номер заявки</td>
+                                <td ng-bind="lastCreditReq.credit_creditAccount"></td>
+                            </tr>
+                            <tr>
+                                <td>Заявка принята</td>
+                                <td>
+                                    <span ng-bind="lastCreditReq.creditRequest_dateContest"></span>
+                                    <span class="sep">в</span>
+                                    <span ng-bind="lastCreditReq.creditRequest_dateContestTime"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Заем выдан</td>
+                                <td ng-bind="lastCreditReq.credit_creditDataBeg"></td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <div class="foot clr">
+                        <a class="btn btn--green pull-right" href="repay.shtml" ng-if="lastCreditReq.viewState == 3">
+                            Погасить заем
+                        </a>
+                        <a class="btn btn--white pull-right" href="prolong.shtml" ng-if="lastCreditReq.canProlong">
+                            Продлить заем
+                        </a>
+                        <a class="btn btn--white pull-right" href="refinance.shtml" ng-if="lastCreditReq.canRefinance">
+                            Рефинансировать
+                        </a>
+                    </div>
+                </form>
+
+                <!-- есть заявка, одобрена, кредит не получен -->
+                <form ng-if="lastCreditReq.viewState == 2">
+                    <h3 class="h3 h3--bt1">Способ получения денег</h3>
+
+                    <div class="box-20 clr">
+                        <table class="table-1">
+                            <tr>
+                                <td ng-show="cardIs" fold="foldTab__6"
+                                    ng-click="receiveRadio('card', cardForm)">
+                                    <i class="ico card pull-right"></i>Банковская карта
+                                </td>
+
+                                <td ng-show="!cardIs" fold="foldTab__6"
+                                    ng-click="receiveRadio('card', cardForm)">
+                                    <span class="noneactive">Банковская карта</span>
+                                    <span class="block-nonactive" style="color:red">Сервис недоступен</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div ng-show="cardIs" class="hide foldTab__6" ng-form="cardForm">
+                                        <select class="input"
+                                                ng-show="accounts.cards.length > 0"
+                                                ng-init="selectedCard = ''"
+                                                ng-model="selectedCard"
+                                                ng-required="true"
+                                                ng-change="updateCard(selectedCard)">
+                                            <option value="">Выберите карту</option>
+                                            <option ng-repeat="account in accounts.cards"
+                                                    value="{{ account }}"
+                                                    ng-bind-template="{{ account.name }} - {{ account.accountnumber }}"></option>
+                                        </select>
+                                        <a href="#" ng-click="upAddCard()"
+                                           class="btn btn--download pull-right">
+                                            Добавить карту
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td ng-show="contactIs" fold="foldTab__1"
+                                    ng-click="receiveRadio('contactSys', contactSysForm)">
+                                    <i class="ico contact-sys"></i>Система Контакт
+                                </td>
+                                <td ng-show="!contactIs" fold="foldTab__1"
+                                    ng-click="receiveRadio('contactSys', contactSysForm)">
+                                    <span class="noneactive">Система Контакт</span>
+                                    <span class="block-nonactive" style="color:red">Сервис недоступен</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div ng-show="contactIs" class="hide foldTab__1" ng-form="contactSysForm">
+                                        <p>
+                                            Вы можете получить сумму наличными в удобном для вас месте сразу после одобрения
+                                            займа. Банковская система «Контакт» насчитывает свыше 14 000 отделений
+                                            по всей России<br/>
+                                            <a href="https://www.contact-sys.com/where/list/1/list/0/0/" target="_blank">Адреса
+                                                отделений</a>
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!--<div class="repay_loan">
+                            <h3 ng-show="cardIs" class="title tab radio" fold="foldTab__6"
+                                ng-click="receiveRadio('card', cardForm)">
+                                <i class="ico card pull-right"></i>Банковская карта
+                            </h3>
+
+                            <h3 ng-show="!cardIs" class="title tab radio noneactive" fold="foldTab__6"
+                                ng-click="receiveRadio('card', cardForm)">
+                                <span class="noneactive">Банковская карта</span>
+                                <span class="block-nonactive" style="color:red">Сервис недоступен</span>
+                            </h3>
+
+                            <div ng-show="cardIs" class="box-44 hide foldTab__6" ng-form="cardForm">
+                                <ul>
+                                    <li>
+                                        <select class="input"
+                                                ng-show="accounts.cards.length > 0"
+                                                ng-init="selectedCard = ''"
+                                                ng-model="selectedCard"
+                                                ng-required="true"
+                                                ng-change="updateCard(selectedCard)">
+                                            <option ng-repeat="account in accounts.cards"
+                                                    value="{{ account }}"
+                                                    ng-bind-template="{{ account.name }} - {{ account.accountnumber }}"></option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <a href="#" data-reveal-id="addCardDialog" data-animation="slit" class="btn btn--download">
+                                            Добавить карту
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <h3 ng-show="contactIs" class="title tab radio" fold="foldTab__1"
+                                ng-click="receiveRadio('contactSys', contactSysForm)">
+                                <i class="ico contact-sys"></i>Система Контакт
+                            </h3>
+
+                            <h3 ng-show="!contactIs" class="title tab radio" fold="foldTab__1"
+                                ng-click="receiveRadio('contactSys', contactSysForm)">
+                                <span class="noneactive">Система Контакт</span>
+                                <span class="block-nonactive" style="color:red">Сервис недоступен</span>
+                            </h3>
+
+
+                            <li>
+                                <div class="head clr">
+                                    <h3 ng-show="schetIs" class="title tab radio" fold="foldTab__7"
+                                        ng-click="receiveRadio('bank', bankForm)"><i class="ico bank"></i> Банковский
+                                        счёт
+                                    </h3>
+                                    <span class="line"></span>
+                                    <h3 ng-show="!schetIs" class="title tab radio noneactive" fold="foldTab__7"
+                                        ng-click="receiveRadio('bank', bankForm)">
+                                        <i class="ico bank"></i><span class="noneactive">Банковский счёт</span>
+                                        <span class="block-nonactive">Сервис недоступен</span>
+                                    </h3>
+                                    <span class="line"></span>
+                                </div>
+                                <div ng-show="schetIs" class="box-44 hide foldTab__7" ng-form="bankForm">
+                                    <ul>
+                                        <li>
+                                            <select class="input"
+                                                    ng-show="accounts.banks.length > 0"
+                                                    ng-init="selectedBank = ''"
+                                                    ng-model="selectedBank"
+                                                    ng-required="true"
+                                                    ng-change="updateBank(selectedBank)">
+                                                <option value="">Выберите счёт</option>
+                                                <option ng-repeat="account in accounts.banks"
+                                                        value="{{ account }}"
+                                                        ng-bind-template="{{ account.accountnumber }} ({{ account.bankName }})"></option>
+                                            </select>
+                                        </li>
+                                        <li>
+                                            <a href="#" data-reveal-id="addBankDialog" data-animation="slit" class="btn
+                            blue">Добавить счёт</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                    <li>
+                        <div class="head clr">
+                            <h3 ng-show="qiwiIs" class="title tab radio" fold="foldTab__3" ng-click="receiveRadio('qiwi', qiwiForm)">
+                                <i class="ico qiwi"></i>QIWI кошелёк
+                            </h3>
+                            <h3 ng-show="!qiwiIs" class="title tab radio" fold="foldTab__3" ng-click="receiveRadio('qiwi', qiwiForm)">
+                                <i class="ico qiwi noneactive"></i><span class="noneactive">QIWI кошелёк</span> <span class="block-nonactive">Сервис недоступен</span>
+                            </h3>
+                            <span class="line"></span>
+                        </div>
+                        <div ng-show="qiwiIs" class="box-44 hide foldTab__3" ng-form="qiwiForm">
+                            <ul>
+                                <li>
+                                    <select class="input"
+                                            ng-show="accounts.qiwi.length > 0"
+                                            ng-init="selectedQiwi = ''"
+                                            ng-model="selectedQiwi"
+                                            ng-change="updateQiwi(selectedQiwi)">
+                                        <option value="">Добавить новый</option>
+                                        <option ng-repeat="account in accounts.qiwi"
+                                                value="{{ account }}"
+                                                ng-bind-template="{{ account.name }} - {{ account.accountnumber }}"></option>
+                                    </select>
+                                </li>
+
+                                <li>
+                                    <input placeholder="Номер кошелька"
+                                           ng-model="receive.qiwi.accountnumber"
+                                           ng-required="true"
+                                           ng-disabled="selectedQiwi != ''">
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="head clr">
+                            <h3 ng-show="koronaIs" class="title tab radio" fold="foldTab__4" ng-click="receiveRadio('golden_crown', golden_crownForm)">
+                                <i class="ico gold-korona"></i>Золотая корона
+                            </h3>
+                            <h3 ng-show="!koronaIs" class="title tab radio" fold="foldTab__4" ng-click="receiveRadio('golden_crown', golden_crownForm)">
+                                <i class="ico gold-korona noneactive"></i><span class="noneactive">Золотая корона</span> <span class="block-nonactive">Сервис недоступен</span>
+                            </h3>
+                            <span class="line"></span>
+                        </div>
+                        <div ng-show="koronaIs" class="box-44 hide foldTab__4" ng-form="golden_crownForm">
+                            <p>Вы можете получить сумму наличными в удобном для вас пункте Золотая корона сразу после одобрения займа.<br> <a href="http://www.perevod-korona.com/Pages/default.aspx" target="_blank">Адреса отделений</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="head clr">
+                            <h3 ng-show="unistrIs" class="title tab radio" fold="foldTab__6" ng-click="receiveRadio('unistream', unistreamForm)">
+                                <i class="ico unistrim"></i>Unistream
+                            </h3>
+                            <h3 ng-show="!unistrIs" class="title tab radio" fold="foldTab__6" ng-click="receiveRadio('golden_crown', golden_crownForm)">
+                                <i class="ico gold-korona noneactive"></i><span class="noneactive">Unistream</span> <span class="block-nonactive">Сервис недоступен</span>
+                            </h3>
+                            <span class="line"></span>
+                        </div>
+                        <div ng-show="unistrIs" class="box-44 hide foldTab__6" ng-form="unistreamForm">
+                            <p>Вы можете получить сумму наличными в удобном для вас пункте Unistream сразу после одобрения займа.<br> <a href="http://intl.unistream.com/service-points/" target="_blank">Адреса отделений</a></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="head clr">
+                            <h3 ng-show="yandexIs" class="title tab radio" fold="foldTab__5"
+                                ng-click="receiveRadio('yandex', yandexForm)">
+                                <i class="ico y-money"></i>Яндекс.Деньги
+                            </h3>
+                            <h3 ng-show="!yandexIs" class="title tab radio" fold="foldTab__5"
+                                ng-click="receiveRadio('yandex', yandexForm)">
+                                <i class="ico y-money noneactive"></i><span class="noneactive">Яндекс.Деньги</span>
+                                <span class="block-nonactive">Сервис недоступен</span>
+                            </h3>
+                            <span class="line last-li"></span>
+                        </div>
+                        <div ng-show="yandexIs" class="box-44 hide foldTab__5" ng-form="yandexForm">
+                            <ul>
+                                <li>
+                                    <select class="input"
+                                            ng-show="accounts.yandex.length > 0"
+                                            ng-init="selectedYandex = ''"
+                                            ng-model="selectedYandex"
+                                            ng-required="true"
+                                            ng-change="updateYandex(selectedYandex)">
+                                        <option value="">Выберите кошелёк</option>
+                                        <option ng-repeat="account in accounts.yandex"
+                                                value="{{ account }}"
+                                                ng-bind-template="{{ account.name }} - {{ account.accountnumber }}"></option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <a href="#" data-reveal-id="addYandexWalletDialog" data-animation="slit" class="btn
+                               blue">Добавить
+                                        кошелёк</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </div>-->
+
+                        <div class="oferta" ng-bind-html="lastCreditReq.agreement"></div>
+
+                        <a class="btn btn--download mb29" href="/main/rest/overview/agreement">
+                            Скачать
+                        </a>
+
+                        <span class="mb29 pull-right" style="color: red;"
+                              ng-if="receive.error" ng-bind="receive.errorMessage">
+                        </span>
+
+                        <a class="btn btn--green mb29 pull-right" ng-click="sendSms()"
+                           ng-show="receive.error == false && sendingSms == false">
+                            Получить АСП (смс-код)
+                        </a>
+                        <img class="pull-right" style="margin-top: 18px;" src="/main/images/ajax-loader.gif"
+                             ng-show="sendingSms">
+                    </div>
+                </form>
+            </div>
+
+            <!-- есть заявка, одобрена, кредит не получен-->
+            <!--<div class="right-block td" ng-if="lastCreditReq.viewState == 2">
+            <h3 class="h3 h3--bt1">Способ получения денег</h3>
+
+            <div class="box-20">
+            <div class="repay_loan">
+            <h3>
+            <i class="ico card pull-right"></i>Банковская карта
+            </h3>
+
+            <div class="head clr">
+            <h3 ng-show="cardIs" class="title tab radio" fold="foldTab__6"
+            ng-click="receiveRadio('card', cardForm)"><i class="ico card"></i> Банковская карта
+            </h3>
+            <span class="line"></span>
+            <h3 ng-show="!cardIs" class="title tab radio noneactive" fold="foldTab__6"
+            ng-click="receiveRadio('card', cardForm)">
+            <i class="ico card"></i><span class="noneactive">Банковская карта</span>
+            <span class="block-nonactive">Сервис недоступен</span>
+            </h3>
+            <span class="line"></span>
+            </div>
+            <div ng-show="cardIs" class="box-44 hide foldTab__6" ng-form="cardForm">
+            <ul>
+            <li>
+            <select class="input"
+            ng-show="accounts.cards.length > 0"
+            ng-init="selectedCard = ''"
+            ng-model="selectedCard"
+            ng-required="true"
+            ng-change="updateCard(selectedCard)">
+            <option value="">Выберите карту</option>
+            <option ng-repeat="account in accounts.cards"
+            value="{{ account }}"
+            ng-bind-template="{{ account.name }} - {{ account.accountnumber }}"></option>
+            </select>
+            </li>
+            <li>
+            <a href="#" data-reveal-id="addCardDialog" data-animation="slit" class="btn
+            blue">Добавить карту</a>
+            </li>
+            </ul>
+            </div>
+
+            <li>
+            <div class="head clr">
+            <h3 ng-show="contactIs" class="title tab radio" fold="foldTab__1"
+            ng-click="receiveRadio('contactSys', contactSysForm)">
+            <i class="ico contact-sys"></i>Система Контакт
+            </h3>
+            <h3 ng-show="!contactIs" class="title tab radio" fold="foldTab__1"
+            ng-click="receiveRadio('contactSys', contactSysForm)">
+            <i class="ico contact-sys noneactive"></i><span
+            class="noneactive">Система Контакт</span> <span class="block-nonactive">Сервис недоступен</span>
+            </h3>
+            <span class="line"></span>
+            </div>
+            <div ng-show="contactIs" class="box-44 hide foldTab__1" ng-form="contactSysForm">
+            <p>
+            Вы можете получить сумму наличными в удобном для вас месте сразу после одобрения
+            займа.
+            Банковская система «Контакт» насчитывает свыше 14 000 отделений
+            по всей России<br/>
+            <a href="https://www.contact-sys.com/where/list/1/list/0/0/" target="_blank">Адреса
+            отделений</a>
+            </p>
+            </div>
+            </li>
+
+            <li>
+            <div class="head clr">
+            <h3 ng-show="schetIs" class="title tab radio" fold="foldTab__7"
+            ng-click="receiveRadio('bank', bankForm)"><i class="ico bank"></i> Банковский счёт
+            </h3>
+            <span class="line"></span>
+            <h3 ng-show="!schetIs" class="title tab radio noneactive" fold="foldTab__7"
+            ng-click="receiveRadio('bank', bankForm)">
+            <i class="ico bank"></i><span class="noneactive">Банковский счёт</span>
+            <span class="block-nonactive">Сервис недоступен</span>
+            </h3>
+            <span class="line"></span>
+            </div>
+            <div ng-show="schetIs" class="box-44 hide foldTab__7" ng-form="bankForm">
+            <ul>
+            <li>
+            <select class="input"
+            ng-show="accounts.banks.length > 0"
+            ng-init="selectedBank = ''"
+            ng-model="selectedBank"
+            ng-required="true"
+            ng-change="updateBank(selectedBank)">
+            <option value="">Выберите счёт</option>
+            <option ng-repeat="account in accounts.banks"
+            value="{{ account }}"
+            ng-bind-template="{{ account.accountnumber }} ({{ account.bankName }})"></option>
+            </select>
+            </li>
+            <li>
+            <a href="#" data-reveal-id="addBankDialog" data-animation="slit" class="btn
+            blue">Добавить счёт</a>
+            </li>
+            </ul>
+            </div>
+            </li>
+            <li>
+            <div class="head clr">
+            <h3 ng-show="qiwiIs" class="title tab radio" fold="foldTab__3" ng-click="receiveRadio('qiwi', qiwiForm)">
+            <i class="ico qiwi"></i>QIWI кошелёк
+            </h3>
+            <h3 ng-show="!qiwiIs" class="title tab radio" fold="foldTab__3" ng-click="receiveRadio('qiwi', qiwiForm)">
+            <i class="ico qiwi noneactive"></i><span class="noneactive">QIWI кошелёк</span> <span class="block-nonactive">Сервис недоступен</span>
+            </h3>
+            <span class="line"></span>
+            </div>
+            <div ng-show="qiwiIs" class="box-44 hide foldTab__3" ng-form="qiwiForm">
+            <ul>
+            <li>
+            <select class="input"
+            ng-show="accounts.qiwi.length > 0"
+            ng-init="selectedQiwi = ''"
+            ng-model="selectedQiwi"
+            ng-change="updateQiwi(selectedQiwi)">
+            <option value="">Добавить новый</option>
+            <option ng-repeat="account in accounts.qiwi"
+            value="{{ account }}"
+            ng-bind-template="{{ account.name }} - {{ account.accountnumber }}"></option>
+            </select>
+            </li>
+
+            <li>
+            <input placeholder="Номер кошелька"
+            ng-model="receive.qiwi.accountnumber"
+            ng-required="true"
+            ng-disabled="selectedQiwi != ''">
+            </li>
+            </ul>
+            </div>
+            </li>
+            <li>
+            <div class="head clr">
+            <h3 ng-show="koronaIs" class="title tab radio" fold="foldTab__4" ng-click="receiveRadio('golden_crown', golden_crownForm)">
+            <i class="ico gold-korona"></i>Золотая корона
+            </h3>
+            <h3 ng-show="!koronaIs" class="title tab radio" fold="foldTab__4" ng-click="receiveRadio('golden_crown', golden_crownForm)">
+            <i class="ico gold-korona noneactive"></i><span class="noneactive">Золотая корона</span> <span class="block-nonactive">Сервис недоступен</span>
+            </h3>
+            <span class="line"></span>
+            </div>
+            <div ng-show="koronaIs" class="box-44 hide foldTab__4" ng-form="golden_crownForm">
+            <p>Вы можете получить сумму наличными в удобном для вас пункте Золотая корона сразу после одобрения займа.<br> <a href="http://www.perevod-korona.com/Pages/default.aspx" target="_blank">Адреса отделений</a></p>
+            </div>
+            </li>
+            <li>
+            <div class="head clr">
+            <h3 ng-show="unistrIs" class="title tab radio" fold="foldTab__6" ng-click="receiveRadio('unistream', unistreamForm)">
+            <i class="ico unistrim"></i>Unistream
+            </h3>
+            <h3 ng-show="!unistrIs" class="title tab radio" fold="foldTab__6" ng-click="receiveRadio('golden_crown', golden_crownForm)">
+            <i class="ico gold-korona noneactive"></i><span class="noneactive">Unistream</span> <span class="block-nonactive">Сервис недоступен</span>
+            </h3>
+            <span class="line"></span>
+            </div>
+            <div ng-show="unistrIs" class="box-44 hide foldTab__6" ng-form="unistreamForm">
+            <p>Вы можете получить сумму наличными в удобном для вас пункте Unistream сразу после одобрения займа.<br> <a href="http://intl.unistream.com/service-points/" target="_blank">Адреса отделений</a></p>
+            </div>
+            </li>
+            <li>
+            <div class="head clr">
+            <h3 ng-show="yandexIs" class="title tab radio" fold="foldTab__5"
+            ng-click="receiveRadio('yandex', yandexForm)">
+            <i class="ico y-money"></i>Яндекс.Деньги
+            </h3>
+            <h3 ng-show="!yandexIs" class="title tab radio" fold="foldTab__5"
+            ng-click="receiveRadio('yandex', yandexForm)">
+            <i class="ico y-money noneactive"></i><span class="noneactive">Яндекс.Деньги</span>
+            <span class="block-nonactive">Сервис недоступен</span>
+            </h3>
+            <span class="line last-li"></span>
+            </div>
+            <div ng-show="yandexIs" class="box-44 hide foldTab__5" ng-form="yandexForm">
+            <ul>
+            <li>
+            <select class="input"
+            ng-show="accounts.yandex.length > 0"
+            ng-init="selectedYandex = ''"
+            ng-model="selectedYandex"
+            ng-required="true"
+            ng-change="updateYandex(selectedYandex)">
+            <option value="">Выберите кошелёк</option>
+            <option ng-repeat="account in accounts.yandex"
+            value="{{ account }}"
+            ng-bind-template="{{ account.name }} - {{ account.accountnumber }}"></option>
+            </select>
+            </li>
+            <li>
+            <a href="#" data-reveal-id="addYandexWalletDialog" data-animation="slit" class="btn
+            blue">Добавить
+            кошелёк</a>
+            </li>
+            </ul>
+            </div>
+            </li>
+            </div>
+
+            <div class="oferta" ng-bind-html="lastCreditReq.agreement"></div>
+
+            <a class="btn btn--green mb29 pull-right" ng-click="sendSms()"
+            ng-if="receive.error == false && sendingSms == false">
+            Получить АСП (смс-код)
+            </a>
+
+            <span class="info-ep"
+            style="margin-left: 20px;margin-right: 10px;color: #b0cb61;"
+            ng-if="receive.error" ng-bind="receive.errorMessage">
+            </span>
+
+            <img src="/main/images/ajax-loader.gif" style="margin: 34px 10px auto;" ng-if="sendingSms"/>
+            <a class="btn blue btn-2" href="/main/rest/overview/agreement">Скачать<i
+            class="ico arrow-right-white-2"></i></a>
+            </div>
+            </div>-->
+        </div>
+    </div>
+
+
+    <div class="reveal-modal-bg hide">
+        <div id="addCardDialog" class="reveal-modal large" ng-controller="AddCardCtrl">
+            <h3 class="reveal-modal-header">Добавить карту</h3>
+            <form class="reveal-modal-body" ng-submit="addCard()">
+                <input class="input card" ng-model="number" ng-required="true" placeholder="Номер карты"/>
+                <div class="row tooltip error errorMessage" ng-if="error">
+                    Номер карты неверен
+                </div>
+                <div class="row tooltip error errorMessage" ng-if="conflictError">
+                    Вы уже добавили эту карту, пожалуйста, выберете её в списке
+                </div>
+                <button type="submit" class="btn blue pull-right">Добавить</button>
+                <span class="close-reveal-modal"></span>
+            </form>
+        </div>
+    </div>
+
+    <div class="reveal-modal-bg hide">
+        <div id="addYandexWalletDialog" class="reveal-modal large" ng-controller="AddYandexWallerCtrl">
+            <h3 class="reveal-modal-header">Добавить Яндекс кошелёк</h3>
+            <form class="reveal-modal-body" ng-submit="addYandexWallet()">
+                <input class="input" ng-model="number" ng-required="true" placeholder="Номер кошелька"/>
+                <div class="row tooltip error errorMessage" ng-if="error">
+                    Кошелёк неверен или не идентифицирован
+                </div>
+                <div class="row tooltip error errorMessage" ng-if="conflictError">
+                    Вы уже добавили этот кошелек, пожалуйста, выберете его в списке
+                </div>
+                <button type="submit" class="btn blue pull-right">Добавить</button>
+                <span class="close-reveal-modal"></span>
+            </form>
+        </div>
+    </div>
+    <div class="reveal-modal-bg hide">
+        <div id="addBankDialog" class="reveal-modal large" ng-controller="AddBankCtrl">
+            <h3 class="reveal-modal-header">Добавить банковский счёт</h3>
+            <form class="reveal-modal-body" ng-submit="addBankAccount()">
+                <input class="input bik" ng-model="bankBik" ng-required="true" placeholder="БИК банка"/>
+                <div class="row tooltip error errorMessage" ng-if="error.bankBik">
+                    {{error.bankBik}}
+                </div>
+                <input class="input" ng-model="bankName" ng-required="true" placeholder="Наименование банка"/>
+                <div class="row tooltip error errorMessage" ng-if="error.bankName">
+                    {{error.bankName}}
+                </div>
+                <input class="input account" ng-model="bankCorAccount" ng-required="true"
+                       placeholder="Корреспондентский счет отделения банка"/>
+                <div class="row tooltip error errorMessage" ng-if="error.bankCorAccount">
+                    {{error.bankCorAccount}}
+                </div>
+                <input class="input" ng-model="bankKPP" ng-required="true"
+                       placeholder="КПП банка"/>
+                <div class="row tooltip error errorMessage" ng-if="error.bankKPP">
+                    {{error.bankKPP}}
+                </div>
+                <input class="input account" ng-model="account" ng-required="true"
+                       placeholder="Расчетный счет"/>
+                <div class="row tooltip error errorMessage" ng-if="error.account">
+                    {{error.account}}
+                </div>
+                <div class="row tooltip error errorMessage" ng-if="conflictError">
+                    Вы уже добавили этот счёт, пожалуйста, выберете его в списке
+                </div>
+                <button type="submit" class="btn blue pull-right">Добавить</button>
+                <span class="close-reveal-modal"></span>
+            </form>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+</body>
+</html>

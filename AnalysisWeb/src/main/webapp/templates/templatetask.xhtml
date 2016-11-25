@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:panelGrid columns="2">
+		<h:outputText value="ID"/>
+		<h:outputText value="#{task.name}" />	
+		<h:outputText value="Название"/>
+		<h:inputText value="#{task.description}" required="true" />
+		<h:outputText value="Действия"/>
+		<rich:dataTable var="act" value="#{task.actions}">
+			<rich:column>
+				<f:facet name="header"><h:outputText value="ID" /></f:facet>
+				<h:outputText value="#{act.signalRef}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header"><h:outputText value="Название" /></f:facet>
+				<h:outputText value="#{act.name}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header"><h:outputText value="Исполнитель" /></f:facet>
+				<h:outputText value="#{act.assignee}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header"><h:outputText value="Возможно для ролей" /></f:facet>
+				<h:outputText value="#{act.candidateGroups}" />
+			</rich:column>			
+			<rich:column>
+				<f:facet name="header"><h:outputText value="Возможно для пользователей" /></f:facet>
+				<h:outputText value="#{act.candidateUsers}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header"><h:outputText value="Действия" /></f:facet>
+				<h:commandLink actionListener="plugMan.editTaskActionLsn">
+					<f:attribute name="taskName" value="#{task.name}" />
+					<f:attribute name="actName" value="#{act.signalRef}" />
+					<a4j:ajax render="@form" />							
+					<h:graphicImage value="resources/icons/edit.gif" />
+				</h:commandLink>
+				<h:commandLink actionListener="plugMan.deleteTaskActionLsn">
+					<f:attribute name="taskName" value="#{task.name}" />
+					<f:attribute name="actName" value="#{act.signalRef}" />
+					<a4j:ajax render="@form" />				
+					<h:graphicImage value="resources/icons/delete.gif" />
+				</h:commandLink>
+			</rich:column>																					
+		</rich:dataTable>
+		<h:outputText value="Добавить действие"/>
+		<a4j:region>
+			<h:panelGrid columns="2">
+				<h:outputText value="ID" /> <h:inputText value="#{taskAction.signalRef}" immediate="true" />
+				<h:outputText value="Название" /> <h:inputText value="#{taskAction.name}" immediate="true" />
+				<h:outputText value="Исполнитель" /> <h:inputText value="#{taskAction.assignee}" immediate="true" />
+				<h:outputText value="Возможно для ролей" /> <h:inputText value="#{taskAction.candidateGroups}" immediate="true" />
+				<h:outputText value="Возможно для пользователей" /> <h:inputText value="#{taskAction.candidateUsers}" immediate="true" />
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup>
+					<h:commandButton value="Добавить" action="#{plugMan.addTaskAction}">
+						<f:param name="taskName" value="#{task.name}" />
+						<a4j:ajax execute="@this" render="@form" />
+					</h:commandButton>
+				</h:panelGroup>
+			</h:panelGrid>
+		</a4j:region>
+	</h:panelGrid>
+	
+</ui:composition>

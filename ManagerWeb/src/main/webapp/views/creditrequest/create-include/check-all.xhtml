@@ -1,0 +1,14 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+<p>Заявка заполнена.</p>
+    <h:panelGroup>
+        <a4j:commandButton value="Назад" styleClass="button grey" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" immediate="true" execute="@this" render="@form"
+                           action="#{createCreditRequestController.previousStep}"/>
+        <a4j:commandButton value="Создать заявку" styleClass="button" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" render="@form"
+                           action="#{createCreditRequestController.finish}"/>
+    </h:panelGroup>
+
+</ui:composition>

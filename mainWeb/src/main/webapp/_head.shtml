@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="MainCtrl">
+<head>
+	<meta charset="utf-8">
+	<link href="css/style.css" rel="stylesheet">
+	<!-- стиль для прелоадера -->
+	<link href="css/jquery.loading-indicator.css" rel="stylesheet">
+
+<!--#if expr="$typePage = anketa" -->
+	<link href="css/select2.css" rel="stylesheet">
+	<link href="css/anketa.css" rel="stylesheet">
+<!--#endif-->
+
+<!--#if expr="$typePage = page" -->
+	<link href="css/page.css" rel="stylesheet">
+<!--#endif-->
+
+<!--#if expr="$typePage = lk-setting" -->
+	<link href="css/select2.css" rel="stylesheet">
+	<link href="css/anketa.css" rel="stylesheet">
+<!--#endif-->
+
+
+	<link rel="icon" sizes="16x16" href="favicon.ico">
+	<link rel="apple-touch-icon-precomposed" href="/main/images/fav_ontime.png">
+<!--#if expr="$typePage = anketa" -->
+ <meta name="viewport" content="width=1100">
+<!--#elif expr="$typePage = lk || $typePage = lk-setting" -->
+ <meta name="viewport" content="width=1100">
+<!--#else-->
+ <meta name="viewport" content="width=1100">
+<!--#endif-->
+<!--#if expr="$HTTP_USER_AGENT = /MSIE 8.0/"-->
+	<script src="js/lib/html5.js"></script>
+	<link href="css/ie8.css" rel="stylesheet">
+	<script src="js/js_ie8.js"></script>
+<!--#endif-->
+
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/lib/angular-sanitize.min.js"></script>
+    <script src="js/lib/angular-resource.min.js"></script>
+
+    <script src="js/layout.js"></script>
+    <script src="js/callback.js"></script>
+
+    <script>
+        app = angular.module('app', ['layout']);
+    </script>
+
+    <style>
+        input:required,
+        input:invalid,
+        textarea:required,
+        textarea:invalid {
+            box-shadow: none;
+        }
+    </style>
+
+
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+					(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-70040576-1', 'auto');
+		ga('send', 'pageview');
+
+	</script>
+	
+<!-- Chatra {literal} -->
+<script>
+    ChatraID = 'Dw7WgGsW3LiN4WN2n';
+    (function(d, w, c) {
+        var n = d.getElementsByTagName('script')[0],
+            s = d.createElement('script');
+        w[c] = w[c] || function() {
+            (w[c].q = w[c].q || []).push(arguments);
+        };
+        s.async = true;
+        s.src = (d.location.protocol === 'https:' ? 'https:': 'http:')
+            + '//chat.chatra.io/chatra.js';
+        n.parentNode.insertBefore(s, n);
+    })(document, window, 'Chatra');
+</script>
+<!-- /Chatra {/literal} -->

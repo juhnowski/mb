@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+	<a4j:commandLink value="добавить"  oncomplete="#{rich:component('popV')}.show()" actionListener="#{editCtl.addCurrentVarLsn}" immediate="true" execute="@this" render="@form">
+	</a4j:commandLink>	
+	<rich:dataTable var="vvr" value="#{editCtl.paramsInfo}" rendered="#{editCtl.hasParams}">
+		<rich:column>
+			<f:facet name="header"><h:outputText value="Имя" /></f:facet>
+			<h:outputText styleClass="text-bold" value="#{vvr.name}" /><br/>
+			<h:outputText value="#{vvr.description}" />
+		</rich:column>
+		<rich:column>
+			<f:facet name="header"><h:outputText value="Тип" /></f:facet>
+			<h:outputText value="#{vvr.dataType}" />
+		</rich:column>
+		<rich:column>
+			<f:facet name="header"><h:outputText value="Значение по умолчанию" /></f:facet>
+			<h:outputText value="#{vvr.dataValue}" />
+		</rich:column>	 
+		<rich:column>
+			<f:facet name="header"><h:outputText value="действия" /></f:facet>
+			<a4j:commandLink value="изменить"  oncomplete="#{rich:component('popV')}.show()" actionListener="#{editCtl.loadCurrentVarLsn}" rendered="#{editCtl.canEdit(vvr)}" immediate="true" execute="@this" render="@form">
+				<f:attribute name="varname" value="#{vvr.name}" />
+			</a4j:commandLink>			
+			<a4j:commandLink value="удалить" onclick="return window.confirm('Удалить переменную ?')" actionListener="#{editCtl.deleteCurrentVarLsn}" rendered="#{editCtl.canDelete(vvr)}" immediate="true" execute="@this" render="@form">
+				<f:attribute name="varname" value="#{vvr.name}" />
+			</a4j:commandLink>			
+		</rich:column>	        							       								        								        							
+	</rich:dataTable>	
+	
+	<h:panelGrid columns="2">
+		<a4j:commandLink value="Применить изменения" actionListener="#{editCtl.applyVarsLsn}"  immediate="true" execute="@this" render="@form" /> <a4j:commandLink value="Отменить изменения"  immediate="true" execute="@this" actionListener="#{editCtl.revertVarsLsn}" render="@form" />
+	</h:panelGrid>
+	
+    <rich:popupPanel id="popV" modal="true" autosized="true" resizeable="false">
+        <f:facet name="header">
+            <h:outputText value="Переменная" />
+        </f:facet>
+        <h:panelGrid columns="2" rendered="#{editCtl.currentVar!=null}">
+        	<h:outputText value="Имя" />
+        	<h:panelGroup>
+        		<h:inputText value="#{editCtl.currentVar.name}" rendered="#{editCtl.isNewCurrentVar}" />
+        		<h:outputText value="#{editCtl.currentVar.name}" rendered="#{! editCtl.isNewCurrentVar}" />
+        	</h:panelGroup> 
+        	
+        	<h:outputText value="Описание" /> <h:inputText value="#{editCtl.currentVar.description}" />
+        	<h:outputText value="Тип" /> 
+        	<h:panelGroup>
+        		<h:outputText value="#{editCtl.currentVarDataTypeName}" rendered="#{editCtl.isStandartCurrentVar}" />
+	        	<h:selectOneMenu value="#{editCtl.currentVar.dataType}" rendered="#{! editCtl.isStandartCurrentVar}" >
+    	    		<f:selectItem itemLabel="Строка" itemValue="C"/>
+    	    		<f:selectItem itemLabel="Длинный текст" itemValue="T"/>
+        			<f:selectItem itemLabel="Целое число" itemValue="N"/>
+        			<f:selectItem itemLabel="Десятичное число" itemValue="F"/>
+        			<f:selectItem itemLabel="Дата" itemValue="D"/>        		
+        		</h:selectOneMenu>        	
+        	</h:panelGroup>
+        	<h:outputText value="Значение по умолчанию" /> <h:inputText value="#{editCtl.currentVar.dataValue}" />
+        </h:panelGrid>
+        <a4j:commandButton value="Готово" actionListener="#{editCtl.saveCurrentVarLsn}" onclick="#{rich:component('popV')}.hide()" render="@form"></a4j:commandButton>
+        <a4j:commandButton value="Отмена" onclick="#{rich:component('popV')}.hide()" render="@form"></a4j:commandButton>
+    </rich:popupPanel>	
+</ui:composition>

@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:app-cc="http://java.sun.com/jsf/composite/app-cc"
+                template="/templates/template.xhtml">
+    <ui:param name="top_selected_item" value="payment" />
+    <ui:define name="title">Business analysis console</ui:define>
+    <ui:define name="pageContent">
+        <h:form id="frmEdit">
+            <rich:messages globalOnly="true" layout="table" />
+            <rich:panel header="Платеж" prependId="false" styleClass="layout">
+                <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                    <h:outputText value="Дата начала платежа" />
+                    <rich:calendar value="#{editP.payment.createDate}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" required="true" >
+                    </rich:calendar>
+
+                    <h:outputText value="Сумма платежа" />
+                    <h:inputText value="#{editP.payment.amount}" required="true"/>
+
+                    <h:outputText value="Способ платежа" />
+                    <h:outputText value="#{editP.payment.accountType.name}" rendered="#{not empty editP.payment.accountType}"/>
+
+                    <h:outputText value="Куда перечисляем" />
+                    <h:panelGroup>
+                        <h:selectOneMenu value="#{editP.payment.account.id}" rendered="#{editP.payment.account != null}">
+                            <f:selectItem itemLabel="-- не установлено --" itemValue="#{null}"/>
+                            <f:selectItems var="acc" value="#{editP.accounts}" itemLabel="#{acc.description}" itemValue="#{acc.id}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="не установлено" rendered="#{editP.payment.account == null}" />
+                    </h:panelGroup>
+
+                    <h:outputText value="Платёж завершён" />
+                    <h:selectBooleanCheckbox value="#{editP.payment.isPaid}"/>
+
+                    <h:outputText value="Состояние платежа" />
+                    <h:selectOneMenu value="#{editP.payment.statusId}">
+                        <f:selectItem itemLabel="Новый" itemValue="#{0}"/>
+                        <f:selectItem itemLabel="Успешно выполнен" itemValue="#{1}"/>
+                        <f:selectItem itemLabel="Ошибка" itemValue="#{2}"/>
+                        <f:selectItem itemLabel="Отправлен" itemValue="#{3}"/>
+                        <f:selectItem itemLabel="Возвращён" itemValue="#{4}"/>
+                    </h:selectOneMenu>
+
+                    <h:outputText value="Дата завершения платежа" />
+                    <rich:calendar value="#{editP.payment.processDate}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" >
+                    </rich:calendar>
+
+                </h:panelGrid>
+            </rich:panel>
+            <h:commandButton value="Сохранить" styleClass="button ml0" action="#{editP.save}">
+            </h:commandButton>
+            <h:commandButton value="Отмена" styleClass="button grey" action="#{editP.cancel}">
+            </h:commandButton>
+        </h:form>
+    </ui:define>
+</ui:composition>

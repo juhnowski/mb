@@ -1,0 +1,118 @@
+/* скрыть красный бордер в фф */
+input:required,
+input:invalid,
+textarea:required,
+textarea:invalid {
+    box-shadow: none;
+}
+
+.input-error {
+    background: #ffecec !important;
+}
+
+.error-input-message {
+    color: #ff0000 !important;
+}
+
+.alert_box p.error {
+    color: #b0cb61;
+    padding: 5px 0 10px;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+/* date picker */
+input.datepicker {
+    display: none;
+}
+
+.ui-datepicker {
+    display: none;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(250, 250, 250, .97);
+    border: 1px solid #c2c7cc;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .22);
+    text-align: center;
+}
+
+.ui-datepicker th {
+    padding: 5px;
+}
+
+.ui-datepicker td {
+    padding: 5px;
+}
+
+.ui-datepicker td a {
+    color: #3197ca
+}
+
+.ui-datepicker-trigger {
+    background: url(../images/sprite.svg) -558px -1086px;
+    border: 0;
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*right: 20px;*/
+    /*margin-top: -14px;*/
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    color: transparent;
+    font-size: 0;
+    text-indent: 100%;
+    overflow: hidden;
+}
+
+.ui-datepicker-trigger:hover {
+    background-position: -558px -1046px;
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next {
+    display: none;
+}
+
+.ui-datepicker-year,
+.ui-datepicker-month {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    border: 0;
+    background: none
+}
+
+.ui-datepicker-year {
+    left: auto;
+    right: 0;
+}
+
+.ui-datepicker-title {
+    height: 24px;
+    position: relative;
+}
+
+/* стиль оферты, для прокрутки */
+.oferta {
+    height: 500px;
+    overflow-y: scroll;
+}
+
+/* алерт для добавления карты */
+.add-card_up .input {
+    border: 1px solid #d8d7d9;
+    border-radius: 4px;
+    color: #707070;
+    font-size: 13px;
+    font-weight: 400;
+    height: 48px;
+    padding: 0 12px;
+    margin: 0 10px 5px;
+    width: 202px;
+}
+
+.add-card_up {
+    width: 456px;
+}

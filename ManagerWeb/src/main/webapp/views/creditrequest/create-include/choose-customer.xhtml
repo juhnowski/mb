@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:panelGroup id="chooseCustomerPanel" layout="block">
+        <h:panelGroup>
+            <rich:tabPanel switchType="client" styleClass="mb20">
+                <rich:tab header="Поиск заёмщиков">
+                    <h:panelGroup id="pnlSearchQuick" styleClass="search">
+                        <h:panelGrid columns="3" styleClass="table_search">
+                            <h:outputText value="Фамилия клиента"/>
+                            <h:outputText value="Имя клиента"/>
+                            <h:outputText value="Отчество клиента"/>
+
+                            <h:inputText value="#{createCreditRequestController.searchPeopleController.data.surname}"/>
+                            <h:inputText value="#{createCreditRequestController.searchPeopleController.data.name}"/>
+                            <h:inputText value="#{createCreditRequestController.searchPeopleController.data.midname}"/>
+
+                            <h:outputText value="Серия паспорта"/>
+                            <h:outputText value="Номер паспорта"/>
+                            <h:panelGroup/>
+
+                            <h:inputText value="#{createCreditRequestController.searchPeopleController.data.paspSeries}"
+                                         converter="ru.simplgroupp.webapp.view.PassportSerialConvertor"
+                                         styleClass="passport-serial-mask"/>
+                            <h:inputText value="#{createCreditRequestController.searchPeopleController.data.paspNumber}"/>
+                            <h:panelGroup/>
+                        </h:panelGrid>
+
+                        <a4j:commandButton value="Найти" 
+                                           actionListener="#{createCreditRequestController.searchPeopleController.searchLsn}"
+                                           render="pnlResults" execute="chooseCustomerPanel"
+                                           styleClass="button"/>
+                        <a4j:commandButton value="Очистить"
+                                           actionListener="#{createCreditRequestController.searchPeopleController.clearLsn}"
+                                           render="chooseCustomerPanel"
+                                           execute="chooseCustomerPanel" styleClass="button grey"/>
+                    </h:panelGroup>
+                </rich:tab>
+
+            </rich:tabPanel>
+
+            <h:panelGroup id="pnlResults" styleClass="div">
+                <h:panelGroup id="cnt" styleClass="total_result" rendered="#{createCreditRequestController.searchPeopleController.model.rowCount!=0}">
+                    <h:outputText value="Найдено "/><b><h:outputText
+                        value="#{createCreditRequestController.searchPeopleController.model.rowCount} человек" /></b>
+                </h:panelGroup>
+                <rich:dataTable id="reqTable"
+                                value="#{createCreditRequestController.searchPeopleController.model}"
+                                var="req"
+                                selectionMode="single"
+                                sortPriority="#{createCreditRequestController.searchPeopleController.model.sortPriorities}"
+                                styleClass="table2" rendered="#{createCreditRequestController.searchPeopleController.model.rowCount!=0}">
+
+                    <rich:column headerClass="th0" styleClass="td0">
+                        <f:facet name="header">Клиент ФИО</f:facet>
+                        <h:outputText
+                                value="#{req.peoplePersonalActive.surname} #{req.peoplePersonalActive.name} #{req.peoplePersonalActive.midname}"/>
+                    </rich:column>
+                    <rich:column headerClass="th0" styleClass="td0">
+                        <f:facet name="header">Дата рождения</f:facet>
+                        <h:outputText value="#{req.peoplePersonalActive.birthDate}">
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                    </rich:column>
+                    <rich:column headerClass="th0" styleClass="td0">
+                        <f:facet name="header">Паспорт</f:facet>
+                        <h:outputText value="#{req.activePassport.series}"
+                                      converter="ru.simplgroupp.webapp.view.PassportSerialConvertor"
+                                      rendered="#{req.activePassport!=null}"/>&#160;
+                        <h:outputText value="#{req.activePassport.number}" rendered="#{req.activePassport!=null}"/>
+                    </rich:column>
+
+                    <rich:column headerClass="th0" styleClass="td0">
+                        <f:facet name="header">
+                            <h:outputText value="Действия"/>
+                        </f:facet>
+                        <h:panelGrid columns="2">
+                            <h:link outcome="/views/customer/edit" target="_blank" styleClass="open" >
+                                <f:param name="peopleid" value="#{req.id}"/>
+                                <f:param name="faces-redirect" value="true"/>
+
+                            </h:link>
+                            <a4j:commandLink value="Выбрать" rendered="#{req.activeCreditsCount==0}" render="@form"
+                                             action="#{createCreditRequestController.selectPeople(req.id)}">
+                            </a4j:commandLink>
+                        </h:panelGrid>
+                    </rich:column>
+                    <f:facet name="footer">
+                        <rich:dataScroller/>
+                    </f:facet>
+                </rich:dataTable>
+            </h:panelGroup>
+        </h:panelGroup>
+        <h:outputScript>
+            $(function () {
+            $('.code-department-mask').mask('999-999');
+            $('.passport-serial-mask').mask('99 99');
+            $('.passport-number-mask').mask('999999');
+            $('[type=tel], .phone-mask').mask('+7 (999) 999 99 99');
+            $('.rf-cal-inp').mask('99.99.9999');
+            });
+        </h:outputScript>
+    </h:panelGroup>
+    <p>Выберите существующего заёмщика или нажмите "Новый заёмщик" для создания нового</p>
+    <h:panelGroup>
+        <a4j:commandButton value="Назад" styleClass="button grey" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" immediate="true" execute="@this" render="@form"
+                           action="#{createCreditRequestController.previousStep}"/>
+        <a4j:commandButton value="Новый заёмщик" styleClass="button" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" render="@form"
+                           action="#{createCreditRequestController.newPeople}"/>
+    </h:panelGroup>
+</ui:composition>

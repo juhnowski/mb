@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+	<h:panelGrid columns="2">
+		<h:outputText value="Использовать тестовый или рабочий сервер" />
+		<h:selectOneMenu value="#{editPlugCtl.extCtl.useWork}">
+			<f:selectItem itemLabel="рабочий" itemValue="#{true}"/>
+			<f:selectItem itemLabel="тестовый" itemValue="#{false}"/>
+		</h:selectOneMenu>	
+		<h:outputText value="PPcode" />
+		<h:inputText value="#{editPlugCtl.extCtl.PPcode}" size="50"/>
+		<h:outputText value="URL тестового сервера" />
+		<h:inputText value="#{editPlugCtl.extCtl.testUrl}" size="100"/>	
+		<h:outputText value="URL рабочего сервера" />
+		<h:inputText value="#{editPlugCtl.extCtl.workUrl}" size="100"/>
+		<h:outputText value="keyStoreAlias" />
+		<h:inputText value="#{editPlugCtl.extCtl.keyStoreAlias}" size="100"/>	
+		<h:outputText value="keyStorePassword" />
+		<h:inputText value="#{editPlugCtl.extCtl.keyStorePassword}" size="50"/>	
+		<h:outputText value="keyStoreName" />
+		<h:inputText value="#{editPlugCtl.extCtl.keyStoreName}" size="100"/>	
+		<h:outputText value="Номер счета" />
+		<h:inputText value="#{editPlugCtl.extCtl.debetAccount}" size="100"/>	
+		<h:outputText value="Отправитель:" />
+		<h:panelGroup/>
+		<h:outputText value="senderFakeDocName" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeDocName}" size="100"/>			
+		<h:outputText value="Фамилия" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeSurName}" size="100"/>			
+		<h:outputText value="Имя" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeName}" size="100"/>	
+		<h:outputText value="Отчество" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeLastName}" size="100"/>
+		<h:outputText value="Дата рождения" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeBirthday}" size="50"/>				
+		<h:outputText value="Почтовый индекс" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeZipCode}" size="50"/>
+		<h:outputText value="Регион" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeRegion}" size="100"/>									
+		<h:outputText value="Город" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeCity}" size="100"/>									
+		<h:outputText value="Адрес" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeAddress}" size="100"/>									
+		<h:outputText value="Серия и номер документа" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeDocSerNum}" size="50"/>	
+		<h:outputText value="Дата выдачи документа" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeDocdate}" size="50"/>	
+		<h:outputText value="Кем выдан документ" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeDocWhom}" size="100"/>	
+		<h:outputText value="Дата окончания документа" />
+		<h:inputText value="#{editPlugCtl.extCtl.senderFakeDocExpDate}" size="50"/>		
+		<h:outputText value="Через сколько времени отзывать суммы, мс" />
+		<h:inputText value="#{editPlugCtl.extCtl.intervalWaitClient}" size="50"/>			
+													
+	</h:panelGrid>
+
+				
+</ui:composition>

@@ -1,0 +1,49 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/templatemin.xhtml"> 
+
+<ui:define name="metadata">
+        
+ 	</ui:define>
+ 	
+    <ui:define name="title">Manager console</ui:define>
+
+	<ui:define name="pageHeader">
+		<h:outputText value="Вход в личный кабинет" />
+	</ui:define>
+	
+    <ui:define name="pageContent">
+        <h1 class="top_h1">Вход для сотрудника</h1>
+        <h:form styleClass="login"  prependId="false">
+        <h:messages globalOnly="true" styleClass="error"/>
+        <rich:panel>
+			
+        	<h:panelGrid>
+        		<h:panelGroup >
+        		<div class="input">
+        		<h:inputText id="uname"  styleClass="email" value="#{loginData.userName}" required="true" requiredMessage="Необходимо заполнить имя пользователя" onfocus="if (this.value=='Email') {this.value='';this.className='email'}" onblur="if (this.value=='') {this.value='Email';this.className='email'} else this.className='email orang_input'">
+        		 
+        		</h:inputText>  
+        		</div>
+        		</h:panelGroup>
+        		 <h:messages for="uname" styleClass="error"/>
+        		<h:panelGroup >
+        		<div class="input">
+        		<h:inputText id="j_password"  styleClass="pass" value="#{loginData.userPassword}" required="true" requiredMessage="Необходимо заполнить пароль" onfocus="if (this.value=='Пароль') {this.value='';this.type='password';this.className='pass'}" onblur="if (this.value=='') {this.value='Пароль';this.type='text';this.className='pass'} else this.className='pass orang_input'">
+        		 
+        		</h:inputText>  
+        		</div>
+        		 <h:messages for="j_password" styleClass="error"/>
+        		</h:panelGroup>
+        	</h:panelGrid>
+           	<h:panelGroup styleClass="form-button-row">
+			   <h:commandButton value="Войти" action="#{loginData.login}" styleClass="button ml0" ></h:commandButton>
+			   
+			</h:panelGroup> 
+			</rich:panel>
+        </h:form>    	
+    </ui:define>
+</ui:composition>

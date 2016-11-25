@@ -1,0 +1,99 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+     <ui:define name="title">Business analysis console</ui:define>
+
+     <ui:define name="pageContent">
+     	<h:form id="frmNew">
+    		<rich:panel header="Добавить действие">    			
+
+    		</rich:panel>
+    	</h:form>
+         <h:form id="frmMain">
+			<h:panelGroup id="pnlResults">
+				<h:panelGroup>
+					<h:outputText value="Найдено #{listBAO.model.rowCount} действий" />
+				</h:panelGroup>
+				<rich:dataTable id="reqTable"
+		                         value="#{listBAO.model}"               
+		                         var="biz"
+		                         selectionMode="single"
+		                         sortPriority="#{listBAO.model.sortPriorities}">
+		        	<rich:column>
+		        		<f:facet name="header"><h:outputText value="Название" /></f:facet>
+		        		<h:outputText value="#{biz.description}"/>
+		        	</rich:column>
+		        	<rich:column>
+		        		<f:facet name="header"><h:outputText value="Вид" /></f:facet>
+		        		<h:outputText value="#{biz.bizActionType.name}"/>
+		        	</rich:column>	
+		        	<rich:column>
+		        		<f:facet name="header"><h:outputText value="Состояние" /></f:facet>
+		        		<h:outputText value="#{biz.activeName}"/>
+		        	</rich:column>			        		        			        			                         
+		        	<rich:column>
+		        		<f:facet name="header"><h:outputText value="Для объектов типа" /></f:facet>
+		        		<h:outputText value="#{refs.getBusinessObjectClassName(biz.businessObjectClass)}"/>
+		        	</rich:column>
+		        	<rich:column>
+		        		<f:facet name="header"><h:outputText value="Код сообщения" /></f:facet>
+		        		<h:outputText value="#{biz.signalRef}"/>
+		        	</rich:column>		        	
+		        	<rich:column>
+		        		<f:facet name="header"><h:outputText value="Для многих" /></f:facet>
+		        		<h:panelGrid columns="1" rendered="#{biz.forMany == 1}">
+		        			<h:panelGroup>
+			        			<h:outputText value="+"/>
+			        			<h:outputText value=" полностью" rendered="#{biz.isAtomic == 1}"/>		        			
+		        			</h:panelGroup>
+		        			<h:outputText value="Расписание: #{biz.schedule}" rendered="#{not empty biz.schedule}"/>
+		        		</h:panelGrid>		        		
+		        	</rich:column>
+		        	<rich:column>
+		        		<f:facet name="header"><h:outputText value="Для одного" /></f:facet>
+		        		<h:panelGroup rendered="#{biz.forOne == 1}">
+		        			<h:outputText value="+"/>
+		        		</h:panelGroup>		        		
+		        	</rich:column>
+		        	<rich:column>
+		        		<f:facet name="header"><h:outputText value="Обязательная" /></f:facet>
+		        		<h:panelGroup rendered="#{biz.isRequired == 1}">
+		        			<h:outputText value="+"/>
+		        		</h:panelGroup>		        		
+		        	</rich:column>
+		        	<rich:column>
+		        		<f:facet name="header"><h:outputText value="Системная" /></f:facet>
+		        		<h:panelGroup rendered="#{biz.isSystem == 1}">
+		        			<h:outputText value="+"/>
+		        		</h:panelGroup>		        		
+		        	</rich:column>		        			        			        			        			        			        			        	
+		        	<rich:column>
+		        		<f:facet name="header"><h:outputText value="Последнее выполнение" /></f:facet>
+		        		<h:panelGrid columns="1">
+		        			<h:outputText value="#{biz.lastStart}" >
+			        			<f:convertDateTime pattern="dd-MM-yyyy hh:mm:ss"/>
+			        		</h:outputText>
+			        		<h:outputText value="#{biz.lastEnd}" >
+			        			<f:convertDateTime pattern="dd-MM-yyyy hh:mm:ss"/>
+			        		</h:outputText>
+			        		<h:outputText value="выполняется сейчас" rendered="#{biz.executes}"/>		        		
+		        		</h:panelGrid>
+		        	</rich:column>
+		        	<rich:column>
+		        		<f:facet name="header"><h:outputText value="Действия" /></f:facet>
+		        		<h:link value="открыть" outcome="view?faces-redirect=true">
+		        			<f:param name="bizActionId" value="#{biz.id}"/>
+		        		</h:link>		        		
+		        		<h:link value="изменить" outcome="edit?faces-redirect=true">
+		        			<f:param name="bizActionId" value="#{biz.id}"/>
+		        		</h:link>
+		        	</rich:column>		        			        			        			        			        			        			        			        			        			        			        			        			        			        			        			        	
+		        </rich:dataTable>
+			</h:panelGroup>
+         </h:form>
+     </ui:define>
+</ui:composition>
+

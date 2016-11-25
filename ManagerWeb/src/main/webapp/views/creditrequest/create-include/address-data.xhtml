@@ -1,0 +1,123 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:app-cc="http://java.sun.com/jsf/composite/app-cc">
+
+    <h:panelGrid columns="2" columnClasses="top-valigned grid-col-2,top-valigned grid-col-2">
+        <rich:panel header="Адрес регистрации" styleClass="layout">
+            <app-cc:address addressCtl="#{createCreditRequestController.registrationAddressController}"
+                            required="true"/>
+            <h:inputHidden id="registrationAddress"/>
+            <rich:message for="registrationAddress"/>
+            <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                <h:panelGroup>
+                    <h:outputText value="Дата регистрации"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <rich:calendar id="registrationDate"
+                                   value="#{createCreditRequestController.registrationAddressData.registrationDate}"
+                                   buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy"
+                                   enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px">
+                        <rich:validator/>
+                    </rich:calendar>
+                    <rich:message for="registrationDate"/>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Дата начала проживания"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <rich:calendar id="residentialDate"
+                                   value="#{createCreditRequestController.residentialAddressData.residentialDate}"
+                                   buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy"
+                                   enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px">
+                        <rich:validator/>
+                    </rich:calendar>
+                    <rich:message for="residentialDate"/>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Основание занятия жилого помещения"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu id="selRealty"
+                                     value="#{createCreditRequestController.residentialAddressData.realtyCode}">
+                        <f:selectItem itemLabel="" itemValue=""/>
+                        <f:selectItems value="#{refs.realtyTypesCodeInteger}"/>
+                    </h:selectOneMenu>
+                    <rich:message for="selRealty"/>
+                </h:panelGroup>
+
+                <h:outputText value="Адрес регистрации совпадает с адресом проживания"/>
+                <h:selectBooleanCheckbox id="s9"
+                                         value="#{createCreditRequestController.registrationAddressData.sameResidentalAddress}">
+                    <a4j:ajax event="change" execute="@this" render="residential-address"/>
+                </h:selectBooleanCheckbox>
+
+                <h:outputText value="Домашний телефон"/>
+                <h:panelGroup>
+                    <h:inputText id="homePhone" styleClass="phone-mask"
+                                 converter="ru.simplgroupp.webapp.view.DigitalConvertor"
+                                 value="#{createCreditRequestController.registrationAddressData.phone}"/>
+                    <rich:message for="homePhone"/>
+                </h:panelGroup>
+
+                <h:outputText value="Не звонить по домашнему телефону"/>
+                <h:panelGroup>
+                    <h:selectBooleanCheckbox id="homePhoneAvailable" styleClass="phone-mask"
+                                             value="#{createCreditRequestController.registrationAddressData.phoneAvailable}"/>
+                    <rich:message for="homePhoneAvailable"/>
+                </h:panelGroup>
+            </h:panelGrid>
+        </rich:panel>
+
+        <a4j:outputPanel id="residential-address">
+            <rich:panel header="Адрес проживания" styleClass="layout"
+                        rendered="#{!createCreditRequestController.registrationAddressData.sameResidentalAddress}">
+                <app-cc:address addressCtl="#{createCreditRequestController.residentialAddressController}"
+                                required="true"/>
+                <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                    <h:panelGroup><h:inputHidden id="residentialAddress"/></h:panelGroup>
+                    <rich:message for="residentialAddress"/>
+
+
+                    <h:outputText value="Домашний телефон по месту проживания"/>
+                    <h:panelGroup>
+                        <h:inputText id="residentialPhone" styleClass="phone-mask"
+                                     converter="ru.simplgroupp.webapp.view.DigitalConvertor"
+                                     value="#{createCreditRequestController.residentialAddressData.phone}"/>
+                        <rich:message for="residentialPhone"/>
+                    </h:panelGroup>
+
+                    <h:outputText value="Не звонить по домашнему телефону по месту проживания"/>
+                    <h:panelGroup>
+                        <h:selectBooleanCheckbox id="residentialPhoneAvailable"
+                                                 value="#{createCreditRequestController.residentialAddressData.phoneAvailable}"/>
+                        <rich:message for="residentialPhoneAvailable"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </rich:panel>
+            <h:outputScript>
+                $(function () {
+                    $('[type=tel], .phone-mask').mask('+7 (999) 999 99 99');
+                });
+            </h:outputScript>
+        </a4j:outputPanel>
+    </h:panelGrid>
+    <h:panelGroup>
+        <a4j:commandButton value="Назад" styleClass="button grey" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" immediate="true" execute="@this" render="@form"
+                           action="#{createCreditRequestController.previousStep}"/>
+        <a4j:commandButton value="Далее" styleClass="button" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" render="@form"
+                           action="#{createCreditRequestController.saveAddressData}"/>
+    </h:panelGroup>
+    <h:outputScript>
+        $(function () {
+            $('[type=tel], .phone-mask').mask('+7 (999) 999 99 99');
+            $('.rf-cal-inp').mask('99.99.9999');
+        });
+    </h:outputScript>
+</ui:composition>

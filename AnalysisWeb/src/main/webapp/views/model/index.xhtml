@@ -1,0 +1,194 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+	<ui:define name="metadata">
+		<f:event type="preRenderView" listener="#{viewModelIndex.init}" />
+	</ui:define>
+    <ui:define name="pageContent">
+<style type="css"> 
+.autoSizeRows .rf-edt-hdr-c{
+border-right:none !important;
+border-bottom:none !important;
+}
+.autoSizeRows .rf-edt-c{
+height: 100px !important;
+border-right:none !important;
+border-bottom:none !important;
+}
+
+.autoSizeRows .rf-edt-cnt td {
+border-bottom: 1px solid #9FC0E9; 
+border-right: 1px solid #9FC0E9;
+}
+</style>    
+    	<h:form>
+    		<rich:panel header="Создать стратегию">
+    			<rich:messages />
+    			<h:panelGrid columns="2">
+    				<h:outputText value="Имя стратегии" /> 
+    				<h:inputText value="#{newModel.modelName}" required="true" 
+    					requiredMessage="необходимо ввести имя стратегии"
+    					validatorMessage="допускаются только латинские буквы, цифры и точка">
+    					<f:validateRegex pattern="[a-zA-Z0-9\.]+"></f:validateRegex>
+    				</h:inputText>
+    				<h:outputText value="Продукт" />
+    				<h:selectOneMenu  value="#{newModel.productId}"   >
+			           <f:selectItems value="#{comrefs.productsId}" />						
+		            </h:selectOneMenu>   
+    				<h:outputText value="Способ подачи заявки" />
+    				<h:selectOneMenu  value="#{newModel.wayId}"   >
+			           <f:selectItems value="#{refsCommon.applicationWays}" />						
+		            </h:selectOneMenu>   
+		            
+    			</h:panelGrid>
+	   			<h:commandButton value="Создать стратегию" action="#{newModel.createModel}" >
+   				</h:commandButton>	                		    		
+    		</rich:panel>
+    	</h:form>
+        <h:form>
+        	<rich:messages />
+            <h:outputLabel value="Стратегии:" />
+            <rich:dataGrid var="mdl" value="#{viewModelIndex.activeModels}" columns="1">
+            	<rich:panel>
+            		<f:facet name="header">
+            			<h:outputText value="#{mdl.target}" />
+            		</f:facet>
+            		<h:panelGrid columns="2">
+	            		<h:panelGrid columns="2">
+	            			<h:outputLabel value="Версия"/>
+	            			<h:outputText value="#{mdl.version}" />
+	            			<h:outputLabel value="Дата создания"/>
+	            			<h:outputText value="#{mdl.dateCreate}" >
+	            				<f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+	            			</h:outputText>
+	            			<h:outputLabel value="Язык скрипта"/>
+	            			<h:outputText value="#{mdl.mimeType}" />               			  
+	            		</h:panelGrid>
+	            		<h:panelGrid columns="1">
+	            			<h:commandLink value="Создать черновик" actionListener="#{viewModelIndex.createDraftLsn}">
+	            				<f:attribute name="modelid" value="#{mdl.id}" />
+	            				<a4j:ajax render="@form" />	            				
+	            			</h:commandLink>
+	            			<h:link outcome="view">
+	            				<f:param name="modelid" value="#{mdl.id}" />
+	            				<h:outputText value="Посмотреть" />
+	            			</h:link>	            			
+	            			<h:link outcome="run">
+	            				<f:param name="modelid" value="#{mdl.id}" />
+	            				<h:outputText value="На расчёт" />
+	            			</h:link>
+	            			<h:commandLink value="Удалить" actionListener="#{viewModelIndex.deleteModelLsn}" rendered="#{! mdl.builtIn}" onclick="if (confirm('Удалить модель и все её версии?')) { return true; } else { return false;}">
+	            				<f:attribute name="modelid" value="#{mdl.id}" />
+	            				<a4j:ajax render="@form" />
+	            			</h:commandLink>	            				            			
+	            		</h:panelGrid>
+	            		<h:panelGroup>
+	            			<a4j:region>
+			            		<h:panelGrid columns="2">
+			            			<h:inputText value="#{viewModelIndex.searchContent}" /> 
+			            			<h:commandButton value="Поиск" actionListener="#{viewModelIndex.searchModelLsn}">
+			            				<f:attribute name="modelTarget" value="#{mdl.target}" />
+			            				<a4j:ajax render="tblSubm" />
+			            			</h:commandButton>
+			            		</h:panelGrid>
+		            		</a4j:region>
+		            		<a4j:region>	         		
+			            		<rich:extendedDataTable id="tblSubm" 
+			            			var="subm" value="#{viewModelIndex.modelVersions[mdl.target]}" 
+			            			selectionMode="none" sortMode="single" styleClass="autoSizeRows" sortPriority="#{viewModelIndex.priorityList}">
+			            			<f:facet name="header"><h:outputText value="Все версии модели" /></f:facet>
+			            			<rich:column>
+			            				<f:facet name="header">
+			            					<h:commandLink value="удалить" actionListener="#{viewModelIndex.removeModelsLsn}" onclick="if (confirm('Удалить отмеченные?')) { return true; } else { return false;}" >
+			            						<a4j:ajax render="@form" />
+			            					</h:commandLink>
+			            				</f:facet>
+			            				<h:selectBooleanCheckbox value="#{viewModelIndex.markVersions[subm.id]}"/>
+			            			</rich:column>
+			            			<rich:column id="isActive" sortBy="#{subm.isActive}" sortOrder="#{viewModelIndex.sortOrders['isActive']}">
+			            				<f:facet name="header"><h:outputText value="Состояние" /></f:facet>
+			            				<h:outputText value="черновик" rendered="#{subm.isActive == 2}"/>
+			            				<h:outputText value="активная" rendered="#{subm.isActive == 1}"/>
+			            				<h:outputText value="архивная" rendered="#{subm.isActive == 0}"/>
+			            			</rich:column>	            			
+			            			<rich:column id="version" sortBy="#{subm.version}"  sortOrder="#{viewModelIndex.sortOrders['version']}">
+			            				<f:facet name="header"><h:outputText value="Версия" /></f:facet>
+			            				<h:outputText value="#{subm.version}"/>
+			            			</rich:column>
+			            			<rich:column>
+			            				<f:facet name="header"><h:outputText value="Дата создания" /></f:facet>
+				            			<h:outputText value="#{subm.dateCreate}" >
+				            				<f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+				            			</h:outputText>
+			            			</rich:column>	    
+			            			<rich:column id="dateChange" sortBy="#{subm.dateChange}"  sortOrder="#{viewModelIndex.sortOrders['dateChange']}">
+			            				<f:facet name="header"><h:outputText value="Дата изменения" /></f:facet>
+				            			<h:outputText value="#{subm.dateChange}" >
+				            				<f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+				            			</h:outputText>
+			            			</rich:column>			            			
+			            			<rich:column>
+			            				<f:facet name="header"><h:outputText value="Язык скрипта" /></f:facet>
+										<h:outputText value="#{subm.mimeType}" />  
+			            			</rich:column>	
+			            			<rich:column>
+			            				<f:facet name="header"><h:outputText value="Продукт" /></f:facet>
+										<h:outputText value="#{subm.product.name}" rendered="#{not empty subm.product}"/>  
+			            			</rich:column>	
+			            			<rich:column>
+			            				<f:facet name="header"><h:outputText value="Способ подачи заявки" /></f:facet>
+										<h:outputText value="#{subm.way.name}" rendered="#{not empty subm.way}"/>  
+			            			</rich:column>				            			  
+			            			<rich:column>
+			            				<f:facet name="header"><h:outputText value="Создать черновик" /></f:facet>
+				            			<h:commandLink value="Создать черновик" actionListener="#{viewModelIndex.createDraftLsn}">
+				            				<f:attribute name="modelid" value="#{subm.id}" />
+				            				<a4j:ajax render="@form" />	            				
+				            			</h:commandLink>			            				
+			            			</rich:column>	
+			            			<rich:column>
+			            				<f:facet name="header"><h:outputText value="Редактировать" /></f:facet>
+										<h:link outcome="edit" rendered="#{subm.isActive != 1}">
+					            			<f:param name="modelid" value="#{subm.id}" />
+					            			<h:outputText value="Редактировать" />
+					            		</h:link>			            				
+			            			</rich:column>	
+			            			<rich:column>
+			            				<f:facet name="header"><h:outputText value="На расчёт" /></f:facet>
+				            			<h:link outcome="run">
+				            				<f:param name="modelid" value="#{subm.id}" />
+				            				<h:outputText value="На расчёт" />
+				            			</h:link>			            				
+			            			</rich:column>	
+			            			<rich:column>
+			            				<f:facet name="header"><h:outputText value="сделать активной" /></f:facet>
+										<h:commandLink value="сделать активной" actionListener="#{viewModelIndex.makeActiveLsn}" rendered="#{subm.isActive == 2 or subm.isActive == 0}"  onclick="if (confirm('Сделать стратегию активной?')) { return true; } else { return false;}" >
+											<f:attribute name="modelid" value="#{subm.id}" />
+											<a4j:ajax render="@form" />
+										</h:commandLink>			            				
+			            			</rich:column>			            					            					            				  
+			            			<rich:column>			            			
+			            				<f:facet name="header"><h:outputText value="удалить" /></f:facet>					
+										<h:commandLink value="удалить" actionListener="#{viewModelIndex.removeModelLsn}" rendered="#{subm.isActive != 1}" onclick="if (confirm('Удалить стратегию?')) { return true; } else { return false;}">
+											<f:attribute name="modelid" value="#{subm.id}" />
+											<a4j:ajax render="@form" />
+										</h:commandLink>										  
+			            			</rich:column>	            			          			        			
+			            		</rich:extendedDataTable>
+		            		</a4j:region>
+	            		</h:panelGroup>
+            		</h:panelGrid>
+            		
+            		<h:commandLink value="удалить черновики" actionListener="#{viewModelIndex.removeModelDraftLsn}" onclick="if (confirm('Удалить все черновики?')) { return true; } else { return false;}">
+						<a4j:ajax render="@form" />
+					</h:commandLink>
+					
+            	</rich:panel>
+            </rich:dataGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

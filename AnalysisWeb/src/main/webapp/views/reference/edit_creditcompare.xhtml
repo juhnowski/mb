@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="newForm">
+            <rich:panel header="Редактировать критерий">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Название"/>
+                    <h:inputText value="#{editCreditCompare.reference.name}" size="50"/>
+
+                    <h:outputText value="Называние таблицы"/>
+                    <h:inputText value="#{editCreditCompare.reference.entityName}" size="50"/>
+
+                    <h:outputText value="Название поля"/>
+                    <h:inputText value="#{editCreditCompare.reference.fieldName}" size="15"/>
+
+                    <h:outputText value="Используется для рассчета оценки"/>
+                    <h:selectBooleanCheckbox value="#{editCreditCompare.reference.useForRate}"/>
+
+                    <h:outputText value="Необходимо поле для рассчета"/>
+                    <h:selectBooleanCheckbox value="#{editCreditCompare.reference.necessary}"/>
+
+                    <h:outputText value="Конфигурации справочника"/>
+                    <h:panelGroup id="configsPanel">
+                        <rich:dataTable var="config" value="#{editCreditCompare.reference.configurations}">
+                            <rich:column>
+                                <f:facet name="header">Максимально допустимое расхождение</f:facet>
+                                <h:inputText value="#{config.diff}" converterMessage="Введите число"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Оценка</f:facet>
+                                <h:inputText value="#{config.rating}" converterMessage="Введите число"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Используется для сравнения кредитов</f:facet>
+                                <h:selectBooleanCheckbox value="#{config.useForMatching}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Действия</f:facet>
+
+                                <h:commandLink actionListener="#{editCreditCompare.removeConfig}"
+                                               onclick="return confirm('Удалить запись?');">
+                                    <f:attribute name="config" value="#{config}"/>
+                                    <a4j:ajax render="configsPanel"/>
+                                    <h:graphicImage value="/resources/icons/delete.gif" title="удалить"/>
+                                </h:commandLink>
+                            </rich:column>
+                        </rich:dataTable>
+
+                        <a4j:commandButton value="Добавить" actionListener="#{editCreditCompare.addConfig}" render="configsPanel"/>
+                    </h:panelGroup>
+
+                </h:panelGrid>
+
+                <h:commandButton value="Сохранить" action="#{editCreditCompare.save}"/>
+                <h:commandButton value="Отмена" action="#{editCreditCompare.cancel}" immediate="true"/>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

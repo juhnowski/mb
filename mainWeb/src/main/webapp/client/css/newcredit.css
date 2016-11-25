@@ -1,0 +1,25 @@
+.anketa-slider .input {
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    vertical-align: middle;
+    display: inline-block;
+    position: relative;
+
+    font-size: 16px;
+    font-family: 'PFDinDisplay_Pro';
+    padding:5px 10px;
+    border: 1px solid #d8dade;
+    background: #fff;
+    border-radius: 4px;
+    -webkit-appearance: none;
+}
+
+.credit-denied .col, .credit-congr .col {
+    padding-left: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    height: auto;
+    min-height: 58px;
+}

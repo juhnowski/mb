@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+	<h:panelGrid columns="2">
+		<h:outputText value="Имя"/>
+		<h:outputText value="#{editPlugCtl.plugin.pluginName}"/>
+		<h:outputText value="Режим работы"/>
+		<h:selectOneMenu value="#{editPlugCtl.executionModeId}">
+			<f:selectItems value="#{editPlugCtl.executionModes}"/>
+		</h:selectOneMenu>	
+		<h:outputText value="Режим запросов"/>
+		<h:panelGrid columns="1">
+			<h:selectOneMenu value="#{editPlugCtl.modeId}">
+				<f:selectItems value="#{editPlugCtl.modes}"/>
+			</h:selectOneMenu>	
+			<h:selectOneMenu value="#{editPlugCtl.syncModeId}">
+				<f:selectItems value="#{editPlugCtl.syncModes}"/>
+			</h:selectOneMenu>					
+		</h:panelGrid>
+		
+		<h:outputText value="Интервал ожидания отправки пакета"/>
+		<h:panelGrid columns="1">
+			<h:panelGroup>
+				<h:inputText id="txtPacketInterval" value="#{editPlugCtl.packetInterval}" >
+				</h:inputText>
+				<h:outputText value=" мс"/>			
+			</h:panelGroup>
+			<h:outputText value="или"/>
+			<h:panelGroup>
+				<h:inputText id="txtPacketSchedule" value="#{editPlugCtl.packetSchedule}" >
+				</h:inputText>			
+			</h:panelGroup>
+			<rich:messages for="txtPacketSchedule"/>
+			<rich:messages for="txtPacketInterval"/>
+		</h:panelGrid>
+		
+		<h:outputText value="Интервал ожидания для асинхронного запроса ответа"/>
+		<h:panelGrid columns="1">
+			<h:panelGroup>
+				<h:inputText id="txtAsyncInterval" value="#{editPlugCtl.asyncInterval}" >
+				</h:inputText>
+				<h:outputText value=" мс"/>
+			</h:panelGroup>
+			<h:outputText value="или"/>
+			<h:panelGroup>
+				<h:inputText id="txtAsyncSchedule" value="#{editPlugCtl.asyncSchedule}" >
+				</h:inputText>			
+			</h:panelGroup>
+			<rich:messages for="txtAsyncSchedule"/>		
+			<rich:messages for="txtAsyncInterval"/>		
+		</h:panelGrid>	
+		
+		<h:outputText value="Интервал ожидания для повторного запроса при сбое"/>
+		<h:panelGrid columns="1">
+			<h:panelGroup>
+				<h:inputText id="txtRetryInterval" value="#{editPlugCtl.retryInterval}" >
+				</h:inputText>
+				<h:outputText value=" мс"/>
+			</h:panelGroup>
+			<h:outputText value="или"/>
+			<h:panelGroup>
+				<h:inputText id="txtRetrySchedule" value="#{editPlugCtl.retrySchedule}" >
+				</h:inputText>			
+			</h:panelGroup>
+			<rich:messages for="txtRetrySchedule"/>		
+			<rich:messages for="txtRetryInterval"/>		
+		</h:panelGrid>							
+			
+		<h:outputText value="Рабочий или заглушка"/>
+		<h:selectOneMenu value="#{editPlugCtl.fakeId}">
+			<f:selectItems value="#{editPlugCtl.fakeModes}"/>
+		</h:selectOneMenu>	
+		<h:outputText value="JNDI-имя рабочего EJB"/>
+		<h:inputText value="#{editPlugCtl.workEJBName}" />									
+		<h:outputText value="JNDI-имя заглушечного EJB"/>
+		<h:inputText value="#{editPlugCtl.fakeEJBName}" />			
+		<h:outputText value="Имя подпроцесса"/>
+		<h:inputText value="#{editPlugCtl.processName}" required="true" />		
+		<h:outputText value="Имя подпроцесса для пакетного режима"/>
+		<h:inputText value="#{editPlugCtl.processPacketName}" required="true" />																																					
+	</h:panelGrid>
+				
+</ui:composition>

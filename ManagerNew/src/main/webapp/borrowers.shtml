@@ -1,0 +1,278 @@
+﻿<!--#include file="_head.shtml"-->
+
+	<body>
+		
+		<div class="wrapper">
+
+			<!--  Start header -->
+			<header>
+				<div class="header-inside">
+					<div class="header-bell">
+						<div class="bell">
+							<span>10</span>
+						</div>
+					</div>
+
+					<div class="header-chat">
+						<div class="chat">
+							<span>4</span>
+						</div>
+					</div>
+
+					<div class="header-inside-button">
+						<span></span>
+						<label>Новая заявка</label>
+					</div>
+				</div>
+			</header>
+			<!-- Stop header -->
+
+			<!--  Start main -->
+			<div class="main-block">
+				<!--#include file="_sidebar.shtml"-->
+
+				<div class="main-content">
+					<div class="main-content-inside">
+						<div class="main-content-inside-head">
+							<div class="mcih-menu">
+								<ul>
+									<li><a href="">Главная</a><label></label></li>
+									<li><a href="">Работа с клиентами</a><label></label></li>
+									<li class="mcih-active"><a href="">Заёмщики</a><label></label></li>
+								</ul>
+							</div>
+
+							<div class="new-task-outside">
+								<div class="new-task" id="new-task">
+									<div class="circle"></div>
+									<div class="new-task-text">
+										<span>Новая задача</span>
+										<span>Поступила <a href="">заявка</a> на займ</span>
+									</div>
+									<div class="new-task-mark">
+										<div class="ntm-top"></div>
+										<div class="ntm-bottom" id="n-task"></div>
+									</div>
+								</div>
+
+								<div class="new-task" id="new-chat">
+									<div class="circle circle-two"></div>
+									<div class="new-task-text">
+										<span>Чат</span>
+										<span>Есть новые <a href="">ответы</a></span>
+									</div>
+									<div class="new-task-mark">
+										<div class="ntm-top"></div>
+										<div class="ntm-bottom" id="n-chat"></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="main-content-inside-body">
+							<div class="block-search">
+								<div class="block-search-head">
+									<div class="bs-left">
+										Поиск
+									</div>
+
+									<div class="bs-right">
+										<span id="search-rolldown"></span>
+										<span id="search-extended"></span>
+									</div>
+								</div>
+
+								<div class="block-search-body">
+									<div class="block-inpt">
+										<label>Фамилия</label>
+										<input type="text">
+									</div>
+
+									<div class="block-inpt">
+										<label>Имя</label>
+										<input type="text">
+									</div>
+
+									<div class="block-inpt">
+										<label>Отчество</label>
+										<input type="text">
+									</div>
+
+
+
+									<div class="block-inpt" id="birthdate">
+										<label>Дата рождения</label>
+										<div class="birth-date-ot">
+											<span>с</span>
+											<input type="text" class="datepicker">
+											<div class="picta-calendar"></div>
+										</div>
+
+
+										<div class="birth-date-do">
+											<span>по</span>
+											<input type="text" class="datepicker">
+											<div class="picta-calendar pc-two"></div>
+										</div>
+									</div>
+
+
+
+									<div class="block-inpt" id="snpassport">
+										<label>Серия и номер паспорта</label>
+										<div class="serija-passport">
+											<input type="text">
+										</div>
+										<div class="number-passport">
+											<input type="text">
+										</div>
+									</div>
+
+									<div class="block-inpt" id="searchemail">
+										<label>E-mail</label>
+										<input type="text">
+									</div>
+
+									<div class="block-inpt" id="searchphone">
+										<label>Телефон</label>
+										<input type="text">
+									</div>
+
+
+									<div class="block-inpt">
+										<div class="block-inpt-resset"></div>
+										<input type="submit" value="Поиск">
+									</div>
+								</div>
+							</div>
+
+							<div class="block-tables">
+								<div class="block-tables-head">
+									<div class="bth-left">
+										Заёмщики
+									</div>
+
+									<div class="bth-right">
+										<label>212</label> заемщиков
+										<span id="borrowers-rolldown"></span>
+									</div>
+								</div>
+
+
+								<div class="bt-body-pagination">
+									<div class="block-tables-body">
+										<table>
+											<tr>
+												<td><label></label><label></label><label></label></td>
+												<td>Клиент</td>
+												<td>Возраст</td>
+												<td>E-mail</td>
+												<td>Телефон</td>
+												<td>Займ</td>
+											</tr>
+
+											<tr class="td-active">
+												<td><label></label></td>
+												<td><a href="borrower.shtml">Кульбышев Евгений Витальевич</a></td>
+												<td>29</td>
+												<td>evgene_1982@yahoo.ru</td>
+												<td>+7 (916) 474 48 39</td>
+												<td>Активен</td>
+											</tr>
+
+											<tr class="td-expired">
+												<td><label></label></td>
+												<td><a href="borrower.shtml">Назаренко Виктория Егоровна</a></td>
+												<td>48</td>
+												<td>nazar_183_up@gmail.com</td>
+												<td>+7 (916) 234 48 35</td>
+												<td>Просрочен</td>
+											</tr>
+
+											<tr>
+												<td><label></label></td>
+												<td><a href="borrower.shtml">Миц Ренат Сергеевич</a></td>
+												<td>19</td>
+												<td>mizzz@mail.ru</td>
+												<td>+7 (916) 234 62 31</td>
+												<td>Закрыт</td>
+											</tr>
+
+											<tr>
+												<td><label></label></td>
+												<td><a href="borrower.shtml">Луценко Виктор Петрович</a></td>
+												<td>24</td>
+												<td>lucenko_vip@gmail.com</td>
+												<td>+7 (916) 474 48 39</td>
+												<td>Закрыт</td>
+											</tr>
+
+											<tr class="td-active">
+												<td><label></label></td>
+												<td><a href="borrower.shtml">Скорик Елена Федеровна</a></td>
+												<td>34</td>
+												<td>skoriееk@yandex.ru</td>
+												<td>+7 (916) 474 48 93</td>
+												<td>Активен</td>
+											</tr>
+
+										</table>
+									</div>
+
+									<div class="block-paginaiton">
+										<div class="bp-select">
+											Показывать на странице
+											<div class="select">
+												<form action="#" method="post" >
+
+													<div class="select">
+														<a href="#" class="slct">10</a>
+														<ul class="drop">
+															<li>10</li>
+															<li>50</li>
+															<li>100</li>
+														</ul>
+														<input type="hidden" />
+													</div>		
+													
+												</form>
+											</div>
+										</div>
+
+																		
+										<div class="bp-paginaiton">
+											<div class="prev"></div>
+											<ul>
+												<li>1</li>
+												<li>2</li>
+												<li>3</li>
+												<li class="pagin-active">4</li>
+												<li class="pagin-active">....</li>
+												<li class="pagin-active">50</li>
+											</ul>
+											<div class="next"></div>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="sidbar-fon"></div>
+			</div>
+			<!-- Stop main -->
+
+			<!--#include file="_footer.shtml"-->
+		
+		</div>
+
+
+		<!--#include file="_modal.shtml"-->
+
+	</body>
+</html>

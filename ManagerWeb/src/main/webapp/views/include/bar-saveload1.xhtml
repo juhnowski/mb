@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<a4j:region>
+	<h:panelGrid columns="5">
+		<h:panelGroup id="pnlBizListInfo#{barPrefix}" rendered="#{listMgr.listCtl.data.bizList != null}">
+			<h:link outcome="#{listMgr.currentPath}" title="показать всех в списке">
+				<f:param name="#{listMgr.subType}prmListId" value="#{listMgr.listCtl.data.bizList.id}"/>
+				<f:param name="faces-redirect" value="true"/>
+				<h:panelGroup rendered="#{listMgr.explicitList}">
+					<h:outputText value="#{listMgr.listNameSaved}" /><br/>
+					<h:outputText value="в списке #{listMgr.bizListItemCount}" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{! listMgr.explicitList}">
+					<h:outputText value="показать всех выбранных" /><br/>
+					<h:outputText value="выбрано #{listMgr.bizListItemCount}" />				
+				</h:panelGroup>				
+			</h:link>	
+		</h:panelGroup>
+		<a4j:commandLink actionListener="#{listMgr.clearLsn}" execute="@this" render="@all" rendered="#{listMgr.explicitList}" >
+			<h:graphicImage value="/resources/icons/clear.png" />
+		</a4j:commandLink>		
+		<a4j:commandLink action="#{listMgr.prepareLoad}" execute="@this" >
+			<f:attribute name="returnOutcome" value="#{returnOutcome}"/>
+			<h:graphicImage value="/resources/icons/load.png" />
+		</a4j:commandLink>		
+		<a4j:commandLink action="#{listMgr.prepareSaveAs}" execute="@this" >
+			<f:attribute name="returnOutcome" value="#{returnOutcome}"/>
+			<h:graphicImage value="/resources/icons/saveas.png" />
+		</a4j:commandLink>
+		<h:panelGroup rendered="#{listMgr.listCtl.data.bizList != null}">
+			<h:commandButton value="действия" >
+				<rich:componentControl target="pnlBizList#{barPrefix}" operation="show" />
+			</h:commandButton>
+			<rich:popupPanel id="pnlBizList#{barPrefix}" modal="true" autosized="true" resizeable="false">
+        		<f:facet name="header">
+            		<h:outputText value="Действия со списком" />
+        		</f:facet>			
+		        <f:facet name="controls">
+		            <h:commandLink value="#" >
+		            	<rich:componentControl target="pnlBizList#{barPrefix}" operation="hide" />
+		                <h:outputText value="X" />
+		            </h:commandLink>
+		        </f:facet>	
+				<h:dataTable var="biz" value="#{listMgr.bizActions}">
+					<h:column>
+						<h:commandLink value="#{biz.description}" action="#{listMgr.prepareBizAction}">
+							<f:attribute name="bizActionId" value="#{biz.id}" />
+						</h:commandLink>
+					</h:column>
+				</h:dataTable>		        		
+			</rich:popupPanel>
+		</h:panelGroup>
+	</h:panelGrid>	
+	</a4j:region>
+
+</ui:composition>	

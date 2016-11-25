@@ -1,0 +1,59 @@
+<form class="step-3 step">
+    <div class="fieldset" id="liveAddress">
+	 <h3 class="fieldset__h3">Фактическое проживание</h3>
+        <div class="row">
+            <div class="col w100p">
+                <label class="checkbox fieldset__checkbox fieldset__checkbox--inline fieldset__checkbox--col"> Мой адрес проживания сопадает с адресом прописки
+                    <input id="regIsLive" type="checkbox" data-hideblock="30" data-hideblock-invert class="not-valid-row fieldset__checkbox">
+                </label>
+            </div>
+        </div>
+        <div class="hideblock-30 row">
+            <!--#include file="_address.shtml"-->
+        </div>
+        <div class="row" id="realtyDate">
+            <div class="col first">
+                <label>Дата начала проживания</label>
+            </div>
+            <div class="col date">
+                <input class="input required date-not-dd" id="start-living-date" placeholder="мм / гггг"
+                       data-tooltip="30">
+                <span class="datepicker fieldset__datepicker ico ico--datepicker"><input></span>
+				<div class="marker-red marker-red--error" data-id="30"></div>
+            </div>
+        </div>
+        <div class="row" id="residentPhone">
+            <div class="col first">
+                <label>Телефон по месту проживания</label>
+            </div>
+            <div class="col w360 pr20 hideblock-pair-100">
+                <input class="input required phone" type="tel" placeholder="Телефон по месту проживания">
+            </div>
+            <div class="col w100">
+                <label class="checkbox fieldset__checkbox fieldset__checkbox--inline fieldset__checkbox--col">Не имею <input type="checkbox" hideblock-pair="100"></label>
+            </div>
+        </div>
+        <div class="row" id="realtyPhone">
+            <div class="col first">
+                <label>Дополнительный телефон</label>
+            </div>
+            <div class="col">
+                <input class="input required phone" type="tel"
+                       placeholder="Дополнительный номер, по которому с Вами можно связаться" af-id="phone_fact">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col first">
+                <label>Тип собственности</label>
+            </div>
+            <div class="col">
+                <select class="required liveRealty"></select>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagin">
+        <a class="btn pull-left prev">Назад <i class="ico arrow-left"></i></a>
+        <a class="btn btn--green next pull-right">Далее <i class="ico arrow-right-white"></i></a>
+    </div>
+</form>

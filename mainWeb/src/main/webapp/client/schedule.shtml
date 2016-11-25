@@ -1,0 +1,80 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'schedule'">
+
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/schedule.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+
+<!--#include file="include/_header.shtml"-->
+
+<main ng-controller="ScheduleCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block td">
+                <h3 class="h3">График платежей</h3>
+
+                <div class="box-20">
+                    <ul class="history-loan">
+                        <li ng-if="payments.length == 0">
+                            <a class="history-loan__head">
+                                График отсутствует
+                            </a>
+                        </li>
+
+
+                        <li ng-repeat="payment in payments">
+                            <a class="history-loan__head">
+                                <span class="history-loan__head-text"
+                                      ng-bind-template="{{ payment.databeg }} - {{ payment.dataend }}">
+                                </span>
+                                <span class="ico ico--arrow-down"></span>
+                                <span class="ico ico--arrow-up"></span>
+                            </a>
+
+                            <div class="history-loan__body">
+                                <div class="history-loan__body-table">
+                                    <table class="table-2">
+                                        <tr>
+                                            <td>Дата начала</td>
+                                            <td ng-bind="payment.databeg"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Дата окончания</td>
+                                            <td ng-bind="payment.dataend"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Сумма к возврату</td>
+                                            <td ng-bind-template="{{ payment.creditsumback }} руб."></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Статус</td>
+                                            <td ng-bind="payment.active"></td>
+                                        </tr>
+                                        <tr ng-if="payment.reasonEnd != ''">
+                                            <td>Причина закрытия записи</td>
+                                            <td ng-bind="payment.reasonEnd"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+
+</body>
+</html>

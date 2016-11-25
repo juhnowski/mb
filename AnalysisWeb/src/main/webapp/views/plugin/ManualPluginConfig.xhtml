@@ -1,0 +1,12 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<rich:panel header="Задача пользователя для одиночного синхронного режима">
+		<ui:include src="/templates/templatetask.xhtml" >
+			<ui:param name="task" value="#{plugMan.taskSingleExecute}" />
+			<ui:param name="taskAction" value="#{plugMan.actSingleExecute}" />
+		</ui:include>	
+	</rich:panel>
+</ui:composition>

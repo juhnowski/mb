@@ -1,0 +1,81 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'documents'">
+
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/documents.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+
+<!--#include file="include/_header.shtml"-->
+
+<main ng-controller="DocumentsCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block td">
+                <h3 class="h3">Подписанные документы</h3>
+
+                <div class="box-20">
+                    <ul class="history-loan">
+                        <li ng-if="documents.length == 0">
+                            <a class="history-loan__head">
+                                Подписанные документы отсутствуют
+                            </a>
+                        </li>
+
+
+                        <li ng-repeat="document in documents">
+                            <a class="history-loan__head">
+                                <span class="history-loan__head-numer" ng-bind="document.docNumber"></span>
+                                <span class="ico ico--arrow-right-green-v2"></span>
+                                <span class="history-loan__head-text"
+                                      ng-bind="document.docDate | date:'dd.MM.yyyy'">
+                                </span>
+                                <span class="ico ico--arrow-down"></span>
+                                <span class="ico ico--arrow-up"></span>
+                            </a>
+
+                            <div class="history-loan__body">
+                                <div class="history-loan__body-table">
+                                    <table class="table-2">
+                                        <tbody>
+                                        <tr>
+                                            <td>СМС-код</td>
+                                            <td ng-bind="document.smsCode"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Вид документа</td>
+                                            <td ng-bind="document.documentTypeId.value"></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <a class="h3__right--green"
+                                                   ng-href="/main/rest/documents/download?id={{document.id}}">
+                                                    Скачать
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+
+</body>
+</html>

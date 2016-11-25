@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:app-cc="http://java.sun.com/jsf/composite/app-cc"
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="credit" />
+    <ui:define name="title">Business analysis console</ui:define>
+    <ui:define name="pageContent">
+	    <h:form id="frmEdit">
+    		<rich:messages globalOnly="true" layout="table" />	  
+    		<rich:panel header="Информация из суда" styleClass="layout">    
+	    	<h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+	    	    <h:outputText value="Название задолженности" />
+               	<h:inputText value="#{editDebt.debt.nameDebt}" ></h:inputText>
+	    	    <h:outputText value="Номер решения" />
+               	<h:inputText value="#{editDebt.debt.debtNumber}" ></h:inputText>
+	   	      	<h:outputText value="Дата передачи" />
+	   	      	<rich:calendar value="#{editDebt.debt.dateDebt}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" >
+               	</rich:calendar>
+               	<h:outputText value="Дата решения" />
+	   	      	<rich:calendar value="#{editDebt.debt.dateDecision}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" >
+               	</rich:calendar>
+               	<h:outputText value="Сумма задолженности" />
+               	<h:inputText value="#{editDebt.debt.amount}" required="true"></h:inputText>
+               	<h:outputText value="Сумма штрафов, госпошлин" />
+               	<h:inputText value="#{editDebt.debt.amountPenalty}" ></h:inputText>
+                <h:outputText value="Название судебного органа" />
+               	<h:inputText value="#{editDebt.debt.authorityName}" ></h:inputText>   
+                <h:outputText value="Текст решения" />    
+                <h:inputTextarea value="#{editDebt.debt.comment}"></h:inputTextarea>    
+                <h:outputText value="Задолженность погашена" />	
+                <h:outputText value="да" rendered="#{editDebt.debt.isActive==0}"/>
+                <h:outputText value="нет" rendered="#{editDebt.debt.isActive==1}"/>
+	    	</h:panelGrid>
+	    	</rich:panel>
+	    	
+	    	<h:commandButton value="Сохранить" styleClass="button ml0" action="#{editDebt.save}"/>
+	   
+	    	<h:commandButton value="Отмена" styleClass="button grey" action="#{editDebt.close}" immediate="true"/>
+	    	   	
+	    </h:form>
+    </ui:define>
+ </ui:composition>

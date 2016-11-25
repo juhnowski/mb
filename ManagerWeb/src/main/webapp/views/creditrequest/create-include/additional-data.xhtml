@@ -1,0 +1,126 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:panelGrid columns="2" columnClasses="top-valigned grid-col-2,top-valigned grid-col-2">
+        <rich:panel header="Дополнительные данные" styleClass="layout">
+            <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                <h:panelGroup>
+                    <h:outputText value="Семейное положение"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu id="maritalStatus"
+                                     value="#{createCreditRequestController.additionalData.maritalStatus}">
+                        <f:selectItem itemLabel="" itemValue=""/>
+                        <f:selectItems value="#{refs.marriageTypeCodes}"/>
+                        <rich:validator/>
+                        <a4j:ajax event="change" execute="@this" render="mate"/>
+                    </h:selectOneMenu>
+                    <rich:message for="maritalStatus"/>
+                </h:panelGroup>
+
+                <h:outputText value="Количество детей"/>
+                <h:inputText id="txtChildren" value="#{createCreditRequestController.additionalData.childrenCount}">
+                    <f:validateLongRange minimum="0" maximum="9"/>
+                </h:inputText>
+
+                <h:outputLabel value="Есть автомобиль?" for="hasCar"/>
+                <h:selectBooleanCheckbox id="hasCar" value="#{createCreditRequestController.additionalData.hasCar}"/>
+
+            </h:panelGrid>
+        </rich:panel>
+
+        <a4j:outputPanel id="mate">
+            <rich:panel header="Информация о супруге" styleClass="layout"
+                        rendered="#{createCreditRequestController.additionalData.maritalStatus == 1 or
+                             createCreditRequestController.additionalData.maritalStatus == 4}">
+                <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                    <h:outputText value="Фамилия супруга"/>
+                    <h:panelGroup>
+                        <h:inputText id="mateLastName"
+                                     value="#{createCreditRequestController.additionalData.lastName}">
+                            <rich:validator/>
+                        </h:inputText>
+                        <rich:message for="mateLastName"/>
+                    </h:panelGroup>
+
+                    <h:outputText value="Имя супруга"/>
+                    <h:panelGroup>
+                        <h:inputText id="mateFirstName"
+                                     value="#{createCreditRequestController.additionalData.firstName}">
+                            <rich:validator/>
+                        </h:inputText>
+                        <rich:message for="mateFirstName"/>
+                    </h:panelGroup>
+
+                    <h:outputLabel value="Отчество супруга"/>
+                    <h:panelGroup>
+                        <h:inputText id="mateMiddleName"
+                                     value="#{createCreditRequestController.additionalData.middleName}">
+                            <rich:validator/>
+                        </h:inputText>
+                        <rich:message for="mateMiddleName"/>
+                    </h:panelGroup>
+
+                    <h:outputText value="Дата рождения супруга"/>
+                    <h:panelGroup>
+                        <rich:calendar id="mateBirthDate"
+                                       value="#{createCreditRequestController.additionalData.birthDate}"
+                                       buttonIcon="/resources/icons/calendarIcon.png"
+                                       popup="true" datePattern="dd.MM.yyyy" enableManualInput="true"
+                                       showApplyButton="false" cellWidth="24px" cellHeight="22px">
+                            <rich:validator/>
+                        </rich:calendar>
+                        <rich:message for="mateBirthDate"/>
+                    </h:panelGroup>
+
+                    <h:outputText value="Мобильный телефон супруга"/>
+                    <h:panelGroup>
+                        <h:inputText id="matePhone" value="#{createCreditRequestController.additionalData.phone}"
+                                     styleClass="phone-mask">
+                            <rich:validator/>
+                        </h:inputText>
+                        <rich:message for="matePhone"/>
+                    </h:panelGroup>
+
+                    <h:outputText value="Занятость супруга"/>
+                    <h:panelGroup>
+                        <h:selectOneMenu id="mateOccupationId"
+                                         value="#{createCreditRequestController.additionalData.occupationCode}">
+                            <f:selectItem itemLabel="" itemValue=""/>
+                            <f:selectItems value="#{refs.typeWorkCodes}"/>
+                            <rich:validator/>
+                        </h:selectOneMenu>
+                        <rich:message for="mateOccupationId"/>
+                    </h:panelGroup>
+
+                    <h:outputText value="Дата начала совместной жизни"/>
+                    <h:panelGroup>
+                        <rich:calendar id="marriageDate"
+                                       value="#{createCreditRequestController.additionalData.marriageDate}"
+                                       buttonIcon="/resources/icons/calendarIcon.png"
+                                       popup="true" datePattern="dd.MM.yyyy" enableManualInput="true"
+                                       showApplyButton="false" cellWidth="24px" cellHeight="22px">
+                            <rich:validator/>
+                        </rich:calendar>
+                        <rich:message for="marriageDate"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </rich:panel>
+            <h:outputScript>
+                $(function () {
+                    $('[type=tel], .phone-mask').mask('+7 (999) 999 99 99');
+                    $('.rf-cal-inp').mask('99.99.9999');
+                });
+            </h:outputScript>
+        </a4j:outputPanel>
+    </h:panelGrid>
+    <h:panelGroup>
+        <a4j:commandButton value="Назад" styleClass="button grey" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" immediate="true" execute="@this" render="@form"
+                           action="#{createCreditRequestController.previousStep}"/>
+        <a4j:commandButton value="Далее" styleClass="button" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" render="@form"
+                           action="#{createCreditRequestController.saveAdditionalData}"/>
+    </h:panelGroup>
+</ui:composition>

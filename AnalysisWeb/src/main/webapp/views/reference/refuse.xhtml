@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			 <h:panelGroup id="pnlAdd">
+			     <h:panelGrid columns="2">
+			        <h:outputText value="Краткая причина отказа: "/>
+			        <h:inputText value="#{refRefuse.name}" size="55" required="true"/>
+			        <h:outputText value="Подробная причина отказа: "/>
+			        <h:inputText value="#{refRefuse.nameFull}" size="75" required="true"/>
+			        <h:outputText value="Имя константы для модели: "/>
+			        <h:inputText value="#{refRefuse.constantName}" required="true"/>			        
+			        <h:outputText value="Стадия: "/>
+			        <h:selectOneMenu id="selRefuse" value="#{refRefuse.reasonId}" required="true" requiredMessage="Необходимо заполнить стадию" >
+   						<f:selectItems value="#{comrefs.rejectReasonsType}" />
+   					 </h:selectOneMenu>
+			        <h:outputText value="Используется верификатором: "/>
+			        <h:inputText value="#{refRefuse.forDecision}" size="75" required="true"/>
+			     </h:panelGrid>
+             	 <a4j:commandButton value="Добавить" actionListener="#{refRefuse.addItem}" render="pnlData" execute="@form"/> 
+             </h:panelGroup>
+    		<p></p>		
+			
+			
+			<h:panelGroup id="pnlData">
+			<rich:dataTable id="refuses" var="ref" value="#{refRefuse.listRefRefuse}" >
+				<rich:column>
+					<f:facet name="header">Краткая причина отказа:</f:facet>
+					<h:inputText value="#{ref.name}" size="55"/>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Подробная причина отказа:</f:facet>
+					<h:inputText value="#{ref.nameFull}" size="75"/>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Имя константы для модели:</f:facet>
+					<h:inputText value="#{ref.constantName}" size="45"/>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Стадия:</f:facet>
+					<h:outputText value="#{ref.reasonId.name}" size="75" rendered="#{not empty ref.reasonId}"/>
+					
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Используется верификатором:</f:facet>
+					<h:inputText value="#{ref.forDecision}" size="45"/>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Действия</f:facet>
+					<h:commandLink actionListener="#{refRefuse.deleteItem}" onclick="if (! confirm('Удалить значение справочника?') ) { return false;}; return true; "  >
+							<f:attribute name="refid" value="#{ref.id}" />
+							<a4j:ajax render="pnlData" />
+							<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+					</h:commandLink>
+				</rich:column>															
+			</rich:dataTable>
+			</h:panelGroup>		
+			<h:panelGrid columns="2">
+				
+				<h:commandLink value="Сохранить" actionListener="#{refRefuse.saveItems}" />
+			</h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

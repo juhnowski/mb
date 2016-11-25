@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="admin" />
+	<ui:define name="title">Manager console</ui:define>
+	 <ui:define name="pageContent">
+        <h:form id="frmBonusSetEdit" rendered="#{menuCon.enabled_Admin}">
+        	<rich:collapsiblePanel header="Настройки бонусной системы" switchType="client" expanded="false">
+					Отображение всей бонусной системы <h:selectBooleanCheckbox value="#{editSets.isactive}" />
+					<table cellspacing="10" cellpadding="10">
+						<tr>
+							<td colspan="2">
+								<rich:dataTable styleClass="date" value="#{editSets.bonusTypes}" var="bon" rendered="#{editSets.bonusTypes!=null}">
+								<rich:column>
+									<f:facet name="header">Вид бонуса</f:facet>
+									#{bon.name}
+								</rich:column>
+								<rich:column>
+									<f:facet name="header">Количество</f:facet>
+									<h:inputText value="#{bon.amount}"></h:inputText>
+								</rich:column>
+								<rich:column>
+									<f:facet name="header">Активно</f:facet>
+									<h:selectBooleanCheckbox value="#{bon.isactive}" /> 
+								</rich:column>
+							</rich:dataTable>
+							</td>
+						</tr>
+						<tr>
+							<td>Курс бонус к рублю
+							</td>
+							<td>
+								<h:inputText id="bonusrate" value="#{editSets.bonusrate}" rendered="#{not empty editSets.bonusrate}"></h:inputText>
+							</td>
+						</tr>
+						<tr>
+							<td>Процент платежа, который можно оплатить бонусами
+							</td>
+							<td>
+								<h:inputText id="bonuspayprocent" value="#{editSets.bonuspayprocent}" rendered="#{not empty editSets.bonuspayprocent}"></h:inputText>
+							</td>
+						</tr>
+						<tr>
+							<td>Максимальная сумма, которую можно оплатить бонусами в рублях
+							</td>
+							<td>
+								<h:inputText id="bonuspaymaxsum" value="#{editSets.bonuspaymaxsum}" rendered="#{not empty editSets.bonuspaymaxsum}"></h:inputText>
+							</td>
+						</tr>
+					</table>
+					<h:commandButton id="btnSaveBon" value="Сохранить настройки" action="#{editSets.saveBonusSettings}" styleClass="button"></h:commandButton>
+			</rich:collapsiblePanel>
+        </h:form>
+    </ui:define>
+</ui:composition>

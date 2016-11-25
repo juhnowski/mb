@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+	<h:panelGrid columns="2">
+		<h:outputText value="merchantId" />
+		<h:inputText value="#{editPlugCtl.extCtl.merchantId}" size="50"/>
+		<h:outputText value="refillUrl" />
+		<h:inputText value="#{editPlugCtl.extCtl.refillUrl}" size="100"/>
+		<h:outputText value="personalInfoUrl" />
+		<h:inputText value="#{editPlugCtl.extCtl.personalInfoUrl}" size="100"/>
+		<h:outputText value="privateSecurityKey" />
+		<h:inputText value="#{editPlugCtl.extCtl.privateSecurityKey}" size="50"/>
+	</h:panelGrid>
+
+				
+</ui:composition>

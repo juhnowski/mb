@@ -1,0 +1,91 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="newForm">
+            <rich:panel header="Добавить новый критерий">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Название"/>
+                    <h:inputText value="#{indexCreditCompare.newReference.name}" size="50"/>
+
+                    <h:outputText value="Называние таблицы"/>
+                    <h:inputText value="#{indexCreditCompare.newReference.entityName}" size="50"/>
+
+                    <h:outputText value="Название поля"/>
+                    <h:inputText value="#{indexCreditCompare.newReference.fieldName}" size="15"/>
+
+                    <h:outputText value="Используется для рассчета оценки"/>
+                    <h:selectBooleanCheckbox value="#{indexCreditCompare.newReference.useForRate}"/>
+
+                    <h:outputText value="Необходимо поле для рассчета"/>
+                    <h:selectBooleanCheckbox value="#{indexCreditCompare.newReference.necessary}"/>
+                </h:panelGrid>
+
+                <h:commandButton value="Добавить" action="#{indexCreditCompare.create}"/>
+            </rich:panel>
+        </h:form>
+
+        <h:form id="tableForm">
+            <rich:extendedDataTable id="referenceTable" var="reference" value="#{indexCreditCompare.referenceList}"
+                                    rows="20">
+                <rich:column>
+                    <f:facet name="header">id</f:facet>
+                    <h:outputText value="#{reference.id}"/>
+                </rich:column>
+                <rich:column width="300">
+                    <f:facet name="header">Название</f:facet>
+                    <h:outputText value="#{reference.name}"/>
+                </rich:column>
+                <rich:column width="300">
+                    <f:facet name="header">Название таблицы</f:facet>
+                    <h:outputText value="#{reference.entityName}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Название поля</f:facet>
+                    <h:outputText value="#{reference.fieldName}"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Используется для рассчета оценки</f:facet>
+                    <h:selectBooleanCheckbox value="#{reference.useForRate}" disabled="true"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Необходимо поле для рассчета</f:facet>
+                    <h:selectBooleanCheckbox value="#{reference.necessary}" disabled="true"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Конфигураций</f:facet>
+                    <h:outputText value="#{fn:length(reference.configurations)}" disabled="true"/>
+                </rich:column>
+
+                <rich:column>
+                    <f:facet name="header">Действия</f:facet>
+                    <h:panelGrid columns="2">
+                        <h:panelGroup>
+                            <h:link outcome="edit_creditcompare?faces-redirect=true">
+                                <f:param name="referenceId" value="#{reference.id}"/>
+                                <h:graphicImage value="/resources/icons/edit.gif" title="редактировать"/>
+                            </h:link>
+                        </h:panelGroup>
+                        <h:panelGroup style="margin-left:8px">
+                            <h:commandLink actionListener="#{indexCreditCompare.deleteItem}"
+                                           onclick="return confirm('Удалить запись?');">
+                                <f:attribute name="referenceId" value="#{reference.id}"/>
+                                <a4j:ajax render="tableForm"/>
+                                <h:graphicImage value="/resources/icons/delete.gif" title="удалить"/>
+                            </h:commandLink>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </rich:column>
+
+                <f:facet name="footer">
+                    <rich:dataScroller/>
+                </f:facet>
+            </rich:extendedDataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

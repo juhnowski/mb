@@ -1,0 +1,79 @@
+﻿<!--#include file="_head.shtml"-->
+
+	<body>
+		
+		<!--#include file="_header.shtml"-->
+
+		<!--  Start main -->
+		<main>
+
+				
+
+			<div class="main-block">
+				<div class="block-aboutcompany">
+					<div class="ba-inside">
+						<div class="ba-inside-left">
+							<h2>Мы разрабатываем и внедряем <br>самые современные технологии!</h2>
+							<p>
+								Низкие ставки для заёмщиков Ontime предлагает
+								привлекательные в своем сегменте условия с низкими
+								ставками для постоянных заемщиков
+							</p>
+
+							<p>
+								Отличительный бренд Лучший микрофинансовый бренд России
+								по мнению авторитетного международного издания Global
+								Brands Magazine
+							</p>
+						</div>
+
+						<div class="ba-inside-right">
+							<a href="" class="button-details">Наши реквизиты</a>
+
+							<div class="bir-top">
+								<div class="bir-top-left"></div>
+								<div class="bir-top-right">
+									Полностью автоматизированный процесс принятия <br>
+									решения по выдаче кредита заемщику!
+								</div>
+							</div>
+
+							<div class="bir-bottom">
+								<div class="bir-bottom-left">
+									Поставщик ведущих <br>
+									МФО России
+								</div>
+								<div class="bir-bottom-right">
+									powered by
+									<div class="bir-br-logo"></div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				
+
+				<div class="block-map">
+					<div id="panel">
+						<input id="latlng" type="text" value="59.940775, 30.391884">
+					</div>
+
+					<div id="map-canvas"></div>
+					<div class="map-layer"></div>
+				</div>
+			</div>
+			
+			
+		</main>
+		<!-- Stop main -->
+
+
+
+		<!--#include file="_footer.shtml"-->
+		<!--#include file="_modal.shtml"-->
+
+
+
+	</body>
+</html>

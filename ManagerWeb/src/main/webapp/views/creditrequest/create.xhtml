@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+    <ui:param name="top_selected_item" value="creditrequest"/>
+
+    <ui:define name="title">Manager console</ui:define>
+
+    <ui:define name="pageContent">
+        <h1>Создание заявки</h1>
+        <h:form id="frmEdit">
+            <rich:messages globalOnly="true"/>
+            <h:panelGroup rendered="#{createCreditRequestController.step == 0}">
+                <ui:include src="create-include/credit-data.xhtml"/>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{createCreditRequestController.step == 1}">
+                <ui:include src="create-include/choose-customer.xhtml"/>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{createCreditRequestController.step == 2}">
+                <ui:include src="create-include/personal-data.xhtml"/>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{createCreditRequestController.step == 3}">
+                <ui:include src="create-include/additional-data.xhtml"/>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{createCreditRequestController.step == 4}">
+                <ui:include src="create-include/employment-data.xhtml"/>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{createCreditRequestController.step == 5}">
+                <ui:include src="create-include/address-data.xhtml"/>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{createCreditRequestController.step == 6}">
+                <ui:include src="create-include/account-data.xhtml"/>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{createCreditRequestController.step == 7}">
+                <ui:include src="create-include/check-all.xhtml"/>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>

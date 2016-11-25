@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+    <ui:define name="pageContent">
+<style type="css"> 
+.autoSizeRows .rf-edt-hdr-c{
+border-right:none !important;
+border-bottom:none !important;
+}
+.autoSizeRows .rf-edt-c{
+height: 100px !important;
+border-right:none !important;
+border-bottom:none !important;
+}
+
+.autoSizeRows .rf-edt-cnt td {
+border-bottom: 1px solid #9FC0E9; 
+border-right: 1px solid #9FC0E9;
+}
+</style>    
+        <h:form>
+        	<rich:messages globalOnly="true"/>
+            <h:outputLabel value="Роли:" />
+            <h:commandLink value="Создать" action="#{viewRoleIndex.createRole}" styleClass="button">
+            </h:commandLink>
+            <rich:dataTable var="role" value="#{viewRoleIndex.roles}" styleClass="table2">
+            	<rich:column headerClass="th0" styleClass="td0">
+            		<f:facet name="header"><h:outputText value="Имя" /></f:facet>
+            		<h:outputText value="#{role.name}"/>
+            	</rich:column>
+            	<rich:column headerClass="th0" styleClass="td0">
+            		<f:facet name="header"><h:outputText value="Название" /></f:facet>
+            		<h:outputText value="#{role.realName}"/>
+            	</rich:column>            	
+            	<rich:column headerClass="th0" styleClass="td0">
+            		<f:facet name="header"><h:outputText value="Действия" /></f:facet>
+            		<h:panelGrid columns="2">      
+            		  <h:link outcome="/views/roles/edit.xhtml" styleClass="open">
+            			  <f:param name="roleid" value="#{role.id}"/>
+            			  <f:param name="faces-redirect" value="true"/>
+            			
+            		  </h:link>
+            		  <h:commandLink actionListener="#{viewRoleIndex.deleteItem}" onclick="if (! confirm('Удалить роль ?') ) { return false;}; return true; "  styleClass="delete">
+            			  <f:attribute name="roleid" value="#{role.id}"/>
+            		      <a4j:ajax render="@form" />      			
+            		  </h:commandLink>
+                    </h:panelGrid>
+            	</rich:column>            	
+            </rich:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition> 

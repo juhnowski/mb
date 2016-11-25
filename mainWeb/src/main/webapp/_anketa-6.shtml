@@ -1,0 +1,31 @@
+<form class="step-6 step">
+    <div class="fieldset">
+        <h3 class="fieldset__h3">Параметры сделки</h3>
+
+        <!--#include file="_slider.shtml"-->
+    </div>
+
+    <div class="fieldset pb14">
+        <h3 class="fieldset__h3">Способ получения денег</h3>
+        <label class="fieldset__checkbox radio checkbox">
+            Банковская карта
+            <input type="radio" name="param-zaim" checked="checked">
+        </label>
+        <div class="w354 fieldset__card">
+            <input placeholder="XXXX XXXX XXXX XXXX" class="input">
+        </div>
+        <hr>
+        <label class="fieldset__checkbox radio checkbox">
+            Система Contact
+            <input type="radio" name="param-zaim">
+        </label>
+        <div class="w354 fieldset__contact hide">
+            <input placeholder="XXXX XXXX XXXX XXXX" class="input">
+        </div>
+    </div>
+
+    <div class="pagin">
+        <a class="btn pull-left prev">Назад <i class="ico arrow-left"></i></a>
+        <a class="btn btn--green next pull-right finish">Оформить <i class="ico arrow-right-white"></i></a>
+    </div>
+</form>

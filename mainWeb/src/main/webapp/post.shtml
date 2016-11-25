@@ -1,0 +1,66 @@
+<!--#set var="typePage" value="page" -->
+<!--#include file="_head.shtml"-->
+<title>Последние новости о займах и финансах</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+</head>
+
+<body class="news-post">
+
+<header class="header clr">
+
+    <div class="img-head"></div>
+
+    <!--#include file="_menu.shtml"-->
+
+    <div class="fadeInUp">
+
+    </div>
+
+</header>
+
+<main>
+
+    <article>
+
+        <div class="center clr">
+
+            <div class="left-block">
+
+                <header id="header-news">
+                    <ul class="breadcrumb clr">
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="news.shtml">Новости</a></li>
+                        <li><a class="header-news"></a></li>
+                    </ul>
+                    <h1 class="header-news"></h1>
+                    <time datetime="2015-06-01">1 июня, 2015</time>
+                    <ul class="social_group v2 clr">
+                        <li class="tw"><a href="javascript:void(0)"></a></li>
+                        <li class="fb"><a href="javascript:void(0)"></a></li>
+                        <li class="vk"><a href="javascript:void(0)"></a></li>
+                        <li class="ok"><a href="javascript:void(0)"></a></li>
+                    </ul>
+                </header>
+
+
+            </div>
+
+            <!--#include file="_right-block.shtml"-->
+
+        </div>
+
+    </article>
+
+    <aside class="block-after">
+
+        <!--#include file="_statistic_block.shtml"-->
+
+    </aside>
+
+</main>
+
+<!--#include file="_footer.shtml"-->
+<script type="text/javascript">
+    getNewsById();
+</script>

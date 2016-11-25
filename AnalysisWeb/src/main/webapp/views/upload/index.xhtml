@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+     <ui:define name="title">Business analysis console</ui:define>
+
+     <ui:define name="pageContent">
+     <h:form id="frmUpload">
+    		
+    			
+    			<h:panelGrid id="table_upload" columns="2">
+    			    <h:outputText value="Партнер" />
+    				<h:panelGroup>
+    				   <h:selectOneMenu id="typeId" value="#{uploading.partnerId}" required="true" valueChangeListener="#{uploading.changePartner}">
+         	             <f:selectItem itemValue="0" itemLabel="--выберите КБ--" />
+         	             <f:selectItem itemValue="1" itemLabel="Русский стандарт" />
+		   		         <f:selectItem itemValue="2" itemLabel="Эквифакс, кредиты"  />
+		   		         <f:selectItem itemValue="3" itemLabel="ОКБ - кредитные истории"  />
+		   		         <f:selectItem itemValue="4" itemLabel="Эквифакс, кредитные заявки"  />
+		   		         <f:selectItem itemValue="5" itemLabel="Эквифакс, коррекционный файл"  />
+		   		         <f:selectItem itemValue="6" itemLabel="Специализированное КБ" />
+		   		         <f:selectItem itemValue="7" itemLabel="Эквифакс, файл для удаления" />
+		   		         <f:selectItem itemValue="8" itemLabel="НБКИ" />
+		   		         <a4j:ajax event="change" execute="@this"  render="@form"/>
+		   	           </h:selectOneMenu>
+    				   <rich:messages for="typeId" />
+    				</h:panelGroup> 
+    			
+    				<h:outputText value="Сервис рабочий" />
+    				<h:panelGroup>
+    					<h:selectBooleanCheckbox id="wrk" value="#{uploading.isWork}" valueChangeListener="#{uploading.changeWork}">
+    					    <a4j:ajax event="change" execute="@this"/>
+    					</h:selectBooleanCheckbox>
+    					<rich:messages for="wrk" />
+    				</h:panelGroup> 
+    				<h:outputText value="Делаем выгрузку на дату (если на сегодня, можно оставить пустой)" />
+    				<h:panelGroup>
+    					<rich:calendar id="dt" value="#{uploading.sendingDate}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" valueChangeListener="#{uploading.changeDate}">
+				           <a4j:ajax event="change" execute="@this"/>
+                	   </rich:calendar>
+    					<rich:messages for="dt" />
+    				</h:panelGroup> 
+    				<h:outputText value="Номера кредитов через запятую (для выгрузки только этих кредитов)" />
+    				<h:panelGroup>
+    					<h:inputText value="#{uploading.stringIds}" valueChangeListener="#{uploading.changeStringIds}">
+    				        <a4j:ajax event="change" execute="@this"/>
+    				    </h:inputText>
+    					
+    				</h:panelGroup> 
+    				<h:panelGroup id="pnlNomer" rendered="#{uploading.partnerId==5 or uploading.partnerId==7}">
+    				    <h:outputText value="Номер кредита для коррекции (удаления)" />
+    				    <h:inputText value="#{uploading.corNomer}" valueChangeListener="#{uploading.changeNomer}">
+    				        <a4j:ajax event="change" execute="@this"/>
+    				    </h:inputText>
+    				</h:panelGroup>
+    			</h:panelGrid>
+    			<h:commandButton value="Сформировать файл" action="#{uploading.createTextForUpload}">
+    			    <a4j:ajax execute="@this" render="@form"/>
+    			</h:commandButton>
+    			<h:commandButton value="Показать файл" action="#{uploading.showTextForUpload}" rendered="#{not empty uploading.uploading}"/>
+    	        <h:commandButton id="kb" value="Загрузить файл в КБ" action="#{uploading.uploadKB}" rendered="#{not empty uploading.uploading}"/>
+         </h:form>
+     </ui:define>
+</ui:composition>
+

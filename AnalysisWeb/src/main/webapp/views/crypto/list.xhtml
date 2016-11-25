@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+     <ui:define name="title">Business analysis console</ui:define>
+
+     <ui:define name="pageContent">
+        <h:form id="frmUpload">
+        	<h:panelGroup id="pnlAdd">
+    		  <h:outputText value="Добавление сертификата" styleClass="text-bold"/>
+    		  <h:panelGrid >
+    		     <h:outputText value="При добавлении сертификатов необходимо помнить, что сначала добавляются корневые сертификаты, затем промежуточные, и в самую последнюю очередь конечные. Это необходимо для построения корректной цепочки сертификации." styleClass="text-italic"/>
+    		     <p></p>
+    		     <h:outputText value="Провайдер" />
+         	     <h:selectOneMenu value="#{listCrypto.providerName}" valueChangeListener="#{listCrypto.changeProvider}" required="true">
+        			<f:selectItems value="#{refs.providerNull}" />
+        			<a4j:ajax event="change" execute="@this"  />
+        		  </h:selectOneMenu>
+        		   <h:outputText value="Наше название сертификата" required="true" />
+        		   <h:inputText value="#{listCrypto.settingsName}" size="100"/>
+        		   <rich:fileUpload  id="upload" fileUploadListener="#{listCrypto.uploadListener}" acceptedTypes="cer,crt,cert,zip,key"
+					                ontyperejected="alert('Допускаются только файлы сертификатов cer, crt,cert');" immediateUpload="true" 
+					                addLabel="Загрузить сертификат"  clearAllLabel="Удалить все" clearLabel="Удалить" doneLabel="Готово" >
+					               
+				  </rich:fileUpload>
+    		      <h:commandButton value="Добавить сертификат в базу"  action="#{listCrypto.addCertificate}"/>
+    		  </h:panelGrid>
+    		</h:panelGroup>
+    		
+        </h:form>
+        <h:form id="frmMain">
+    		
+    		<rich:messages globalOnly="true" layout="table" />
+    	
+			<h:panelGroup id="pnlFull">
+         	    <h:outputText value="Поиск" />
+         	    <h:panelGrid columns="2">
+         	    <h:outputText value="Вид сертификата" />
+         	    <h:selectOneMenu value="#{listCrypto.prmSubjectTypeId}">
+        			<f:selectItems value="#{refs.certTypesNull}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Статус сертификата" />
+         	     <h:inputText  value="#{listCrypto.prmStatusId}"/>
+         	    <h:outputText value="CN" />
+         	    <h:inputText  value="#{listCrypto.prmSubjectCN}"/>
+         	    <h:outputText value="Провайдер" />
+         	     <h:selectOneMenu value="#{listCrypto.prmProviderName}">
+        			<f:selectItems value="#{refs.providerNull}" />
+        		</h:selectOneMenu>
+         	    <h:outputText value="Название для нас" />
+         	    <h:inputText  value="#{listCrypto.prmSettingsName}"/>
+         		<h:outputText value="Дата начала сертификата с" />
+         	    <rich:calendar value="#{listCrypto.prmDateStart.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         	     <h:outputText value="Дата начала сертификата по" />
+         	    <rich:calendar value="#{listCrypto.prmDateStart.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         		  <h:outputText value="Дата окончания сертификата с" />
+         	    <rich:calendar value="#{listCrypto.prmDateFinish.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         	     <h:outputText value="Дата окончания сертификата по" />
+         	    <rich:calendar value="#{listCrypto.prmDateFinish.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         	    </h:panelGrid>
+             	<a4j:commandButton value="Найти" actionListener="#{listCrypto.searchLsn}" render="pnlResults" /> <a4j:commandButton value="Очистить" actionListener="#{listCrypto.clearLsn}" render="frmMain" />
+             </h:panelGroup>
+    		<p></p>		
+				<h:panelGroup id="pnlResults">
+				<h:panelGroup>
+					<h:outputText value="Найдено #{listCrypto.model.rowCount} сертификатов" />
+				</h:panelGroup>	
+				<rich:extendedDataTable id="reqTable"
+		                         value="#{listCrypto.model}"               
+		                         var="req"
+		                         selectionMode="single" rows="20">
+		               
+		                <rich:column width="150">
+		                	<f:facet name="header">№ сертификата</f:facet>
+		                	<h:link outcome="edit?faces-redirect=true" >
+		                		<f:param name="reqid" value="#{req.id}" />
+		                		<h:outputText value="#{req.id}"/>
+		                	</h:link>
+		                </rich:column>
+		                 <rich:column width="150">
+		                	<f:facet name="header">Вид сертификата</f:facet>
+		                	<h:outputText value="Конечный сертификат" rendered="#{req.subjectType==1}"/>
+		                	<h:outputText value="Промежуточный CA" rendered="#{req.subjectType==2}"/>
+		                	<h:outputText value="Корневой CA" rendered="#{req.subjectType==3}"/>
+		                </rich:column>
+		                <rich:column width="120">
+		                	<f:facet name="header">Дата начала</f:facet>
+		                	<h:outputText value="#{req.dateStart}">
+		                	    <f:convertDateTime pattern="dd.MM.yyyy" />
+		                	</h:outputText>
+		                </rich:column>
+		                <rich:column width="120">
+		                	<f:facet name="header">Дата окончания</f:facet>
+		                	<h:outputText value="#{req.dateFinish}">
+		                	    <f:convertDateTime pattern="dd.MM.yyyy" />
+		                	</h:outputText>
+		                </rich:column>
+		                <rich:column width="500">
+		                	<f:facet name="header">CN</f:facet>
+		                	<h:outputText value="#{req.subjectCN}"/>
+		                </rich:column>
+		                
+		                <rich:column width="300">
+		                	<f:facet name="header">Статус сертификата</f:facet>
+		                	<h:outputText value="#{req.status.name}"/>
+		                </rich:column>
+		                <rich:column width="80">
+		                	<f:facet name="header">действия</f:facet>
+		                	<h:panelGrid columns="1">          		
+								<h:panelGroup style="margin-left:8px">
+									<h:commandLink actionListener="#{listCrypto.deleteItem}" onclick="if (! confirm('Удалить сертификат ?') ) { return false;}; return true; "  >
+										<f:attribute name="reqid" value="#{req.id}" />
+										<a4j:ajax render="@form" />
+										<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+									</h:commandLink>
+								</h:panelGroup>
+							</h:panelGrid> 
+		                </rich:column>	
+		                 <f:facet name="footer">	
+		                    <rich:dataScroller/>
+		                </f:facet>
+		         </rich:extendedDataTable>
+		     </h:panelGroup>           	
+    			
+    	
+         </h:form>
+     </ui:define>
+</ui:composition>
+

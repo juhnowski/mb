@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+			<h:panelGroup id="pnlResults" styleClass="div">
+				<h:panelGroup id="cnt" styleClass="total_result" >
+					<h:outputText value="Найдено " /><b><h:outputText value="#{listUsers.model.rowCount} пользователей" /></b>					
+				</h:panelGroup>	
+				<rich:dataTable id="reqTable"
+		                         value="#{listUsers.model}"               
+		                         var="req"
+		                         selectionMode="single"
+		                         rows="20"
+		                         sortPriority="#{listUsers.model.sortPriorities}"
+		                         styleClass="table2">
+	               
+	               <rich:column headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">ФИО пользователя</f:facet>
+	                	<h:outputText value="#{req.peopleMain.peoplePersonalActive.fullName}"/>
+	                </rich:column>
+	                <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">Логин</f:facet> 	                	
+	                	<h:outputText value="#{req.userName}"/>
+	                </rich:column>	
+	                <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">Вид пользователя</f:facet> 	                	
+	                	<h:outputText value="#{req.userType.name}"/>
+	                </rich:column>	
+	                <rich:column headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Роли</f:facet>
+	                	<h:outputText value="#{req.rolesDescription}"/>
+	                </rich:column>
+	                		                		                
+	                <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	                		<h:outputText value="Действия" />
+	                		<br/>
+	                        <a4j:commandLink execute="@this" value="сбросить" render="reqTable"
+	                            action="#{listUsers.model.reset}">
+	                        </a4j:commandLink>                		
+	            		</f:facet> 
+	                	<h:panelGrid columns="2">          		
+							<h:panelGroup >
+								<h:link outcome="edit?faces-redirect=true" styleClass="open" >
+									<f:param name="userid" value="#{req.id}" />
+								</h:link>
+							</h:panelGroup>
+					       <h:panelGroup  >
+								<h:commandLink styleClass="delete" actionListener="#{listUsers.deleteItem}" onclick="if (! confirm('Удалить пользователя ?') ) { return false;}; return true; "  >
+									<f:attribute name="userid" value="#{req.id}" />
+									<a4j:ajax render="@all" />
+									
+								</h:commandLink>
+						  </h:panelGroup>						
+						</h:panelGrid> 
+	                </rich:column>		
+	                <f:facet name="footer">
+	                	<rich:dataScroller />
+	                </f:facet>
+	          	</rich:dataTable>				
+			</h:panelGroup>	
+</ui:composition>

@@ -1,0 +1,127 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"  xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="report" />
+	
+    <ui:define name="title">Manager console</ui:define>
+
+
+    <ui:define name="pageContent">
+        <h:form id="main">
+        	<rich:panel id="filterPanel" header="Фильтр и тип отчета">
+        	 <h:selectOneMenu value="#{reportEngine.reportType}">
+        			 <f:selectItem itemValue="0" itemLabel="Выдачи" />
+        			  <f:selectItem itemValue="1" itemLabel="Оплаты" />
+        			  <f:selectItem itemValue="2" itemLabel="Продления" />
+        			   <f:selectItem itemValue="3" itemLabel="Закрытия" />
+        			   <f:selectItem itemValue="4" itemLabel="Портфель" />
+        			    <f:selectItem itemValue="5" itemLabel="Взыскания" />
+                  <f:selectItem itemValue="6" itemLabel="Заявки" />
+                  <f:selectItem itemValue="7" itemLabel="Кредиты" />
+                  <f:selectItem itemValue="8" itemLabel="История платежей" />
+        			 <f:ajax listener="#{reportEngine.reportTypeChanged}" render="main"/>
+        		</h:selectOneMenu>
+        		<h:outputText value="Срок"/>
+        		 <h:selectOneMenu  value="#{reportEngine.term}">
+        			 <f:selectItem itemValue="#{reportEngine.reportIntervalTypes[0]}" itemLabel="День" />
+        			  <f:selectItem itemValue="#{reportEngine.reportIntervalTypes[1]}" itemLabel="Неделя" />
+        			   <f:selectItem itemValue="#{reportEngine.reportIntervalTypes[2]}" itemLabel="Месяц" />
+        			    <f:selectItem itemValue="#{reportEngine.reportIntervalTypes[3]}" itemLabel="Год" />
+        			     <f:selectItem itemValue="#{reportEngine.reportIntervalTypes[4]}" itemLabel="Интервал" />
+        			 <f:ajax listener="#{reportEngine.dateTypeChanged}" render="filterPanel"/>
+        		</h:selectOneMenu>
+        		<rich:calendar rendered="#{reportEngine.term == reportEngine.reportIntervalTypes[4]}" id="start"  value="#{reportEngine.start}">
+        		<a4j:ajax execute="@this" event="change" listener="#{reportEngine.onDateStartSet}"  render="filterPanel" />  
+          			
+				</rich:calendar>
+				<rich:calendar rendered="#{reportEngine.term == reportEngine.reportIntervalTypes[4]}"  id="end"  value="#{reportEngine.end}">
+				<a4j:ajax execute="@this" event="change" listener="#{reportEngine.onDateEndSet}"  render="filterPanel" />
+          		
+				</rich:calendar>
+
+        	<a4j:commandButton render="reportText" value="Сгенерировать отчет" actionListener="#{reportEngine.generateReport(false)}" execute="@form"></a4j:commandButton> 
+            <h:commandButton render="reportText" value="Получить excel файл" action="#{reportEngine.generateReport(true)}" >
+            </h:commandButton>
+        	</rich:panel>
+             <rich:panel styleClass="reports_filters" id="additionalFiltersPanel" header="Дополнительные фильтры" rendered="#{reportEngine.reportType le 5}">
+            <h:outputText value="Профессия"/>
+             <h:selectOneMenu value="#{reportEngine.profession}">
+                   <f:selectItems value="#{reportEngine.professions}" var="profession" itemValue="#{profession.codeinteger}" itemLabel="#{profession.name}"/>
+                </h:selectOneMenu>  
+                <h:outputText value="Пол"/>
+             <h:selectOneMenu value="#{reportEngine.gender}">
+                   <f:selectItems value="#{reportEngine.genders}" var="gender" itemValue="#{gender.code}" itemLabel="#{gender.name}"/>
+                </h:selectOneMenu>
+                 <h:outputText value="Семейное положение"/>
+             <h:selectOneMenu value="#{reportEngine.marriage}">
+                   <f:selectItems value="#{reportEngine.marriages}" var="marriage" itemValue="#{marriage.codeinteger}" itemLabel="#{marriage.name}"/>
+            </h:selectOneMenu>
+             <rich:panel id="ageFilter">
+             <h:outputText value="Возраст от"/> 
+               <rich:inputNumberSlider enableManualInput="false"  showArrows="true" value="#{reportEngine.minAge}" orientation="vertical" minValue="18" maxValue="120" showInput="true">
+               <a4j:ajax execute="@this" event="change" listener="#{reportEngine.onMinAgeSet}" render="ageFilter" />  
+               </rich:inputNumberSlider>
+                <h:outputText value="Возраст до"/> 
+               <rich:inputNumberSlider enableManualInput="false" showArrows="true" value="#{reportEngine.maxAge}" orientation="vertical" minValue="18" maxValue="120" showInput="true">
+                 <a4j:ajax execute="@this" event="change" listener="#{reportEngine.onMaxAgeSet}"  render="ageFilter" />  
+               </rich:inputNumberSlider>
+             </rich:panel>
+               <rich:panel id="salaryFilter" styleClass="reports_filters_salary">
+                <h:outputText value="Доход"/> 
+                <h:selectOneMenu value="#{reportEngine.minSalaryOption}">
+               <f:selectItem itemValue="0" itemLabel="Не важно" />
+                <f:selectItem itemValue="1" itemLabel="Интервал" />
+               <f:ajax listener="#{reportEngine.minSalaryOptionChanged}" render="salaryFilter"/>
+                 </h:selectOneMenu>
+               <rich:panel rendered="#{reportEngine.minSalary >= 0}">
+                <h:outputText value="Доход от"/> 
+               <rich:inputNumberSlider minValue="5000" step="5000" maxValue="200000" enableManualInput="false"  showArrows="true" value="#{reportEngine.minSalary}" orientation="vertical"  showInput="true">
+               <a4j:ajax execute="@this" event="change" listener="#{reportEngine.onMinSalarySet}" render="salaryFilter" />  
+               </rich:inputNumberSlider>
+                <h:outputText value="Доход до"/> 
+               <rich:inputNumberSlider enableManualInput="false" showArrows="true" value="#{reportEngine.maxSalary}" orientation="vertical" minValue="5000" step="5000" maxValue="200000" showInput="true">
+                 <a4j:ajax execute="@this" event="change" listener="#{reportEngine.onMaxSalarySet}"  render="salaryFilter" />  
+               </rich:inputNumberSlider>  
+               </rich:panel>  
+               </rich:panel> 
+               <rich:panel id="cityFilter">
+                <h:outputText value="Область"/>
+                <h:selectOneMenu value="#{reportEngine.region}">
+                 <f:selectItems value="#{reportEngine.regions}" var="region" itemValue="#{region.region}" itemLabel="#{region.regionName}"/>
+                  <f:ajax listener="#{reportEngine.onRegionSet}" render="cityFilter" />
+               </h:selectOneMenu>
+                 <h:outputText value="Населенный пункт"/>
+                 <h:selectOneMenu value="#{reportEngine.place}">
+                 <f:selectItems value="#{reportEngine.places}" var="place" itemValue="#{place.place}" itemLabel="#{place.placeName}"/>
+                 <f:ajax listener="#{reportEngine.onPlaceSet}" />
+               </h:selectOneMenu>
+               <h:outputText value="Сотрудник"/>
+                <h:selectOneMenu value="#{reportEngine.manager}">
+                 <f:selectItems value="#{reportEngine.managers}" var="manager" itemValue="#{manager.id}" itemLabel="#{manager.username}"/>
+               </h:selectOneMenu>              
+               </rich:panel>   
+               <rich:panel id="productFilter">
+                 <h:outputText value="Продукт"/>
+                <h:selectOneMenu value="#{reportEngine.product}">
+                 <f:selectItems value="#{reportEngine.products}" var="product" itemValue="#{product.id}" itemLabel="#{product.name}"/>
+               </h:selectOneMenu>
+                <h:outputText value="Канал выдачи"/>
+                <h:selectOneMenu value="#{reportEngine.paymentWay}">
+                 <f:selectItems value="#{reportEngine.paymentWays}" var="paymentWay" itemValue="#{paymentWay.codeinteger}" itemLabel="#{paymentWay.name}"/>
+               </h:selectOneMenu>       
+            </rich:panel> 
+            <rich:panel>
+              <h:outputText value="Канал привлечения"/>
+                <h:selectOneMenu value="#{reportEngine.channel}">
+                 <f:selectItems value="#{reportEngine.channels}" var="channel" itemValue="#{channel.paramvalue}" itemLabel="#{channel.name}"/>
+               </h:selectOneMenu>  
+          </rich:panel>
+             </rich:panel> 
+        	<a4j:outputPanel layout="block" styleClass="reports_border">  
+        	<h:outputText id="reportText" value="#{reportEngine.reportText}"  escape="false"/>
+        	</a4j:outputPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>

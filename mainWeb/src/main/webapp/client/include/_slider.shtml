@@ -1,0 +1,42 @@
+<div class="zaem-slider notsel" data-ng-init="init()">
+    <div class="center">
+        <h3 class="hidden-xs">Выберите сумму и срок займа</h3>
+
+        <div class="box">
+            <h4 class="visible-xs">Сумма займа</h4>
+
+            <div class="value pull-left"><input class="input numer pull-left" id="summ_zaim-input" ng-model="creditSum">
+                <i class="ico rub pull-left"></i>
+            </div>
+            <div class="slider pull-left" id="summ_zaim_slider"></div>
+            <a class="plus pull-right hidden-xs"></a>
+            <a class="minus pull-right hidden-xs"></a>
+        </div>
+
+        <div class="box">
+            <h4 class="visible-xs">Срок займа</h4>
+
+            <div class="value pull-left">
+                <input class="input numer pull-left" id="date_zaim-input" ng-model="creditDays">
+                <i class="ico pull-left calendar"></i>
+            </div>
+            <div class="slider pull-left" id="date_zaim_slider"></div>
+            <a class="plus pull-right hidden-xs"></a>
+            <a class="minus pull-right hidden-xs"></a>
+        </div>
+
+        <ul class="pull-left clr">
+            <li><i class="ico return"></i>возвращаете <b><span id="total_zaim">22 000</span> <span
+                    class="suf">руб.</span></b></li>
+            <li><i class="ico procent"></i>процент <b><span id="procent_zaim">1.35</span> <span
+                    class="suf">в день</span></b></li>
+            <li><i class="ico time"></i>дата возврата <b id="date_zaim">18 08 2015</b></li>
+        </ul>
+
+        <!--#if expr="$typePage = lk" -->
+        <a id="sendToAnketa" class="btn red pull-right" ng-click="getCredit()">Отправить заявку</a>
+        <!--#else-->
+        <a id="sendToAnketa" href="/main/anketa.shtml" class="btn red pull-right">Оформить заем</a>
+        <!--#endif-->
+    </div>
+</div>

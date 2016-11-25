@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	>
+	
+	<div class="rf-p" id="divPnl">
+		<div class="rf-p-hdr" id="hdrPnl">Требуется ответить на вопросы</div>
+	    <a4j:region>
+		  <h:panelGroup id="pnlQuest">
+			<a4j:repeat var="qa" value="#{editTQA.questList}" >
+					
+					<h:panelGroup id="ans2" style="display:block" rendered="#{qa.answerStatus == 2}" styleClass="ques_list">
+					  <h:panelGrid columns="2" styleClass="table_ques">	
+						<h:outputText value="Вопрос: "/>
+					    <h:outputText value="#{qa.question.questionText}" />
+						<h:outputText value="Ответ: "/>
+						<h:outputText value="#{qa.answerValueNumber}" rendered="#{not empty qa.answerValueNumber}"/>
+						<h:outputText value="#{qa.answerValueMoney}" rendered="#{not empty qa.answerValueMoney}"/>
+						<h:outputText value="#{qa.answerValueDate}" rendered="#{not empty qa.answerValueDate}">
+						  <f:convertDateTime pattern="dd.MM.yyyy" />
+						</h:outputText>
+						<h:outputText value="#{qa.answerValueString}" rendered="#{not empty qa.answerValueString}"/>
+						<h:outputText value="#{refs.getRefText(qa.answerValueRef)}" rendered="#{not empty qa.answerValueRef}"/>
+					    <h:outputText value="Комментарий: "/>
+                	    <h:outputText value="#{qa.comment}"/>
+					  </h:panelGrid>	
+					</h:panelGroup>
+					<h:panelGroup id="ans1" style="display:block" rendered="#{qa.answerStatus == 1}" styleClass="ques_list">
+					  <h:panelGrid columns="2" styleClass="table_ques">
+						  <h:outputText value="Вопрос: "/>
+					      <h:outputText value="#{qa.question.questionText}" />
+						  <h:outputText value="Ответ: "/>
+						  <h:outputText value="Отказался отвечать"/>
+					  </h:panelGrid>
+					</h:panelGroup>
+					<h:panelGroup id="ans0" style="display:block" rendered="#{qa.answerStatus == 0}" styleClass="ques_list">
+						
+						<h:panelGrid columns="2" styleClass="table_ques">
+						  <h:outputText value="Вопрос: "/>
+					      <h:outputText value="#{qa.question.questionText}" />
+						  <h:outputText value="Ответить: "/>
+						  <h:selectOneMenu value="#{qa.answerValueRef}" rendered="#{qa.question.answerType==1}">
+        			         <f:selectItems value="#{editTQA.getVariants(qa.question.id)}" />
+        		          </h:selectOneMenu>
+						  <h:inputText value="#{qa.answerValueNumber}" rendered="#{qa.question.answerType==3}"/>
+						  <h:inputText value="#{qa.answerValueMoney}" rendered="#{qa.question.answerType==4}"/>
+						  <h:inputText value="#{qa.answerValueString}" rendered="#{qa.question.answerType==5}"/>
+						  <rich:calendar value="#{qa.answerValueDate}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" rendered="#{qa.question.answerType==6}">
+                	      </rich:calendar>
+                	      <h:outputText value="Комментарий: "/>
+                	      <h:inputText value="#{qa.comment}"/>
+                	       <h:panelGroup/>  
+                	       <h:panelGroup>
+                	         <h:commandLink value="Сохранить" styleClass="button ml0" actionListener="#{editTQA.saveQA}"  >
+						        <f:attribute name="qaid" value="#{qa.question.id}" />
+						        <a4j:ajax render="pnlQuest"/>
+						     </h:commandLink>
+						
+						    <h:commandLink value="Отказался отвечать" styleClass="button ml0" actionListener="#{editTQA.answerDeny}" >
+							    <f:attribute name="qaid" value="#{qa.question.id}" />
+							    <a4j:ajax render="pnlQuest"/>
+						    </h:commandLink>
+						    
+						  </h:panelGroup>
+                	    </h:panelGrid>
+					
+					</h:panelGroup>
+					
+							
+			</a4j:repeat>
+			
+			<h:commandButton value="Все вопросы заданы" styleClass="button ml0" actionListener="#{editTQA.readyLsn}" onclick="#{rich:component('popupIndicator')}.show();return true;">
+				<a4j:ajax render="@form" />
+			</h:commandButton>
+			<ui:include src="stdActionsBar.xhtml" >
+				<ui:param name="currentCtl" value="#{editTQA}" />
+			</ui:include>			
+			<br/>	
+			
+		    </h:panelGroup>
+		</a4j:region>
+	</div>
+</ui:composition>	

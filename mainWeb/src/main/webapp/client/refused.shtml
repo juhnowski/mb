@@ -1,0 +1,43 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta http-equiv="refresh" content="15;url=/main/client/overview.shtml"/>
+    <!--#include file="include/_head.shtml"-->
+
+    <script>
+        app = angular.module('app', ['layout']);
+    </script>
+</head>
+
+<body ng-controller="MainCtrl">
+
+<!--#include file="include/_header.shtml"-->
+
+<main>
+    <div class="center clr table w100p">
+        <div class="tr">
+
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block td">
+                <h3 class="h3">Вы отказались от займа</h3>
+
+                <div class="box-20 clr">
+                    <table class="table-1">
+                        <tr>
+                            <td>Статус</td>
+                            <td>Статус Вашей заявки обновлен. Через 10 секунд Вы будете автоматически перенаправлены на главную страницу.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+</body>
+</html>

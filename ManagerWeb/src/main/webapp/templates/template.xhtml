@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+        <ui:insert name="metadata"/>
+    </f:metadata>
+    <h:head>
+        <link rel="shortcut icon" href="#{resource['icons/favicon.ico']}" type="image/x-icon"/>
+        <title>Кабинет менеджера</title>
+    </h:head>
+    <h:body>
+        <ui:include src="styling.xhtml"/>
+        <h:form rendered="#{!(param['showmenu'] == '0')}">
+            <h:panelGroup styleClass="header cdiv">
+                <h:panelGroup styleClass="panel_1 cdiv">
+                    <h:panelGroup styleClass="center cdiv">
+                        <h:panelGroup styleClass="name">
+                            <h:outputText value="#{userData.user.fullName}"/>
+                        </h:panelGroup>
+                        <h:panelGroup styleClass="exit submit">
+                            <h:commandLink styleClass="" value="Выйти" action="#{userData.logout}"/>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup styleClass="center cdiv">
+                    <rich:toolbar>
+                        <rich:menuItem label="Главная" action="#{menuCon.toHome}"
+                                       styleClass="#{(top_selected_item == 'home')?'active':''}"/>
+                        <rich:dropDownMenu label="Заявки"
+                                           styleClass="#{(top_selected_item == 'creditrequest')?'active':''}"
+                                           popupWidth="184" 
+                                           onclick="document.location.href='/manager/faces/views/creditrequest/index.xhtml'"
+                                           rendered="#{menuCon.enabled_CreditRequest}">
+                            <rich:menuItem label="Все задачи по заявкам" action="#{menuCon.toHomeCR}"
+                                           rendered="#{menuCon.enabled_CreditRequest}"></rich:menuItem>
+                            <rich:menuGroup label="По задачам"
+                                            rendered="#{(menuCon.enabled_CreditRequest and menuCon.taskInfoCountCR > 0)}">
+                                <a4j:repeat var="taskinfo" value="#{menuCon.taskInfosCR}">
+                                    <rich:menuItem label="#{taskinfo.description}"></rich:menuItem>
+                                </a4j:repeat>
+                            </rich:menuGroup>
+                            <rich:menuItem label="Все заявки" action="#{menuCon.toListCR}"
+                                           rendered="#{menuCon.enabled_CreditRequest}"></rich:menuItem>
+                         
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu label="Займы" styleClass="#{(top_selected_item == 'credit')?'active':''}"
+                                           popupWidth="184"
+                                           onclick="document.location.href='/manager/faces/views/credit/index.xhtml'"
+                                           rendered="#{menuCon.enabled_Credit}">
+                            <rich:menuItem label="Все задачи по займам" action="#{menuCon.toHomeC}"
+                                           rendered="#{menuCon.enabled_Credit}"></rich:menuItem>
+                            <rich:menuGroup label="По задачам"
+                                            rendered="#{menuCon.enabled_Credit and menuCon.taskInfoCountC > 0}">
+                                <a4j:repeat var="taskinfo" value="#{menuCon.taskInfosC}">
+                                    <rich:menuItem label="#{taskinfo.description}"></rich:menuItem>
+                                </a4j:repeat>
+                            </rich:menuGroup>
+                            <rich:menuItem label="Все займы" action="#{menuCon.toListC}"
+                                           rendered="#{menuCon.enabled_Credit}"></rich:menuItem>
+
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu label="Платежи" styleClass="#{(top_selected_item == 'payment')?'active':''}"
+                                           popupWidth="184"
+                                           onclick="document.location.href='/manager/faces/views/payment/index.xhtml'"
+                                           rendered="#{menuCon.enabled_Payment}">
+                            <rich:menuItem label="Все задачи по платежам" action="#{menuCon.toHomeP}"
+                                           rendered="#{menuCon.enabled_Payment}"></rich:menuItem>
+                            <rich:menuGroup label="По задачам"
+                                            rendered="#{menuCon.enabled_Payment and menuCon.taskInfoCountP > 0}">
+                                <a4j:repeat var="taskinfo" value="#{menuCon.taskInfosP}">
+                                    <rich:menuItem label="#{taskinfo.description}"></rich:menuItem>
+                                </a4j:repeat>
+                            </rich:menuGroup>
+                            <rich:menuItem label="Все платежи" action="#{menuCon.toListP}"
+                                           rendered="#{menuCon.enabled_Payment}"></rich:menuItem>
+
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu label="Заёмщики"
+                                           styleClass="#{(top_selected_item == 'customer')?'active':''}"
+                                           popupWidth="184"
+                                           onclick="document.location.href='/manager/faces/views/customer/index.xhtml'"
+                                           rendered="#{menuCon.enabled_People}">
+                            <rich:menuItem label="Все задачи по заёмщикам" action="#{menuCon.toHomeCU}"
+                                           rendered="#{menuCon.enabled_People}"></rich:menuItem>
+                            <rich:menuGroup label="По задачам"
+                                            rendered="#{menuCon.enabled_People and menuCon.taskInfoCountCU > 0}">
+                                <a4j:repeat var="taskinfo" value="#{menuCon.taskInfosCU}">
+                                    <rich:menuItem label="#{taskinfo.description}"></rich:menuItem>
+                                </a4j:repeat>
+                            </rich:menuGroup>
+                            <rich:menuItem label="Все заёмщики" action="#{menuCon.toListCU}"
+                                           rendered="#{menuCon.enabled_People}"></rich:menuItem>
+
+                        </rich:dropDownMenu>
+
+                        <rich:dropDownMenu label="Коллектор"
+                                           styleClass="#{(top_selected_item == 'collector') ? 'active' : ''}"
+                                           popupWidth="184"
+                                           rendered="#{menuCon.enabled_Collector or menuCon.enabled_CollectorSuperviser}">
+
+                            <rich:menuItem label="Все задачи по коллектору" action="#{menuCon.collector}" rendered="#{menuCon.enabled_Collector}"/>
+                            <rich:menuItem label="Супервизор" action="#{menuCon.collectorSuperviser}" rendered="#{menuCon.enabled_CollectorSuperviser}"/>
+                        </rich:dropDownMenu>
+
+
+                        <rich:menuItem label="Обратная связь" action="#{menuCon.toCallback}"
+                                       styleClass="#{(top_selected_item == 'callback')?'active':''}" rendered="#{menuCon.enabled_Callback}"></rich:menuItem>
+
+                        <rich:dropDownMenu label="Администрирование"
+                                           styleClass="#{(top_selected_item == 'admin')?'active':''}"
+                                           popupWidth="184" rendered="#{menuCon.enabled_Admin or menuCon.enabled_Admin_User or menuCon.enabled_Admin_Role or menuCon.enabled_Admin_Settings}">
+
+                            <rich:menuItem label="Пользователи" action="#{menuCon.toListU}"
+                                           rendered="#{menuCon.enabled_Admin and menuCon.enabled_Admin_User}"></rich:menuItem>
+                            <rich:menuItem label="Роли" action="#{menuCon.toRoles}"
+                                           rendered="#{menuCon.enabled_Admin and menuCon.enabled_Admin_Role}"></rich:menuItem>
+                            <rich:menuItem label="Настройки" action="#{menuCon.toSets}"
+                                           rendered="#{menuCon.enabled_Admin and menuCon.enabled_Admin_Settings}"></rich:menuItem>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu label="Отчёты" styleClass="#{(top_selected_item == 'report')?'active':''}"
+                                           rendered="#{menuCon.enabled_Report or menuCon.enabled_Report_Stat or menuCon.enabled_Report_List or menuCon.enabled_Report_Collector or menuCon.enabled_Report_Template}">
+                            <rich:menuItem label="Статистика" action="#{menuCon.toStat}"
+                                           styleClass="#{(top_selected_item == 'report')?'active':''}"
+                                           rendered="#{menuCon.enabled_Report and menuCon.enabled_Report_Stat}"/>
+                            <rich:menuItem label="Цифры за день" action="#{menuCon.toSimpleReport}"
+                                           styleClass="#{(top_selected_item == 'report')?'active':''}"
+                                           rendered="#{menuCon.enabled_Report and menuCon.enabled_Report_Simple}"/>               
+                            <rich:menuItem label="Отчёты" action="#{menuCon.toReports}"
+                                           styleClass="#{(top_selected_item == 'report')?'active':''}"
+                                           rendered="#{menuCon.enabled_Report and menuCon.enabled_Report_List}"/>
+                            <rich:menuItem label="Коллектору" action="#{menuCon.toCollector}"
+                                           styleClass="#{(top_selected_item == 'report')?'active':''}"
+                                           rendered="#{menuCon.enabled_Report and menuCon.enabled_Report_Collector}"/>
+
+                        </rich:dropDownMenu>
+                        <rich:menuItem label="Справка" action="#{menuCon.toHelp}"
+                                       styleClass="#{(top_selected_item == 'help')?'active':''}"></rich:menuItem>
+                    </rich:toolbar>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:form>
+
+        <h:panelGroup styleClass="main cdiv">
+            <h:panelGroup styleClass="center cdiv">
+                <ui:insert name="pageContent"/>
+            </h:panelGroup>
+        </h:panelGroup>
+
+        <h:form>
+            <rich:popupPanel id="popupIndicator" modal="true" resizeable="true">
+                <p class="waitpopup">Запрос обрабатывается</p>
+
+                <p class="waitpopup">Ждите ...</p>
+
+                <p></p>
+
+                <p align="center"><h:graphicImage value="/resources/img/wait_big1.gif"/></p>
+            </rich:popupPanel>
+        </h:form>
+        <h:outputScript name="jquery.maskedinput-1.3.min.js"  library="js"/>
+        <h:outputScript name="js.js"  library="js"/>
+    </h:body>
+</f:view>

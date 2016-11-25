@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+	<h:panelGrid columns="2">
+		<h:outputText value="Использовать тестовый или рабочий сервер" />
+		<h:selectOneMenu value="#{editPlugCtl.extCtl.useWork}">
+			<f:selectItem itemLabel="рабочий" itemValue="#{true}"/>
+			<f:selectItem itemLabel="тестовый" itemValue="#{false}"/>
+		</h:selectOneMenu>		
+		<h:outputText value="Сколько дней кешируем запрос" />
+		<h:inputText  value="#{editPlugCtl.extCtl.cacheDays}" />
+		<h:outputText value="Минимальная оценка скоринга для работы" />
+		<h:inputText  value="#{editPlugCtl.extCtl.minCorrectnessScore}" />
+		<h:outputText value="Количество повторов при нефатальной ошибке" />
+		<h:inputText  value="#{editPlugCtl.extCtl.numberRepeats}" />		
+	</h:panelGrid>
+
+				
+</ui:composition>

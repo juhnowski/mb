@@ -1,0 +1,34 @@
+<header class="header">
+    <div class="center">
+        <a href="/main/" class="logo pull-left"></a>
+        <a class="tel pull-right" href="tel:88008004050">8 800 800 40 50</a>
+        <nav class="top-menu pull-right notsel">
+            <ul>
+                <li><a href="about.shtml">О нас</a></li>
+                <li><a href="faq.shtml">Вопросы-ответы</a></li>
+                <li><a href="contacts.shtml">Контакты</a></li>
+                <li><a><i class="ico ico--lk"></i>Личный кабинет</a></li>
+            </ul>
+        </nav>
+        <p class="header__time">с 7:00 до 21:00 мск / без выходных</p>
+    </div>
+
+    <div class="header-lk">
+        <ul class="menu-user center clr">
+            <li class="sub-menu-user pull-left">
+                <a>
+                    <i class="ico ico--profile-men"></i>
+                    <span ng-bind="username"></span>
+                    <span class="ico ico--menu-arrow"></span>
+                </a>
+                <ul>
+                    <li><a ng-click="logout()"><i class="ico ico--exit"></i>Выйти</a></li>
+                    <li><a href="/">Как получить займ</a></li>
+                    <li><a href="/">Как погасить займ</a></li>
+                </ul>
+            </li>
+            <li class="pull-right settings_part"><a href="settings_profile.shtml"><i class="ico ico--settings"></i>Мой аккаунт</a></li>
+            <li class="pull-right loan_part"><a href="overview.shtml"><i class="ico ico--loan"></i>Займы</a></li>
+        </ul>
+    </div>
+</header>

@@ -1,0 +1,109 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmNew">
+		    <h:panelGroup id="pnlAdd">
+		        <h:panelGrid columns="2">
+		            <h:outputText value="Название" />
+         	        <h:inputText  value="#{newhdays.newName}"/>
+         	        <h:outputText value="Вид" />
+         	        <h:selectOneMenu value="#{newhdays.newKind}">
+         	           <f:selectItem itemValue="1" itemLabel="выходной" />
+		   		       <f:selectItem itemValue="2" itemLabel="праздник" />
+		   	        </h:selectOneMenu>
+		   	        <h:outputText value="Дата начала" />
+		   	        <rich:calendar value="#{newhdays.newDatabeg}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+		   	        <h:outputText value="Дата окончания" />
+		   	        <rich:calendar value="#{newhdays.newDataend}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+		   	    </h:panelGrid>
+		   	    <h:panelGroup>
+		   	    <a4j:commandButton value="Добавить" action="#{newhdays.addItem}" render="frmEdit"/>
+		   	      
+		   	      
+		   	    </h:panelGroup>
+		    </h:panelGroup>
+		   </h:form>
+		   
+		  <h:form id="frmEdit"> 	
+		    <h:panelGroup id="pnlFull">
+         	    <h:outputText value="Поиск" />
+         	    <h:panelGrid columns="2">
+         	    <h:outputText value="Слово из названия" />
+         	    <h:inputText id="nm" value="#{hdays.name}"/>
+         	    <h:outputText value="Месяц" />
+         	    <h:inputText id="mn" value="#{hdays.month}" valueChangeListener="#{hdays.changeMonth}" >
+         	        
+         	    </h:inputText>
+         	    <h:outputText value="Год" />
+         	    <h:inputText id="yr" value="#{hdays.year}" valueChangeListener="#{hdays.changeYear}" />
+         	    <h:outputText value="Вид" />
+         	    <h:selectOneMenu value="#{hdays.kind}" valueChangeListener="#{hdays.changeKind}" >
+         	       <f:selectItem itemValue="null" itemLabel="не выбрано" />
+		   		   <f:selectItem itemValue="1" itemLabel="выходной" />
+		   		   <f:selectItem itemValue="2" itemLabel="праздник" />
+		   	    </h:selectOneMenu>
+         	    </h:panelGrid>
+             	  <a4j:commandButton value="Найти" actionListener="#{hdays.search}" render="pnlResults" /> <a4j:commandButton value="Очистить" actionListener="#{hdays.clearSearch}" render="frmEdit" />
+             </h:panelGroup>
+    		<p></p>		
+    		<h:panelGroup id="pnlResults">
+				<h:panelGroup>
+					<h:outputText value="Найдено #{hdays.cnt} выходных" />
+				</h:panelGroup>	
+				
+				<rich:extendedDataTable id="reqTable"
+		                         value="#{hdays.lstHolidays}"               
+		                         var="hh"
+		                         selectionMode="none">
+		                <rich:column>
+		                	<f:facet name="header">ID</f:facet>
+		                	<h:outputText value="#{hh.id}"/>
+		                </rich:column>
+		                <rich:column>
+		                	<f:facet name="header">название </f:facet>
+		                	<h:outputText value="#{hh.name}"/>
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">дата начала </f:facet>
+		                	<h:outputText value="#{hh.databeg}">
+		                	  <f:convertDateTime pattern="dd.MM.yyyy"/>
+		                	</h:outputText>  
+		                </rich:column>
+		                <rich:column>
+		                	<f:facet name="header">дата окончания </f:facet>
+		                	<h:outputText value="#{hh.dataend}">
+		                	  <f:convertDateTime pattern="dd.MM.yyyy"/>
+		                	</h:outputText>  
+		                </rich:column>
+		                 <rich:column>
+		                	<f:facet name="header">вид выходных</f:facet>
+		                	<h:outputText value="выходной" rendered="#{hh.kind==1}"/>
+		                	<h:outputText value="праздник" rendered="#{hh.kind==2}"/>
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">действия</f:facet>
+		                	<h:panelGrid columns="1">          		
+							
+								<h:panelGroup style="margin-left:8px">
+									<h:commandLink actionListener="#{hdays.deleteItem}" onclick="if (! confirm('Удалить праздник ?') ) { return false;}; return true; "  >
+										<f:attribute name="holidayid" value="#{hh.id}" />
+										<a4j:ajax render="@form" />
+										<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+									</h:commandLink>
+								</h:panelGroup>
+							</h:panelGrid> 
+		                </rich:column>		                	                
+		          	</rich:extendedDataTable>
+		          	
+			</h:panelGroup>	
+       </h:form>
+    </ui:define>
+</ui:composition>

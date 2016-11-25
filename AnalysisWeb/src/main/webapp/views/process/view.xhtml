@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:app-cc="http://java.sun.com/jsf/composite/app-cc" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+	<ui:define name="metadata">
+	
+	</ui:define>
+    <ui:define name="pageContent">
+        <h:form>
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Процесс" />
+				<h:outputText value="#{viewProc.process.key}" />
+				<h:outputLabel value="Название" />
+				<h:outputText value="#{viewProc.process.name}" />
+				<h:outputLabel value="Версия" />
+				<h:outputText value="#{viewProc.process.version}" />				
+			</h:panelGrid>
+			<rich:tabPanel switchType="client">
+				<rich:tab header="Настройки">
+					<rich:dataTable var="opt" value="#{viewProc.options}" rendered="#{viewProc.options.size()!=0}">
+						<rich:column>
+							<f:facet name="header"><h:outputText value="Название" /></f:facet>
+							<h:outputText value="#{opt.name}" /><br/>
+							<h:outputText value="#{opt.description}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header"><h:outputText value="Тип" /></f:facet>
+							<h:outputText value="#{opt.dataType}" />									
+						</rich:column>
+						<rich:column>									
+							<f:facet name="header"><h:outputText value="Текущее значение" /></f:facet>
+							<h:outputText value="#{opt.dataValue}" />
+						</rich:column>
+						<rich:column>							
+							<f:facet name="header"></f:facet>
+							<h:commandLink value="редактировать" actionListener="#{viewProc.openEditedConstantLsn}"
+								onclick="#{rich:component('popEditConstant')}.show(); return false;">
+								<f:attribute name="aiConstantId" value="#{opt.id}" />
+							</h:commandLink>
+							<h:commandLink value="удалить" />
+						</rich:column>
+					</rich:dataTable>
+					<h:outputText value="Нет настроек" rendered="#{viewProc.options.size()==0}"/>
+					<h:commandButton value="Добавить"/>									
+				</rich:tab>
+				<rich:tab header="Сообщения">
+					<rich:dataTable var="msg" value="#{viewProc.fmtMessages}" rendered="#{viewProc.fmtMessages.size()!=0}">
+						<rich:column>
+							<f:facet name="header"><h:outputText value="Название" /></f:facet>
+							<h:outputText value="#{msg.name}" />
+						</rich:column>
+						<rich:column>						
+							<f:facet name="header"><h:outputText value="Текущее значение" /></f:facet>
+							<h:outputText value="#{msg.dataValue}" />						
+						</rich:column>
+					</rich:dataTable>
+					<h:outputText value="Нет сообщений" rendered="#{viewProc.fmtMessages.size()==0}"/>
+					<h:commandButton value="Добавить"/>					
+				</rich:tab>
+				<rich:tab header="Действия">
+					<rich:dataTable var="biz" value="#{viewProc.bizActions}" rendered="#{viewProc.bizActions.size()!=0}">
+						<rich:column>
+							<f:facet name="header"><h:outputText value="Название" /></f:facet>
+						</rich:column>
+			        	<rich:column>
+			        		<f:facet name="header"><h:outputText value="Состояние" /></f:facet>
+			        		<h:outputText value="#{biz.activeName}"/>
+			        	</rich:column>			        		        			        			                         
+			        	<rich:column>
+			        		<f:facet name="header"><h:outputText value="Для объектов типа" /></f:facet>
+			        		<h:outputText value="#{biz.businessObjectClass}"/>
+			        	</rich:column>
+			        	<rich:column>
+			        		<f:facet name="header"><h:outputText value="Код сообщения" /></f:facet>
+			        		<h:outputText value="#{biz.signalRef}"/>
+			        	</rich:column>
+						<rich:column>							
+							<f:facet name="header"></f:facet>
+							<h:commandLink value="редактировать" />
+							<h:commandLink value="удалить" />
+						</rich:column>			        								
+					</rich:dataTable>
+					<h:outputText value="Нет бизнес-действий" rendered="#{viewProc.bizActions.size()==0}"/>
+					<h:commandButton value="Добавить"/>					
+				</rich:tab>
+			</rich:tabPanel>
+			
+			<h:commandButton value="Загрузить новую версию" />
+			<h:commandButton value="Удалить" rendered="#{! viewProc.requiredProcess}" />
+			
+			<rich:popupPanel id="popEditConstant" modal="true" resizeable="true">
+				<a4j:region>
+					<app-cc:aiconstant-edit con="#{viewProc.editedConstant}" showName="#{true}" showDescription="#{true}" />
+					<a4j:commandButton value="Сохранить" onclick="#{rich:component('popEditConstant')}.hide(); return false;" actionListener="#{viewProc.saveEditedConstantLsn}" /> 
+					<a4j:commandButton value="Отмена" onclick="#{rich:component('popEditConstant')}.hide(); return false;" immediate="true"/>
+				</a4j:region>				
+			</rich:popupPanel>			
+        </h:form>
+    </ui:define>
+</ui:composition>

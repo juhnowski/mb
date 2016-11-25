@@ -1,0 +1,56 @@
+    <!--#set var="typePage" value="page" -->
+    <!--#include file="_head.shtml"-->
+    <title>Последние новости о займах и финансах</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <script src="js/contacts.js"></script>
+</head>
+
+<body class="contacts">
+
+<header class="header clr">
+<div class="center">
+
+    <!--#include file="_menu.shtml"-->
+
+    <div class="header__contact"><h3>Адрес</h3><p><span itemprop="address">г. <span
+                itemprop="addressLocality">Москва</span>, <span itemprop="streetAddress">107150, г.Москва, ул.Бойцовая, д.22, </span></span></p><h3>Контакты</h3><p><a href="tel:84997051712" itemprop="telephone">8 499 7051712</a><br><a href="mailto:info@mobifinans.ru" itemprop="email">info@mobifinans.ru</a></p></div>
+</div>
+</header>
+
+<main>
+    <article>
+            <p class="center">Если у вас возникли вопросы и вы не нашли на них ответов в разделе <a href="/main/faq.shtml">Вопросы и
+                ответы</a>, пожалуйста, заполните форму и мы ответим в ближайшее время.</p>
+
+            <form id="feedback" class="active clr" ng-controller="ContactCtrl" name="contactForm">
+               
+                <div class="box clr center">
+                    <input class="input" name="firstName" placeholder="Имя" ng-model="contact.firstName"/>
+					<textarea class="input" name="message" placeholder="Сообщение" ng-init="contact.message = ''" ng-model="contact.message" style="margin-bottom: 0"></textarea>
+					<input class="input" name="email" placeholder="E-mail" type="email" ng-model="contact.email"/>
+                    <input class="input" name="phone" placeholder="Телефон" ng-model="contact.phone"/>
+                    <!--<div class="input" style="margin-bottom: 20px">
+                        <div id="contact-captcha"></div>
+                        <p class="error" style="margin: 0;float: left;color: #b0cb61;" ng-if="contactCaptchaValid == false">
+                            Вы не прошли проверку
+                        </p>
+                    </div>-->
+
+
+                    <button class="btn blue" ng-click="saveContact(contact)" ng-if="!sendBtnDisable">Отправить</button>
+                    <img src="/main/images/ajax-loader.gif" style="padding: 60px;" ng-if="sendBtnDisable"/>
+                </div>
+            </form>
+			<div class="after_block">
+   <p>Срочный микрозайм онлайн до зарплаты &mdash; это просто! <br>
+  Оформляйте займ прямо сейчас и деньги будут у Вас уже через 10 минут! <a class="btn" href="index.shtml">Оформить займ</a></p>   
+  </div>
+    </article>
+</main>
+
+<!--#include file="_footer.shtml"-->
+<script type="text/javascript">
+    initCMSData('contacts');
+</script>

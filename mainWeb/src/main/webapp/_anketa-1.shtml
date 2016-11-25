@@ -1,0 +1,53 @@
+<form class="step-1 step active">
+    <div class="fieldset">
+        <h3 class="fieldset__h3">Контактные данные </h3>
+        <div class="row">
+		    <div class="col first">
+                <label>Телефон<span class="marker-red">*</span></label>
+            </div>
+            <div class="col">
+                <input type="tel" placeholder="+7 (___) ___ __ __" class="input w354 pull-left" id="input-phone">
+                <input placeholder="Код из sms" class="input w102 ml19 pull-left" id="input-phone-code">
+                <span id="confirm-phone-kod" class="fieldset__btn-confirm" data-url="/main/rest/firstrequest/phone/confirmation">Подтвердить</span>
+                <a id="confirm-phone-kod-repeat" class="fieldset__btn-repeat hide">Еще раз <i class="ico ico--reload"></i></a>
+                <span id="confirm-phone-ico" class="ico ico--confirm hide"></span>
+				<p id="phone-error-format" class="marker-red marker-red--error hide">Неверный формат номера телефона</p>
+                <p id="phone-error-code" class="marker-red marker-red--error hide">Неверный код подтверждения</p>
+				<p id="phone-error-server" class="marker-red marker-red--error hide">Такой email уже существует</p>
+				<p id="phone-timer" class="fieldset__text hide">Код отправлен Вам на номер телефона, повторно можно будет отправить через: <b id="phone-time-label" class="fieldset__text-b"></b></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col first">
+                <label>E-mail<span class="marker-red">*</span></label>
+            </div>
+            <div class="col">
+                <input value="" placeholder="Ваш e-mail" class="input w354 pull-left" id="input-email">
+                <input placeholder="Код из email" class="input w102 ml19 pull-left" id="input-email-code">
+                <span id="confirm-email-kod" class="fieldset__btn-confirm" data-url="/main/rest/firstrequest/email/confirmation">Подтвердить</span>
+                <a id="confirm-email-kod-repeat" class="fieldset__btn-repeat hide">Еще раз <i class="ico ico--reload"></i></a>
+                <span id="confirm-email-ico" class="ico ico--confirm hide"></span>
+				<p id="email-error-format" class="marker-red marker-red--error hide">E-mail в неправильном формате</p>
+				<p id="email-error-code" class="marker-red marker-red--error hide">Неверный код подтверждения</p>
+				<p id="email-error-server" class="marker-red marker-red--error hide">Такой email уже существует</p>
+                <p id="email-timer" class="fieldset__text hide">Код отправлен вам на e-mail, повторно можно будет отправить через: <b id="email-time-label" class="fieldset__text-b"></b></p>
+            </div>
+		</div>
+    <div class="fieldset">
+        <h3 class="fieldset__h3">Соглашение</h3>
+        <label class="fieldset__checkbox checkbox notsel">
+            Принимаю условия <a target="_blank" href="/main/file/obshie_usloviya.pdf">договора</a>
+            <input type="checkbox" class="required">
+        </label>
+        <label class="fieldset__checkbox checkbox notsel fieldset__checkbox--last">
+            Даю согласие на <a href="/main/file/soglasie_na_obrabotku_p_d.pdf" target="_blank">обработку персональных
+            данных и получение рассылки</a>
+            <input type="checkbox" class="required">
+        </label>
+    </div>
+
+    <div class="pagin clr">
+       <!-- <a class="btn pull-left prev">Назад <i class="ico arrow-left"></i></a>-->
+        <a class="btn btn--green next pull-right start">Следующий шаг<i class="ico arrow-right-white"></i></a>
+    </div>
+</form>

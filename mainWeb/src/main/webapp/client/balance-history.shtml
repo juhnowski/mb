@@ -1,0 +1,66 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/balance.js"></script>
+</head>
+
+<body ng-controller="MainCtrl" ng-cloak>
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main ng-controller="BalanceCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block td">
+                <h3 class="h3">Список переплат</h3>
+                <div class="box-20">
+                    <table class="table-1">
+                        <tr ng-if="balanceInfo.in.length == 0">
+                            <td></td>
+                            <td>Отсутствует</td>
+                        </tr>
+                        <tr ng-repeat="elem in balanceInfo.in">
+                            <td ng-bind="elem.eventDate"></td>
+                            <td ng-bind-template="{{ elem.amount }} руб."></td>
+                            <td ng-bind="elem.operationType"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3 class="h3">Расход суммы</h3>
+                <div class="box-20">
+                    <table class="table-1">
+                        <tr ng-if="balanceInfo.out.length == 0">
+                            <td></td>
+                            <td>Отсутствует</td>
+                        </tr>
+                        <tr ng-repeat="elem in balanceInfo.out">
+                            <td ng-bind="elem.eventDate"></td>
+                            <td ng-bind-template="{{ elem.amount }} руб."></td>
+                            <td ng-bind="elem.operationType"></td>
+                        </tr>
+                    </table>
+                </div>
+
+
+                <ul class="right-block__menu-top">
+                    <li><a href="/main/client/balance.shtml">Информация</a></li>
+                    <li class="active"><a href="/main/client/balance-history.shtml">История</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+</body>
+</html>

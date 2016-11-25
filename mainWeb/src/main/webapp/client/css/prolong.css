@@ -1,0 +1,22 @@
+.slider-right .single {
+	padding-top: 18px;
+	padding-bottom: 16px;
+	margin-right: 50px;
+	height: 60px;
+}
+
+.slider-right .single .ui-slider-handle {
+}
+
+.slider-right .single .input {
+	padding: 8px 5px;
+	width: 120px;
+	right: -25px;
+}
+
+.lk-send-sms_up .info-red, #smsConfirmError {
+	padding-bottom: 0;
+	padding-top: 0;
+	color:#ff5757;
+	background: #ffecec
+}

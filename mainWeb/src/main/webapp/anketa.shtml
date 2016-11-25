@@ -1,0 +1,36 @@
+<!--#set var="typePage" value="anketa" -->
+<!--#include file="_head.shtml"-->
+	<title>Заём онлайн на карту, киви, яндекс деньги, контакт | «Ontime» - займы онлайн</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+</head>
+
+<body>
+
+<header class="header clr">
+<div class="center">
+<!--#include file="_menu.shtml"-->
+</div>
+</header>
+
+<main>
+
+	<article>
+
+<!--#include file="_anketa-nav.shtml"-->
+
+		<div class="anketa clr center">
+
+<!--#include file="_anketa-1.shtml"-->
+<!--#include file="_anketa-2.shtml"-->
+<!--#include file="_anketa-3.shtml"-->
+<!--#include file="_anketa-4.shtml"-->
+<!--#include file="_anketa-5.shtml"-->
+
+		</div>
+
+	</article>
+
+</main>
+
+<!--#include file="_footer.shtml"-->

@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+		<h:panelGroup id="pnlAdd">
+		     <h:panelGrid columns="2">
+		         <h:outputText value="Название"/>
+		         <h:inputText value="#{eventCode.name}" />
+		     </h:panelGrid>
+		    <h:panelGrid columns="1">
+				<a4j:commandButton value="Добавить" actionListener="#{eventCode.addItem}" render="pnlData"/>
+			
+			</h:panelGrid>
+	    </h:panelGroup>
+		
+			<h:panelGroup id="pnlData">
+			<h:dataTable id="stats" var="stat" value="#{eventCode.listEventCode}" >
+				<h:column>
+					<f:facet name="header">Номер:</f:facet>
+					<h:inputText value="#{stat.id}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Название:</f:facet>
+					<h:inputText value="#{stat.name}" size="95"/>
+				</h:column>
+													
+			</h:dataTable>	
+			</h:panelGroup>		
+			<h:panelGrid columns="1">
+				<h:commandLink value="Сохранить" actionListener="#{eventCode.saveItems}" />
+			</h:panelGrid>
+			    
+       </h:form>
+    </ui:define>
+</ui:composition>

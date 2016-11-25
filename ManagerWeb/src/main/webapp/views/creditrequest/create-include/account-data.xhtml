@@ -1,0 +1,162 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:panelGrid columns="2" columnClasses="top-valigned grid-col-2,top-valigned grid-col-2">
+        <rich:panel header="Счет для перечисления денег" styleClass="layout">
+            <h:panelGrid columns="1">
+                <h:panelGroup>
+                    <h:outputText value="Вид счета" styleClass="layout-field-name"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu id="acct" value="#{createCreditRequestController.account.accountType}" required="true"
+                                     converter="#{convertReference}"
+                                     valueChangeListener="#{createCreditRequestController.changeAccountType}" styleClass="top-valigned"
+                                     requiredMessage="Необходимо заполнить вид счета">
+                        <f:selectItems value="#{createCreditRequestController.accountTypes}"/>
+                        <a4j:ajax event="change" execute="@this" render="idacc"/>
+                    </h:selectOneMenu>
+                    <rich:message for="acct"/>
+                </h:panelGroup>
+
+                <a4j:outputPanel id="idacc">
+
+                    <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned"
+                                 rendered="#{createCreditRequestController.account.accountType.codeInteger==1}">
+
+                        <h:panelGroup>
+                            <h:outputText value="Номер счета"/>
+                            <span class="asterisk">*</span>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:inputText id="nacc1" value="#{createCreditRequestController.account.accountNumber}" required="true"
+                                         requiredMessage="Необходимо заполнить номер счета"
+                                         validatorMessage="№ счета должен состоять только из цифр">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>
+                            <rich:message for="nacc1"/>
+                        </h:panelGroup>
+
+                        <h:panelGroup>
+                            <h:outputText value="Бик банка"/>
+                            <span class="asterisk">*</span>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:inputText id="bik1" value="#{createCreditRequestController.account.bik}" required="true"
+                                         requiredMessage="Необходимо заполнить бик банка"
+                                         validatorMessage="бик банка должен состоять только из цифр">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>
+                            <rich:message for="bik1"/>
+                        </h:panelGroup>
+
+                        <h:panelGroup>
+                            <h:outputText value="Корр счет"/>
+                            <span class="asterisk">*</span>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:inputText id="corr1" value="#{createCreditRequestController.account.corrAccountNumber}" required="true"
+                                         requiredMessage="Необходимо заполнить корр.счет банка"
+                                         validatorMessage="корр.счет банка должен состоять только из цифр">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>
+                            <rich:message for="corr1"/>
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned"
+                                 rendered="#{createCreditRequestController.account.accountType.codeInteger==2}">
+
+                        <h:panelGroup>
+                            <h:outputText value="Тип карты"/>
+                        </h:panelGroup>
+                        <h:selectOneMenu value="#{createCreditRequestController.account.cardName}">
+                            <f:selectItem itemValue="VISA" itemLabel="VISA"/>
+                            <f:selectItem itemValue="MasterCard" itemLabel="MasterCard"/>
+                        </h:selectOneMenu>
+
+                        <h:panelGroup>
+                            <h:outputText value="Номер карты"/>
+                            <span class="asterisk">*</span>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:inputText id="ncard2" value="#{createCreditRequestController.account.cardNumber}" required="true"
+                                         requiredMessage="Необходимо заполнить номер карты"  styleClass="card-mask"
+                                         converter="ru.simplgroupp.webapp.view.DigitalConvertor"
+                                         validatorMessage="№ карты должен состоять только из цифр">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>
+                            <rich:message for="ncard2"/>
+                        </h:panelGroup>
+
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned"
+                                 rendered="#{createCreditRequestController.account.accountType.codeInteger==3}">
+                        <h:outputText value="адрес пункта сети Контакт"/>
+                        <h:outputLink value="https://www.contact-sys.com/where/list/1/list/0/0/" target="_blank">
+                            <h:outputText value="Где можно получить"/>
+                        </h:outputLink>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned"
+                                 rendered="#{createCreditRequestController.account.accountType.codeInteger==4}">
+                        <h:panelGroup>
+                            <h:outputText value="Номер счета"/>
+                            <span class="asterisk">*</span>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:inputText id="nacc4" value="#{createCreditRequestController.account.accountNumber}" required="true"
+                                         requiredMessage="Необходимо заполнить номер счета"
+                                         validatorMessage="№ счета должен состоять только из цифр">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>
+                            <rich:message for="nacc4"/>
+                        </h:panelGroup>
+
+                        <h:panelGroup>
+                            <h:outputText value="Согласие?"/>
+                            <span class="asterisk">*</span>
+                        </h:panelGroup>
+                        <h:selectBooleanCheckbox id="cont" value="#{createCreditRequestController.account.contest}" required="true"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned"
+                                 rendered="#{createCreditRequestController.account.accountType.codeInteger==5}">
+                        <h:panelGroup>
+                            <h:outputText value="Номер счета"/>
+                            <span class="asterisk">*</span>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:inputText id="nacc5" value="#{createCreditRequestController.account.accountNumber}" required="true"
+                                         requiredMessage="Необходимо заполнить номер счета"
+                                         validatorMessage="№ счета должен состоять только из цифр">
+                                <f:validateRegex pattern="[0-9]*"/>
+                            </h:inputText>
+                            <rich:message for="nacc5"/>
+                        </h:panelGroup>
+
+                    </h:panelGrid>
+                    <h:outputScript>
+                        $(function () {
+                        $('[type=tel], .card-mask').mask('9999-9999-9999-9999');
+                        });
+                    </h:outputScript>
+                </a4j:outputPanel>
+            </h:panelGrid>
+        </rich:panel>
+    </h:panelGrid>
+    <h:panelGroup>
+        <a4j:commandButton value="Назад" styleClass="button grey" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" immediate="true" execute="@this" render="@form"
+                           action="#{createCreditRequestController.previousStep}"/>
+        <a4j:commandButton value="Далее" styleClass="button" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" render="@form"
+                           action="#{createCreditRequestController.saveAccount}"/>
+    </h:panelGroup>
+    <h:outputScript>
+        $(function () {
+            $('[type=tel], .phone-mask').mask('+7 (999) 999 99 99');
+        });
+    </h:outputScript>
+</ui:composition>

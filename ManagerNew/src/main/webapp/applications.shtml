@@ -1,0 +1,236 @@
+﻿<!--#include file="_head.shtml"-->
+
+	<body>
+		
+		<div class="wrapper">
+
+			<!--  Start header -->
+			<header>
+				<div class="header-inside">
+					<div class="header-bell">
+						<div class="bell">
+							<span>10</span>
+						</div>
+					</div>
+
+					<div class="header-chat">
+						<div class="chat">
+							<span>4</span>
+						</div>
+					</div>
+
+					<div class="header-inside-button">
+						<span></span>
+						<label>Новая заявка</label>
+					</div>
+				</div>
+			</header>
+			<!-- Stop header -->
+
+			<!--  Start main -->
+			<div class="main-block mb-applications">
+				<!--#include file="_sidebar.shtml"-->
+
+				<div class="main-content">
+					<div class="main-content-inside">
+						<div class="main-content-inside-head">
+							<div class="mcih-menu">
+								<ul>
+									<li><a href="">Главная</a><label></label></li>
+									<li class="mcih-active"><a href="">Новая заявка</a><label></label></li>
+								</ul>
+							</div>
+
+							<div class="new-task-outside">
+								<div class="new-task" id="new-task">
+									<div class="circle"></div>
+									<div class="new-task-text">
+										<span>Новая задача</span>
+										<span>Поступила <a href="">заявка</a> на займ</span>
+									</div>
+									<div class="new-task-mark">
+										<div class="ntm-top"></div>
+										<div class="ntm-bottom" id="n-task"></div>
+									</div>
+								</div>
+
+								<div class="new-task" id="new-chat">
+									<div class="circle circle-two"></div>
+									<div class="new-task-text">
+										<span>Чат</span>
+										<span>Есть новые <a href="">ответы</a></span>
+									</div>
+									<div class="new-task-mark">
+										<div class="ntm-top"></div>
+										<div class="ntm-bottom" id="n-chat"></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="main-content-inside-body">
+							<div class="block-search">
+								<div class="block-search-head">
+									<div class="bs-left bsl-new-appl">
+										Новая заявка
+									</div>
+
+									<div class="bs-right">
+										Найдено заёмщиков <label>5</label>
+									</div>
+								</div>
+
+								<div class="block-search-body">
+									<div class="block-inpt">
+										<label>Фамилия</label>
+										<input type="text">
+									</div>
+
+									<div class="block-inpt">
+										<label>Имя</label>
+										<input type="text">
+									</div>
+
+									<div class="block-inpt">
+										<label>Отчество</label>
+										<input type="text">
+									</div>
+
+									<div class="block-inpt" id="snpassport">
+										<label>Серия и номер паспорта</label>
+										<div class="serija-passport">
+											<input type="text">
+										</div>
+										<div class="number-passport">
+											<input type="text">
+										</div>
+									</div>
+
+
+									<div class="block-inpt">
+										<div class="block-inpt-resset"></div>
+										<input type="submit" value="Найти заёмщика">
+										<div class="button-create">
+											<input type="submit" onclick="document.location.href='createapplication.shtml'" value="Создать заявку">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="block-tables">
+								<div class="block-tables-head">
+									<div class="bth-left">
+										Заёмщики
+									</div>
+
+									<div class="bth-right">
+										<label>5</label> заёмщиков
+										<span id="borrowers-rolldown"></span>
+									</div>
+								</div>
+
+
+								<div class="bt-body-pagination">
+									<div class="block-tables-body">
+										<table>
+											<tr>
+												<td>Клиент</td>
+												<td>Дата рождения</td>
+												<td>Паспорт</td>
+												<td>Действия</td>
+											</tr>
+
+											<tr>
+												<td><a href="borrower.shtml">Иванов Евгений Витальевич</a></td>
+												<td>18.12.1967</td>
+												<td>4808 384938</td>
+												<td><a href="">Посмотреть</a><a href="createapplication.shtml">Создать заявку</a></td>
+											</tr>
+
+											<tr>
+												<td><a href="">Иванова Виктория Егоровна</a></td>
+												<td>12.01.1983</td>
+												<td>2348 484382</td>
+												<td><a href="">Посмотреть</a><a href="createapplication.shtml">Создать заявку</a></td>
+											</tr>
+
+											<tr>
+												<td><a href="">Иванников Ренат Сергеевич</a></td>
+												<td>23.06.1979</td>
+												<td>3844 844322</td>
+												<td><a href="">Посмотреть</a><a href="createapplication.shtml">Создать заявку</a></td>
+											</tr>
+
+											<tr>
+												<td><a href="">Ивановкин Виктор Петрович</a></td>
+												<td>06.03.1987</td>
+												<td>4808 944843</td>
+												<td><a href="">Посмотреть</a><a href="createapplication.shtml">Создать заявку</a></td>
+											</tr>
+
+											<tr>
+												<td><a href="">Иванова Елена Федеровна</a></td>
+												<td>03.05.1962</td>
+												<td>4807 484392</td>
+												<td><a href="">Посмотреть</a><a href="createapplication.shtml">Создать заявку</a></td>
+											</tr>
+										</table>
+									</div>
+
+									<div class="block-paginaiton">
+										<div class="bp-select">
+											Показывать на странице
+											<div class="select">
+												<form action="#" method="post" >
+
+													<div class="select">
+														<a href="#" class="slct">10</a>
+														<ul class="drop">
+															<li>10</li>
+															<li>50</li>
+															<li>100</li>
+														</ul>
+														<input type="hidden" />
+													</div>		
+													
+												</form>
+											</div>
+										</div>
+
+																		
+										<div class="bp-paginaiton">
+											<div class="prev"></div>
+											<ul>
+												<li>1</li>
+												<li>2</li>
+												<li>3</li>
+												<li class="pagin-active">4</li>
+												<li class="pagin-active">....</li>
+												<li class="pagin-active">50</li>
+											</ul>
+											<div class="next"></div>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="sidbar-fon"></div>
+			</div>
+			<!-- Stop main -->
+
+			<!--#include file="_footer.shtml"-->
+		
+		</div>
+
+
+		<!--#include file="_modal.shtml"-->
+
+	</body>
+</html>

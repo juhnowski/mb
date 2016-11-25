@@ -1,0 +1,79 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'request_history'">
+
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/request_history.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+
+<!--#include file="include/_header.shtml"-->
+
+<main ng-controller="HistoryCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block td">
+                <h3 class="h3">История заявок</h3>
+                <div class="box-20">
+                    <ul class="history-loan">
+                        <li ng-if="creditRequests.length == 0">
+                            <a class="history-loan__head">
+                                История заявок пуста
+                            </a>
+                        </li>
+
+
+                        <li ng-repeat="creditRequest in creditRequests">
+                            <a class="history-loan__head">
+                                <span class="history-loan__head-numer" ng-bind="creditRequest.uniquenomer"></span>
+                                <span class="ico ico--arrow-right-green-v2"></span>
+                                <span class="history-loan__head-text"
+                                      ng-bind-template="{{ creditRequest.creditsum }} руб. / {{ creditRequest.datecontest }}">
+                                </span>
+                                <span class="ico ico--arrow-down"></span>
+                                <span class="ico ico--arrow-up"></span>
+                            </a>
+                            <div class="history-loan__body">
+                                <div class="history-loan__body-tab clr">
+                                    <a class="active">Информация</a>
+                                </div>
+                                <div class="history-loan__body-table">
+                                    <table class="table-2">
+                                        <tbody>
+                                        <tr>
+                                            <td>Дата подачи</td>
+                                            <td ng-bind="creditRequest.datecontest"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Сумма</td>
+                                            <td><span ng-bind="creditRequest.creditsum"></span> руб.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Дней</td>
+                                            <td ng-bind="creditRequest.creditdays"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Статус</td>
+                                            <td ng-bind="creditRequest.status"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!--#include file="include/_footer.shtml"-->
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+     <ui:define name="title">Business analysis console</ui:define>
+
+     <ui:define name="pageContent">
+     <h:form id="frmNew">
+    		<rich:panel header="Добавить правило">
+    			
+    			<h:panelGrid id="table_add" columns="2">
+    			    <h:outputText value="Вид пакета" />
+    				<h:panelGroup>
+    				   <h:selectOneMenu id="typeId" value="#{newRule.ruleConst}" required="true" valueChangeListener="#{newRule.changeType}">
+         	             <f:selectItem itemValue="1" itemLabel="правило" />
+		   		         <f:selectItem itemValue="2" itemLabel="константы"  />
+		   		          <a4j:ajax event="change" execute="@this" render="table_add" />
+		   	           </h:selectOneMenu>
+    				   <rich:messages for="typeId" />
+    				</h:panelGroup> 
+    				<h:outputText value="Имя пакета" />
+    				<h:panelGroup>
+    					<h:inputText id="pacId" value="#{newRule.rulePack}" required="true" requiredMessage="необходимо заполнить название пакета" />
+    					<rich:messages for="pacId" />
+    				</h:panelGroup> 
+    				<h:outputText value="Описание пакета" />
+    				<h:panelGroup>
+    					<h:inputText id="txtId" value="#{newRule.ruleDesc}" required="true" requiredMessage="необходимо заполнить описание пакета" />
+    					<rich:messages for="txtId" />
+    				</h:panelGroup> 
+    				<h:outputText value="Тип правила" />
+         	        <h:inputText  value="#{newRule.ruleKb}"/>
+    				<h:outputText value="Правило" rendered="#{newRule.ruleConst==1}"/>
+    				<h:panelGroup rendered="#{newRule.ruleConst==1}">
+    					<h:inputTextarea id="bodyId" value="#{newRule.ruleBody}" />
+    					<rich:messages for="bodyId" />
+    				</h:panelGroup> 
+    			</h:panelGrid>
+    			<h:commandButton value="Добавить" action="#{newRule.add}"></h:commandButton>
+    		</rich:panel>
+    	</h:form>
+         <h:form id="frmMain">
+         	 <h:panelGroup id="pnlFull">
+         	    <h:outputText value="Поиск" />
+         	    <h:panelGrid columns="2">
+         	    <h:outputText value="Имя пакета" />
+         	    <h:inputText id="spac" value="#{listRules.prmFor}"/>
+         	    <h:outputText value="Описание пакета" />
+         	    <h:inputText id="dpac" value="#{listRules.prmDescr}"/>
+         	   
+         	    </h:panelGrid>
+             	<a4j:commandButton value="Найти" actionListener="#{listRules.searchLsn}" render="pnlResults" /> <a4j:commandButton value="Очистить" actionListener="#{listRules.clearLsn}" render="frmMain" />
+             </h:panelGroup>
+    		<p></p>		
+			<h:panelGroup id="pnlResults">
+				<h:panelGroup>
+					<h:outputText value="Найдено #{listRules.model.rowCount} правил" />
+				</h:panelGroup>	
+				<rich:extendedDataTable id="reqTable"
+		                         value="#{listRules.model}"               
+		                         var="rule"
+		                         selectionMode="none"
+		                         sortPriority="#{listRules.model.sortPriorities}">
+		                <rich:column width="30">
+		                	<f:facet name="header">ID</f:facet>
+		                	<h:link outcome="view?faces-redirect=true" >
+		                		<f:param name="ruleid" value="#{rule.id}" />
+		                		<h:outputText value="#{rule.id}"/>
+		                	</h:link>
+		                </rich:column>
+		                <rich:column width="300">
+		                	<f:facet name="header">имя пакета</f:facet>
+		                	<h:outputText value="#{rule.packageName}"/>
+		                </rich:column>	
+		                <rich:column width="400">
+		                	<f:facet name="header">описание пакета</f:facet>
+		                	<h:outputText value="#{rule.description}"/>
+		                </rich:column>	
+		                <rich:column width="100">
+		                	<f:facet name="header">действия</f:facet>
+		                	<h:panelGrid columns="2">          		
+								<h:panelGroup >
+									<h:link outcome="edit?faces-redirect=true" >
+										<f:param name="ruleid" value="#{rule.id}" />
+										<h:graphicImage value="/resources/icons/edit.gif" title="редактировать" />
+									</h:link>
+								</h:panelGroup>
+								<h:panelGroup style="margin-left:8px">
+									<h:commandLink actionListener="#{listRules.deleteItem}" onclick="if (! confirm('Удалить правило ?') ) { return false;}; return true; "  >
+										<f:attribute name="ruleid" value="#{rule.id}" />
+										<a4j:ajax render="@form" />
+										<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+									</h:commandLink>
+								</h:panelGroup>
+							</h:panelGrid> 
+		                </rich:column>		                	                
+		          	</rich:extendedDataTable>				
+			</h:panelGroup>
+         </h:form>
+     </ui:define>
+</ui:composition>
+

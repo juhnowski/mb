@@ -1,0 +1,15 @@
+			<aside class="right-block">
+
+				<a href="/main/" class="promo">
+					<h3>Выиграй путешествие</h3>
+					<img src="img/right.png" alt="Выиграй путешествие">
+					<span class="btn blue">подробнее</span>
+				</a>
+
+				<div class="support-block">
+					<a class="img support-show"><img id="fileName" src="" alt=""></a>
+					<h3>Есть вопросы?</h3>
+					<p id="feedback"></p>
+				</div>
+
+			</aside>

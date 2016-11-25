@@ -1,0 +1,153 @@
+<!--#set var="typePage" value="lk-setting" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'settings_profile'">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/settings_profile.js"></script>
+</head>
+
+<body ng-controller="MainCtrl" ng-cloak>
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main ng-controller="SettingsProfileCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_settings_left_menu.shtml"-->
+
+            <div class="right-block td">
+                <form>
+                    <h3 class="h3 h3--bt1">
+                        Контактная информация
+                        <span class="h3__right opacity-50" ng-show="!aiData.canEdit">
+                            <i class="ico ico--lock"></i>Редактирование запрещено
+                        </span>
+                    </h3>
+
+                    <div class="table-settings"
+                         ng-class="{'table-settings--disabled' : !aiData.canEdit, 'opacity-50' : !aiData.canEdit}">
+                        <table>
+                            <tr class="confirm-code confirm-code-phone">
+                                <td>Телефон</td>
+                                <td>
+                                    <input class="input confirm__input-value" type="tel" id="phone"
+                                           ng-model="peopleData.mainData.phone">
+                                </td>
+                                <td>
+                                    <input class="confirm__input-code input hide" style="width: 60px"
+                                           only-digits maxlength="6" placeholder="Код">
+                                    <img src="/main/images/ajax-loader.gif" class="confirm__loading hide"/>
+                                </td>
+                                <td>
+                                    <span class="confirm__timer"></span>
+                                    <a class="confirm__btn" data-second="60" ng-click="sendCheck('phone')"
+                                       ng-show="aiData.canEdit"
+                                       data-verify-url="/main/rest/usersettings/verifySmsCode"
+                                       data-send-url="/main/rest/usersettings/sendSmsCode">
+                                        Подтвердить
+                                    </a>
+                                </td>
+                                <td class="confirm-code__message"></td>
+                            </tr>
+
+                            <tr class="confirm-code confirm-code-email">
+                                <td>Почта</td>
+                                <td>
+                                    <input class="confirm__input-value input email" id="email"
+                                           ng-model="peopleData.mainData.email">
+                                </td>
+                                <td>
+                                    <input class="confirm__input-code input hide" style="width: 60px"
+                                           only-digits maxlength="6" placeholder="Код">
+                                    <img src="/main/images/ajax-loader.gif" class="confirm__loading hide"/>
+                                </td>
+                                <td>
+                                    <span class="confirm__timer"></span>
+                                    <a class="confirm__btn" data-second="60" ng-click="sendCheck('email')"
+                                       ng-show="aiData.canEdit"
+                                       data-verify-url="/main/rest/usersettings/verifyEmailCode"
+                                       data-send-url="/main/rest/usersettings/sendEmailCode">
+                                        Подтвердить
+                                    </a>
+                                </td>
+                                <td class="confirm-code__message"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form name="passwordForm">
+                    <h3 class="h3 h3--bt1">
+                        Сменить пароль
+                    </h3>
+
+                    <div class="table-settings">
+                        <table>
+                            <tr>
+                                <td>Старый пароль</td>
+                                <td>
+                                    <input class="input" type="password" name="oldPassword"
+                                           ng-model="peopleData.passwordData.oldPassword">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Новый пароль</td>
+                                <td>
+                                    <input class="input" type="password" name="newPassword"
+                                           ng-model="peopleData.passwordData.newPassword"
+                                           ng-required="peopleData.passwordData.oldPassword" ng-minlength="5">
+                                </td>
+                                <td>
+                                    <p class="marker-red marker-red--error"
+                                       ng-show="passwordForm.newPassword.$error.minlength">
+                                        Пароль должен быть минимум 5 символов
+                                    </p>
+                                    <p class="marker-red marker-red--error"
+                                       ng-show="passwordForm.newPassword.$error.required">
+                                        Поле обязательно для заполнения
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Подтверждение пароля</td>
+                                <td>
+                                    <input class="input" type="password" name="newPassword2"
+                                           ng-model="peopleData.passwordData.newPassword2"
+                                           ng-required="peopleData.passwordData.oldPassword">
+                                </td>
+                                <td>
+                                    <p class="marker-red marker-red--error"
+                                       ng-show="peopleData.passwordData.newPassword != peopleData.passwordData.newPassword2">
+                                        Пароли не совпадают
+                                    </p>
+                                    <p class="marker-red marker-red--error"
+                                       ng-show="passwordForm.newPassword2.$error.required">
+                                        Поле обязательно для заполнения
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form>
+                    <h3 class="h3 h3--bt1">
+                        <label class="btn btn--green" ng-click="sendSms()">
+                            Сохранить изменения
+                        </label>
+                    </h3>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+
+</body>
+</html>

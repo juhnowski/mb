@@ -1,0 +1,120 @@
+			<form class="step-4 step">
+				<div class="fieldset">
+				<h3 class="fieldset__h3">Сфера деятельности</h3>
+					<div class="row">
+						<div class="col first">
+							<label>Занятость</label>
+						</div>
+						<div class="col">
+							<select class="required" id="employ"></select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col first">
+							<label>Сфера деятельности</label>
+						</div>
+						<div class="col">
+							<select class="required" id="profession" data-placeholder="Выбрать"></select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col first">
+							<label>Место работы</label>
+						</div>
+						<div class="col">
+							<input class="input required" placeholder="Введите название организации" id="placeWork" data-tooltip="40">
+							<div class="marker-red marker-red--error" data-id="40"></div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col first">
+							<label>Занимаемая должность</label>
+						</div>
+						<div class="col">
+							<select class="required" id="professionTypes" af-id="occupation" data-placeholder="Выбрать"></select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col first">
+							<label>Название<br> должности</label>
+						</div>
+						<div class="col">
+							<input class="input required" id="occupation" data-tooltip="41" placeholder="Ваша должность">
+							<div class="marker-red marker-red--error" data-id="41"></div>
+						</div>
+					</div>
+					
+				</div>
+
+				<div class="fieldset" id="jobAddress">
+				<h3 id="address-header" class="fieldset__h3">Адрес места работы</h3>
+					<!-- у место работы удалить квартира-->
+<!--#include file="_address.shtml"-->
+				</div>
+
+				<div class="fieldset">
+				<h3 class="fieldset__h3">Данные о сфере деятельности</h3>
+					<div class="row">
+						<div class="col first">
+							<label>Дата <br> трудоустройства</label>
+						</div>
+						<div class="col date above-birth">
+							<input class="input required date-not-dd" placeholder="Примерная дата трудоустройства" id="dateStartWork" data-tooltip="42">
+							<span class="datepicker fieldset__datepicker ico ico--datepicker"><input></span>
+							<div class="marker-red marker-red--error" data-id="42"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col first">
+							<label>Ежемесячный <br>доход</label>
+						</div>
+						<div class="col above-zero">
+							<input class="input required numer" data-tooltip="44" placeholder="Сумма ежемесячного дохода, руб." id="salary" only-digits af-id="amount_income">
+							<div class="marker-red marker-red--error" data-id="44"></div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col first">
+							<label>Рабочий телефон, добавочный</label>
+						</div>
+						<div class="col">
+							<input class="input required tel-suf phone" type="tel" placeholder="Введите номер телефона" id="workPhone">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col first">
+							<label id="nextExtText">Приблизительная дата зарплаты</label>
+						</div>
+						<div class="col date">
+							<input class="input date required date-future" placeholder="Примерная ближайшая дата получения зарплаты" id="salaryDate" data-tooltip="43">
+							<span class="datepicker fieldset__datepicker ico ico--datepicker"><input></span>
+							<div class="marker-red marker-red--error" data-id="43"></div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="fieldset">
+				<h3 class="fieldset__h3">Кредитные обязательства</h3>
+					<div class="row">
+						<div class="col first">
+							<label>Дополнительные кредитные обязательства</label>
+						</div>
+						<div class="col w360 pr20 hideblock-pair-41">
+							<input class="input numer required" placeholder="Сколько в месяц платите по кредитам? (руб.)"  id="additOutcomeSum" only-digits data-tooltip="45">
+						</div>
+						<div class="col w100">
+							<label class="checkbox fieldset__checkbox fieldset__checkbox--inline fieldset__checkbox--col">Не имею <input id="isadditoutcome" type="checkbox" hideblock-pair="41"></label>
+							<div class="marker-red marker-red--error" data-id="45"></div>
+						</div>
+					</div>
+					
+				</div>
+
+				<div class="pagin">
+					<a class="btn pull-left prev">Назад <i class="ico arrow-left"></i></a>
+					<a class="btn btn--green next pull-right">Далее <i class="ico arrow-right-white"></i></a>
+				</div>
+
+			</form>

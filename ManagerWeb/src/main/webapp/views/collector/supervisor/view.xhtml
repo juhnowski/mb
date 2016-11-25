@@ -1,0 +1,188 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+    <ui:param name="top_selected_item" value="collector"/>
+    <ui:define name="metadata">
+
+    </ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="frmView">
+            <rich:messages globalOnly="true" layout="table"/>
+            <h:panelGroup layout="block" style="width: 100%;" rendered="#{viewCollectorSuperviserController.credit != null}">
+                <rich:panel header="Клиент" styleClass="layout">
+                    <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                        <h:outputText value="ФИО"/> <h:outputText
+                            value="#{viewCollectorSuperviserController.collector.peopleMain.peoplePersonalActive.fullName}"/>
+                        <h:outputText value="Документ"
+                                      rendered="#{viewCollectorSuperviserController.collector.peopleMain.activePassport!=null}"/>
+                        <h:outputText
+                                value="#{viewCollectorSuperviserController.collector.peopleMain.activePassport.descriptionFull} "
+                                rendered="#{viewCollectorSuperviserController.collector.peopleMain.activePassport!=null}"/>
+                        <h:outputText value="Адрес прописки"
+                                      rendered="#{viewCollectorSuperviserController.collector.peopleMain.registerAddress!=null}"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.collector.peopleMain.registerAddress.description} "
+                                      rendered="#{viewCollectorSuperviserController.collector.peopleMain.registerAddress!=null}"/>
+                        <h:outputText value="Адрес проживания"
+                                      rendered="#{viewCollectorSuperviserController.collector.peopleMain.registerAddress!=null}"/>
+                        <h:panelGroup rendered="#{viewCollectorSuperviserController.collector.peopleMain.registerAddress!=null}">
+                            <h:outputText
+                                    value="#{viewCollectorSuperviserController.collector.peopleMain.registerAddress.description}"
+                                    rendered="#{viewCollectorSuperviserController.collector.peopleMain.registerAddress.isSame}"/>
+                            <h:outputText
+                                    value="#{viewCollectorSuperviserController.collector.peopleMain.residentAddress.description}"
+                                    rendered="#{! viewCollectorSuperviserController.collector.peopleMain.registerAddress.isSame}"/>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </rich:panel>
+
+                <rich:panel header="Исполнитель">
+                    <h:panelGrid columns="2" columnClasses="layout-field-name">
+                        <h:selectOneMenu value="#{viewCollectorSuperviserController.selectedUserID}" style="width: 350px;">
+                            <f:selectItem itemLabel="Не выбран" itemValue="0"/>
+                            <f:selectItems value="#{viewCollectorSuperviserController.userList}" var="user" itemLabel="#{user.fullName}" itemValue="#{user.id}"/>
+                        </h:selectOneMenu>
+                        <h:commandButton value="Сохранить" styleClass="button ml0" action="#{viewCollectorSuperviserController.assignCollector}"></h:commandButton>
+                    </h:panelGrid>
+                </rich:panel>
+
+                <rich:panel header="Контакты" styleClass="layout">
+                    <h:panelGrid columns="2" columnClasses="layout-field-name">
+                        <c:if test="#{viewCollectorSuperviserController.collector.peopleMain.cellPhone.value != null}">
+                            <h:outputText value="Мобильный телефон"/>
+                            <h:outputText value="#{viewCollectorSuperviserController.collector.peopleMain.cellPhone.value}"/>
+                        </c:if>
+
+                        <c:if test="#{viewCollectorSuperviserController.collector.peopleMain.homePhoneReg.value != null}">
+                            <h:outputText value="Домашний телефон по адресу регистрации"/>
+                            <h:outputText value="#{viewCollectorSuperviserController.collector.peopleMain.homePhoneReg.value}"/>
+                        </c:if>
+
+                        <c:if test="#{viewCollectorSuperviserController.collector.peopleMain.homePhone.value != null}">
+                            <h:outputText value="Домашний телефон"/>
+                            <h:outputText value="#{viewCollectorSuperviserController.collector.peopleMain.homePhone.value}"/>
+                        </c:if>
+
+                        <c:if test="#{viewCollectorSuperviserController.collector.peopleMain.workPhone.value != null}">
+                            <h:outputText value="Рабочий телефон"/>
+                            <h:outputText value="#{viewCollector.collector.peopleMain.workPhone.value}"/>
+                        </c:if>
+
+                        <c:if test="#{viewCollectorSuperviserController.collector.peopleMain.email.value != null}">
+                            <h:outputText value="Email"/>
+                            <h:outputText value="#{viewCollectorSuperviserController.collector.peopleMain.email.value}"/>
+                        </c:if>
+
+                        <c:if test="#{viewCollectorSuperviserController.contactList.size() != 0}">
+                            <c:forEach items="#{viewCollectorSuperviserController.contactList}" var="contact">
+                                <h:outputText value="#{contact.contact.name}"/>
+                                <h:outputText value="#{contact.value}"/>
+                            </c:forEach>
+                        </c:if>
+                    </h:panelGrid>
+                </rich:panel>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" style="width: 100%">
+                <rich:panel header="Заём" styleClass="layout">
+                    <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                        <h:outputText value="№ счета"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.creditAccount}"/>
+
+                        <h:outputText value="Дата выдачи займа"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.creditDataBeg}">
+                            <f:convertDateTime pattern="dd.MM.yyyy"/>
+                        </h:outputText>
+                        <h:outputText value="Дата окончания по графику"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.creditDataEnd}">
+                            <f:convertDateTime pattern="dd.MM.yyyy"/>
+                        </h:outputText>
+                        <h:outputText value="Дата выплаты займа"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.creditDataEndFact}"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.creditDataEndFact}"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.creditDataEndFact}">
+                            <f:convertDateTime pattern="dd.MM.yyyy"/>
+                        </h:outputText>
+                        <h:outputText value="Статус займа"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.creditStatus}"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.creditStatus.name}"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.creditStatus}"/>
+                        <h:outputText value="Сумма"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.creditSum}">
+                            <f:convertNumber pattern="############.00"/>
+                        </h:outputText>
+                        <h:outputText value="Валюта займа"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.currency}"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.currency.name}"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.currency}"/>
+                        <h:outputText value="Сумма возврата"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.creditSumBack}">
+                            <f:convertNumber pattern="############.00"/>
+                        </h:outputText>
+                        <h:outputText value="Ставка"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.creditPercent}"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.creditPercent}"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.creditPercent}">
+                            <f:convertNumber type="percent" minFractionDigits="1"/>
+                        </h:outputText>
+                        <h:outputText value="Текущий долг"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.currentDebt}"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.currentDebt}"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.currentDebt}">
+                            <f:convertNumber pattern="############.00"/>
+                        </h:outputText>
+                        <h:outputText value="Текущий просроченный долг"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.currentOverdueDebt}"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.currentOverdueDebt}"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.currentOverdueDebt}">
+                            <f:convertNumber pattern="############.00"/>
+                        </h:outputText>
+                        <h:outputText value="Неиспользованный лимит"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.creditLimitUnused}"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.creditLimitUnused}"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.creditLimitUnused}">
+                            <f:convertNumber pattern="############.00"/>
+                        </h:outputText>
+                        <h:outputText value="Количество продлений"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.creditLong}"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.creditLong}"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.creditLong}"/>
+
+                        <h:outputText value="Дней просрочки"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.maxDelay}"/>
+                        <h:outputText value="#{viewCollectorSuperviserController.credit.maxDelay}"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.maxDelay}"/>
+                        <h:outputText value="Погашение за счет обеспечения"
+                                      rendered="#{not empty viewCollectorSuperviserController.credit.creditMoneyBack}"/>
+                        <h:panelGroup rendered="#{not empty viewCollectorSuperviserController.credit.creditMoneyBack}">
+                            <h:outputText value="да" rendered="#{viewCollectorSuperviserController.credit.creditMoneyBack==1}"/>
+                            <h:outputText value="нет" rendered="#{! viewCollectorSuperviserController.credit.creditMoneyBack==0}"/>
+                        </h:panelGroup>
+                        <h:outputText value="Закрыт?"/>
+                        <h:panelGroup>
+                            <h:outputText value="да" rendered="#{viewCollectorSuperviserController.credit.isOver}"/>
+                            <h:outputText value="нет" rendered="#{! viewCollectorSuperviserController.credit.isOver}"/>
+                        </h:panelGroup>
+
+                        <h:link outcome="/views/creditrequest/edit?faces-redirect=true" styleClass="button" target="_blank">
+                            <f:param name="ccRequestId" value="#{viewCollectorSuperviserController.creditRequestID}" />
+                            <h:outputText value="Кредитная заявка"/>
+                        </h:link>
+
+                        <h:link outcome="/views/credit/edit?faces-redirect=true" styleClass="button" target="_blank">
+                            <f:param name="creditid" value="#{viewCollectorSuperviserController.credit.id}" />
+                            <h:outputText value="Кредит клиента"/>
+                        </h:link>
+                    </h:panelGrid>
+                </rich:panel>
+            </h:panelGroup>
+
+            <h:panelGrid columns="2">
+                <h:commandButton value="Закрыть" styleClass="button grey" action="#{viewCollectorSuperviserController.close}"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

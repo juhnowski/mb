@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+           <rich:panel header="Поиск" styleClass="layout block4 table_small" >
+             <h:panelGroup id="pnlSearchQuick"  styleClass="search">
+         	 	<h:panelGrid columns="4" styleClass="table_search">
+         	 	    <h:outputText value="Фамилия пользователя" />
+         	 	    <h:outputText value="Логин" />
+         	 	    <h:outputText value="Роль пользователя" />
+                    <h:outputText value="Вид пользователя" />
+
+         	 	     
+         	 	    <h:inputText value="#{listUsers.prmSurname}"/>
+         	 	    <h:inputText value="#{listUsers.prmUserName}"/>
+         	 	    <h:selectOneMenu value="#{listUsers.prmRole}" >
+         	 			<f:selectItems value="#{refs.roles}" />
+         	 		</h:selectOneMenu>          	 	
+	    	 	    <h:selectOneMenu value="#{listUsers.prmUserType}" >
+         	 			<f:selectItems value="#{refs.userTypes}" />
+         	 		</h:selectOneMenu>  
+         	 	</h:panelGrid>
+         	 
+				<a4j:commandButton value="Найти" action="#{listUsers.dummy}" actionListener="#{listUsers.searchLsn}" render="pnlResults" execute="@form" styleClass="button" /> 
+				<a4j:commandButton value="Очистить" actionListener="#{listUsers.clearLsn}" render="frmMain" execute="@form" styleClass="button grey" />         	 	             
+             </h:panelGroup>
+           </rich:panel>          
+     			
+</ui:composition>	

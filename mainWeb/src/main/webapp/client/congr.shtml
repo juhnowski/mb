@@ -1,0 +1,44 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta http-equiv="refresh" content="15;url=/main/client/overview.shtml"/>
+    <!--#include file="include/_head.shtml"-->
+    <title>Личный кабинет | «Мобифинанс»</title>
+
+    <script>
+        app = angular.module('app', ['layout']);
+    </script>
+</head>
+
+<body ng-controller="MainCtrl">
+
+<!--#include file="include/_header.shtml"-->
+
+<main>
+    <div class="center clr table w100p">
+        <div class="tr">
+
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block td">
+                <h3 class="h3">Ваша заявка принята к рассмотрению</h3>
+
+                <div class="box-20 clr">
+                    <table class="table-1">
+                        <tr>
+                            <td>Статус</td>
+                            <td>Поздравляем! Ваша заявка принята к рассмотрению. <br/>
+                                В течение ближайших 10 минут будет принято решение по выдаче Вам займа.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!--#include file="include/_footer.shtml"-->
+
+</body>
+</html>

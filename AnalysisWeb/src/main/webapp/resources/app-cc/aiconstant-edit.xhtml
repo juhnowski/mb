@@ -1,0 +1,37 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:a4j="http://richfaces.org/a4j" 
+	xmlns:rich="http://richfaces.org/rich"
+	xsi:schemaLocation="http://www.w3.org/1999/xhtml http://www.w3.org/2002/08/xhtml/xhtml1-transitional.xsd">
+
+	<cc:interface>
+		<cc:attribute name="con" required="true" />
+		<cc:attribute name="showName" required="false" />
+		<cc:attribute name="showDescription" required="false" />
+	</cc:interface>
+
+	<cc:implementation>
+		<h:outputText value="aiconstant"/><br/>
+		<h:panelGrid columns="1">
+			<h:panelGroup rendered="#{showName}">
+				<h:outputText value="#{con.name}"/><br/>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{showDescription}">
+				<h:outputText value="#{con.description}"/><br/>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{con.dataType =='C'}">
+				<h:inputTextarea value="#{con.dataValueString}"/>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{con.dataType =='N'}">
+				<rich:inputNumberSpinner value="#{con.dataValue}" />
+			</h:panelGroup>
+			<h:panelGroup rendered="#{con.dataType =='F'}">
+				<h:inputText value="#{con.dataValue}" />
+			</h:panelGroup>
+			<h:panelGroup rendered="#{con.dataType =='D'}">
+				<rich:calendar value="#{con.dataValueDate}" popup="true" />
+			</h:panelGroup>		
+		</h:panelGrid>
+	</cc:implementation>
+</ui:component>

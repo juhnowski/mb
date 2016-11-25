@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+     <ui:define name="title">Business analysis console</ui:define>
+
+     <ui:define name="pageContent">
+        <h:form id="frmMain">
+    		
+    		<rich:messages globalOnly="true" layout="table" />
+		
+			<h:panelGroup id="pnlFull">
+         	    <h:outputText value="Поиск" />
+         	    <h:panelGrid columns="2">
+         	    <h:outputText value="Партнер" />
+         	    <h:selectOneMenu value="#{listUploading.prmPartnerId}" valueChangeListener="#{listUploading.changePartner}">
+        			<f:selectItems value="#{comrefs.partnersForCreditHistoryNull}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Статус выгрузки" />
+         	    <h:selectOneMenu value="#{listUploading.prmStatus}">
+         	        <f:selectItem itemValue="null" itemLabel="---любой---" />
+         	        <f:selectItem itemValue="0" itemLabel="создан файл для выгрузки" />
+        			<f:selectItem itemValue="1" itemLabel="первичная выгрузка успешна" />
+		   		    <f:selectItem itemValue="2" itemLabel="первичная выгрузка с ошибкой" />
+		   		    <f:selectItem itemValue="3" itemLabel="результат выгрузки успешный" />
+		   		    <f:selectItem itemValue="4" itemLabel="результат выгрузки с ошибкой" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Вид выгрузки" />
+         	    <h:selectOneMenu value="#{listUploading.prmTypeId}" valueChangeListener="#{listUploading.changeType}">
+        			<f:selectItems value="#{refs.uploadTypesNull}" />
+        		</h:selectOneMenu>
+         	    <h:outputText value="Номер выгрузки в системе" />
+         	    <h:inputText  value="#{listUploading.prmUploadId}"/>
+         	    <h:outputText value="Дата выгрузки с" />
+         	    <rich:calendar value="#{listUploading.prmUploadingDate.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         	     <h:outputText value="Дата выгрузки по" />
+         	    <rich:calendar value="#{listUploading.prmUploadingDate.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         		  <h:outputText value="Дата ответа с" />
+         	    <rich:calendar value="#{listUploading.prmResponseDate.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         	     <h:outputText value="Дата ответа по" />
+         	    <rich:calendar value="#{listUploading.prmResponseDate.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         		
+         	    </h:panelGrid>
+             	<a4j:commandButton value="Найти" actionListener="#{listUploading.searchLsn}" render="pnlResults" /> <a4j:commandButton value="Очистить" actionListener="#{listUploading.clearLsn}" render="frmMain" />
+             </h:panelGroup>
+    		<p></p>		
+				<h:panelGroup id="pnlResults">
+				<h:panelGroup>
+					<h:outputText value="Найдены выгруженные пакеты данных в КБ" />
+				</h:panelGroup>	
+				<rich:extendedDataTable id="reqTable"
+		                         value="#{listUploading.model}"               
+		                         var="req"
+		                         selectionMode="single" rows="20">
+		               
+		                <rich:column width="80">
+		                	<f:facet name="header">№ выгрузки</f:facet>
+		                	<h:link outcome="view?faces-redirect=true" >
+		                		<f:param name="reqid" value="#{req.id}" />
+		                		<h:outputText value="#{req.uploadId}"/>
+		                	</h:link>
+		                </rich:column>
+		                <rich:column width="150">
+		                	<f:facet name="header">Партнер</f:facet>
+		                	<h:outputText value="#{req.partner.realName}"/>
+		                </rich:column>
+		                 <rich:column width="300">
+		                	<f:facet name="header">Статус выгрузки</f:facet>
+		                	<h:outputText value="создан файл для выгрузки" rendered="#{req.status==0}"/>
+		                	<h:outputText value="первичная выгрузка успешна" rendered="#{req.status==1}"/>
+		                	<h:outputText value="первичная выгрузка с ошибкой" rendered="#{req.status==2}"/>
+		                	<h:outputText value="результат выгрузки успешный" rendered="#{req.status==3}"/>
+		                	<h:outputText value="результат выгрузки с ошибкой" rendered="#{req.status==4}"/>
+		                </rich:column>
+		                 <rich:column width="300">
+		                	<f:facet name="header">Вид выгрузки</f:facet>
+		                	<h:outputText value="кредиты" rendered="#{req.uploadType==1}"/>
+		                	<h:outputText value="заявки" rendered="#{req.uploadType==2}"/>
+		                	<h:outputText value="кредиты и заявки" rendered="#{req.uploadType==3}"/>
+		                	<h:outputText value="корректировочный файл по 1 кредиту" rendered="#{req.uploadType==4}"/>
+		                	<h:outputText value="удаление кредита из БД партнера" rendered="#{req.uploadType==5}"/>
+		                	<h:outputText value="выгрузка кредитов по номерам" rendered="#{req.uploadType==6}"/>
+		                </rich:column>
+		                <rich:column width="150">
+		                	<f:facet name="header">Дата выгрузки</f:facet>
+		                	<h:outputText value="#{req.dateUploading}">
+		                	   <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+		                	</h:outputText> 
+		                </rich:column>
+		                <rich:column width="150">
+		                	<f:facet name="header">Дата ответа</f:facet>
+		                	<h:outputText value="#{req.responseDate}">
+		                	   <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+		                	</h:outputText> 
+		                </rich:column>
+		                <rich:column width="200">
+		                	<f:facet name="header">Название файла выгрузки</f:facet>
+		                	<h:outputText value="#{req.name}"/>
+		                </rich:column>
+		                 <f:facet name="footer">	
+		                    <rich:dataScroller/>
+		                </f:facet>
+		         </rich:extendedDataTable>
+		     </h:panelGroup>           	
+    			
+    	
+    	
+         </h:form>
+     </ui:define>
+</ui:composition>
+

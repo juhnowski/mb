@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+    <ui:define name="metadata">
+
+    </ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="frmEdit" prependId="false">
+            <rich:messages globalOnly="true" layout="table"/>
+            <h:panelGroup id="pnlAdd">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Наименование: "/>
+                    <h:inputText value="#{refBonus.name}" size="30"/>
+                    <h:outputText value="Количество бонусов: "/>
+                    <h:inputText value="#{refBonus.amount}" size="30"/>
+                    <h:outputText value="Активный: "/>
+                    <h:selectBooleanCheckbox value="#{refBonus.isactive}"/>
+                </h:panelGrid>
+                <a4j:commandButton value="Добавить" actionListener="#{refBonus.addItem}" render="pnlData"
+                                   execute="@form"/>
+            </h:panelGroup>
+            <p></p>
+
+            <h:panelGroup id="pnlData">
+                <rich:dataTable id="bonusTable" var="ref" value="#{refBonus.listRefBonus}">
+                    <rich:column>
+                        <f:facet name="header">Наименование</f:facet>
+                        <h:inputText value="#{ref.name}" size="30"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">Количество бонусов</f:facet>
+                        <h:inputText value="#{ref.amount}" size="30"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">Активный</f:facet>
+                        <h:selectBooleanCheckbox value="#{ref.isactive}" size="30"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">Code Integer</f:facet>
+                        <h:inputText readonly="true" value="#{ref.codeinteger}" size="5"/>
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">Действия</f:facet>
+                        <h:commandLink actionListener="#{refBonus.deleteItem}"
+                                       onclick="if (! confirm('Удалить значение справочника?') ) { return false;}; return true; ">
+                            <f:attribute name="bonusID" value="#{ref.id}"/>
+                            <a4j:ajax render="pnlData"/>
+                            <h:graphicImage value="/resources/icons/delete.gif" title="удалить"/>
+                        </h:commandLink>
+                    </rich:column>
+                </rich:dataTable>
+            </h:panelGroup>
+            <h:panelGrid columns="2">
+                <h:commandLink value="Сохранить" action="#{refBonus.saveItems}"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,27 @@
+<div class="left-block">
+    <h3 class="h3">Мои бонусы</h3>
+    <ul>
+        <li><a href="/main/client/bonus.shtml">Начисления</a></li>
+        <li><a href="/main/client/bonus-plus.shtml">Получить бонусы</a></li>
+        <li><a href="/main/client/bonus-settings.shtml">Настройки оплаты бонусами</a></li>
+    </ul>
+
+    <div class="balance-block">
+        <p>
+            <a href="bonus.shtml" class="bonus-show">
+                Бонусы: <b ng-bind="bonus"></b>
+            </a>
+        </p>
+        <p>
+            <a class="balance-show" href="balance.shtml">
+                Счет: <b><span ng-bind="savings"></span> <i>руб.</i></b>
+            </a>
+        </p>
+    </div>
+
+    <div class="support-block">
+        <a class="img support-show"><img src="/main/img/support.png" alt=""></a>
+        <h3>Есть вопросы?</h3>
+        <p><a href="/main/"><i class="ico ico--arrow-right-green"></i>Войти в чат</a></p>
+    </div>
+</div>

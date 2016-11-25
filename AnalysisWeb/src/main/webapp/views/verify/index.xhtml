@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Вопросы верификатору</ui:define>
+
+    <ui:define name="pageContent">
+    	<h:form id="frmNew">
+    		<rich:panel header="Добавить вопрос">
+    			
+    			<h:panelGrid columns="2">
+    				<h:outputText value="Код" />
+    				<h:panelGroup>
+    					<h:inputText id="txtId" value="#{newQuest.prmQuestionCode}" required="true" requiredMessage="необходимо заполнить код вопроса" />
+    					<rich:messages for="txtId" />
+    				</h:panelGroup> 
+    				<h:outputText value="Продукт" />
+    				<h:selectOneMenu  value="#{newQuest.productId}"   >
+			           <f:selectItems value="#{comrefs.productsId}" />						
+		            </h:selectOneMenu> 
+    			</h:panelGrid>
+    			<h:commandButton value="Добавить" action="#{newQuest.create}"></h:commandButton>
+    		</rich:panel>
+    	</h:form>
+        <h:form id="frmMain">
+            <h:outputLabel value="Вопросы верификатору" />
+       	 	<h:panelGrid columns="2">
+      	 		<h:outputText value="Код начинается с" /> <h:inputText value="#{listQuest.prmQuestionCode}" />
+      	 		<h:outputText value="Вопрос содержит" /> <h:inputText value="#{listQuest.prmQuestionText}" />
+      	 		<h:outputText value="Тип ответа" /> 
+      	 		<h:selectOneMenu value="#{listQuest.prmAnswerType}" >
+      	 			
+      	 			<f:selectItems value="#{refs.answerTypes}" />
+      	 		</h:selectOneMenu>
+      	 		<a4j:commandButton value="Найти" action="#{listQuest.dummy}" actionListener="#{listQuest.searchLsn}" render="pnlResults" execute="@form" /> 
+      	 		<a4j:commandButton value="Очистить" actionListener="#{listQuest.clearLsn}" render="frmMain" execute="@form" />
+      	 	</h:panelGrid>
+      	 	            
+   			<h:panelGroup id="pnlResults">
+				<h:panelGroup>
+					<h:outputText id="cnt" value="Найдено #{listQuest.model.rowCount} вопросов" />
+				</h:panelGroup>	
+	            <rich:extendedDataTable id="reqTable" var="que" value="#{listQuest.model}" rows="20">
+	            	<rich:column>
+	            		<f:facet name="header">
+	            			<h:outputText value="Код" />
+	            		</f:facet>
+	            		<h:outputText value="#{que.questionCode}" />
+	            	</rich:column>
+	            	<rich:column>
+	            		<f:facet name="header">
+	            			<h:outputText value="Вопрос" />
+	            		</f:facet>
+	            		<h:outputText value="#{que.questionText}" />
+	            	</rich:column> 
+	            	<rich:column>
+	            		<f:facet name="header">
+	            			<h:outputText value="Тип ответа" />
+	            		</f:facet>
+	            		<h:outputText value="#{que.answerTypeName}" />
+	            	</rich:column>   
+	            	<rich:column>
+			            <f:facet name="header"><h:outputText value="Продукт" /></f:facet>
+						<h:outputText value="#{que.product.name}" rendered="#{not empty que.product}"/>  
+			        </rich:column>	 
+	            	<rich:column>
+	            		<f:facet name="header">
+	            			<h:outputText value="Действия" />
+	            		</f:facet>
+	            		<h:link outcome="edit">
+            				<f:param name="questid" value="#{que.id}" />
+            				<f:param name="faces-redirect" value="true" />
+            				<h:graphicImage value="/resources/icons/edit.gif" title="редактировать" />	            		
+	            		</h:link>
+						<h:commandLink actionListener="#{listQuest.removeQuestLsn}" onclick="if (confirm('Удалить вопрос?')) { return true; } else { return false;}">
+							<f:attribute name="questid" value="#{que.id}" />
+							<a4j:ajax render="@form" />
+							<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+						</h:commandLink>	            		
+	            	</rich:column>             	        	           	
+	            	<f:facet name="footer">
+	            		<rich:dataScroller/>
+	            	</f:facet>
+	            </rich:extendedDataTable>
+	         </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>

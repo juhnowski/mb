@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+    <ui:param name="top_selected_item" value="collector"/>
+
+    <ui:define name="title">Manager console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="frmTask" rendered="#{listCollector.newRequestList.size() ne 0 or listCollector.collectorTasks.size() ne 0}">
+            <rich:tabPanel>
+                <rich:tab rendered="#{listCollector.newRequestList.size() != 0}">
+                    <f:facet name="header">
+                        <b>#{listCollector.newRequestList.size()} новых заявок</b>
+                    </f:facet>
+                    <rich:dataTable var="cb" value="#{listCollector.newRequestList}" rendered="#{listCollector.newRequestList.size() > 0}"
+                                    rows="20" styleClass="table2">
+                        <rich:column headerClass="th0" styleClass="td0">
+                            <f:facet name="header"><h:outputText value="Имя и фамилия"/></f:facet>
+                            <h:outputText value="#{cb.peopleMain.peoplePersonalActive.surname} #{cb.peopleMain.peoplePersonalActive.name} #{cb.peopleMain.peoplePersonalActive.midname}"/>
+                        </rich:column>
+                        <rich:column headerClass="th0" styleClass="td0">
+                            <f:facet name="header"><h:outputText value="Номер кредита"/></f:facet>
+                            <h:outputText value="#{cb.credit.creditAccount}"/>
+                        </rich:column>
+                        <rich:column headerClass="th0" styleClass="td0">
+                            <f:facet name="header"><h:outputText value="Сумма текущего долга"/></f:facet>
+                            <h:outputText value="#{cb.credit.creditSum}"/>
+                        </rich:column>
+                        <rich:column headerClass="th0" styleClass="td0">
+                            <f:facet name="header"><h:outputText value="Сумма возврата"/></f:facet>
+                            <h:outputText value="#{cb.credit.creditSumBack}"/>
+                        </rich:column>
+                        <rich:column headerClass="th0" styleClass="td0">
+                            <f:facet name="header"><h:outputText value="Дата поступления"/></f:facet>
+                            <h:outputText value="#{cb.databeg}">
+                                <f:convertDateTime pattern="dd.MM.yyyy"/>
+                            </h:outputText>
+                        </rich:column>
+                        <rich:column headerClass="th0" styleClass="td0">
+                            <f:facet name="header"><h:outputText value="Дней просрочки"/></f:facet>
+                            <h:outputText value="#{cb.credit.maxDelay}"/>
+                        </rich:column>
+                        <rich:column headerClass="th0" styleClass="td0">
+                            <f:facet name="header"><h:outputText value="Действия"/></f:facet>
+                            <h:commandLink value="Взять в работу" action="#{listCollector.takeRequest}" styleClass="button">
+                                <f:param name="collectorID" value="#{cb.id}"/>
+                            </h:commandLink>
+                        </rich:column>
+                    </rich:dataTable>
+                </rich:tab>
+                <rich:tab rendered="#{listCollector.collectorTasks.size() != 0}">
+                    <f:facet name="header">
+                        <b>#{listCollector.collectorTasks.size()} заданий</b>
+                    </f:facet>
+                    <rich:dataTable var="cl" value="#{listCollector.collectorTasks}"
+                                    rows="20" styleClass="table2">
+                        <rich:column headerClass="th0" styleClass="td0">
+                            <f:facet name="header"><h:outputText value="Дата задачи"/></f:facet>
+                            <h:outputText value="#{cl.eventDate}">
+                                <f:convertDateTime pattern="dd.MM.yyyy"/>
+                            </h:outputText>
+                        </rich:column>
+                        <rich:column headerClass="th0" styleClass="td0">
+                            <f:facet name="header"><h:outputText value="ФИО"/></f:facet>
+                            <h:outputText value="#{cl.peopleMainId.peoplePersonalActive.fullName}"/>
+                        </rich:column>
+                        <rich:column headerClass="th0" styleClass="td0">
+                            <f:facet name="header"><h:outputText value="Вид задачи"/></f:facet>
+                            <h:outputText value="#{cl.taskType.name}"/>
+                        </rich:column>
+                        <rich:column headerClass="th0" styleClass="td0">
+                            <f:facet name="header"><h:outputText value="Действия"/></f:facet>
+                            <h:link outcome="/views/collector/view?faces-redirect=true" styleClass="open">
+                                <f:param name="collectorID" value="#{cl.collectorId.id}"/>
+                            </h:link>
+                        </rich:column>
+                        <f:facet name="footer">
+                            <rich:dataScroller/>
+                        </f:facet>
+                    </rich:dataTable>
+                </rich:tab>
+            </rich:tabPanel>
+        </h:form>
+        <br/>
+        <h:form id="frmMain">
+            <ui:include src="inc_search.xhtml" />
+            <p></p>
+            <ui:include src="inc_search_result.xhtml" />
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,33 @@
+						<div class="address row"></div>
+						<div class="row">
+							<div class="col first">
+								<label>Дом</label>
+							</div>
+							<div class="col">
+								<input class="home input required" placeholder="Номер дома">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col first">
+								<label>Корпус</label>
+							</div>
+							<div class="col">
+								<input class="korpus input" placeholder="Номер корпуса">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col first">
+								<label>Строение</label>
+							</div>
+							<div class="col">
+								<input class="builder input" placeholder="Номер строения">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col first">
+								<label>Квартира</label>
+							</div>
+							<div class="col">
+								<input class="apartment input" placeholder="Номер квартиры">
+							</div>
+						</div>

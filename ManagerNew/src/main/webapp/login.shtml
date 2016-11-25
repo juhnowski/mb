@@ -1,0 +1,61 @@
+﻿<!--#include file="_head.shtml"-->
+
+	<body>
+		
+		<div class="wrapper">
+
+
+			<!-- Start modalin -->
+			<div class="modalin-0">
+				<div class="insert-line"></div>
+
+				<div class="modalin-circle"></div>
+
+				<div class="modalin-blockinpt">
+					<label></label>
+					<input type="text" id="login" placeholder="Логин" onblur="if (this.placeholder=='') this.placeholder='Логин';" onfocus="if (this.placeholder=='Логин') this.placeholder='';">
+				</div>
+
+
+				<div class="modalin-blockinpt-two">
+					<label></label>
+					<input type="password" id="password" placeholder="Пароль" onblur="if (this.placeholder=='') this.placeholder='Пароль';" onfocus="if (this.placeholder=='Пароль') this.placeholder='';">
+					<input type="submit" value="" onclick="login_new_lk();">
+				</div>
+
+
+				<div class="remember-forgot">
+					<div class="remember">
+
+						<div class="checkboxes">
+							<div class="check">
+								<input id="remember" type="checkbox" value="yes" />
+							</div>
+							Запомнить меня
+						</div>
+
+					</div>
+
+					<div class="forgot">
+						Забыли пароль?
+					</div>
+				</div>
+
+				<div id="login-error" class="modal-error hide">Ошибка авторизации!</div>
+
+			</div>
+			<!-- End modalin -->
+
+			<div class="login_bg"></div>
+
+
+			<!--#include file="_footer.shtml"-->
+		
+		</div>
+
+
+		<!--#include file="_modal.shtml"-->
+
+
+	</body>
+</html>

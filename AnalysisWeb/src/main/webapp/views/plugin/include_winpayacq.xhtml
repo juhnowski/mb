@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:panelGrid columns="2">
+        <h:outputText value="Использовать тестовый или рабочий сервер" />
+        <h:selectOneMenu value="#{editPlugCtl.extCtl.useWork}">
+            <f:selectItem itemLabel="рабочий" itemValue="#{true}"/>
+            <f:selectItem itemLabel="тестовый" itemValue="#{false}"/>
+        </h:selectOneMenu>
+        <h:outputText value="Ключ приложения" />
+        <h:inputText value="#{editPlugCtl.extCtl.apiKey}" size="100"/>
+        <h:outputText value="Секретный ключ" />
+        <h:inputText value="#{editPlugCtl.extCtl.secretKey}" size="50"/>
+        <h:outputText value="payUrl" />
+        <h:inputText value="#{editPlugCtl.extCtl.payUrl}" size="100"/>
+        <h:outputText value="testUrl" />
+        <h:inputText value="#{editPlugCtl.extCtl.testUrl}" size="100"/>
+	</h:panelGrid>
+</ui:composition>

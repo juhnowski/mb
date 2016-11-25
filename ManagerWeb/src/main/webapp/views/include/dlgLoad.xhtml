@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/templatemin.xhtml">
+	
+	<ui:define name="pageContent">
+		<h:form>
+			<rich:messages globalOnly="true" />
+			<h:panelGrid columns="1" cellpadding="5">
+				<h:selectOneListbox value="#{dialog.listMgr.selectedListId}" >
+					<f:selectItems value="#{dialog.listMgr.lists}" var="lst" itemLabel="#{lst.name}" itemValue="#{lst.id}" />
+				</h:selectOneListbox>
+				<f:facet name="footer">
+					<h:commandButton value="Загрузить" action="#{dialog.listMgr.load}">
+					</h:commandButton>
+					<h:commandButton value="Отмена" action="#{dialog.listMgr.cancel}">
+					</h:commandButton>				
+				</f:facet>
+			</h:panelGrid>
+		</h:form>		
+	</ui:define>
+</ui:composition>

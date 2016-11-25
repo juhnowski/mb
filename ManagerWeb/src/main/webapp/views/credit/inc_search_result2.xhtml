@@ -1,0 +1,135 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	>
+			<h:panelGroup id="pnlResults" styleClass="div">
+				<h:panelGroup id="cnt" styleClass="total_result">
+					<h:outputText value="Найдено "/><b><h:outputText value="#{listCC.model.rowCount} займов"/></b>
+				</h:panelGroup>	
+				<rich:dataTable id="reqTable"
+		                         value="#{listCC.model}"               
+		                         var="req"
+		                         selectionMode="single"
+		                         rows="20"
+		                         sortPriority="#{listCC.model.sortPriorities}"
+		                         styleClass="table2"
+		                          footerClass="dn">
+
+	                <rich:column width="30" headerClass="th0" styleClass="td0" rendered="#{listCC.listExists}">
+	                	<f:facet name="header">В списке</f:facet>
+	                	<a4j:region>
+		                	<a4j:commandLink actionListener="#{listCC.switchFromListLsn}" render="@all" execute="@this">
+		                		<f:attribute name="listItemId" value="#{req.id}"/>
+	    	            		<h:graphicImage value="#{listCC.inList(req.id)?'/resources/icons/inlist.png':'/resources/icons/notinlist.png'}" />
+	        	        	</a4j:commandLink>
+	                	</a4j:region>	                	
+	                </rich:column>		                                                    
+	               
+	                <rich:column width="138" headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Номер займа</f:facet>
+	                	<h:outputText value="#{req.creditAccount}"/>
+	                </rich:column>			                
+	                
+	                <rich:column  width="86" selfSorted="false" sortOrder="#{listCC.model.sortsOrders['CreditDataBeg']}" sortType="custom" headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	            		   <a4j:commandLink execute="@this" value="Дата выдачи" render="@all"
+	                            action="#{listCC.model.sort}">
+	                            <f:param name="sortProperty" value="CreditDataBeg" />
+	                        </a4j:commandLink>
+	                        <h:graphicImage value="/resources/icons/tables/down_icon.gif" rendered="#{listCC.model.sortsOrders['CreditDataBeg']=='descending'}" />
+	                        <h:graphicImage value="/resources/icons/tables/up_icon.gif" rendered="#{listCC.model.sortsOrders['CreditDataBeg']=='ascending'}" />	            		
+	            		</f:facet> 	                	
+	                	<h:outputText value="#{req.creditDataBeg}">
+	                		<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+	                	</h:outputText>
+	                </rich:column>	
+	                
+	                 <rich:column  width="86" selfSorted="false" sortOrder="#{listCC.model.sortsOrders['CreditDataEnd']}" sortType="custom" headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	            		   <a4j:commandLink execute="@this" value="Дата окончания по графику" render="@all"
+	                            action="#{listCC.model.sort}">
+	                            <f:param name="sortProperty" value="CreditDataEnd" />
+	                        </a4j:commandLink>
+	                        <h:graphicImage value="/resources/icons/tables/down_icon.gif" rendered="#{listCC.model.sortsOrders['CreditDataEnd']=='descending'}" />
+	                        <h:graphicImage value="/resources/icons/tables/up_icon.gif" rendered="#{listCC.model.sortsOrders['CreditDataEnd']=='ascending'}" />	            		
+	            		</f:facet> 	                	
+	                	<h:outputText value="#{req.creditDataEnd}">
+	                		<f:convertDateTime pattern="dd.MM.yyyy"/>
+	                	</h:outputText>
+	                </rich:column>	
+	                
+	                 <rich:column  width="72" selfSorted="false" sortOrder="#{listCC.model.sortsOrders['CreditSum']}" sortType="custom" headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	                        <a4j:commandLink execute="@this" value="Сумма кредита" render="@all"
+	                            action="#{listCC.model.sort}">
+	                            <f:param name="sortProperty" value="CreditSum" />
+	                        </a4j:commandLink>
+	                        <h:graphicImage value="/resources/icons/tables/down_icon.gif" rendered="#{listCC.model.sortsOrders['CreditSum']=='descending'}" />
+	                        <h:graphicImage value="/resources/icons/tables/up_icon.gif" rendered="#{listCC.model.sortsOrders['CreditSum']=='ascending'}" />	            		
+	            		</f:facet> 	                	
+	                	<h:outputText value="#{req.creditSum}"/>
+	                </rich:column>	
+	                <rich:column width="60" headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Ставка</f:facet>
+	                	<h:outputText value="#{req.creditPercent}"/>
+	                </rich:column>
+	                 <rich:column width="150" headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Статус займа</f:facet>
+	                	<h:outputText value="#{req.creditStatus.name}"/>
+	                </rich:column>
+	               	<rich:column width="261" headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Клиент</f:facet>
+	                	<h:outputText value="#{req.creditRequest.peopleMain.peoplePersonalActive.surname} #{req.creditRequest.peopleMain.peoplePersonalActive.name} #{req.creditRequest.peopleMain.peoplePersonalActive.midname}"/>
+	                </rich:column>
+	                                                		                		                
+	                <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	                		<h:outputText value="Действия" />
+	                		<br/>
+	                        <a4j:commandLink execute="@this" value="сбросить" render="reqTable"
+	                            action="#{listCC.model.reset}">
+	                        </a4j:commandLink>                		
+	            		</f:facet> 
+	                	<h:panelGrid columns="2">          		
+							<h:panelGroup >
+								<h:link outcome="edit?faces-redirect=true" styleClass="open">
+									<f:param name="creditid" value="#{req.id}" />
+								</h:link>
+							</h:panelGroup>
+							<h:panelGroup >
+								<a4j:commandButton value="" actionListener="#{actC.setCurrentLsn}" execute="@this" render="outActions" oncomplete="#{rich:component('pnlActions')}.show(); return false;" styleClass="edit">
+									<f:attribute name="prmBusinessObjectId" value="#{req.id}" />
+								</a4j:commandButton>
+							</h:panelGroup>					
+						</h:panelGrid> 
+	                </rich:column>		
+	                <f:facet name="footer">
+	                	<rich:dataScroller for="reqTable" />
+	                </f:facet>
+	          	</rich:dataTable>				
+			</h:panelGroup>
+			
+			<a4j:outputPanel id="outActions">				
+		    <rich:popupPanel id="pnlActions" autosized="true" modal="true" moveable="true" resizeable="false" followByScroll="true" styleClass="alert_up" header="действия" headerClass="grad_bb_h2">
+		    
+		    	<h:dataTable var="act" value="#{actC.actions}">
+		    		<h:column>
+		    			<h:link rendered="#{act.link}" outcome="#{act.linkOutcome}" styleClass="submit">
+		    				<f:param name="prmBusinessObjectId" value="#{actC.prmBusinessObjectId}" />	
+		    				<f:param name="faces-redirect" value="#{act.redirect?true:false}" />
+		    				<f:param name="actionDef" value="#{act.action.asString}" />	    				
+		    				<h:outputText value="#{act.action.name}"/>	
+		    			</h:link>
+		    			<h:commandLink rendered="#{! act.link}" value="#{act.action.name}" actionListener="#{actC.executeLsn}" onclick="javascript:#{act.confirmScript}" styleClass="submit">
+		    				<f:attribute name="prmBusinessObjectId" value="#{actC.prmBusinessObjectId}"/>
+		    				<f:attribute name="actionDef" value="#{act.action.asString}"/>
+		    				<a4j:ajax render="@all" />
+		    			</h:commandLink>
+		    		</h:column>
+		    	</h:dataTable>
+		    	<br/>   
+		        <h:outputLink onclick="#{rich:component('pnlActions')}.hide(); return false;" value="#" styleClass="submit">Закрыть</h:outputLink>
+		    </rich:popupPanel>
+		    </a4j:outputPanel>				
+</ui:composition>

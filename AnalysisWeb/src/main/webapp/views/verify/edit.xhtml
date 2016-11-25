@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+	
+    <ui:define name="pageContent">
+        <h:form>
+        	<rich:messages globalOnly="true" />
+        	<h:panelGrid columns="2">
+        		<h:outputText value="Код" /> 
+        		<h:inputText value="#{editQuest.question.questionCode}" required="true" requiredMessage="Необходимо заполнить код вопроса"/>        	
+        		<h:outputText value="Вопрос" /> <h:inputTextarea value="#{editQuest.question.questionText}" required="true" requiredMessage="Необходимо заполнить вопрос"/>
+        		<h:outputText value="Тип ответа" /> 
+        		<h:selectOneMenu value="#{editQuest.question.answerType}">
+        			<f:selectItems value="#{refs.answerTypes}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Продукт" />
+        		<h:selectOneMenu  value="#{editQuest.question.product}"  converter="convertProd"  >
+			       <f:selectItems value="#{comrefs.products}" />						
+		        </h:selectOneMenu>
+        		<h:outputText value="Варианты ответа" />
+        		<h:panelGroup id="pnlData">
+        			<rich:dataTable id="tblVariants" var="ans" value="#{editQuest.variantsIds}">
+        				<rich:column>
+        					<f:facet name="header"><h:outputText value="Код варианта ответа" /></f:facet>
+        					<h:inputText value="#{editQuest.variants[ans].value}" />
+        				</rich:column>
+        				<rich:column >
+        					<f:facet name="header"><h:outputText value="Текст варианта ответа" /></f:facet>
+        					<h:inputText value="#{editQuest.variants[ans].name}" />
+        				</rich:column>        		
+        				<rich:column>
+        					<f:facet name="header"><h:outputText value="Действия" /></f:facet>
+        					<h:commandLink value="удалить" actionListener="#{editQuest.deleteVariantLsn}" onclick="if (! confirm('Удалить этот вариант ответа?') ) { return false;}; return true; ">
+        						<f:attribute name="answeridx" value="#{ans}" />
+        						<a4j:ajax  render="@form" />
+        					</h:commandLink>        					
+        				</rich:column>        						
+        			</rich:dataTable>
+   					<h:commandLink value="добавить ещё 5" actionListener="#{editQuest.addVariantLsn}">
+  						<a4j:ajax render="@form"  />
+   					</h:commandLink>
+        		</h:panelGroup> 
+        	</h:panelGrid>
+        	<h:commandButton value="Сохранить" action="#{editQuest.save}"></h:commandButton>
+        	<h:commandButton value="Отмена" action="#{editQuest.cancel}" immediate="true"></h:commandButton>
+        </h:form>
+    </ui:define>
+</ui:composition>

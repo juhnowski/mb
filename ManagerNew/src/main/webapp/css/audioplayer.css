@@ -1,0 +1,126 @@
+.audioplayer {
+	height: 24px; /* 40 */
+	position: relative;
+	z-index: 1;
+	font-family: 'OpenSans-Regular';
+	font-size: 12px;
+	color: #666;
+}
+
+.audioplayer-time {}
+
+.audioplayer > div {position: absolute;}
+
+.audioplayer-playpause {
+	width: 30px;
+	height: 24px;
+	text-align: left;
+	text-indent: -9999px;
+	cursor: pointer;
+	z-index: 2;
+	top: 0;
+	left: 0;
+}
+
+.audioplayer-volume {display: none;}
+
+.audioplayer:not(.audioplayer-mini) .audioplayer-playpause {
+	border-right: 1px solid #555;
+	border-right-color: rgba( 255, 255, 255, .1 );
+}
+
+.audioplayer-mini .audioplayer-playpause {width: 100%;}
+.audioplayer-playpause a {display: block;}
+.audioplayer:not(.audioplayer-playing) .audioplayer-playpause a {
+	width: 30px;
+	height: 24px;
+	margin: 0;
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: url(../images/sprite.svg) -45px -534px;
+}
+.audioplayer-playing .audioplayer-playpause a {
+	width: 30px;
+	height: 24px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0;
+}
+.audioplayer-playing .audioplayer-playpause a:before {
+	width: 30px;
+	height: 24px;
+	content: '';
+	position: absolute;
+	top: 0;
+	background: url(../images/sprite.svg) no-repeat -95px -534px;
+}
+
+.audioplayer-playing .audioplayer-playpause a:after {
+	width: 30px;
+	height: 24px;
+	content: '';
+	position: absolute;
+	top: 0;
+}
+
+.audioplayer-playing .audioplayer-playpause a:before {left: 0;}
+
+.audioplayer-playing .audioplayer-playpause a:after {right: 0;}
+
+.audioplayer-time-current {left: 30px; opacity: 0.6;}
+.audioplayer-time-duration {right: 0; opacity: 0.6;}
+
+.audioplayer-novolume .audioplayer-time-duration {
+	border-right: 0;
+	right: 0;
+}
+
+.audioplayer-bar {
+	height: 4px;
+	background: #e6e9ee;
+	cursor: pointer;
+	z-index: 1;
+	top: 50%;
+	right: 0;
+	left: 30px;
+	transform: translate(0, -50%);
+	-webkit-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+
+}
+
+.audioplayer-novolume .audioplayer-bar {right: 4.375em; /* 70 */}
+
+.audioplayer-bar div {
+	width: 0;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.audioplayer-bar-loaded {
+	background: #e6e9ee;
+	z-index: 1;
+}
+
+.audioplayer-bar-played {
+	background: #b4dae7;
+	z-index: 2;
+}
+
+
+.audioplayer-volume-adjust > div {
+	width: 40%;
+	height: 80%;
+	background-color: #222;
+	cursor: pointer;
+	position: relative;
+	z-index: 1;
+	margin: 30% auto 0;
+}
+				
+.audioplayer-novolume .audioplayer-volume {display: none;}

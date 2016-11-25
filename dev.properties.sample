@@ -1,0 +1,4 @@
+jboss.server.dir=/home/irina/lib/jboss-eap-6.2
+url.wf.properties.local=file:///home/irina/v/git/irk333/microcredit/database/processes/deploy/wf.properties
+url.db.properties.local=/home/irina/v/git/irk333/microcredit/database/changelog/db.properties
+path.reports.local = /home/irina/v/git/irk333/microcredit/reports/target/jasper/

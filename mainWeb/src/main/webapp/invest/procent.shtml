@@ -1,0 +1,95 @@
+﻿<!--#include file="_head.shtml"-->
+
+	<body>
+		
+		<!--#include file="_header.shtml"-->
+
+		<!--  Start main -->
+		<main>
+
+				
+
+			<div class="main-block">
+				<div class="block-tarifplan">
+					<h2>Тарифный план</h2>
+					<h4>Мы предлагаем инвестиции, в том числе в валюте</h4>
+					<div class="block-valute">
+						<div class="bv-block">
+							<div class="bv-block-head">Российский рубль</div>
+							<div class="bv-block-body">
+								<div class="bbb-table">
+									<div class="bbb-table-tr">
+										<span>Срок</span> <span>Ставка</span>
+									</div>
+									<div class="bbb-table-tr">
+										<span>12 <label>мес.</label></span> <span><label>до</label> 26%</span>
+									</div>
+									<div class="bbb-table-tr">
+										<span>18 <label>мес.</label></span> <span><label>до</label> 27%</span>
+									</div>
+									<div class="bbb-table-tr">
+										<span>18 <label>мес.</label></span> <span><label>до</label> 27%</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="bv-block">
+							<div class="bv-block-head">Доллар США</div>
+							<div class="bv-block-body">
+								<div class="bbb-table">
+									<div class="bbb-table-tr">
+										<span>Срок</span> <span>Ставка</span>
+									</div>
+									<div class="bbb-table-tr">
+										<span>12 <label>мес.</label></span> <span><label>до</label> 13%</span>
+									</div>
+									<div class="bbb-table-tr">
+										<span>18 <label>мес.</label></span> <span><label>до</label> 14%</span>
+									</div>
+									<div class="bbb-table-tr">
+										<span>18 <label>мес.</label></span> <span><label>до</label> 15%</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="bv-block">
+							<div class="bv-block-head">Евро</div>
+							<div class="bv-block-body">
+								<div class="bbb-table">
+									<div class="bbb-table-tr">
+										<span>Срок</span> <span>Ставка</span>
+									</div>
+									<div class="bbb-table-tr">
+										<span>12 <label>мес.</label></span> <span><label>до</label> 13%</span>
+									</div>
+									<div class="bbb-table-tr">
+										<span>18 <label>мес.</label></span> <span><label>до</label> 14%</span>
+									</div>
+									<div class="bbb-table-tr">
+										<span>18 <label>мес.</label></span> <span><label>до</label> 15%</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				
+				<div class="block-withus">
+									
+				</div>
+			</div>
+
+			
+		</main>
+		<!-- Stop main -->
+
+
+		<!--#include file="_footer.shtml"-->
+		<!--#include file="_modal.shtml"-->
+
+
+	</body>
+</html>

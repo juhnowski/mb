@@ -1,0 +1,574 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:app-cc="http://java.sun.com/jsf/composite/app-cc"
+				template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="creditrequest" />
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form prependId="false" id="frmEdit">
+			<rich:messages globalOnly="true" layout="table" />
+			<h:panelGrid columns="2" columnClasses="top-valigned p020200, top-valigned">
+						<rich:panel header="Персональные данные" styleClass="layout">
+						   <h:panelGrid columns="2" columnClasses="layout-field-name , top-valigned">
+						      <h:panelGroup>
+						          <h:outputText value="Фамилия" /> 
+						          <span class="asterisk">*</span>
+						      </h:panelGroup>    
+						      <h:panelGroup>
+						          <h:inputText id="surname" value="#{newCR.editCtl.peoplePersonal.surname}" required="true" requiredMessage="Необходимо заполнить фамилию" validatorMessage="Фамилия должна состоять только из русских букв">
+						             <f:validateRegex pattern="[А-Яа-яЁё-]*"/>
+						          </h:inputText>   
+						          <rich:message for="surname"/>   
+						      </h:panelGroup>
+						      <h:panelGroup>
+						          <h:outputText value="Имя" /> 
+						          <span class="asterisk">*</span>
+						      </h:panelGroup>    
+						      <h:panelGroup>
+						          <h:inputText id="name" value="#{newCR.editCtl.peoplePersonal.name}" required="true" requiredMessage="Необходимо заполнить имя" validatorMessage="Имя должно состоять только из русских букв">
+						            <f:validateRegex pattern="[А-Яа-яЁё-]*"/>
+						          </h:inputText>  
+						          <rich:message for="name"/> 
+						      </h:panelGroup>
+						      <h:outputText value="Отчество" /> 
+						      <h:panelGroup>
+						          <h:inputText id="midname" value="#{newCR.editCtl.peoplePersonal.midname}" validatorMessage="Отчество должно состоять только из русских букв">
+						            <f:validateRegex pattern="[А-Яа-яЁё]*"/>
+						          </h:inputText>
+						          <rich:message for="midname"/> 
+						      </h:panelGroup>
+						      <h:panelGroup>
+						          <h:outputText value="Email" /> 
+						          <span class="asterisk">*</span>
+						      </h:panelGroup>
+						      <h:panelGroup>
+						         <h:inputText id="email" value="#{newCR.editCtl.email.value}" required="#{newCR.editCtl.loginByEmail==1}" 
+						             requiredMessage="необходимо заполнить email" validatorMessage="неверно заполнен email"
+						             valueChangeListener="#{newCR.editCtl.changeEmail}">
+						            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						            <a4j:ajax event="change" execute="@this" render="@this" />	
+						          </h:inputText>
+						          <rich:message for="email"/>
+						      </h:panelGroup>    
+						      <h:panelGroup>
+						          <h:outputText value="Мобильный телефон" /> 
+						          <span class="asterisk">*</span> 
+						      </h:panelGroup>    
+						      <h:panelGroup>
+						          <h:inputText id="cellphone" value="#{newCR.editCtl.cellPhone.value}"
+											   required="true"  requiredMessage="необходимо заполнить мобильный телефон" 
+											   styleClass="phone-mask" valueChangeListener="#{newCR.editCtl.changePhone}">
+										 <a4j:ajax event="change" execute="@this" render="@this" />	
+						          </h:inputText>					    
+						          <rich:message for="cellphone"/>
+						      </h:panelGroup>
+						      <h:panelGroup>
+						          <h:outputText value="Дата рождения"/> 
+						          <span class="asterisk">*</span> 
+						      </h:panelGroup>    
+						      <h:panelGroup>
+						          <rich:calendar id="birthDate" value="#{newCR.editCtl.peoplePersonal.birthDate}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" required="true" requiredMessage="Необходимо заполнить дату рождения" />
+						          <rich:message for="birthDate"/>
+						      </h:panelGroup>
+						      <h:panelGroup>
+						        <h:outputText value="Место рождения" />
+						        <span class="asterisk">*</span>  
+						      </h:panelGroup>
+						      <h:panelGroup>
+						          <h:inputText id="birthPlace" value="#{newCR.editCtl.peoplePersonal.birthPlace}" required="true" requiredMessage="Необходимо заполнить место рождения" validatorMessage="Место рождения должно состоять только из русских букв">
+						             <f:validateRegex pattern="[.\-\$ А-Яа-яЁё]*"/>
+						          </h:inputText>
+						          <rich:message for="birthPlace"/>
+						      </h:panelGroup>
+						      <h:panelGroup>
+						        <h:outputText value="Пол"  /> 
+						        <span class="asterisk">*</span> 
+						      </h:panelGroup>
+						      <h:panelGroup>
+   				 			      <h:selectOneMenu id="selGender" value="#{newCR.editCtl.peoplePersonal.gender}" converter="#{convertReference}" required="true" requiredMessage="Необходимо заполнить пол" >
+   						            <f:selectItems value="#{refs.gendersRef}" />
+   					              </h:selectOneMenu>
+   					              <rich:message for="selGender"/>
+   		                     </h:panelGroup>
+   		                     
+   		                     <h:panelGroup>
+                               <h:outputText value="Серия паспорта"/>
+                               <span class="asterisk">*</span> 
+                             </h:panelGroup>
+                             <h:panelGroup>
+                               <h:inputText id="sdoc" value="#{newCR.editCtl.passport.series}" required="true" requiredMessage="Необходимо заполнить серию паспорта" 
+                                    valueChangeListener="#{newCR.editCtl.changePassportSeries}" styleClass="passport-serial-mask">
+                                 
+                                 <a4j:ajax event="change" execute="@this" render="@this" />	
+                               </h:inputText>  
+                               <rich:message for="sdoc"/>
+                             </h:panelGroup>
+                             
+                             <h:panelGroup>
+                               <h:outputText value="Номер паспорта" />
+                               <span class="asterisk">*</span> 
+                             </h:panelGroup>
+                             <h:panelGroup>
+                               <h:inputText id="ndoc" value="#{newCR.editCtl.passport.number}" required="true" requiredMessage="Необходимо заполнить номер паспорта" 
+                                 validatorMessage="Номер документа должен состоять из 6 цифр" valueChangeListener="#{newCR.editCtl.changePassportNumber}" styleClass="passport-number-mask">
+                                 <f:validateRegex pattern="[0-9]{6}"/>
+                                 <a4j:ajax event="change" execute="@this" render="@this" />
+                               </h:inputText>  
+                               <rich:message for="ndoc"/>
+                            </h:panelGroup>   
+                             
+                             <h:panelGroup>
+                               <h:outputText value="Дата выдачи документа" />
+                               <span class="asterisk">*</span>
+                             </h:panelGroup>
+                             <h:panelGroup>
+                               <rich:calendar id="datdoc" value="#{newCR.editCtl.passport.docDate}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" required="true" requiredMessage="Необходимо заполнить дату выдачи паспорта" />
+                	           <rich:message for="datdoc"/>
+                	         </h:panelGroup>
+                	         
+                	         <h:panelGroup>
+   		                       <h:outputText value="Код подразделения" />
+   		                       <span class="asterisk">*</span>
+   		                     </h:panelGroup>
+   		                     <h:panelGroup>
+                               <h:inputText id="codeorg" value="#{newCR.editCtl.passport.docOrgCode}" required="true"
+											requiredMessage="Необходимо заполнить код подразделения"
+											validatorMessage="Код подразделения должен состоять только из цифр"
+											styleClass="code-department-mask"/>
+                               <rich:message for="codeorg"/>
+                             </h:panelGroup>
+                             
+                             <h:panelGroup>
+                               <h:outputText value="Выдавшая организация" />
+                               <span class="asterisk">*</span>
+                             </h:panelGroup>
+                             <h:panelGroup>
+                               <h:inputText id="org" value="#{newCR.editCtl.passport.docOrg}" required="true" 
+                                  requiredMessage="Необходимо заполнить выдавшую организацию" validatorMessage="Выдавшая организация должна состоять только из русских букв">
+                                   <f:validateRegex pattern="[.\-\$ А-Яа-яЁё]*"/>
+                               </h:inputText>
+                               <rich:message for="org"/>
+                             </h:panelGroup>
+                             
+						   </h:panelGrid>
+						</rich:panel>
+						<rich:panel header="Дополнительные данные" styleClass="layout">
+						   <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+						       <h:panelGroup>
+						         <h:outputText value="Семейное положение" /> 
+						         <span class="asterisk">*</span>
+						       </h:panelGroup>
+						       <h:panelGroup>
+   	      				  	     <h:selectOneMenu id="selMarriage" value="#{newCR.editCtl.peopleMisc.marriage}" converter="#{convertReference}" 
+   	      				  	       required="true" requiredMessage="Необходимо заполнить семейное положение" valueChangeListener="#{newCR.editCtl.changeMarriageType}" >
+   						              <f:selectItems value="#{refs.marriageTypesRefNull}" />
+   						              <a4j:ajax event="change" execute="@this" render="family" />	
+   					             </h:selectOneMenu>
+   					             <rich:message for="selMarriage"/>
+   					           </h:panelGroup> 
+   					           
+   					            <h:outputText value="Количество детей"  /> 
+   			  			        <h:inputText id="txtChildren" value="#{newCR.editCtl.peopleMisc.children}" >
+   						            <f:validateLongRange minimum="0" maximum="9" />
+   					            </h:inputText>
+   					            
+   				                <h:outputText value="Есть автомобиль?"/>		
+   						        <h:selectBooleanCheckbox id="chbAuto" value="#{newCR.editCtl.peopleMisc.car}" />
+   						        
+   						    </h:panelGrid>
+   						        
+   						        <a4j:outputPanel  id="family">
+   						        <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned" 
+   						           rendered="#{newCR.editCtl.peopleMisc.marriage.codeInteger==1 or newCR.editCtl.peopleMisc.marriage.codeInteger==4}">
+   					            
+   					                <h:outputText value="Фамилия супруга" /> 
+   				   				    <h:inputText id="txtSurname1" value="#{newCR.editCtl.surname}" />
+   					  			
+   					  			    <h:outputText value="Имя супруга"  /> 
+   			   					    <h:inputText id="txtName1" value="#{newCR.editCtl.name}"  />
+   								
+   								    <h:outputLabel value="Отчество супруга"  /> 
+   								    <h:inputText id="txtMidname1" value="#{newCR.editCtl.midname}" />
+   				   				
+   				   				    <h:outputText value="Дата рождения супруга" /> 
+   				   			 	    <rich:calendar value="#{newCR.editCtl.birthdate}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" />
+                	           				  			    
+   				  			        <h:outputText value="Мобильный телефон супруга" /> 
+   				   				    <h:inputText id="txtPhone" value="#{newCR.editCtl.phone}"  styleClass="phone-mask"/>
+   								
+   								    <h:outputText value="Занятость супруга" /> 
+   							        <h:selectOneMenu id="tworks" value="#{newCR.editCtl.typework}"   converter="#{convertReference}"  >
+				                       <f:selectItems value="#{refs.typeWorksRefNull}" />						
+			                        </h:selectOneMenu>
+   								
+   								    <h:outputText value="Дата начала совместной жизни"  /> 
+   								    <rich:calendar value="#{newCR.editCtl.databeg}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" />
+                 					 
+						       </h:panelGrid>
+						       </a4j:outputPanel>
+						   
+						</rich:panel>
+						<rich:panel header="Занятость и образование" styleClass="layout">
+						   <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+						  
+						    <h:panelGroup>
+						      <h:outputText value="Занятость"  />
+						      <span class="asterisk">*</span>
+						    </h:panelGroup>
+						    <h:panelGroup>
+                              <h:selectOneMenu id="twork" value="#{newCR.editCtl.employment.typeWork}" required="true"  converter="#{convertReference}"  
+                                 requiredMessage="Необходимо заполнить занятость" valueChangeListener="#{newCR.editCtl.changeWorkType}">
+			                	<f:selectItems value="#{refs.typeWorksRefNull}" />	
+			                	 <a4j:ajax event="change" execute="@this" render="work" />					
+			                  </h:selectOneMenu>
+			                  <rich:message for="twork"/>
+			                </h:panelGroup>
+			                  
+                          			              
+			                <h:panelGroup>
+                              <h:outputText value="Образование" />
+                              <span class="asterisk">*</span>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                              <h:selectOneMenu id="educ" value="#{newCR.editCtl.employment.education}" required="true"  converter="#{convertReference}" requiredMessage="Необходимо заполнить образование">
+				                <f:selectItems value="#{refs.educationTypesRefNull}" />						
+			                  </h:selectOneMenu>
+			                  <rich:message for="educ"/>
+			                </h:panelGroup>
+		
+		                    <h:panelGroup>
+                              <h:outputText value="Доход" />
+                              <span class="asterisk">*</span>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                              <h:inputText id="sal" value="#{newCR.editCtl.employment.salary}" required="true" requiredMessage="Необходимо заполнить доход" validatorMessage="Доход должен состоять только из цифр">
+                                <f:convertNumber pattern="############.##" />
+                              </h:inputText>
+                              <rich:message for="sal"/>
+                            </h:panelGroup>
+             
+                             <h:panelGroup>
+                              <h:outputText value="Дата начала трудовой деятельности" />
+                              
+                            </h:panelGroup>
+                            <h:panelGroup>
+                              <rich:calendar id="exper" value="#{newCR.editCtl.employment.experience}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" />
+                	          <rich:message for="exper"/>
+   					        </h:panelGroup>
+   					        
+                            <h:outputText value="Дополнительный доход"/>
+                            <h:inputText id="esal" value="#{newCR.editCtl.employment.extSalary}"  validatorMessage="Доход должен состоять только из цифр">
+                                <f:convertNumber pattern="############.##" />
+                            </h:inputText>
+                   
+                            <h:outputText value="Источник дополнительного дохода"  />
+                            <h:selectOneMenu id="esalary" value="#{newCR.editCtl.employment.extSalaryId}"  converter="#{convertReference}"  >
+				               <f:selectItems value="#{refs.extSalariesRefNull}" />						
+			                </h:selectOneMenu>
+			         	</h:panelGrid>
+			         
+			         <a4j:outputPanel  id="work">
+   					     <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned" 
+   					         rendered="#{newCR.editCtl.employment.typeWork.codeInteger==0 or newCR.editCtl.employment.typeWork.codeInteger==1 or newCR.editCtl.employment.typeWork.codeInteger==3 or newCR.editCtl.employment.typeWork.codeInteger==5 or newCR.editCtl.employment.typeWork.codeInteger==9}">
+   					            
+			                <h:panelGroup>
+                              <h:outputText value="Профессия" />
+                              <span class="asterisk">*</span>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                              <h:selectOneMenu id="prof" value="#{newCR.editCtl.employment.profession}"   converter="#{convertReference}"   >
+				               <f:selectItems value="#{refs.organizationTypesRefNull}" />						
+		                      </h:selectOneMenu>
+		                      <rich:message for="prof"/>
+		                    </h:panelGroup>
+			
+			                <h:panelGroup>
+                              <h:outputText value="Частота получения дохода"/>
+                              <span class="asterisk">*</span>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                              <h:selectOneMenu id="freq" value="#{newCR.editCtl.employment.duration}" required="true"  converter="#{convertReference}" requiredMessage="Необходимо заполнить частоту получения зарплаты (дохода)" >
+				                 <f:selectItems value="#{refs.salaryFreqTypesRefNull}" />						
+			                  </h:selectOneMenu>
+			                   <rich:message for="freq"/>
+			                </h:panelGroup>
+   					        
+   					        <h:panelGroup>
+                              <h:outputText value="Место работы"/>
+                              <span class="asterisk">*</span>
+                            </h:panelGroup>
+                            <h:panelGroup>
+                              <h:inputText id="pwork" value="#{newCR.editCtl.employment.placeWork}" validatorMessage="Место работы должно состоять только из русских букв" required="true" requiredMessage="Необходимо заполнить место работы">
+                                  <f:validateRegex pattern="[.\-\$ А-Яа-яЁё]*"/>
+                              </h:inputText>
+                              <rich:message for="pwork"/>
+                            </h:panelGroup>  
+                            
+                            <h:outputText value="Должность"/>
+                            <h:panelGroup>
+                              <h:inputText id="occup" value="#{newCR.editCtl.employment.occupation}" validatorMessage="Должность должна состоять только из русских букв">
+                                <f:validateRegex pattern="[.\-\$ А-Яа-яЁё]*"/>
+                              </h:inputText>  
+                              <rich:message for="occup"/> 
+                            </h:panelGroup>
+                            
+                            <h:panelGroup>
+                              <h:outputLabel value="Дата начала работы в должности" />
+                              <span class="asterisk">*</span>
+                            </h:panelGroup>
+                            <rich:calendar id="expers" value="#{newCR.editCtl.employment.dateStartWork}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" >
+                	         </rich:calendar>
+         					
+         					   <h:panelGroup>
+                                  <h:outputText value="Рабочий телефон"/>
+                                  <span class="asterisk">*</span>
+                              </h:panelGroup>
+                              
+                              <h:panelGroup>
+                                  <h:inputText id="wphone" value="#{newCR.editCtl.workPhone.value}"  validatorMessage="Необходимо указывать правильный телефон" styleClass="phone-mask" required="true" requiredMessage="Необходимо заполнить рабочий телефон"/>
+                                  <rich:message for="wphone"/>
+                              </h:panelGroup>
+                                  
+                              <h:outputText value="Не звонить по рабочему телефону" for="aval" /> 
+					          <h:selectBooleanCheckbox id="avalw" value="#{newCR.editCtl.workPhone.available}" />       
+                  			  	  
+						   </h:panelGrid>
+						   </a4j:outputPanel>
+						</rich:panel>
+						
+						<rich:panel header="Информация о проживании и контакты" styleClass="layout">
+						   <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+						
+						    <h:panelGroup> 
+          	                  <h:outputText value="Основание занятия жилого помещения"  /> 
+          	                  <span class="asterisk">*</span>
+          	                </h:panelGroup>
+          	                <h:panelGroup> 
+   							  <h:selectOneMenu id="selRealty" value="#{newCR.editCtl.peopleMisc.realty}" converter="#{convertReference}" required="true" requiredMessage="Необходимо заполнить основания занятия жилого помещения"  >
+   						         <f:selectItems value="#{refs.realtyTypesRefNull}" />
+   					          </h:selectOneMenu>
+   					          <rich:message for="selRealty"/>
+   					        </h:panelGroup>
+   					        
+   					         <h:panelGroup>
+   			 	               <h:outputText value="Дата регистрации" /> 
+   			 	               <span class="asterisk">*</span>
+   			 	             </h:panelGroup>
+   			 	             <h:panelGroup>
+   				               <rich:calendar id="dreg" value="#{newCR.editCtl.peopleMisc.regDate}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" required="true" requiredMessage="Необходимо заполнить дату регистрации"/>
+                	           <rich:message for="dreg"/>
+                	         </h:panelGroup>
+                	           
+   				             <h:panelGroup>
+   				               <h:outputText value="Дата начала проживания" />
+   				               
+   				             </h:panelGroup>
+   				             <h:panelGroup>
+   				               <rich:calendar id="dres" value="#{newCR.editCtl.peopleMisc.realtyDate}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" />
+                	           <rich:message for="dres"/>
+                	         </h:panelGroup>
+                	         
+                              <h:outputText value="Домашний телефон"/>
+                              <h:inputText id="hphone" value="#{newCR.editCtl.homePhone.value}"  validatorMessage="Необходимо указывать правильный телефон" styleClass="phone-mask"/>
+                              <h:outputText value="Не звонить по домашнему телефону"  /> 
+					          <h:selectBooleanCheckbox id="avalh" value="#{newCR.editCtl.homePhone.available}" />       
+                              
+                              <h:outputText value="Домашний телефон по месту проживания"/>
+                              <h:inputText id="hrphone" value="#{newCR.editCtl.homePhoneReg.value}"  validatorMessage="Необходимо указывать правильный телефон" styleClass="phone-mask"/>
+                              <h:outputText value="Не звонить по домашнему телефону по месту проживания"  /> 
+					          <h:selectBooleanCheckbox id="avalhr" value="#{newCR.editCtl.homePhoneReg.available}" />
+					          
+					       
+						   </h:panelGrid>
+						</rich:panel>
+					
+					  <rich:panel header="Адрес регистрации" styleClass="layout">
+						      <app-cc:address addressCtl="#{newCR.editCtl.registerAddressCtl}" />
+						      <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+						        <h:panelGroup>
+						          <h:outputText value="Адрес регистрации совпадает с адресом проживания" />
+						          <span class="asterisk">*</span>
+						        </h:panelGroup>
+						        <h:selectBooleanCheckbox id="s9" value="#{newCR.editCtl.registerAddress.same}" >
+          			              <f:ajax execute="@form" listener="#{newCR.editCtl.sameChangedLsn}" render="@form" />
+          		                </h:selectBooleanCheckbox>
+          		               </h:panelGrid>
+						</rich:panel>
+						
+						<rich:panel id="adrres" header="Адрес проживания" styleClass="layout" rendered="#{!newCR.editCtl.registerAddress.same}">
+						    <app-cc:address addressCtl="#{newCR.editCtl.residentAddressCtl}" /> 	 	
+						</rich:panel>
+						
+						
+						
+						<rich:panel header="Счет для перечисления денег" styleClass="layout">
+						   <h:panelGrid columns="1" >
+						     <h:panelGroup>
+						       <h:outputText value="Вид счета" styleClass="layout-field-name"/>
+						       <span class="asterisk">*</span> 
+						     </h:panelGroup>
+						     <h:panelGroup>
+                               <h:selectOneMenu id="acct" value="#{newCR.editCtl.account.accountType}" required="true"  converter="#{convertReference}" valueChangeListener="#{newCR.editCtl.changeAccountType}" styleClass="top-valigned" requiredMessage="Необходимо заполнить вид счета" >
+				                 <f:selectItems value="#{refs.accountTypesRef}"/>
+				                 <a4j:ajax event="change" execute="@this" render="idacc" />						
+		                       </h:selectOneMenu>
+		                       <rich:message for="acct"/>
+		                     </h:panelGroup>  
+		                    
+		                    <a4j:outputPanel  id="idacc">
+		                        
+		                        <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned" rendered="#{newCR.editCtl.account.accountType.codeInteger==1}">
+		                           
+		                           <h:panelGroup>
+		                             <h:outputText value="Номер счета" />
+		                             <span class="asterisk">*</span>
+		                           </h:panelGroup>
+		                           <h:panelGroup>
+		                             <h:inputText id="nacc1" value="#{newCR.editCtl.account.accountNumber}" required="true" requiredMessage="Необходимо заполнить номер счета" validatorMessage="№ счета должен состоять только из цифр">
+		                                <f:validateRegex pattern="[0-9]*"/>
+		                             </h:inputText>   
+		                             <rich:message for="nacc1"/>
+		                           </h:panelGroup>
+		                             
+		                           <h:panelGroup>
+		                             <h:outputText value="Бик банка" />
+		                             <span class="asterisk">*</span>
+		                           </h:panelGroup>
+		                           <h:panelGroup>
+		                             <h:inputText id="bik1" value="#{newCR.editCtl.account.bik}" required="true" requiredMessage="Необходимо заполнить бик банка" validatorMessage="бик банка должен состоять только из цифр"> 
+		                               <f:validateRegex pattern="[0-9]*"/>
+		                             </h:inputText>
+		                             <rich:message for="bik1"/>
+		                           </h:panelGroup>
+		                       
+		                           <h:panelGroup>
+		                             <h:outputText value="Корр счет" />
+		                             <span class="asterisk">*</span>
+		                           </h:panelGroup>
+		                           <h:panelGroup>
+		                             <h:inputText id="corr1" value="#{newCR.editCtl.account.corrAccountNumber}" required="true" requiredMessage="Необходимо заполнить корр.счет банка" validatorMessage="корр.счет банка должен состоять только из цифр">
+		                               <f:validateRegex pattern="[0-9]*"/>
+		                             </h:inputText>
+		                             <rich:message for="corr1"/>
+		                           </h:panelGroup>
+		                        </h:panelGrid>
+		                      		                     
+		                         <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned" rendered="#{newCR.editCtl.account.accountType.codeInteger==2}">
+		                          
+		                           <h:panelGroup>
+			                         <h:outputText value="Тип карты" />
+			                       </h:panelGroup>
+		   	                       <h:selectOneMenu value="#{newCR.editCtl.account.cardName}" >
+		   		                      <f:selectItem itemValue="VISA" itemLabel="VISA" />
+		   		                      <f:selectItem itemValue="MasterCard" itemLabel="MasterCard" />
+		   	                       </h:selectOneMenu>
+		   	                       
+		                           <h:panelGroup>
+		                             <h:outputText value="Номер карты" />
+		                             <span class="asterisk">*</span>
+		                           </h:panelGroup>
+		                           <h:panelGroup>
+		                             <h:inputText id="ncard2" value="#{newCR.editCtl.account.cardNumber}" required="true" requiredMessage="Необходимо заполнить номер карты" validatorMessage="№ карты должен состоять только из цифр">
+		                               <f:validateRegex pattern="[0-9]*"/>
+		                             </h:inputText>
+		                             <rich:message for="ncard2"/>
+		                           </h:panelGroup>
+		                           
+		                         </h:panelGrid>
+		                        
+		                         <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned" rendered="#{newCR.editCtl.account.accountType.codeInteger==3}">
+		                            <h:outputText value="адрес пункта сети Контакт" />
+		                            <h:outputLink value="https://www.contact-sys.com/where/list/1/list/0/0/" target="_blank">
+	        	                       <h:outputText value="Где можно получить" />
+	        	                     </h:outputLink>
+		                          </h:panelGrid>   
+		                   
+		                          <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned" rendered="#{newCR.editCtl.account.accountType.codeInteger==4}">
+		                            <h:panelGroup>
+		                              <h:outputText value="Номер счета" />
+		                              <span class="asterisk">*</span>
+		                            </h:panelGroup>
+		                            <h:panelGroup>
+		                              <h:inputText id="nacc4" value="#{newCR.editCtl.account.accountNumber}" required="true" requiredMessage="Необходимо заполнить номер счета" validatorMessage="№ счета должен состоять только из цифр">
+		                                <f:validateRegex pattern="[0-9]*"/>
+		                              </h:inputText>
+		                              <rich:message for="nacc4"/>
+		                            </h:panelGroup>  
+		                             
+		                            <h:panelGroup>
+		                              <h:outputText value="Согласие?"  /> 
+		                              <span class="asterisk">*</span>
+		                            </h:panelGroup>
+					                <h:selectBooleanCheckbox id="cont" value="#{newCR.editCtl.account.contest}" required="true"/>
+					              </h:panelGrid> 
+		                       
+		                         <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned" rendered="#{newCR.editCtl.account.accountType.codeInteger==5}">
+		                            <h:panelGroup>
+		                              <h:outputText value="Номер счета" />
+		                              <span class="asterisk">*</span>
+		                            </h:panelGroup>
+		                            <h:panelGroup>
+		                              <h:inputText id="nacc5" value="#{newCR.editCtl.account.accountNumber}" required="true" requiredMessage="Необходимо заполнить номер счета" validatorMessage="№ счета должен состоять только из цифр">
+		                                <f:validateRegex pattern="[0-9]*"/>
+		                              </h:inputText>
+		                              <rich:message for="nacc5"/>
+		                            </h:panelGroup>
+		                            
+		                         </h:panelGrid> 
+		                    </a4j:outputPanel >
+						   </h:panelGrid>
+						</rich:panel>
+						
+						<rich:panel header="Бывший (настоящий) кредит" styleClass="layout" >
+						   <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned" rendered="#{newCR.editCtl.showCredit==1}">
+						       <h:outputText value="Дата кредита" /> 
+   				               <rich:calendar id="dbcred" value="#{newCR.editCtl.credit.creditDataBeg}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" >
+                	           </rich:calendar>
+                	       <h:outputText value="Сумма кредита (лимит кредитной карты)" /> 
+   				           <h:inputText id="csum" value="#{newCR.editCtl.credit.creditSum}" >
+                                 <f:convertNumber pattern="############.##" />
+                            </h:inputText>
+                             <h:outputText value="Где брали кредит" />
+                            <h:selectOneMenu id="credorg" value="#{newCR.editCtl.credit.creditOrganization}"  converter="convertOrg"  >
+				               <f:selectItems value="#{refs.organizationsRefNull}" />						
+		                    </h:selectOneMenu>
+                            <h:outputText value="Вид кредита" />
+                            <h:selectOneMenu id="credt" value="#{newCR.editCtl.credit.creditType}"   converter="#{convertReference}"  >
+				               <f:selectItems value="#{refs.creditTypesRefNull}" />						
+		                    </h:selectOneMenu>
+		                    <h:outputText value="Валюта кредита" />
+                            <h:selectOneMenu id="credc" value="#{newCR.editCtl.credit.currency}"   converter="#{convertReference}"  >
+				               <f:selectItems value="#{refs.currencyRefNull}" />						
+		                    </h:selectOneMenu>
+		                    <h:outputText value="Максимальная просрочка по кредиту" />
+                            <h:selectOneMenu id="credo" value="#{newCR.editCtl.credit.overdueState}"   converter="#{convertReference}" >
+				               <f:selectItems value="#{refs.overdueTypesRefNull}" />						
+		                    </h:selectOneMenu>
+		                     <h:outputText value="Кредит закрыт?"  /> 
+					         <h:selectBooleanCheckbox id="over" value="#{newCR.editCtl.credit.isOver}" />
+						   </h:panelGrid>
+						</rich:panel>
+									
+			</h:panelGrid>			
+			<h:panelGroup>
+             
+              <h:commandLink value="Далее"  action="#{newCR.editCtl.save}" styleClass="button ml0" >
+                  <f:param name="ccRequestId" value="#{newCR.editCtl.creditRequest.id}" />
+              </h:commandLink>
+			  
+			</h:panelGroup>			
+			<h:outputScript>
+              $(function () {
+                 $('.code-department-mask').mask('999-999');
+                 $('.passport-serial-mask').mask('99 99');
+                 $('.passport-number-mask').mask('999999');
+                 $('[type=tel], .phone-mask').mask('+7 (999) 999 99 99');
+                 $('.rf-cal-inp').mask('99.99.9999');
+              });
+           </h:outputScript>				
+        </h:form>
+    </ui:define>
+    
+</ui:composition>

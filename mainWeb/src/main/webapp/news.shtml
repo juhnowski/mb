@@ -1,0 +1,54 @@
+<!--#set var="typePage" value="page" -->
+<!--#include file="_head.shtml"-->
+	<title>Последние новости о займах и финансах</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+</head>
+
+<body class="news">
+
+<header class="header clr">
+<div class="center">
+	
+
+<!--#include file="_menu.shtml"-->
+<h1 class="header__h1">О компании</h1>
+
+	</div>
+</div>
+</header>
+
+<main>
+
+	<article>
+
+		<div class="center clr">
+
+			<div class="left-block">
+				<ul class="list">
+
+				</ul>
+				<div class="load-next"></div>
+			</div>
+
+<!--#include file="_right-block.shtml"-->
+
+		</div>
+
+	</article>
+
+	<aside class="block-after">
+
+<!--#include file="_statistic_block.shtml"-->
+
+	</aside>
+
+</main>
+
+<!--#include file="_footer.shtml"-->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		initCMSData('news');
+	});
+</script>

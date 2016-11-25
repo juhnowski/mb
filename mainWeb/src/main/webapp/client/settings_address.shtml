@@ -1,0 +1,252 @@
+<!--#set var="typePage" value="lk-setting" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'settings_address'">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/settings_address.js"></script>
+</head>
+
+<body ng-controller="MainCtrl" ng-cloak>
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main ng-controller="SettingsAddressCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_settings_left_menu.shtml"-->
+
+            <div class="right-block td">
+                <form name="registrationAddressForm">
+                    <h3 class="h3 h3--bt1">
+                        Адрес прописки
+                        <span class="h3__right opacity-50" data-ai="{value:'canEdit', yes:'hide'}">
+                            <i class="ico ico--lock"></i>Редактирование запрещено
+                        </span>
+                    </h3>
+
+                    <div class="table-settings"
+                         ng-class="{'table-settings--disabled' : !aiData.canEdit, 'opacity-50' : !aiData.canEdit}">
+                        <table id="registrFias">
+                            <tr>
+                                <td class="fias-title">Регион</td>
+                                <td class="fias-select">
+                                    <select data-address="level1"></select>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table>
+                            <tr>
+                                <td>Дом</td>
+                                <td>
+                                    <input class="input" name="house"
+                                           ng-model="peopleData.registration.house"
+                                           ng-required="true" ng-pattern="/^[\d\u0410-\u044f]*$/">
+                                </td>
+                                <td ng-show="registrationAddressForm.house.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры и русские символы</p>
+                                </td>
+                                <td ng-show="registrationAddressForm.house.$error.required">
+                                    <p class="marker-red marker-red--error">Обязательно для заполнениния</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Корпус</td>
+                                <td>
+                                    <input class="input" name="korpus"
+                                           ng-model="peopleData.registration.korpus"
+                                           ng-pattern="/^[\d\u0410-\u044f]*$/">
+                                </td>
+                                <td ng-show="registrationAddressForm.korpus.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры и русские символы</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Строение</td>
+                                <td>
+                                    <input class="input" name="building"
+                                           ng-model="peopleData.registration.building"
+                                           ng-pattern="/^[\d\u0410-\u044f]*$/">
+                                </td>
+                                <td ng-show="registrationAddressForm.building.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры и русские символы</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Квартира</td>
+                                <td>
+                                    <input class="input" name="flat"
+                                           ng-model="peopleData.registration.flat"
+                                           ng-pattern="/^[\d\u0410-\u044f]*$/">
+                                </td>
+                                <td ng-show="registrationAddressForm.flat.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры и русские символы</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form name="residenceAddressForm">
+                    <h3 class="h3 h3--bt1">
+                        Адрес проживания
+                        <span class="h3__right opacity-50" data-ai="{value:'canEdit', yes:'hide'}">
+                            <i class="ico ico--lock"></i>Редактирование запрещено
+                        </span>
+                    </h3>
+
+                    <div class="table-settings"
+                         ng-class="{'table-settings--disabled' : !aiData.canEdit, 'opacity-50' : !aiData.canEdit}">
+                        <table>
+                            <tr>
+                                <td>Мой адрес проживания сопадает с адресом прописки</td>
+                                <td style="border-bottom:0;">
+                                    <label class="checkbox notsel">
+                                        <i></i>
+                                        <input type="checkbox" id="same" ng-model="peopleData.registration.same">
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table id="residentFias" ng-hide="peopleData.registration.same">
+                            <tr>
+                                <td class="fias-title">Регион</td>
+                                <td class="fias-select">
+                                    <select data-address="level1"></select>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table ng-hide="peopleData.registration.same">
+                            <tr>
+                                <td>Дом</td>
+                                <td>
+                                    <input class="input" name="house"
+                                           ng-model="peopleData.residence.house"
+                                           ng-required="!peopleData.registration.same"
+                                           ng-pattern="/^[\d\u0410-\u044f]*$/">
+                                </td>
+                                <td ng-show="residenceAddressForm.house.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры и русские символы</p>
+                                </td>
+                                <td ng-show="residenceAddressForm.house.$error.required">
+                                    <p class="marker-red marker-red--error">Обязательно для заполнениния</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Корпус</td>
+                                <td>
+                                    <input class="input" name="korpus"
+                                           ng-model="peopleData.residence.korpus"
+                                           ng-pattern="/^[\d\u0410-\u044f]*$/">
+                                </td>
+                                <td ng-show="residenceAddressForm.korpus.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры и русские символы</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Строение</td>
+                                <td>
+                                    <input class="input" name="building"
+                                           ng-model="peopleData.residence.building"
+                                           ng-pattern="/^[\d\u0410-\u044f]*$/">
+                                </td>
+                                <td ng-show="residenceAddressForm.building.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры и русские символы</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Квартира</td>
+                                <td>
+                                    <input class="input" name="flat"
+                                           ng-model="peopleData.residence.flat"
+                                           ng-pattern="/^[\d\u0410-\u044f]*$/">
+                                </td>
+                                <td ng-show="residenceAddressForm.flat.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры и русские символы</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form name="additionalAddressForm">
+                    <h3 class="h3 h3--bt1">
+                        Дополнительные данные
+                        <span class="h3__right opacity-50" data-ai="{value:'canEdit', yes:'hide'}">
+                            <i class="ico ico--lock"></i>Редактирование запрещено
+                        </span>
+                    </h3>
+
+                    <div class="table-settings"
+                         ng-class="{'table-settings--disabled' : !aiData.canEdit, 'opacity-50' : !aiData.canEdit}">
+                        <table>
+                            <tr>
+                                <td>Дата начала проживания</td>
+                                <td>
+                                    <input id="realtyDate" name="realtyDate"
+                                           class="input datepicker-input date-not-dd" placeholder="мм / гггг"
+                                           ng-required="true" ng-model="realtyDateFormatted">
+                                </td>
+                                <td>
+                                    <input class="datepicker" ng-model="peopleData.misc.realtyDate">
+                                </td>
+                                <td ng-show="additionalAddressForm.realtyDate.$error.required">
+                                    <p class="marker-red marker-red--error">Обязательно для заполнения</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Телефон по месту проживания</td>
+                                <td>
+                                    <input id="phoneResidence" class="input" type="tel" name="phoneResidence"
+                                           placeholder="Телефон по месту проживания"
+                                           ng-required="true" ng-model="peopleData.residence.phone.value">
+                                </td>
+                                <td ng-show="additionalAddressForm.phoneResidence.$error.required">
+                                    <p class="marker-red marker-red--error">Обязательно для заполнения</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Дополнительный телефон</td>
+                                <td>
+                                    <input id="phoneAdditional" class="input" type="tel"
+                                           placeholder="Дополнительный номер, по которому с Вами можно связаться"
+                                           ng-model="peopleData.additionalPhone.value">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Тип собственности</td>
+                                <td>
+                                    <select id="realty" class="required" ng-required="true"
+                                            ng-model="peopleData.misc.realty">
+                                        <option ng-repeat="type in peopleData.misc.realtyTypes"
+                                                value="{{ type.id }}" ng-bind="type.value"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form data-ai="{value:'canEdit', no:'hide'}">
+                    <h3 class="h3 h3--bt1">
+                        <label class="btn btn--green" ng-click="sendSms()">
+                            Сохранить изменения
+                        </label>
+                    </h3>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+
+</body>
+</html>

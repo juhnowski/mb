@@ -1,0 +1,190 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEditConfig" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<rich:tabPanel switchType="client" >
+			    <rich:tab header="Конфигурация продукта">
+			
+			<rich:dataTable id="config" var="conf" value="#{editPConfig.config}" rendered="#{editPConfig.config.size()!=0}">
+				
+				<h:column>
+					<f:facet name="header">Описание:</f:facet>
+					<h:inputText value="#{conf.description}" size="75"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Тип параметра:</f:facet>
+					<h:inputText value="#{conf.dataType}" size="6"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Значение параметра:</f:facet>
+					<h:inputText value="#{conf.dataValue}" size="20"/>
+				</h:column>	
+				<h:column>
+					<f:facet name="header">Параметр конфигурации:</f:facet>
+					<h:inputText value="#{conf.name}" size="45"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Дата начала действия:</f:facet>
+					<rich:calendar value="#{conf.databeg}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Дата окончания действия:</f:facet>
+					<rich:calendar value="#{conf.dataend}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Действия</f:facet>
+					<h:commandLink actionListener="#{editPConfig.deleteConfigItem}" onclick="if (! confirm('Удалить значение ?') ) { return false;}; return true; "  >
+							<f:attribute name="confid" value="#{conf.id}" />
+							<a4j:ajax render="@form" />
+							<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+					</h:commandLink>
+					<a4j:commandButton value="Изменить с историей" oncomplete="#{rich:component('popupConfig')}.show();return false;" action="#{editPConfig.findConfig}" >
+							<f:setPropertyActionListener target="#{editPConfig.confId}" value="#{conf.id}"/>
+					</a4j:commandButton>	
+				
+				</h:column>															
+			</rich:dataTable>	
+			<h:outputText value="Нет ни одного параметра конфигурации" rendered="#{editPConfig.config.size()==0}"/>
+			<h:commandLink value="Добавить" actionListener="#{editPConfig.addConfigItem}" >
+			    <a4j:ajax render="@form" />
+			</h:commandLink>
+			</rich:tab>
+			
+			
+			<rich:tab header="Сообщения для продукта">
+			
+			<rich:dataTable id="message" var="mes" value="#{editPConfig.messages}" rendered="#{editPConfig.messages.size()!=0}">
+				
+				<h:column>
+					<f:facet name="header">Описание:</f:facet>
+					<h:inputText value="#{mes.description}" size="45"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Заголовок:</f:facet>
+					<h:inputText value="#{mes.subject}" size="70"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Само сообщение (для писем в формате html):</f:facet>
+					<h:inputTextarea value="#{mes.body}" cols="50" rows="8"/>
+				</h:column>	
+				<h:column>
+					<f:facet name="header">Название в системе:</f:facet>
+					<h:inputText value="#{mes.name}" size="30"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Действия</f:facet>
+					<h:commandLink actionListener="#{editPConfig.deleteMessageItem}" onclick="if (! confirm('Удалить сообщение ?') ) { return false;}; return true; "  >
+							<f:attribute name="mesid" value="#{mes.id}" />
+							<a4j:ajax render="@form" />
+							<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+					</h:commandLink>
+							
+				</h:column>															
+			</rich:dataTable>	
+			<h:outputText value="Нет ни одного сообщения" rendered="#{editPConfig.messages.size()==0}"/>
+			<h:commandLink value="Добавить" actionListener="#{editPConfig.addMessageItem}" >
+			    <a4j:ajax render="@form" />
+			</h:commandLink>
+			</rich:tab>
+			
+			<rich:tab header="Правила для продукта">
+			
+			<rich:dataTable id="rule" var="rul" value="#{editPConfig.rules}" rendered="#{editPConfig.rules.size()!=0}">
+				
+				<h:column>
+					<f:facet name="header">Описание:</f:facet>
+					<h:inputText value="#{rul.description}" size="60"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Knowledge base:</f:facet>
+					<h:inputText value="#{rul.kbase}" size="15"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Название в системе:</f:facet>
+					<h:inputText value="#{rul.name}" size="60"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Вид скрипта:</f:facet>
+					 <h:selectOneMenu value="#{rul.scriptType}" >
+        			    <f:selectItems value="#{refs.ruleScriptTypes}" />
+        		    </h:selectOneMenu>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Дата начала действия:</f:facet>
+					<rich:calendar value="#{rul.databeg}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Дата окончания действия:</f:facet>
+					<rich:calendar value="#{rul.dataend}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Текст правила:</f:facet>
+					<rich:collapsiblePanel expanded="false">
+					    <h:inputTextarea value="#{rul.ruleBody}" cols="100" rows="30"/>
+					</rich:collapsiblePanel>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Действия</f:facet>
+					<h:commandLink actionListener="#{editPConfig.deleteRuleItem}" onclick="if (! confirm('Удалить правило ?') ) { return false;}; return true; "  >
+							<f:attribute name="rulid" value="#{rul.id}" />
+							<a4j:ajax render="@form" />
+							<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+					</h:commandLink>
+					<a4j:commandButton value="Изменить с историей" oncomplete="#{rich:component('popupRule')}.show();return false;" action="#{editPConfig.findConfig}" >
+							<f:setPropertyActionListener target="#{editPConfig.ruleId}" value="#{rul.id}"/>
+					</a4j:commandButton>		
+				</h:column>															
+			</rich:dataTable>	
+			<h:outputText value="Нет ни одного правила" rendered="#{editPConfig.rules.size()==0}"/>
+			<h:commandLink value="Добавить" actionListener="#{editPConfig.addRuleItem}" >
+			    <a4j:ajax render="@form" />
+			</h:commandLink>
+			</rich:tab>
+			
+			</rich:tabPanel>
+			
+			<h:panelGrid columns="2">
+				<h:commandLink value="Сохранить" action="#{editPConfig.save}" />
+				<h:link outcome="edit?faces-redirect=true" >
+					<f:param name="prodid" value="#{editPConfig.productId}" />
+					<h:outputText value="Закрыть"  />
+			    </h:link>
+			</h:panelGrid>
+		
+			  <rich:popupPanel id="popupConfig" modal="true" resizeable="true" >
+				  <h:panelGrid columns="2">
+				      <h:outputText value="с какого числа"/>
+				      <rich:calendar value="#{editPConfig.databeg}" popup="true" showApplyButton="false" datePattern="dd.MM.yyyy" enableManualInput="true"/>
+				      <h:outputText value="новое значение"/>
+				      <h:inputText value="#{editPConfig.value}"/>
+				  </h:panelGrid>
+				  <h:commandButton value="Сохранить" onclick="#{rich:component('popupConfig')}.hide(); return true;" action="#{editPConfig.changeItem}" >
+				 
+				  </h:commandButton>    
+			 	  <h:commandButton value="Закрыть"  onclick="#{rich:component('popupConfig')}.hide();return true;"/>
+	   		</rich:popupPanel>			
+			
+			<rich:popupPanel id="popupRule" modal="true" resizeable="true" >
+				  <h:panelGrid columns="2">
+				      <h:outputText value="с какого числа"/>
+				      <rich:calendar value="#{editPConfig.databeg}" popup="true" showApplyButton="false" datePattern="dd.MM.yyyy" enableManualInput="true"/>
+				      <h:outputText value="новое значение"/>
+				      <h:inputTextarea value="#{editPConfig.value}"/>
+				  </h:panelGrid>
+				  <h:commandButton value="Сохранить" onclick="#{rich:component('popupRule')}.hide(); return true;" action="#{editPConfig.changeItem}" />
+				 
+			 	  <h:commandButton value="Закрыть"  onclick="#{rich:component('popupRule')}.hide();return true;"/>
+	   		</rich:popupPanel>	
+        </h:form>
+    		
+	
+    </ui:define>
+</ui:composition>

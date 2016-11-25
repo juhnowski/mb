@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+						
+		
+			<h:panelGroup id="pnlData">
+			  <rich:dataTable id="reqTable"
+		                         value="#{editRefOther.lstRef}"               
+		                         var="ref">
+		               
+		                <rich:column>
+		                	<f:facet name="header">описание пункта справочника</f:facet>
+		                	<h:inputText value="#{ref.name}" size="70"/>
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">код символьный</f:facet>
+		                	<h:inputText value="#{ref.code}" size="25"/>
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">код числовой</f:facet>
+		                	<h:inputText value="#{ref.codeInteger}" size="15"/>
+		                </rich:column>	
+		                 <rich:column>
+		                	<f:facet name="header">код символьный для маппинга</f:facet>
+		                	<h:inputText value="#{ref.codeMain}" size="25"/>
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">код числовой для маппинга</f:facet>
+		                	<h:inputText value="#{ref.codeIntegerMain}" size="15"/>
+		                </rich:column>	
+		                 <rich:column>
+		                	<f:facet name="header">справочник для маппинга</f:facet>
+		                	<h:outputText value="#{ref.refHeaderMain.name}" rendered="#{not empty ref.refHeaderMain}"/>
+		                </rich:column>	
+		                 <rich:column>
+		                	<f:facet name="header">активно</f:facet>
+		                	<h:inputText value="#{ref.isActive}" size="15"/>
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">действия</f:facet>
+		                	<h:panelGrid columns="1">          		
+								
+								<h:panelGroup style="margin-left:8px">
+									<h:commandLink actionListener="#{editRefOther.deleteItem}" onclick="if (! confirm('Удалить пункт справочника ?') ) { return false;}; return true; "  >
+										<f:attribute name="itemid" value="#{ref.id}" />
+										<a4j:ajax render="@form" />
+										<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+									</h:commandLink>
+								</h:panelGroup>
+							</h:panelGrid> 
+		                </rich:column>		                	                
+		          	</rich:dataTable>		
+			</h:panelGroup>		
+			<h:panelGrid columns="2">
+				<h:commandButton value="Сохранить" action="#{editRefOther.save}" rendered="true">
+				</h:commandButton>
+				<h:commandButton value="Закрыть" action="#{editRefOther.cancel}" rendered="true">
+				</h:commandButton>			
+			</h:panelGrid>	
+        </h:form>
+    </ui:define>
+</ui:composition>

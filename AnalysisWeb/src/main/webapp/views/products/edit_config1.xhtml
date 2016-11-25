@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEditConfig" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<rich:tabPanel switchType="client" >
+			  <a4j:repeat var="cname" value="#{editPConfig.lstConfig}">
+			
+			    <rich:tab header="#{cname.name}">
+			
+			<rich:dataTable id="config" var="conf" value="#{editPConfig.configByType(cname.codeInteger)}" >
+				
+				<h:column>
+					<f:facet name="header">Описание:</f:facet>
+					<h:inputText value="#{conf.description}" size="75"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Тип параметра:</f:facet>
+					<h:inputText value="#{conf.dataType}" size="6"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Значение параметра:</f:facet>
+					<h:inputText value="#{conf.dataValue}" size="20"/>
+				</h:column>	
+				<h:column>
+					<f:facet name="header">Параметр конфигурации:</f:facet>
+					<h:inputText value="#{conf.name}" size="45"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Дата начала действия:</f:facet>
+					<rich:calendar value="#{conf.databeg}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Дата окончания действия:</f:facet>
+					<rich:calendar value="#{conf.dataend}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Действия</f:facet>
+					<h:commandLink actionListener="#{editPConfig.deleteItem}" onclick="if (! confirm('Удалить значение ?') ) { return false;}; return true; "  >
+							<f:attribute name="confid" value="#{conf.id}" />
+							<a4j:ajax render="@form" />
+							<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+					</h:commandLink>
+					<h:commandLink actionListener="#{editPConfig.changeItem}">
+					        <f:attribute name="confid" value="#{conf.id}" />
+							<a4j:ajax render="@form" />
+					</h:commandLink>		
+				</h:column>															
+			</rich:dataTable>	
+			
+			</rich:tab>
+			
+			  </a4j:repeat>		
+			</rich:tabPanel>
+			
+			<h:panelGrid columns="2">
+				<h:commandLink value="Сохранить" actionListener="#{editPConfig.save}" />
+				<h:commandLink value="Закрыть" actionListener="#{editPConfig.close}" />
+			</h:panelGrid>
+        </h:form>
+       
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:outputScript library="js/codemirror/lib" name="codemirror.js"></h:outputScript>
+    	<h:outputStylesheet library="js/codemirror/lib" name="codemirror.css"></h:outputStylesheet>
+    	<h:outputScript library="js/codemirror/mode/javascript" name="javascript.js"></h:outputScript>
+    	
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			 <h:panelGroup id="pnlAdd" rendered="#{editRule.rule.ruleType == 2}">
+			     <h:panelGrid columns="2">
+			        <h:outputText value="Название константы: "/>
+			        <h:inputText value="#{editRule.name}" />
+			        <h:outputText value="Тип константы (F,N,C,D): "/>
+			        <h:inputText value="#{editRule.dataType}" />
+			        <h:outputText value="Значение константы: "/>
+			        <h:inputText value="#{editRule.dataValue}" />
+			        <h:outputText value="Описание константы: "/>
+			        <h:inputText value="#{editRule.description}" />
+			        <h:outputText value="Текст константы: "/>
+			        <h:inputText value="#{editRule.dataValueText}" />
+			     </h:panelGrid>
+             	<a4j:commandButton value="Добавить" actionListener="#{editRule.addItem}" render="pnlData" /> 
+             </h:panelGroup>
+    		<p></p>		
+			
+			<h:panelGrid columns="2">
+				<h:outputText value="ID"/> <h:outputText value="#{editRule.rule.id}"/>
+				<h:outputText value="Имя пакета: "/> <h:outputText value="#{editRule.rule.packageName}"/>
+				<h:outputText value="Описание пакета: "/> <h:outputText value="#{editRule.rule.description}"/>
+				<h:outputText value="Содержание: " rendered="#{editRule.rule.ruleType == 1}"/> 
+				<h:inputTextarea id="rbody" value="#{editRule.rule.body}" rendered="#{editRule.rule.ruleType == 1}"  cols="100" rows="40"/>
+			</h:panelGrid>
+			<h:panelGroup id="pnlData">
+			<h:dataTable id="datarules" var="con" value="#{editRule.rule.constants}" rendered="#{editRule.rule.ruleType == 2}">
+				<h:column >
+					<f:facet name="header">Имя</f:facet>
+					<h:inputText value="#{con.name}" size="65"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Тип</f:facet>
+					<h:inputText value="#{con.dataType}" size="5"/>
+				</h:column>
+				<h:column >
+					<f:facet name="header">Значение</f:facet>
+					<h:inputText value="#{con.dataValue}" size="55"/>
+				</h:column>	
+				<h:column >
+					<f:facet name="header">Описание</f:facet>
+					<h:inputText value="#{con.description}" size="75"/>
+				</h:column>		
+				<h:column >
+					<f:facet name="header">Действия</f:facet>
+					<h:commandLink actionListener="#{editRule.deleteItem}" onclick="if (! confirm('Удалить константу ?') ) { return false;}; return true; "  >
+							<f:attribute name="constid" value="#{con.id}" />
+							<a4j:ajax render="pnlData" />
+							<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+					</h:commandLink>
+				</h:column>															
+			</h:dataTable>	
+			</h:panelGroup>		
+			<h:panelGrid columns="2">
+				<h:commandButton value="Сохранить" action="#{editRule.save}" >
+				</h:commandButton>
+				<h:commandButton value="Закрыть" action="#{editRule.cancel}">
+				</h:commandButton>			
+			</h:panelGrid>
+        </h:form>
+        <script type="text/javascript">
+        var myCodeMirror = CodeMirror.fromTextArea(#{rich:element('rbody')}, {
+            lineNumbers: true,
+            mode: "text/javascript"
+          });
+        </script>
+    </ui:define>
+</ui:composition>

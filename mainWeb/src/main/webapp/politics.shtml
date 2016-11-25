@@ -1,0 +1,37 @@
+<!--#set var="typePage" value="page" -->
+<!--#include file="_head.shtml"-->
+<title>Последние новости о займах и финансах</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+</head>
+
+<body class="politics">
+
+<header class="header clr">
+    <div class="center">
+
+        <!--#include file="_menu.shtml"-->
+
+        <h1 class="header__h1">Соглашения и правила</h1>
+
+    </div>
+    </div>
+</header>
+
+<main>
+
+    <article class="center">
+
+        <dl class="accordion">
+
+        </dl>
+
+    </article>
+
+</main>
+
+<!--#include file="_footer.shtml"-->
+
+<script type="text/javascript">
+    initCMSData('politics');
+</script>

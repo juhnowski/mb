@@ -1,0 +1,19 @@
+article.lk {
+    margin-top: 0;
+}
+
+.open_credit .w100 .data-header,
+.lk_settings .data-header {
+    color: #6b6b6b;
+    font-size: 13px;
+    white-space: pre;
+    width: 150px;
+}
+
+.lk .open_credit .send_form .submit.grey{
+    width: 190px;
+}
+
+.lk .open_credit .send_form .ref_button, .article .padding a {
+    color: #6b6b6b;
+}

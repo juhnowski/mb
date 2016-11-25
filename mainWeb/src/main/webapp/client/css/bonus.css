@@ -1,0 +1,59 @@
+/* coped from RichFaces*/
+.friends-list table {
+    -webkit-border-horizontal-spacing: 2px;
+    -webkit-border-vertical-spacing: 2px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(196, 192, 201);
+    margin: 0px;
+    padding: 0px;
+}
+
+.friends-list th {
+    background-color: rgb(212, 207, 199);
+    background-image: url("/main/client/images/bonus-fr-tbl-bg.png");
+    background-position: 0% 0%;
+    border-bottom: 1px solid rgb(196, 192, 201);
+    border-right: 1px solid rgb(196, 192, 201);
+    border-collapse: collapse;
+    color: rgb(0, 0, 0);
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 11px;
+    height: 18px;
+    line-height: 18px;
+    margin: 0;
+    padding: 4px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.friends-list td {
+    border-bottom: 1px solid rgb(196, 192, 201);
+    border-right: 1px solid rgb(196, 192, 201);
+    border-collapse: collapse;
+    color: rgb(0, 0, 0);
+    display: table-cell;
+    empty-cells: show;
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 11px;
+    height: 18px;
+    line-height: 18px;
+    margin: 0;
+    padding: 4px;
+    vertical-align: middle;
+}
+
+/* ajax loading image for buttons */
+button.loading .text {
+    visibility: hidden;
+}
+
+button.loading .btn-content {
+    visibility: visible;
+    background: url('../images/ajax-btn-load.gif') no-repeat center;
+    background-size: contain;
+}
+
+/* disabled controllers style */
+:disabled {
+    cursor: default;
+}

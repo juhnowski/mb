@@ -1,0 +1,120 @@
+			<form class="step-5 step">
+				<div class="fieldset">
+					<h3 class="fieldset__h3">Данные по кредиту</h3>
+					<div class="row">
+						<div class="col w100p">
+							<label class="checkbox fieldset__checkbox fieldset__checkbox--inline fieldset__checkbox--col">У меня есть (был) кредит в банке <input id="otherCreditExists" type="checkbox" data-hideblock="50" class="not-valid-row blue-valid-true"></label>
+						</div>
+					</div>
+					<div class="row hide hideblock-50">
+						<div class="row">
+							<div class="col first">
+								<label>	Банк</label>
+							</div>
+							<div class="col">
+								<select class="required" id="banks"></select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col first">
+								<label>	Тип кредита</label>
+							</div>
+							<div class="col">
+								<select class="required" id="creditTypes"></select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col first">
+								<label>	Сумма кредита</label>
+							</div>
+							<div class="col w230 above-zero">
+								<input class="input required numer" data-tooltip="54" placeholder="Укажите кредитный лимит" id="creditSumPrev" only-digits>
+							</div>
+							<div class="col w200 pull-right">
+								<select class="not-valid-row required" id="currencyTypes"></select>
+								<div class="marker-red marker-red--error" data-id="54"></div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col first">
+								<label>	Ежемесячный <br>платеж</label>
+							</div>
+							<div class="col above-zero">
+								<input class="input required numer" data-tooltip="55" placeholder="Сумма ежемесячного платежа" id="creditSumMonth" only-digits>
+								<div class="marker-red marker-red--error" data-id="55"></div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col first">
+								<label>	Дата получения</label>
+							</div>
+							<div class="col date">
+								<input id="creditdate" class="input date required" placeholder="дд / мм / гггг" data-tooltip="50">
+								<span class="datepicker fieldset__datepicker ico ico--datepicker"><input></span>
+								<div class="marker-red marker-red--error" data-id="50"></div>
+							</div>
+						</div>
+                        
+                        <div class="row">
+                            <div class="col first">
+                                <label>	Статус кредита</label>
+                            </div>
+                            <div class="col">
+                                <select data-tooltip="51" id="creditIsOver" class="required credit-close" data-placeholder="Выберите статус кредита">
+                                    <option value="">Выбрать</option>
+                                    <option value="0">Открыт</option>
+                                    <option value="1">Закрыт</option>
+                                </select>
+								<div class="marker-red marker-red--error" data-id="51"></div>
+                            </div>
+                        </div>
+                        
+						<div class="row">
+							<div class="col first">
+								<label>	Дата закрытия <br> по графику</label>
+							</div>
+							<div class="col date">
+								<input data-tooltip="53" id="creditclosedate" class="input date required" placeholder="дд / мм / гггг">
+								<span class="datepicker fieldset__datepicker ico ico--datepicker"><input></span>
+								<div class="marker-red marker-red--error" data-id="53"></div>
+							</div>
+						</div>
+                        
+                        <div class="row hide">
+                            <div class="col first">
+                                <label> Фактическая дата закрытия</label>
+                            </div>
+                            <div class="col date">
+                                <input data-tooltip="52" id="factcreditclosedate" class="input date required"
+                                       placeholder="дд / мм / гггг">
+                                <span class="datepicker fieldset__datepicker ico ico--datepicker"><input></span>
+								<div class="marker-red marker-red--error" data-id="52"></div>
+                            </div>
+                        </div>
+                        
+                    </div>
+				</div>
+
+				<div class="hide hideblock-50">
+					<div class="fieldset">
+						<h3 class="fieldset__h3">Просрочка</h3>
+						<div class="row">
+							<div class="col first">
+								<label>	Максимальный просроченный статус</label>
+							</div>
+							<div class="col">
+								<select class="required" id="сreditOverdueTypes"></select>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="pagin">
+					<a class="btn pull-left prev">Назад <i class="ico arrow-left"></i></a>
+					<a class="btn btn--green next pull-right finish">Оформить <i class="ico arrow-right-white"></i></a>
+				</div>
+
+			</form>

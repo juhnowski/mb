@@ -1,0 +1,27 @@
+<div class="left-block td">
+    <h3 class="h3">Мой счет</h3>
+    <ul>
+        <li><a href="/main/client/balance.shtml">Информация</a></li>
+        <li><a href="/main/client/balance-minus.shtml">Список переплат</a></li>
+        <li><a href="/main/client/balance-plus.shtml">Расход оставшейся суммы</a></li>
+    </ul>
+
+    <div class="balance-block">
+        <p>
+            <a href="bonus.shtml" class="bonus-show">
+                Бонусы: <b ng-bind="bonus"></b>
+            </a>
+        </p>
+        <p>
+            <a class="balance-show" href="balance.shtml">
+                Счет: <b><span ng-bind="savings"></span> <i>руб.</i></b>
+            </a>
+        </p>
+    </div>
+
+    <div class="support-block">
+        <a class="img support-show"><img src="/main/img/support.png" alt=""></a>
+        <h3>Есть вопросы?</h3>
+        <p><a href="/main/"><i class="ico ico--arrow-right-green"></i>Войти в чат</a></p>
+    </div>
+</div>

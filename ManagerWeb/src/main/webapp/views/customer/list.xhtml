@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/templateListCR.xhtml">
+    <ui:param name="top_selected_item" value="customer"/>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageList">
+        <h:form id="frmMain" prependId="false">
+            <ui:include src="inc_search2.xhtml"/>
+            <p></p>
+            <ui:include src="inc_search_result2.xhtml"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

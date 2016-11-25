@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<rich:panel header="Добавить значение в справочник">
+			 <h:panelGroup id="pnlAdd">
+			     <h:panelGrid columns="2">
+			        <h:outputText value="Название: "/>
+			        <h:inputText value="#{editRefSys.name}" />
+			        <h:outputText value="Числовое значение: "/>
+			        <h:inputText value="#{editRefSys.codeInteger}" />
+			        <h:outputText value="Символьное значение: "/>
+			        <h:inputText value="#{editRefSys.code}" />
+			     </h:panelGrid>
+             	<a4j:commandButton value="Добавить" actionListener="#{editRefSys.addItem}" render="pnlData" /> 
+             </h:panelGroup>
+             </rich:panel>
+    		<p></p>		
+			
+		
+			<h:panelGroup id="pnlData">
+			  <rich:dataTable id="reqTable"
+		                         value="#{editRefSys.lstRef}"               
+		                         var="ref">
+		               
+		                <rich:column>
+		                	<f:facet name="header">описание пункта справочника</f:facet>
+		                	<h:inputText value="#{ref.name}" size="70"/>
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">код символьный</f:facet>
+		                	<h:inputText value="#{ref.code}" size="25"/>
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">код числовой</f:facet>
+		                	<h:inputText value="#{ref.codeInteger}" size="15"/>
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">активно</f:facet>
+		                	<h:inputText value="#{ref.isActive}" size="15"/>
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">действия</f:facet>
+		                	<h:panelGrid columns="1">          		
+								
+								<h:panelGroup style="margin-left:8px">
+									<h:commandLink actionListener="#{editRefSys.deleteItem}" onclick="if (! confirm('Удалить пункт справочника ?') ) { return false;}; return true; "  >
+										<f:attribute name="itemid" value="#{ref.id}" />
+										<a4j:ajax render="@form" />
+										<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+									</h:commandLink>
+								</h:panelGroup>
+							</h:panelGrid> 
+		                </rich:column>		                	                
+		          	</rich:dataTable>		
+			</h:panelGroup>		
+			<h:panelGrid columns="2">
+				<h:commandButton value="Сохранить" action="#{editRefSys.save}" rendered="true">
+				</h:commandButton>
+				<h:commandButton value="Закрыть" action="#{editRefSys.cancel}" rendered="true">
+				</h:commandButton>			
+			</h:panelGrid>	
+        </h:form>
+    </ui:define>
+</ui:composition>

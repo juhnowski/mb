@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	<f:viewParam name="ruleid" value="#{viewRule.prmRuleId}" >
+    	</f:viewParam>	
+    	<f:event type="preRenderView" listener="#{viewRule.init}" />
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmView">
+			<rich:messages globalOnly="true" layout="table" />
+			<h:panelGrid columns="2">
+				<h:outputText value="ID" /> <h:outputText value="#{viewRule.rule.id}" /> 
+				<h:outputText value="Имя пакета: " /> <h:outputText value="#{viewRule.rule.packageName}" />
+				<h:outputText value="Описание пакета: " /> <h:outputText value="#{viewRule.rule.description}" />
+				<h:outputText value="Содержание: " rendered="#{viewRule.rule.ruleType == 1}"/> <h:outputText value="#{viewRule.rule.body}" rendered="#{viewRule.rule.ruleType == 1}"/>	
+				<h:outputText value="Константы: " rendered="#{viewRule.rule.ruleType == 2}"/> 
+				<h:dataTable var="con" value="#{viewRule.rule.constants}">
+					<h:column>
+						<f:facet name="header">Имя</f:facet>
+						<h:outputText value="#{con.name}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Тип</f:facet>
+						<h:outputText value="#{con.dataType}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Значение</f:facet>
+						<h:outputText value="#{con.dataValue}" />
+					</h:column>		
+					<h:column>
+						<f:facet name="header">Описание</f:facet>
+						<h:outputText value="#{con.description}" />
+					</h:column>														
+				</h:dataTable>			
+			</h:panelGrid>
+			<h:panelGroup>
+				<h:commandButton value="Закрыть" action="#{editRule.cancel}">
+				</h:commandButton>			
+			</h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>

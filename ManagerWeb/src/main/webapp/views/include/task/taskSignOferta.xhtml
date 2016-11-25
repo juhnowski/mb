@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	>
+	<div class="rf-p " id="divPnl">
+		<div class="rf-p-hdr" id="hdrPnl">Требуется подписать оферту</div>
+	
+		<a4j:region>
+		  	<h:panelGroup style="display:block" styleClass="ques_list">
+				
+				 <h:outputText styleClass="agreement" value="#{editSign.creditRequest.agreement}" escape="false"/>
+				 
+				  <h:panelGrid columns="2" styleClass="table_ques">
+				  
+				  <h:outputText value="Смс-код подписи"/>
+				  <h:panelGroup>
+				     <h:inputText id="scode" value="#{editSign.smsCode}"/>
+				     <rich:message for="scode"/> 
+				  </h:panelGroup>
+				  <h:commandLink value="Получить смс-код" styleClass="button grey" actionListener="#{editSign.sendCodeListener}">
+				      <a4j:ajax render="@form" />
+				  </h:commandLink>
+		          <h:commandButton id="start" value="Подписать" styleClass="button ml0"  actionListener="#{editSign.signAgreement}" onclick="#{rich:component('popupIndicator')}.show();return true;" rendered="#{not empty editSign.sendedSmsCode}">
+					  <a4j:ajax render="@form" />
+				  </h:commandButton>
+		          
+				</h:panelGrid>
+			</h:panelGroup>
+			
+		
+			
+			<h:panelGroup style="display:block" styleClass="ques_list">
+				<ui:include src="stdActionsBar.xhtml" >
+					<ui:param name="currentCtl" value="#{editSign}" />
+				</ui:include>
+			</h:panelGroup>
+		</a4j:region>
+	</div>
+	
+</ui:composition>	

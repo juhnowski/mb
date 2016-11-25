@@ -1,0 +1,14 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+   	<h:form>
+   		<h:panelGrid columns="2">
+   			<h:outputText value="Вид" /> <h:outputText value="#{editBiz.bizAction.bizActionType.name}" />
+   			<h:outputText value="Название" /> <h:outputText value="#{editBiz.bizAction.description}" />
+   		</h:panelGrid>
+   		<h:commandButton value="Запустить сейчас" action="#{editBiz.runNow}" rendered="#{editBiz.bizAction.forMany == 1}" />
+   		<h:commandButton value="Закрыть" action="#{editBiz.close}" immediate="true"/>
+   	</h:form>
+</ui:composition>

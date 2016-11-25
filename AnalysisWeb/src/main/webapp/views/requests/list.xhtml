@@ -1,0 +1,105 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+     <ui:define name="title">Business analysis console</ui:define>
+
+     <ui:define name="pageContent">
+        <h:form id="frmMain">
+    		
+    		<rich:messages globalOnly="true" layout="table" />
+			<h:panelGroup id="pnlFull">
+         	    <h:outputText value="Поиск" />
+         	    <h:panelGrid columns="2">
+         	    <h:outputText value="Id заявки" />
+         	    <h:inputText  value="#{listReq.prmCreditRequestId}"/>
+         	    <h:outputText value="Партнер" />
+         	    <h:selectOneMenu value="#{listReq.prmPartnerId}">
+        			<f:selectItems value="#{comrefs.partnersForCreditHistoryNull}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Статус запроса" />
+         	    <h:selectOneMenu value="#{listReq.prmStatusId}">
+        			<f:selectItems value="#{comrefs.requestStatuses}" />
+        		</h:selectOneMenu>
+         	    <h:outputText value="Номер заявки" />
+         	    <h:inputText  value="#{listReq.prmCreditRequestNumber}"/>
+         	    <h:outputText value="Номер запроса" />
+         	    <h:inputText  value="#{listReq.prmRequestGuid}"/>
+         	    <h:outputText value="Дата запроса с" />
+         	    <rich:calendar value="#{listReq.prmRequestDate.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         	     <h:outputText value="Дата запроса по" />
+         	    <rich:calendar value="#{listReq.prmRequestDate.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         		  <h:outputText value="Дата ответа с" />
+         	    <rich:calendar value="#{listReq.prmResponseDate.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         	     <h:outputText value="Дата ответа по" />
+         	    <rich:calendar value="#{listReq.prmResponseDate.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         		
+         	    </h:panelGrid>
+             	<a4j:commandButton value="Найти" actionListener="#{listReq.searchLsn}" render="pnlResults" /> <a4j:commandButton value="Очистить" actionListener="#{listReq.clearLsn}" render="frmMain" />
+             </h:panelGroup>
+    		<p></p>		
+				<h:panelGroup id="pnlResults">
+				<h:panelGroup>
+					<h:outputText value="Найдено #{listReq.model.rowCount} запросов в КБ" />
+				</h:panelGroup>	
+				<rich:extendedDataTable id="reqTable"
+		                         value="#{listReq.model}"               
+		                         var="req"
+		                         selectionMode="single" rows="20">
+		               
+		                <rich:column width="150">
+		                	<f:facet name="header">№ запроса</f:facet>
+		                	<h:link outcome="view?faces-redirect=true" >
+		                		<f:param name="reqid" value="#{req.id}" />
+		                		<h:outputText value="#{req.requestGuid}"/>
+		                	</h:link>
+		                </rich:column>
+		                 <rich:column width="150">
+		                	<f:facet name="header">№ заявки</f:facet>
+		                	<h:outputText value="#{req.creditRequest.uniqueNomer}" rendered="#{not empty req.creditRequest}"/>
+		                </rich:column>
+		                <rich:column width="300">
+		                	<f:facet name="header">Партнер</f:facet>
+		                	<h:outputText value="#{req.partner.realName}"/>
+		                </rich:column>
+		                <rich:column width="150">
+		                	<f:facet name="header">Дата запроса</f:facet>
+		                	<h:outputText value="#{req.requestDate}">
+		                	   <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+		                	</h:outputText> 
+		                </rich:column>
+		                <rich:column width="150">
+		                	<f:facet name="header">Дата ответа</f:facet>
+		                	<h:outputText value="#{req.responseDate}">
+		                	   <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+		                	</h:outputText> 
+		                </rich:column>
+		                <rich:column width="300">
+		                	<f:facet name="header">Статус запроса</f:facet>
+		                	<h:outputText value="#{req.requestStatus.name}"/>
+		                </rich:column>
+		                <rich:column width="100">
+		                	<f:facet name="header">действия</f:facet>
+		                	<h:panelGrid columns="1">          		
+								<h:panelGroup style="margin-left:8px">
+									<h:commandLink actionListener="#{listReq.deleteItem}" onclick="if (! confirm('Удалить запрос ?') ) { return false;}; return true; "  >
+										<f:attribute name="reqid" value="#{req.id}" />
+										<a4j:ajax render="@form" />
+										<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+									</h:commandLink>
+								</h:panelGroup>
+							</h:panelGrid> 
+		                </rich:column>		
+		                 <f:facet name="footer">	
+		                    <rich:dataScroller/>
+		                </f:facet>
+		         </rich:extendedDataTable>
+		     </h:panelGroup>           	
+    			
+    	
+         </h:form>
+     </ui:define>
+</ui:composition>
+

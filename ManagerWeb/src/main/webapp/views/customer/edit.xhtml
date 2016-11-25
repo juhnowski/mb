@@ -1,0 +1,415 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="customer" />
+	<ui:define name="metadata">
+    	<f:viewParam name="peopleid" value="#{editPeople.prmPeopleId}" >
+    	</f:viewParam>
+    	<f:event type="preRenderView" listener="#{editPeople.init}" />
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<rich:tabPanel switchType="client">
+				<rich:tab header="Заемщик">
+					<rich:panel header="Заемщик" styleClass="layout block4" >
+							<h:panelGrid columns="2"  columnClasses="layout-field-name, top-valigned">
+
+								<h:outputText value="Инициалы" />
+								<h:outputText value="#{editPeople.people.peoplePersonalActive.surname} #{editPeople.people.peoplePersonalActive.name} #{editPeople.people.peoplePersonalActive.midname}" />
+
+                            	<h:outputText value="Дата рождения" />
+								<h:outputText value="#{editPeople.people.peoplePersonalActive.birthDate}">
+								  <f:convertDateTime pattern="dd.MM.yyyy"/>
+								</h:outputText>
+
+                                <h:outputText value="Паспорт" />
+								<h:outputText value="#{editPeople.people.activePassport.descriptionFull}"/>
+
+								<h:outputText value="Контактный телефон" />
+								<h:outputText value="#{editPeople.people.cellPhone.value}" />
+
+	                            <h:outputText value="Контактный email" />
+								<h:panelGroup>
+									<h:panelGrid columns="2">
+										<h:outputText value="#{editPeople.people.email.value}"/>
+										<h:link outcome="/views/email/edit?faces-redirect=true" styleClass="button">
+											<f:param name="emailTo" value="#{editPeople.people.email.value}"/>
+											<f:param name="peopleMainID" value="#{editPeople.people.id}"/>
+											<f:param name="userID" value="#{editPeople.userCtl.user.id}"/>
+											<h:outputText value="Написать письмо"/>
+										</h:link>
+									</h:panelGrid>
+								</h:panelGroup>
+
+								<h:outputText value="Активных займов" />
+								<h:outputText value="#{editPeople.people.activeCreditsCount}" />
+
+								<h:outputText value="Закрытых займов" />
+								<h:outputText value="#{editPeople.people.closedCreditsCount}" />
+
+								<h:outputText value="Просроченных займов" />
+								<h:outputText value="#{editPeople.people.delayCreditsCount}" />
+
+								<h:outputText value="ИНН" rendered="#{not empty editPeople.people.inn}"/>
+								<h:outputText value="#{editPeople.people.inn}" rendered="#{not empty editPeople.people.inn}"/>
+
+								<h:outputText value="СНИЛС" rendered="#{not empty editPeople.people.snils}"/>
+								<h:outputText value="#{editPeople.people.snils}" rendered="#{not empty editPeople.people.snils}"/>
+
+							</h:panelGrid>
+						</rich:panel>
+
+					<rich:collapsiblePanel header="Заявки" switchType="client" expanded="false">
+			      		<rich:dataTable id="reqs"
+				                         value="#{editPeople.creditRequests}"
+				                         var="req"
+				                         rows="50"
+				                          styleClass="table2 table3">
+				            <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header"><h:outputText value="Номер заявки" /></f:facet>
+								<h:outputText value="#{req.uniqueNomer}"/>
+							 </rich:column>
+				            <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header"><h:outputText value="Дата заявки" /></f:facet>
+								<h:outputText value="#{req.dateContest}">
+									<f:convertDateTime pattern="dd.MM.yyyy" />
+								</h:outputText>
+							 </rich:column>
+							 <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Сумма заявки" />
+								</f:facet>
+									<h:outputText value="#{req.creditSum}" >
+									  <f:convertNumber pattern="###########.00"/>
+									 </h:outputText>
+							 </rich:column>
+							 <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Дней займа в заявке" />
+								</f:facet>
+									<h:outputText value="#{req.creditDays}" />
+							 </rich:column>
+							 <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header"><h:outputText value="Статус заявки" /></f:facet>
+								<h:outputText value="#{req.status.name}"/>
+							 </rich:column>
+							  <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header"><h:outputText value="Дата изменения статуса" /></f:facet>
+								<h:outputText value="#{req.dateStatus}">
+									<f:convertDateTime pattern="dd.MM.yyyy" />
+								</h:outputText>
+							 </rich:column>
+
+				        </rich:dataTable>
+					</rich:collapsiblePanel>
+
+					<rich:collapsiblePanel header="Займы" switchType="client" expanded="false" rendered="#{editPeople.people.hasCredits!=0}">
+			      		<rich:dataTable id="creds"
+				                         value="#{editPeople.people.systemCredits}"
+				                         var="cred"
+				                         rows="30"
+				                          styleClass="table2 table3">
+				            <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Номер займа" />
+								</f:facet>
+									<h:outputText value="#{cred.creditAccount}"/>
+							 </rich:column>
+				            <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Дата займа" />
+								</f:facet>
+									<h:outputText value="#{cred.creditDataBeg}" >
+									    <f:convertDateTime pattern="dd.MM.yyyy" />
+									</h:outputText>
+							 </rich:column>
+				             <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Дата окончания займа по графику" />
+								</f:facet>
+									<h:outputText value="#{cred.creditDataEnd}" >
+									    <f:convertDateTime pattern="dd.MM.yyyy" />
+									</h:outputText>
+							 </rich:column>
+							 <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Фактическая дата окончания займа" />
+								</f:facet>
+									<h:outputText value="#{cred.creditDataEndFact}" >
+									    <f:convertDateTime pattern="dd.MM.yyyy" />
+									</h:outputText>
+							 </rich:column>
+							 <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Сумма займа" />
+								</f:facet>
+									<h:outputText value="#{cred.creditSum}" >
+									  <f:convertNumber pattern="###########.00"/>
+									 </h:outputText>
+							 </rich:column>
+							 <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Ставка по займу" />
+								</f:facet>
+									<h:outputText value="#{cred.creditPercent}" >
+									</h:outputText>
+							 </rich:column>
+							  <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Статус займа" />
+								</f:facet>
+									<h:outputText value="#{cred.creditStatus.name}" rendered="#{not empty cred.creditStatus}" >
+									</h:outputText>
+							 </rich:column>
+							  <rich:column  headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Вид займа" />
+								</f:facet>
+									<h:outputText value="#{cred.creditType.name}" rendered="#{not empty cred.creditType}">
+									</h:outputText>
+							 </rich:column>
+							  <rich:column  headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Валюта займа" />
+								</f:facet>
+									<h:outputText value="#{cred.currency.name}" rendered="#{not empty cred.currency}">
+									</h:outputText>
+							 </rich:column>
+							  <rich:column  headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Отношение к займу" />
+								</f:facet>
+									<h:outputText value="#{cred.creditRelation.name}" rendered="#{not empty cred.creditRelation}">
+									</h:outputText>
+							 </rich:column>
+							  <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Займ закрыт?" />
+								</f:facet>
+							       <h:panelGroup>
+										  <h:outputText value="да" rendered="#{cred.isOver==true}" />
+										  <h:outputText value="нет" rendered="#{cred.isOver==false}" />
+									</h:panelGroup>
+								</rich:column>
+								<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Источник информации" />
+								</f:facet>
+									<h:outputText value="#{cred.partner.realName}"/>
+							 </rich:column>
+				     	</rich:dataTable>
+				     </rich:collapsiblePanel>
+
+				   	<rich:collapsiblePanel header="Бонусы" switchType="client" expanded="false" >
+			      		<rich:dataTable id="bonuses"
+				                         value="#{editPeople.people.peoplebonus}"
+				                         var="bonus"
+				                         rows="30"
+				                          styleClass="table2 table3">
+				            <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Количество бонусов" />
+								</f:facet>
+									<h:outputText value="#{bonus.amount}"/>
+							 </rich:column>
+				            <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Дата операции" />
+								</f:facet>
+									<h:outputText value="#{bonus.eventDate}" >
+									    <f:convertDateTime pattern="dd.MM.yyyy" />
+									</h:outputText>
+							 </rich:column>
+							 <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Операция" />
+								</f:facet>
+									<h:outputText value="#{bonus.operation.name}" >
+									 </h:outputText>
+							 </rich:column>
+							 <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Причина" />
+								</f:facet>
+									<h:outputText value="#{bonus.bonus.name}" >
+									</h:outputText>
+							 </rich:column>
+				     	</rich:dataTable>
+						<div style="padding-left:10px;"><b>Всего бонусов: </b> <h:outputText value="#{editPeople.people.bonusamount}"></h:outputText></div>
+						<h:commandButton value="Начислить бонус" styleClass="button ml0" onclick="#{rich:component('popupBonusWindow')}.show();return false;">
+						</h:commandButton>
+				     </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Служебная информация (логи)" switchType="client" expanded="false">
+
+                        <rich:dataTable id="logs"
+                                        value="#{editPeople.people.events}"
+                                        var="log"
+                                        rows="100"
+                                        styleClass="table2 table3">
+                            <rich:column width="415" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Событие"/>
+                                </f:facet>
+                                <h:outputText value="#{log.eventCode.name}"/>
+                            </rich:column>
+                            <rich:column width="136" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата события"/>
+                                </f:facet>
+                                <h:outputText value="#{log.eventTime}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="109" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Ip address"/>
+                                </f:facet>
+                                <h:outputText value="#{log.ipaddress}"/>
+                            </rich:column>
+                            <rich:column width="279" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дополнительная информация"/>
+                                </f:facet>
+                                <h:outputText value="#{log.description}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+					<rich:collapsiblePanel header="Отправленные письма" switchType="client" expanded="false">
+						<rich:dataTable id="messTable"
+										value="#{editPeople.mailList}"
+										var="mes"
+										selectionMode="single"
+										rows="20"
+										styleClass="table2">
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">Дата отправки</f:facet>
+								<h:outputText value="#{mes.messageDate}">
+									<f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+								</h:outputText>
+							</rich:column>
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">Тема</f:facet>
+								<h:outputText value="#{mes.messageHeader}"/>
+							</rich:column>
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">Адрес отправления</f:facet>
+								<h:outputText value="#{mes.peopleContact != null ? mes.peopleContact.value : ''}"/>
+							</rich:column>
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">Кем отправлено</f:facet>
+								<h:outputText value="#{mes.user.fullName}"/>
+							</rich:column>
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">Действия</f:facet>
+								<h:panelGrid columns="2">
+									<h:panelGroup >
+										<h:link outcome="/views/email/edit?faces-redirect=true" styleClass="open">
+											<f:param name="emailTo" value="#{mes.peopleContact != null ? mes.peopleContact.value : ''}"/>
+											<f:param name="peopleMainID" value="#{editPeople.people.id}"/>
+											<f:param name="userID" value="#{editPeople.userCtl.user.id}"/>
+											<f:param name="messageID" value="#{mes.id}"/>
+										</h:link>
+									</h:panelGroup>
+								</h:panelGrid>
+							</rich:column>
+						</rich:dataTable>
+					</rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Звонки" switchType="client" expanded="false" rendered="#{not empty editPeople.callList}">
+                        <rich:dataTable id="calls"
+                                        value="#{editPeople.callList}"
+                                        var="call"
+                                        rows="20"
+                                        styleClass="table2 table3">
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                                <h:outputText value="входящий" rendered="#{not empty call.incoming and call.incoming}"/>
+                                <h:outputText value="исходящий" rendered="#{not empty call.incoming and !call.incoming}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Оператор"/>
+                                </f:facet>
+                                <h:outputText value="#{call.user.initials}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата"/>
+                                </f:facet>
+                                <h:outputText value="#{call.callDataBeg}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Продолжительность"/>
+                                </f:facet>
+                                <h:outputText value="#{call.lengthHours} ч " rendered="#{not empty call.lengthHours}"/>
+                                <h:outputText value="#{call.lengthMinutes} мин " rendered="#{not empty call.lengthMinutes}"/>
+                                <h:outputText value="#{call.lengthSeconds} сек"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Номер"/>
+                                </f:facet>
+                                <h:outputText value="#{call.phone}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Статус"/>
+                                </f:facet>
+                                <h:outputText value="#{call.status.name}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Комментарий"/>
+                                </f:facet>
+                                <h:inputText value="#{call.comment}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                        <a4j:commandButton actionListener="#{editPeople.updateCalls}" value="Сохранить"
+                                           style="margin: 10px;" styleClass="button ml0"/>
+                    </rich:collapsiblePanel>
+				</rich:tab>
+			</rich:tabPanel>
+			<h:commandButton value="Закрыть" styleClass="button ml0" action="#{editPeople.cancel}">
+			</h:commandButton>
+        </h:form>
+		<h:form>
+			<rich:popupPanel id="popupBonusWindow" modal="true" resizeable="false" >
+			<table cellpadding="10" cellspacing="10" class="table2">
+					<tr>
+						<td>Количество:</td>
+						<td><h:inputText value="#{editPeople.savebonusamount}" required="true" requiredMessage="Необходимо заполнить количество">
+               	      		<f:convertNumber pattern="############.##" />
+							</h:inputText></td>
+					</tr>
+					<tr>
+						<td>Дата:</td>
+						<td>
+							<rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{editPeople.savebonusdate}" popup="true" showApplyButton="false" datePattern="dd.MM.yy" enableManualInput="true"/>
+						</td>
+					</tr>
+				</table>
+		    	<br/>
+				<h:commandButton value="Сохранить" styleClass="button ml0" 	action="#{editPeople.addBonus}" onclick="#{rich:component('popupBonusWindow')}.hide();return true;">
+
+				</h:commandButton>
+
+				<h:commandButton value="Отменить" styleClass="button ml0" onclick="#{rich:component('popupBonusWindow')}.hide();return true;">
+				</h:commandButton>
+   			</rich:popupPanel>
+		</h:form>
+    </ui:define>
+</ui:composition>

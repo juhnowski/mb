@@ -1,0 +1,136 @@
+<!-- Start sidebar -->
+<div class="sidebar">
+	<div class="sidebar-header">
+		<div class="sidhd-button"></div>
+		<div class="sidhd-data"><span></span>Среда, 1 Сентября 2015</div>
+		<div class="sidhd-time">10:22</div>
+	</div>
+
+
+	<div class="sidebar-body">
+		<div class="sidebar-user">
+			<img src="photo/nazarenko.jpg">
+			<div class="fio">
+				<span>Назаренко В.</span>
+				<span><span></span><label>online</label></span>
+			</div>
+			<div class="user-button" id="user-button"></div>
+
+			<div class="sidebar-user-menu">
+				<ul class="sum">
+					<li><a href="">Настройки профиля</a></li>
+					<li><a href="javascript:PopUpShow()">Выйти</a></li>
+				</ul>
+				<div class="sum-triangle"></div>
+			</div>
+
+		</div>
+
+		<div class="sidebar-block">
+			<div class="tasks">
+				<div class="sidebar-li">
+					<a href="">
+						<div class="pict"></div>
+						<div class="li-text">Задачи</div>
+						<div class="li-count">19</div>
+					</a>
+				</div>
+			</div>
+
+			<div class="zzzp">
+				<div class="sidebar-li"> <!-- Для того, что бы п. меню стал активным - необходимо добавить класс .sli-active -->
+					<a href="borrowers.shtml">
+						<div class="pict"></div>
+						<div class="li-text">Заёмщики</div>
+					</a>
+				</div>
+
+				<div class="sidebar-li">
+					<a href="applications.shtml">
+						<div class="pict"></div>
+						<div class="li-text">Заявки</div>
+						<div class="li-count">130</div>
+					</a>
+				</div>
+
+				<div class="sidebar-li">
+					<a href="">
+						<div class="pict"></div>
+						<div class="li-text">Займы</div>
+					</a>
+				</div>
+
+				<div class="sidebar-li">
+					<a href="">
+						<div class="pict"></div>
+						<div class="li-text">Платежи</div>
+					</a>
+				</div>
+			</div>
+
+
+			<div class="sidbr-chat">
+				<div class="sidebar-li">
+					<a href="chat.shtml">
+						<div class="pict"></div>
+						<div class="li-text">Новый чат</div>
+						<div class="li-count">4</div>
+					</a>
+				</div>
+
+				<div class="sidebar-li">
+					<a href="chat-history.shtml">
+						<div class="pict"></div>
+						<div class="li-text">История чатов</div>
+					</a>
+				</div>
+			</div>
+
+
+			<div class="reports">
+				<div class="sidebar-li" id="reports">
+					<div class="pict"></div>
+					<div class="li-text">Отчёты</div>
+					<div class="str"></div>
+				</div>
+
+				<ul>
+					<li>Выдача</li>
+					<li>Оплата</li>
+					<li>Продление</li>
+					<li>Закрытие</li>
+					<li>Портфель</li>
+					<li>Взыскание</li>
+					<li>Риски</li>
+				</ul>
+			</div>
+
+
+			<div class="settings-help">
+				<div class="sidebar-li">
+					<a href="">
+						<div class="pict"></div>
+						<div class="li-text">Настройки</div>
+					</a>
+				</div>
+
+				<div class="sidebar-li">
+					<a href="">
+						<div class="pict"></div>
+						<div class="li-text">Справка</div>
+						<div class="li-count">1</div>
+					</a>
+				</div>
+			</div>
+
+
+		</div>
+		
+	</div>
+
+
+</div>
+<!-- End sidebar -->
+
+
+

@@ -1,0 +1,61 @@
+<!--#set var="typePage" value="lk-setting" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'settings_social'">
+<head>
+
+    <!--#include file="include/_head.shtml"-->
+
+    <script>
+        app = angular.module('app', ['layout']);
+    </script>
+</head>
+
+<body ng-controller="MainCtrl" ng-cloak>
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main>
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_settings_left_menu.shtml"-->
+
+            <div class="right-block td">
+                <form>
+                    <h3 class="h3 h3--bt1">
+                        Соцальные сети
+                        <span class="h3__right opacity-50" ng-show="!aiData.canEdit">
+                            <i class="ico ico--lock"></i>Редактирование запрещено
+                        </span>
+                    </h3>
+
+                    <div class="table-settings"
+                         ng-class="{'table-settings--disabled' : !aiData.canEdit, 'opacity-50' : !aiData.canEdit}">
+                        <table>
+                            <tr>
+                                <td id="vk">Вконтакте</td>
+                                <td id="fb">Фейсбук</td>
+                                <td id="ok">Одноклассники</td>
+                                <td id="mm">Мой мир</td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+<!--<script src="js/usersettings.js"></script>-->
+
+
+<script type="text/javascript">
+//    getPeopleContact();
+</script>
+
+</body>
+</html>

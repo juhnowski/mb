@@ -1,0 +1,105 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="report" />
+	
+    <ui:define name="title">Manager console</ui:define>
+
+    <ui:define name="pageContent">
+          <h:form id="frmMain">
+        	 <rich:panel header="Поиск" styleClass="layout block4 table_small" >
+             <h:panelGroup id="pnlSearchQuick"  styleClass="search">
+         	 	<h:panelGrid columns="3" styleClass="table_search">
+         	 	    <h:outputText value="Номер заявки" />
+         	 	    <h:outputText value="За дату" />
+         	 	    <h:outputText value="В диапазоне дат" />
+         	 	     
+         	 	    <h:inputText value="#{collector.creditRequestId}"/>
+         	 	    <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{collector.dateStatus}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" />
+         	 	    <h:panelGroup>
+         	 			<h:outputText value="с "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{collector.dateStatusRange.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" />
+         	 			<h:outputText value=" по "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{collector.dateStatusRange.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" />
+         	 		</h:panelGroup>
+         	 	</h:panelGrid>
+         	 
+				<a4j:commandButton value="Найти"  actionListener="#{collector.searchLsn}" render="pnlResults" execute="@form" styleClass="button" /> 
+				<a4j:commandButton value="Очистить" actionListener="#{collector.clearLsn}" render="frmMain" execute="@form" styleClass="button grey" />         	 	             
+             </h:panelGroup>
+           </rich:panel>  
+           
+           <h:panelGroup id="pnlResults" styleClass="div">
+				<h:panelGroup id="cnt" styleClass="total_result" >
+					<h:outputText value="Найдено " /><b><h:outputText value="#{collector.cnt} записей для коллектора" /></b>					
+				</h:panelGroup>	
+				<h:commandLink value="Выгрузить в csv" action="#{collector.showTextForCollector}" styleClass="hlink"></h:commandLink> 
+				<rich:dataTable id="reqTable"
+		                         value="#{collector.listForCollector}"               
+		                         var="req"
+		                         selectionMode="single"
+		                         rows="20"
+		                         styleClass="table2">
+	               
+	               <rich:column headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Внутренний номер заявки</f:facet>
+	                		<h:link outcome="/views/creditrequest/edit?faces-redirect=true" >
+		                		<f:param name="ccRequestId" value="#{req.id}" />
+		                		<h:outputText value="#{req.id}"/>
+		                	</h:link>
+	                
+	                </rich:column>
+	                <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">Номер заявки</f:facet> 
+	            		<h:link outcome="/views/creditrequest/edit?faces-redirect=true" >
+		                	 <f:param name="ccRequestId" value="#{req.id}" />	                	
+	                	     <h:outputText value="#{req.uniqueNomer}"/>
+	                	</h:link>     
+	                </rich:column>	
+	                <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">Дата подачи заявки</f:facet> 	                	
+	                	<h:outputText value="#{req.dateContest}">
+	                	    <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+	                	</h:outputText>
+	                </rich:column>	
+	                <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">Дата передачи коллектору</f:facet> 	                	
+	                	<h:outputText value="#{req.dateStatus}">
+	                	    <f:convertDateTime pattern="dd.MM.yyyy"/>
+	                	</h:outputText>
+	                </rich:column>	
+	                <rich:column headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Сумма заявки</f:facet>
+	                	<h:outputText value="#{req.creditSum}" >
+	                	  <f:convertNumber pattern="############.00" />
+	                	</h:outputText>
+	                </rich:column>
+	                 <rich:column headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Сумма к возврату</f:facet>
+	                	<h:outputText value="#{req.acceptedCredit.creditSumBack}" >
+	                	  <f:convertNumber pattern="############.00" />
+	                	</h:outputText>
+	                </rich:column>
+	                <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">Дата начала займа</f:facet> 	                	
+	                	<h:outputText value="#{req.acceptedCredit.creditDataBeg}">
+	                	    <f:convertDateTime pattern="dd.MM.yyyy"/>
+	                	</h:outputText>
+	                </rich:column>
+	                 <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">Дата окончания по графику</f:facet> 	                	
+	                	<h:outputText value="#{req.acceptedCredit.creditDataEnd}">
+	                	    <f:convertDateTime pattern="dd.MM.yyyy"/>
+	                	</h:outputText>
+	                </rich:column>
+	                                 		                
+	                
+	                <f:facet name="footer">
+	                	<rich:dataScroller />
+	                </f:facet>
+	          	</rich:dataTable>				
+			</h:panelGroup>	 
+			      
+        </h:form>
+    </ui:define>
+</ui:composition>

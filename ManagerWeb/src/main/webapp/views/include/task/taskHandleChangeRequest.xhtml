@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	>
+	<div class="rf-p" id="divPnl">
+		<div class="rf-p-hdr" id="hdrPnl">Требуется отредактировать анкету</div>
+	
+		<a4j:region>
+			<h:panelGrid columns="1">
+				<h:outputText value="Что изменить"/>
+				<h:outputText value="#{editTCHE.changeRequest.description}"/>
+			</h:panelGrid>			
+			
+			<h:panelGroup>
+			 <h:link value="Редактировать анкету" outcome="edit_cr?faces-redirect=true" styleClass="button ml0">
+				<f:param name="ccRequestId" value="#{editTCHE.creditRequest.id}" />
+			  </h:link>
+				<ui:include src="stdActionsBar.xhtml" >
+					<ui:param name="currentCtl" value="#{editTCHE}" />
+				</ui:include>			  
+			  <br/>
+			 
+			</h:panelGroup>
+		</a4j:region>
+	</div>
+</ui:composition>	

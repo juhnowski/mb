@@ -1,0 +1,112 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<rich:panel header="Добавить продукт">
+			 <h:panelGroup id="pnlAdd">
+			     <h:panelGrid columns="2">
+			        <h:outputText value="Код продукта: "/>
+			        <h:inputText value="#{listProducts.productCode}" />
+			        <h:outputText value="Название продукта: "/>
+			        <h:inputText value="#{listProducts.productName}" />
+			        <h:outputText value="Описание продукта: "/>
+			        <h:inputText value="#{listProducts.productDescription}" />
+			        <h:outputText value="Способ погашения: "/>
+			        <h:selectOneMenu value="#{listProducts.paymentType}" valueChangeListener="#{listProducts.changePaymentType}">
+        			    <f:selectItems value="#{comrefs.creditFreqPaymentTypes}" />
+        		    </h:selectOneMenu>
+			      </h:panelGrid>
+             	<h:commandButton value="Добавить" action="#{listProducts.addItem}"/> 
+             </h:panelGroup>
+             </rich:panel>
+    		<p></p>		
+			
+		
+			<h:panelGroup id="pnlData">
+			  <rich:dataTable id="reqTable"
+		                         value="#{listProducts.products}"               
+		                         var="prod">
+		               
+		                <rich:column>
+		                	<f:facet name="header">id в системе</f:facet>
+	                	    <h:outputText value="#{prod.id}" size="10"/>
+	               	
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">код</f:facet>
+		                	<h:outputText value="#{prod.code}" size="35"/>
+		                </rich:column>
+		                <rich:column>
+		                	<f:facet name="header">название</f:facet>
+		                	<h:outputText value="#{prod.name}" size="35"/>
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">описание</f:facet>
+		                	<h:outputText value="#{prod.description}" size="45"/>
+		                </rich:column>
+		                 <rich:column>
+		                	<f:facet name="header">способ погашения</f:facet>
+		                	<h:outputText value="#{prod.paymentType.name}" size="35" rendered="#{not empty prod.paymentType}"/>
+		                </rich:column>	
+		                <rich:column>
+		                	<f:facet name="header">активный</f:facet>
+		                	<h:outputText value="#{prod.activeString}" size="10"/>
+		                </rich:column>
+		                 <rich:column>
+		                	<f:facet name="header">по умолчанию</f:facet>
+		                	<h:outputText value="#{prod.defaultString}" size="10"/>
+		                </rich:column>
+		                <rich:column>
+		                	<f:facet name="header">действия</f:facet>
+		                	<h:panelGrid columns="5">          		
+								<h:panelGroup >
+									<h:link outcome="edit?faces-redirect=true" >
+										<f:param name="prodid" value="#{prod.id}" />
+										<h:graphicImage value="/resources/icons/edit.gif" title="редактировать продукт" />
+									</h:link>
+								</h:panelGroup>
+								<h:panelGroup >
+									<h:commandLink value="скопировать" actionListener="#{listProducts.copyItem}"  >
+										<f:attribute name="prodid" value="#{prod.id}" />
+										<a4j:ajax render="@form" />
+									
+									</h:commandLink>
+								</h:panelGroup>
+								<h:panelGroup style="margin-left:8px">
+									<h:commandLink actionListener="#{listProducts.deleteItem}" onclick="if (! confirm('Удалить продукт ?') ) { return false;}; return true; "  rendered="#{prod.isDefault==0}">
+										<f:attribute name="prodid" value="#{prod.id}" />
+										<a4j:ajax render="@form" />
+										<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+									</h:commandLink>
+								</h:panelGroup>
+								
+								<h:panelGroup >
+									<h:commandLink value="сделать активным" actionListener="#{listProducts.makeActive}" rendered="#{prod.isActive!=1}" >
+										<f:attribute name="prodid" value="#{prod.id}" />
+										<a4j:ajax render="@form" />
+									
+									</h:commandLink>
+								</h:panelGroup>
+								<h:panelGroup >
+									<h:commandLink value="сделать по умолчанию" actionListener="#{listProducts.makeDefault}" rendered="#{prod.isActive==1 and prod.isDefault==0}" >
+										<f:attribute name="prodid" value="#{prod.id}" />
+										<a4j:ajax render="@form" />
+									
+									</h:commandLink>
+								</h:panelGroup>
+								
+								
+							</h:panelGrid> 
+		                </rich:column>		                	                
+		          	</rich:dataTable>		
+			</h:panelGroup>		
+		 </h:form>
+    </ui:define>
+</ui:composition>

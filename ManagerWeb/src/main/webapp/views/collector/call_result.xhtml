@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+    <ui:param name="top_selected_item" value="collector" />
+    <ui:define name="metadata">
+
+    </ui:define>
+    <ui:define name="title">Manager console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="frmEdit">
+            <rich:messages globalOnly="true" layout="table" />
+
+            <rich:panel header="Результат звонка" styleClass="layout block4" >
+                <h:panelGrid columns="2"  columnClasses="layout-field-name, top-valigned">
+                    <h:outputText value="Клиент" />
+                    <h:inputText value="#{callCollector.collector.peopleMain.peoplePersonalActive.fullName}" disabled="true"/>
+                    <h:outputText value="Сотрудник" />
+                    <h:inputText value="#{callCollector.user.fullName}" disabled="true"/>
+                    <h:outputText value="Дата звонка" />
+                    <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{callCollector.callDateStart}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" />
+                    <h:outputText value="Дата обещания" />
+                    <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{callCollector.callDatePromise}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" />
+                    <h:outputText value="Дата следующего контакта" />
+                    <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{callCollector.dateNextContact}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" />
+                    <h:outputText value="Комментарий"/>
+                    <h:inputTextarea value="#{callCollector.comment}" rows="3"/>
+                    <h:outputText value="Результат обзвона"/>
+                    <h:selectOneMenu value="#{callCollector.callResultCodeIntegerID}">
+                        <f:selectItems value="#{callCollector.callResultTypes}" var="vs" itemValue="#{vs.codeInteger}" itemLabel="#{vs.name}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+            </rich:panel>
+
+            <h:commandButton value="Сохранить" styleClass="button ml0" action="#{callCollector.save}"/>
+            <h:commandButton value="Закрыть" styleClass="button grey" action="#{callCollector.cancel}"/>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

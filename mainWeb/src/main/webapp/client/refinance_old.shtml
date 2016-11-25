@@ -1,0 +1,88 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'refinance'">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/refinance.js"></script>
+    <title>Личный кабинет | «Ontime» - займы онлайн</title>
+
+    <style type="text/css">
+        .zaem-slider.lk-slider {
+            width: auto;
+            margin-left: 44px;
+            margin-right: 0;
+            padding-left: 19px;
+            padding-right: 19px;
+        }
+
+        .lk-slider .slider {
+            margin-left: 31px;
+            width: 417px;
+        }
+
+        .zaem-slider.lk-slider .ruble-big {
+            margin-left: -15px;
+        }
+    </style>
+</head>
+
+<body ng-controller="MainCtrl">
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main ng-controller="RefinanceCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block td">
+                <h3 class="h3">Рефинансирование текущего займа</h3>
+
+                <div class="box-20 clr"
+                     ng-if="info.canRefinance == false"
+                     ng-bind-template="{{ info.msgCanRefinance || 'Рефинансирование невозможно'}}">
+                </div>
+
+                <div ng-if="info.canRefinance" class="box-20 clr">
+                    <div class="zaem-slider notsel">
+                        <div lk-money-slider data="info" ng-model="local.refinanceAmount" ng-if="info"></div>
+                    </div>
+
+
+                    <table class="table-1">
+                        <tr>
+                            <td>Текущая сумма займа</td>
+                            <td ng-bind-template="{{ info.sumAll }} руб."></td>
+                        </tr>
+                        <tr>
+                            <td>Проценты к выплате</td>
+                            <td ng-bind-template="{{ local.sumStake }} руб."></td>
+                        </tr>
+                        <tr>
+                            <td>Сумма возврата</td>
+                            <td ng-bind-template="{{ local.sumAll }} руб."></td>
+                        </tr>
+                        <tr>
+                            <td>Дата возврата</td>
+                            <td ng-bind="local.dateEnd"></td>
+                        </tr>
+                    </table>
+
+                    <div class="oferta" ng-bind-html="local.agreement"></div>
+
+                    <a class="btn btn--green mb29 pull-right" ng-click="sendSms()">Получить АСП (смс-код)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+</body>
+</html>

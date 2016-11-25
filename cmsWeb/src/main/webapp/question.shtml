@@ -1,0 +1,192 @@
+<!--#include file="_header.shtml"-->
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-12">
+                <h2>Вопрос\Ответ</h2>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content">
+
+            <div class="row">
+
+                <div class="ibox-title">
+                    <h5>Основной контент</h5>
+                </div>
+
+                <div class="ibox-content m-b-md">
+
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Title</label>
+
+                            <div class="col-sm-10">
+                                <input id="title" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Description</label>
+
+                            <div class="col-sm-10"><input type="text" class="form-control" id="description"></div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Keywords</label>
+
+                            <div class="col-sm-10"><input type="text" class="form-control tags-input" id="keywords"></div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Заголовок</label>
+
+                            <div class="col-sm-10"><input type="text" class="form-control" id="header"></div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button onclick="saveQuestion()" class="btn btn-primary pull-right m-l">Сохранить
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                    </div>
+                </div>
+                <div class="ibox-title">
+                    <h5>Список разделов</h5>
+                </div>
+
+                <div class="ibox-content m-b-md">
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-2" id="body_edit">
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="ibox-title">
+                    <h5>Список вопросов\ответов</h5>
+                </div>
+
+                <div class="ibox-content">
+                    <div class="form-horizontal">
+                        <div class="dataTables_wrapper form-inline">
+                            <div class="row m-b">
+                                <div class="col-sm-4">
+                                    <a href="newquestion.shtml" class="btn btn-default ">Добавить вопрос\ответ</a>
+                                </div>
+                                <div class="col-md-8">
+                                    <select id="filterCategory" onchange="questionPage()" class="input-sm pull-right">
+
+                                    </select>
+                                    <div class="pull-right">
+                                        <div class="input-group">
+                                            <!--<input type="text" class="input-sm form-control" placeholder="Поиск">-->
+                                                    <!--<span class="input-group-btn">-->
+                                                        <!--<button class="btn btn-sm btn-primary" type="button"><span-->
+                                                                <!--class="fa fa-search"></span></button>-->
+                                                    <!--</span>-->
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <table id="newsTable" class="table table-striped table-bordered table-hover table-all-news">
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Категория</th>
+                                    <th>Действие</th>
+                                </tr>
+                            </table>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="pull-right">
+                                        <div class="btn-group" id="paginator">
+
+                                        </div>
+                                    </div>
+                                    <div class="dataTables_length">
+                                        <label>
+                                            <select class="form-control pagesize input-sm" onchange="questionPage()">
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                            </select> Количество на странице
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB из <strong>250GB</strong>
+            </div>
+            <div>
+                <strong>Copyright</strong> Credit Sputnik &copy; 2014-2015
+            </div>
+        </div>
+
+
+        <!--#include file="_footer.shtml"-->
+
+        <script type="text/javascript">
+            questionPage();
+            $(document).ready(function () {
+
+                Dropzone.options.myAwesomeDropzone = {
+                    maxFiles: 1,
+                    autoProcessQueue: false,
+                    uploadMultiple: false,
+                    acceptedFiles: ".jpeg,.jpg,.png,.gif",
+                    dictDefaultMessage: "Перетащите файл сюда",
+
+                    // Dropzone settings
+                    init: function () {
+                        var myDropzone = this;
+
+                        this.element.querySelector("button[type=submit]").addEventListener("click", function (e) {
+                            $.blockUI({
+                                message: '<div id="bird"></div>',
+                                timeout: 2000
+                            });
+                            e.preventDefault();
+                            e.stopPropagation();
+                            myDropzone.processQueue();
+                        });
+                        this.on("sendingmultiple", function () {
+                        });
+                        this.on("complete", function (files) {
+                            $('.q-fileName').val(files.name);
+                            saveQuestion();
+                            $.unblockUI();
+                        });
+                        this.on("errormultiple", function (files, response) {
+                        });
+                    }
+
+                }
+
+                $('.fancybox').fancybox({
+                    openEffect: 'none',
+                    closeEffect: 'none'
+                });
+
+                $('#questionPP').addClass('active');
+
+            });
+        </script>
+        </body>
+        </html>

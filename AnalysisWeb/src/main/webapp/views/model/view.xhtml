@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+	<ui:define name="metadata">
+		<f:viewParam name="modelid" value="#{viewModel.prmId}">
+			<f:convertNumber pattern="#################"/>
+		</f:viewParam>
+		<f:event type="preRenderView" listener="#{viewModel.init}" />
+	</ui:define>
+    <ui:define name="pageContent">
+    	<h:outputScript library="js/codemirror/lib" name="codemirror.js"></h:outputScript>
+    	<h:outputStylesheet library="js/codemirror/lib" name="codemirror.css"></h:outputStylesheet>
+    	<h:outputScript library="js/codemirror/mode/javascript" name="javascript.js"></h:outputScript>
+        <h:form>
+        	<rich:messages globalOnly="true" />
+        	<h:panelGrid columns="2">
+        		<h:outputText value="Состояние" />
+        		<h:outputText value="#{viewModel.model.activeStatusName}" />        	
+        		<h:outputText value="Имя стратегии" />
+        		<h:outputText value="#{viewModel.model.target}" />
+        		<h:outputText value="Версия" />
+        		<h:outputText value="#{viewModel.model.version}" />
+        		<h:outputText value="Дата создания" />
+        		<h:outputText value="#{viewModel.model.dateCreate}" >
+        			<f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+        		</h:outputText>        		
+        		<h:outputText value="Язык скрипта" />
+        		<h:outputText value="#{viewModel.model.mimeType}" /> 
+        		<h:outputText value="Продукт" />
+        		<h:outputText value="#{viewModel.model.product.name}" rendered="#{not empty viewModel.model.product}" />       		
+        	</h:panelGrid>        	
+        	<h:panelGroup style="display:block; width:1200px; heigth:900px; min-width:1200px; min-heigth:900px; max-width:1200px; max-heigth:900px; overflow: auto">
+        		<h:inputTextarea id="txtBody" value="#{viewModel.model.body}" ></h:inputTextarea>
+        	</h:panelGroup> 	
+        	<h:commandButton value="Закрыть" action="#{viewModel.close}"/>
+        </h:form>
+        <script type="text/javascript">
+        var myCodeMirror = CodeMirror.fromTextArea(#{rich:element('txtBody')}, {
+            lineNumbers: true,
+            mode: "text/javascript",
+            readOnly: true
+          });
+        </script>       
+    </ui:define>
+</ui:composition>

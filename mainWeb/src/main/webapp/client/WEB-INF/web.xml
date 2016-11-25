@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+    <display-name>REST-based client personal account</display-name>
+    
+    <servlet>
+        <servlet-name>ssi</servlet-name>
+        <servlet-class>
+            org.apache.catalina.ssi.SSIServlet
+        </servlet-class>
+        <init-param>
+            <param-name>buffered</param-name>
+            <param-value>1</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>expires</param-name>
+            <param-value>60</param-value>
+        </init-param>
+        <init-param>
+            <param-name>isVirtualWebappRelative</param-name>
+            <param-value>1</param-value>
+        </init-param>
+        <init-param>
+            <param-name>inputEncoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>outputEncoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <load-on-startup>4</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ssi</servlet-name>
+        <url-pattern>*.shtml</url-pattern>
+    </servlet-mapping>
+    
+    <welcome-file-list>
+        <welcome-file>/overview.shtml</welcome-file>
+    </welcome-file-list>
+</web-app>

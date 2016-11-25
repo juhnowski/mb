@@ -1,0 +1,147 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<h:panelGrid columns="2">
+			   <h:outputText value="Фамилия"/>
+			   <h:panelGroup>
+			     <h:inputText id="stxt" value="#{editRefBlacklist.surname}" />
+			     <rich:message for="stxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Имя"/>
+			   <h:panelGroup>
+			     <h:inputText id="ntxt" value="#{editRefBlacklist.name}" />
+			     <rich:message for="ntxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Отчество"/>
+			   <h:panelGroup>
+			     <h:inputText id="mtxt" value="#{editRefBlacklist.midname}"/>
+			     <rich:message for="mtxt"/>
+			   </h:panelGroup>
+			    <h:outputText value="Дата рождения"/>
+			   <h:panelGroup>
+			      <rich:calendar id="btxt" value="#{editRefBlacklist.birthdate}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+			     <rich:message for="btxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Серия паспорта"/>
+			   <h:panelGroup>
+			     <h:inputText id="sptxt" value="#{editRefBlacklist.series}" />
+			     <rich:message for="sptxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Номер паспорта"/>
+			   <h:panelGroup>
+			     <h:inputText id="nptxt" value="#{editRefBlacklist.number}" />
+			     <rich:message for="nptxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Мобильный телефон"/>
+			   <h:panelGroup>
+			     <h:inputText styleClass="phone-mask" id="ntel" value="#{editRefBlacklist.mobilephone}" validatorMessage="В номере телефона должны быть только цифры" >
+			      
+			      </h:inputText>  
+			     <rich:message for="ntel"/>
+			   </h:panelGroup>
+			   <h:outputText value="Email"/>
+			   <h:panelGroup>
+			     <h:inputText id="mail" value="#{editRefBlacklist.email}" />
+			     <rich:message for="mail"/>
+			   </h:panelGroup>
+			   <h:outputText value="Полное название работодателя"/>
+			   <h:panelGroup>
+			     <h:inputText id="eftxt" value="#{editRefBlacklist.employerFullName}" />
+			     <rich:message for="eftxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Краткое название работодателя"/>
+			   <h:panelGroup>
+			     <h:inputText id="estxt" value="#{editRefBlacklist.employerShortName}" />
+			     <rich:message for="estxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Регион"/>
+			   <h:panelGroup>
+			     <h:inputText id="regtxt" value="#{editRefBlacklist.regionName}" />
+			     <rich:message for="regtxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Сельская территория"/>
+			   <h:panelGroup>
+			     <h:inputText id="artxt" value="#{editRefBlacklist.areaName}" />
+			     <rich:message for="artxt"/>
+			   </h:panelGroup>
+			    <h:outputText value="Город"/>
+			   <h:panelGroup>
+			     <h:inputText id="citxt" value="#{editRefBlacklist.cityName}" />
+			     <rich:message for="citxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Село"/>
+			   <h:panelGroup>
+			     <h:inputText id="pltxt" value="#{editRefBlacklist.placeName}" />
+			     <rich:message for="pltxt"/>
+			   </h:panelGroup>
+			    <h:outputText value="Улица"/>
+			   <h:panelGroup>
+			     <h:inputText id="strtxt" value="#{editRefBlacklist.streetName}" />
+			     <rich:message for="strtxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Дом"/>
+			   <h:panelGroup>
+			     <h:inputText id="hstxt" value="#{editRefBlacklist.house}" />
+			     <rich:message for="hstxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Корпус"/>
+			   <h:panelGroup>
+			     <h:inputText id="crptxt" value="#{editRefBlacklist.corpus}" />
+			     <rich:message for="crptxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Строение"/>
+			   <h:panelGroup>
+			     <h:inputText id="bltxt" value="#{editRefBlacklist.building}" />
+			     <rich:message for="bltxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Квартира"/>
+			   <h:panelGroup>
+			     <h:inputText id="fltxt" value="#{editRefBlacklist.flat}" />
+			     <rich:message for="fltxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Активность записи" /> 
+        		<h:selectOneMenu value="#{editRefBlacklist.isactive}">
+        			<f:selectItems value="#{refs.activeTypes}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Причина занесения" /> 
+        		<h:selectOneMenu value="#{editRefBlacklist.reason}">
+        			<f:selectItems value="#{comrefs.blackListReasonTypesCodeInteger}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Источник занесения" /> 
+        		<h:selectOneMenu value="#{editRefBlacklist.source}">
+        			<f:selectItems value="#{comrefs.blackListSourceTypesCodeInteger}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Дата начала"/>
+			   <h:panelGroup>
+			      <rich:calendar id="dbtxt" value="#{editRefBlacklist.databeg}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+			     <rich:message for="dbtxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Дата окончания"/>
+			   <h:panelGroup>
+			      <rich:calendar id="detxt" value="#{editRefBlacklist.dataend}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+			     <rich:message for="detxt"/>
+			   </h:panelGroup>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+			    <h:commandLink value="Сохранить" action="#{editRefBlacklist.save}" />
+			    <h:commandLink value="Закрыть" action="#{editRefBlacklist.close}" />
+			</h:panelGrid>
+			<h:outputScript>
+              $(function () {
+                 $('.phone-mask').mask('+7 (999) 999 99 99');
+                 $('.rf-cal-inp').mask('99.99.9999');
+              });
+           </h:outputScript>		
+        </h:form>
+    </ui:define>
+</ui:composition>

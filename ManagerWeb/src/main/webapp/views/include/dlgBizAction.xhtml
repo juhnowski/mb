@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/templatemin.xhtml">
+	
+	<ui:define name="pageContent">
+		<h:form>
+			<rich:messages globalOnly="true" />
+			<h:panelGrid columns="1" cellpadding="5">
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:outputText value="Действие"/>
+				<h:outputText value="#{dialog.listMgr.bizAction.description}"/>
+				<h:panelGroup/>
+				<h:panelGroup>
+					<ui:repeat var="prm" value="#{dialog.listMgr.bizActionParams}">
+						<h:panelGroup>
+						<h:outputText value="#{prm.info.name}"/><br/>
+						<h:panelGroup>
+							<h:inputText value="#{prm.value}" rendered="#{prm.info.dataType == 'C'}" />
+							<h:inputTextarea value="#{prm.value}" rendered="#{prm.info.dataType == 'T'}" />
+							<h:inputText value="#{prm.value}" rendered="#{prm.info.dataType == 'N'}" >
+								<f:convertNumber integerOnly="true" />
+							</h:inputText>
+							<h:inputText value="#{prm.value}" rendered="#{prm.info.dataType == 'F'}" >
+								<f:convertNumber integerOnly="false" />
+							</h:inputText>
+							<rich:calendar value="#{prm.value}" rendered="#{prm.info.dataType == 'D'}" popup="true" datePattern="dd.MM.yyyy">
+							</rich:calendar>						
+						</h:panelGroup>
+						</h:panelGroup><br/>
+					</ui:repeat>
+				</h:panelGroup>
+				<f:facet name="footer">
+					<h:commandButton value="Выполнить" action="#{dialog.listMgr.executeBizAction}">
+					</h:commandButton>
+					<h:commandButton value="Отмена" action="#{dialog.listMgr.cancel}">
+					</h:commandButton>				
+				</f:facet>
+			</h:panelGrid>
+			</h:panelGrid>
+		</h:form>		
+	</ui:define>
+</ui:composition>

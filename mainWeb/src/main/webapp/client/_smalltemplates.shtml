@@ -1,0 +1,10 @@
+<div style="display: none;">
+	<!-- <template id="centered-message">  -->
+	<div id="centered-message">
+		<span class="center_mess"> <span class="center_mess_body">
+				<span class="hh4"></span> <span class="text_mess"></span>
+		</span>
+		</span>
+	</div>
+	<!-- </template> -->
+</div>

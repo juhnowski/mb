@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<h:panelGrid columns="2">
+			  
+			   <h:outputText value="№ выгрузки"/>
+			   <h:outputText value="#{viewUploading.uploading.uploadId}" />
+			   <h:outputText value="№ ответа"/>
+			   <h:outputText value="#{viewUploading.uploading.responseId}" />
+			   <h:outputText value="Дата выгрузки"/>
+			   <h:outputText value="#{viewUploading.uploading.dateUploading}">
+			       <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+			   </h:outputText>
+			   <h:outputText value="Дата ответа"/>
+			   <h:outputText value="#{viewUploading.uploading.responseDate}">
+			       <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+			   </h:outputText>
+			   <h:outputText value="Вид выгрузки"/>
+			   <h:outputText value="кредиты" rendered="#{viewUploading.uploading.uploadType==1}"/>
+			   <h:outputText value="заявки" rendered="#{viewUploading.uploading.uploadType==2}"/>
+			   <h:outputText value="кредиты и заявки" rendered="#{viewUploading.uploading.uploadType==3}"/>
+			   <h:outputText value="корректировочный файл по 1 кредиту" rendered="#{viewUploading.uploading.uploadType==4}"/>
+			   <h:outputText value="удаление кредита из БД партнера" rendered="#{viewUploading.uploading.uploadType==5}"/>
+			   <h:outputText value="выгрузка кредитов по номерам" rendered="#{viewUploading.uploading.uploadType==6}"/>
+			   <h:outputText value="Партнер"/>
+			   <h:outputText value="#{viewUploading.uploading.partner.realName}" />
+			   <h:outputText value="Статус выгрузки" rendered="#{not empty viewUploading.uploading.status}"/>
+			   <h:outputText value="создан файл для выгрузки" rendered="#{viewUploading.uploading.status==0}"/>
+		       <h:outputText value="первичная выгрузка успешна" rendered="#{viewUploading.uploading.status==1}"/>
+		       <h:outputText value="первичная выгрузка с ошибкой" rendered="#{viewUploading.uploading.status==2}"/>
+		       <h:outputText value="результат выгрузки успешный" rendered="#{viewUploading.uploading.status==3}"/>
+		       <h:outputText value="результат выгрузки с ошибкой" rendered="#{viewUploading.uploading.status==4}"/>
+			   
+			   <h:outputText value="Выгрузка в виде xml (текста)" rendered="#{not empty viewUploading.uploading.info}"/>
+			   <h:commandButton value="Скачать (посмотреть)" action="#{viewUploading.downloadInfo}" rendered="#{not empty viewUploading.uploading.info}"/>
+			   <h:outputText value="Отчет в виде xml (текста)" rendered="#{not empty viewUploading.uploading.report}"/>
+			   <h:commandButton value="Скачать (посмотреть)" action="#{viewUploading.downloadReport}" rendered="#{not empty viewUploading.uploading.report}"/>
+			   <h:outputText value="Запросить статус отчета" rendered="#{not empty viewUploading.uploading.info and viewUploading.uploading.status==1}"/>
+			   <h:commandButton value="Запросить" action="#{viewUploading.check}" rendered="#{not empty viewUploading.uploading.info and viewUploading.uploading.status==1}"/>
+			   		  
+			</h:panelGrid>
+			
+			<h:outputText value="Ошибки выгрузки" rendered="#{viewUploading.uploading.hasErrors!=0}"/>
+			
+			<rich:dataTable id="errors" var="err" value="#{viewUploading.uploading.uploadingErrors}" rendered="#{viewUploading.uploading.hasErrors!=0}">
+				
+				<h:column>
+					<f:facet name="header">Id кредита:</f:facet>
+					<h:outputText value="#{err.credit.id}" rendered="#{not empty err.credit}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Id заявки:</f:facet>
+					<h:outputText value="#{err.creditRequest.id}" rendered="#{not empty err.creditRequest}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Описание ошибки:</f:facet>
+					<h:outputText value="#{err.description}"/>
+				</h:column>
+																	
+			</rich:dataTable>
+			
+			<h:panelGroup rendered="#{not empty viewUploading.uploading.info and viewUploading.uploading.status==0}">
+			       <h:panelGrid columns="2">
+			           
+			           <h:outputText value="Сервис рабочий" />
+    				   <h:panelGroup>
+    					    <h:selectBooleanCheckbox id="wrk" value="#{viewUploading.isWork}" valueChangeListener="#{viewUploading.changeWork}">
+    					        <a4j:ajax event="change" execute="@this"/>
+    					    </h:selectBooleanCheckbox>
+    					</h:panelGroup>
+    					<h:outputText value="Выгрузка за дату" />
+    				    <h:panelGroup>
+    					    <rich:calendar id="dt" value="#{viewUploading.sendingDate}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" valueChangeListener="#{viewUploading.changeDate}">
+				               <a4j:ajax event="change" execute="@this"/>
+                	       </rich:calendar>
+    				    </h:panelGroup> 
+    				    <h:outputText value="Выгрузить данные" />
+			            <h:commandButton value="Выгрузить" action="#{viewUploading.upload}" />
+    				</h:panelGrid>
+    			</h:panelGroup>	
+    			
+			<h:commandButton value="Закрыть" action="#{viewUploading.close}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

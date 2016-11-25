@@ -1,0 +1,215 @@
+ <footer class="footer">
+
+    <div class="center">
+
+        <a class="footer__logo" href="/"></a>
+
+        <ul class="pull-right footer__menu">
+                <li><a class="footer__rules" href="politics.shtml">Соглашения и правила</a></li>
+                <li><a class="callback" href="mailto:support@mb.ru"><i class="ico ico--callback"></i>support@mb.ru</a></li>
+                <li><a class="footer__tel tel" href="tel:88008834354">8 800 883 43 54</a></li>
+        </ul>
+
+        <p class="copyright">ООО «Мобифинанс» состоит в государственном реестре микрофинансовых организаций ЦБ РФ за номером 2/12/01/77/001299 от 03.04.2012 года. Все материалы, статьи и картинки, расположенные на сайте, являются объектом авторского права и могут быть перепечатаны только при условии разрешения на публикацию от пресс-службы компании.</p>
+       
+        <p class="developer">powered by <a href="http://sputnik.asap.digital">Sputnik credit conveyer</a></p>
+
+    </div>
+
+</footer>
+
+<script src="js/lib/jquery.min.js"></script>
+<script src="js/lib/jquery-ui.min.js"></script>
+<!--#if expr="$typePage = anketa || $typePage = lk-setting" -->
+<script src="js/lib/select2.min.js"></script>
+<!--#endif-->
+<script src="js/lib/jquery.maskedinput.min.js"></script>
+<script src="js/lib/modernizr.custom.js"></script>
+<script src="js/lib/jquery.ui.touch-punch.min.js"></script>
+<script src="js/lib/jquery.cookie.js"></script>
+<script src="js/js.js"></script>
+<script src="js/login.js"></script>
+<script src="js/forgetpass.js"></script>
+<script src="js/cms.js"></script>
+<script src="js/af.js"></script>
+
+<style>
+    .alert_box .red {
+        margin-bottom: 0;
+    }
+    .alert_box p.error {
+        color: #b0cb61;
+        padding: 5px 0 10px;
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 16px;
+    }
+</style>
+
+
+<!--#if expr="$typePage = main || $typePage = lk-setting" -->
+<script type="text/javascript" src="/main/rest/firstrequest/calculateStakeUnknown.js"></script>
+<script src="js/main.js"></script>
+<script type="text/javascript">
+	$(pageInit);
+</script>
+<!--#endif-->
+
+<!--#if expr="$typePage = anketa" -->
+<script type="text/javascript" src="/main/rest/firstrequest/calculateStakeUnknown.js"></script>
+<script type="text/javascript" src="js/address2.js"></script>
+<!--<script type="text/javascript" src="js/dropzone.js"></script>-->
+<script type="text/javascript" src="js/validate_anketa.js"></script>
+<script type="text/javascript" src="js/anketa.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //initCMSData('anketa');
+        pageInit();
+    });
+</script>
+<!--#endif-->
+
+<div class="alert_box hide">
+    <div class="alert_up login_up">
+        <h3>Личный кабинет</h3>
+
+        <form onsubmit="return false">
+            <input class="input" type="email" id="login" placeholder="E-mail">
+            <div class="row hide tooltip error errorMessage" ></div>
+            <input class="input" type="password" id="password" placeholder="Пароль">
+            <div class="row hide tooltip error errorMessage" ></div>
+            <label class="checkbox pull-left">Запомнить  / <a>Забыли пароль?</a> <input type="checkbox" checked="checked"></label>
+            <button class="btn btn--green pull-right">Войти</button>
+        </form>
+        <a class="close"></a>
+    </div>
+
+    <div class="alert_up pass_recowery_up">
+        <h3>Восстановление доступа</h3>
+        <form onsubmit="return false">
+            <input class="input email" id="email" placeholder="E-mail">
+            <div class="row hide tooltip error errorMessage" ></div>
+            <button class="btn btn--green pull-right">Выслать код</button>
+        </form>
+        <a class="close"></a>
+    </div>
+
+    <div class="alert_up pass_new_up">
+        <h3>Смена пароля</h3>
+        <form onsubmit="return false">
+            <h4>Укажите код, присланный в e-mail, и новый пароль</h4>
+            <input class="input" id="emailCode" placeholder="Введите код">
+            <div class="row hide tooltip error errorMessage" ></div>
+            <input class="input" id="newPassword1" type="password" placeholder="Введите новый пароль">
+            <div class="row hide tooltip error errorMessage" ></div>
+            <input class="input" id="newPassword2" type="password" placeholder="Введите новый пароль еще раз">
+            <div class="row hide tooltip error errorMessage" ></div>
+            <button class="btn blue pull-right">Сменить пароль</button>
+        </form>
+        <a class="close"></a>
+    </div>
+
+    <!--#if expr="$typePage = anketa" -->
+    <div class="alert_up anketa-finish_up">
+        <h3>Ваша заявка отправлена на рассмотрение</h3>
+
+        <div class="box">
+            <p>Ваша заявка отправлена на рассмотрение. Решение будет принято в ближайшее время. Пароль от личного
+                кабинета выслан на Ваш электронный адрес.</p>
+
+            <p>Вы будете автоматически перенаправлены на страницу входа через <u>60 секунд</u>. Следите за статусом
+                Вашей заявке в личном кабинете.</p>
+            <a href="/main/client/overview.shtml" class="btn green">Перейти в личный кабинет</a>
+        </div>
+    </div>
+
+    <div class="alert_up continue_up" style="left: 645px;">
+       <div class="box">
+			<h3>Заполнение анкеты</h3>
+			<p>Вы уже начинали заполнять заявку и по какой-то причине  не завершили процесс оформления, хотите продолжить или начать заново?</p>
+			<p><a class="btn btn--green">Заново</a> <a class="btn btn--green cont">Продолжить</a></p>
+			<span class="close"></span>
+		</div>
+    </div>
+    <!--#endif-->
+
+	<div class="alert_up location_denied_up">
+		<h3>В рассмотрении заявки отказано</h3>
+		<div class="box">
+			<p>К сожалению, мы выдаем займы только гражданам, находящимся на территории Российской Федерации. Приносим свои извинения.</p>
+			<a href="/main/" class="btn">Вернуться на главную</a>
+		</div>
+	</div>
+
+</div>
+
+<!--#if expr="$typePage = anketa" -->
+<!--<div class="anketa-send-cod_up">-->
+    <!--<form class="sms-cod">-->
+        <!--<h3>Введите смс-код</h3>-->
+
+        <!--<div class="input-box-cod"><input type="password" maxlength="6"></div>-->
+        <!--<p>смс-код будет отправлен <br> повторно через <b></b><a></a></p>-->
+        <!--<span class="btn hide">Отправить смс повторно</span>-->
+        <!--<span class="close"></span>-->
+    <!--</form>-->
+    <!--<form class="email-cod">-->
+        <!--<h3>Введите email-код</h3>-->
+
+        <!--<div class="input-box-cod"><input type="password" maxlength="6"></div>-->
+        <!--<p>email-код будет отправлен <br> повторно через <b></b><a></a></p>-->
+        <!--<span class="btn hide">Отправить email повторно</span>-->
+        <!--<span class="close"></span>-->
+    <!--</form>-->
+<!--</div>-->
+<!--#endif-->
+
+
+<!-- прелоадер-->
+<script src="js/lib/jquery.loading-indicator.min.js"></script>
+<script type="text/javascript">
+    afTrack();
+
+    /**
+     * инициализация прелоадера
+     * использование
+     * preloader.show(); показать прелоадер
+     * preloader.hide(); скрыть прелоадер
+     */
+    var preloader = $('body').loadingIndicator({
+        showOnInit: false,
+        useImage: false
+    }).data("loadingIndicator");
+</script>
+
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCaptcha&render=explicit" async defer></script>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter33551078 = new Ya.Metrika(
+                        { id:33551078, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }
+                );
+            } catch(e) { }
+        });
+        var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function ()
+                { n.parentNode.insertBefore(s, n); }
+                ;
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+        if (w.opera == "[object Opera]")
+        { d.addEventListener("DOMContentLoaded", f, false); }
+        else
+        { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/33551078" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+</body>
+</html>

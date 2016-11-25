@@ -1,0 +1,184 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+   	<h:form>
+   		<rich:messages />
+		<rich:collapsiblePanel header="Основное" switchType="client" expanded="true">
+			<h:panelGrid columns="2">
+	   			<h:outputText value="Вид" /> <h:outputText value="#{editBiz.bizAction.bizActionType.name}" />
+	   			<h:outputText value="Класс бизнес-объекта" /> <h:inputText value="#{editBiz.bizAction.businessObjectClass}" required="true" size="50"/>
+	   			<h:outputText value="Название" /> <h:inputText value="#{editBiz.bizAction.description}" required="true" size="50" />
+	   			<h:outputText value="Сигнал" /> <h:inputText value="#{editBiz.bizAction.signalRef}" required="true" size="30"/>		
+	   			<h:outputText value="Активное правило" /> 
+	   			<h:selectOneMenu value="#{editBiz.bizAction.isActive}">
+    	    		<f:selectItems value="#{comrefs.yesNoNull}" />
+        		</h:selectOneMenu>
+	        	<h:outputText value="Системное" /> 
+	   			<h:selectOneMenu value="#{editBiz.bizAction.isSystem}">
+	        		<f:selectItems value="#{comrefs.yesNoNull}" />
+	        	</h:selectOneMenu>        		
+			</h:panelGrid>
+		</rich:collapsiblePanel>  
+		<rich:collapsiblePanel header="Кто может запустить" switchType="client" expanded="false">
+	   		<h:panelGrid columns="2">
+	   			<h:outputText value="Группы пользователей" /> <h:inputText value="#{editBiz.bizAction.candidateGroups}" required="true" size="100"/>
+	
+	   		</h:panelGrid>		
+		</rich:collapsiblePanel>
+		<rich:collapsiblePanel header="К каким объектам применяется" switchType="client" expanded="false">
+			<h:panelGrid columns="2">
+	        	<h:outputText value="Действует для одного" /> 
+	   			<h:selectOneMenu value="#{editBiz.bizAction.forOne}">
+	        		<f:selectItems value="#{comrefs.yesNoNull}" />
+	        	</h:selectOneMenu>
+	        	<h:outputText value="Действует для многих" /> 
+	   			<h:selectOneMenu value="#{editBiz.bizAction.forMany}">
+	        		<f:selectItems value="#{comrefs.yesNoNull}" />
+	        	</h:selectOneMenu>
+	   			<h:outputText value="Фильтр для правила" /> <h:inputText value="#{editBiz.bizAction.SQLFilter}" size="200"/>
+	   			<h:outputText value="Когда возможно выполнение" /> 
+	   			<h:inputTextarea id="rbody" value="#{editBiz.bizAction.ruleEnabled}"   cols="120" rows="25"/>			
+			</h:panelGrid>
+		</rich:collapsiblePanel>  
+		<rich:collapsiblePanel header="Активация действия" switchType="client" expanded="false">
+			<h:panelGrid columns="2">
+   				<h:outputText value="По расписанию" /> <h:inputText value="#{editBiz.bizAction.schedule}"  size="50"/>
+   				<h:outputText value="Интервал для повтора, мс" /> <h:inputText value="#{editBiz.bizAction.retryInterval}"  size="30"/>
+   				<h:outputText value="Последний запуск стартовал" /> 
+   				<rich:calendar value="#{editBiz.bizAction.lastStart}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+   				<h:outputText value="Последний запуск закончился" /> 
+   				<rich:calendar value="#{editBiz.bizAction.lastEnd}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+   				<h:outputText value="При событиях" />
+   				<h:panelGroup>
+		            <rich:pickList value="#{editBiz.bizAction.events}" sourceCaption="Все события" targetCaption="Выбранные события" listWidth="165px" listHeight="100px" orderable="true">
+		                <f:selectItems value="#{comrefs.eventCodes}" />
+		            </rich:pickList>   					
+   				</h:panelGroup>			
+			</h:panelGrid>
+		</rich:collapsiblePanel> 
+		<rich:collapsiblePanel header="Выполнение действия" switchType="client" expanded="false">
+			<h:panelGrid columns="2">
+				<h:outputText value="Запустить процесс" /> <h:inputText value="#{editBiz.bizAction.runProcessDefKey}"  size="100"/>
+	   			<h:outputText value="Правило для выполнения" /> 
+	   			<h:inputTextarea id="rrbody" value="#{editBiz.bizAction.ruleAction}"   cols="120" rows="25"/>
+	        	<h:outputText value="Должно быть выполнено обязательно" /> 
+	   			<h:selectOneMenu value="#{editBiz.bizAction.isRequired}">
+	        		<f:selectItems value="#{comrefs.yesNoNull}" />
+	        	</h:selectOneMenu>
+	        	<h:outputText value="Atomic" /> 
+	   			<h:selectOneMenu value="#{editBiz.bizAction.isAtomic}">
+	        		<f:selectItems value="#{comrefs.yesNoNull}" />
+	        	</h:selectOneMenu>	
+	        	<h:outputText value="Одновременное выполнение" /> 
+	   			<h:selectOneMenu value="#{editBiz.bizAction.isSingleton}">
+	        		<f:selectItem itemLabel="без ограничений" itemValue="#{0}"/>
+	        		<f:selectItem itemLabel="только один объект в рамках данного действия" itemValue="#{1}"/>
+	        		<f:selectItem itemLabel="только один объект в рамках любого действия" itemValue="#{2}"/>
+	        		<f:selectItem itemLabel="для данного действия" itemValue="#{3}"/>
+	        	</h:selectOneMenu>	        	   							
+			</h:panelGrid>
+		</rich:collapsiblePanel>
+ 		<rich:collapsiblePanel header="Настройки для действия" switchType="client" expanded="false">
+ 			<a4j:region>
+ 			<h:panelGroup id="pnlData">
+ 				
+	 			<h:commandButton value="Добавить" actionListener="#{editBiz.addConstantItem}" >
+	 				<f:attribute name="whatRule" value="O"/>
+	 				<a4j:ajax render="datarules" />
+	 			</h:commandButton>
+				<h:dataTable id="datarules" var="con" value="#{editBiz.ruleOptions.constants}" >
+					<h:column >
+						<f:facet name="header">Имя</f:facet>
+						<h:inputText value="#{con.name}" size="35"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Тип</f:facet>
+						<h:selectOneMenu value="#{con.dataType}">
+							<f:selectItems value="#{refs.dataTypes}"/>
+						</h:selectOneMenu>
+					</h:column>
+					<h:column >
+						<f:facet name="header">Значение</f:facet>
+						<h:inputText value="#{con.dataValue}" size="55"/>
+					</h:column>	
+					<h:column >
+						<f:facet name="header">Текст</f:facet>
+						<h:inputText value="#{con.dataValueText}" size="55"/>
+					</h:column>	
+					<h:column >
+						<f:facet name="header">Описание</f:facet>
+						<h:inputText value="#{con.description}" size="55"/>
+					</h:column>		
+					<h:column >
+						<f:facet name="header">Действия</f:facet>
+						<h:commandLink actionListener="#{editBiz.deleteConstantItem}" onclick="if (! confirm('Удалить константу ?') ) { return false;}; return true; "  >
+								<f:attribute name="constidx" value="#{con.index}" />
+								<f:attribute name="whatRule" value="O"/>
+								<a4j:ajax render="pnlData" />
+								<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+						</h:commandLink>					
+					</h:column>															
+				</h:dataTable>
+			</h:panelGroup>
+			</a4j:region>
+ 		</rich:collapsiblePanel>
+ 		<rich:collapsiblePanel header="Сообщения для действия" switchType="client" expanded="false">
+ 			<a4j:region>
+ 			<h:panelGroup id="pnlDataM">
+ 				
+	 			<h:commandButton value="Добавить" actionListener="#{editBiz.addConstantItem}" >
+	 				<f:attribute name="whatRule" value="M"/>
+	 				<a4j:ajax render="datarulesM" />
+	 			</h:commandButton>
+				<h:dataTable id="datarulesM" var="con" value="#{editBiz.ruleMessages.constants}" >
+					<h:column >
+						<f:facet name="header">Имя</f:facet>
+						<h:inputText value="#{con.name}" size="35"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Тип</f:facet>
+						<h:selectOneMenu value="#{con.dataType}">
+							<f:selectItems value="#{refs.dataTypes}"/>
+						</h:selectOneMenu>
+					</h:column>
+					<h:column >
+						<f:facet name="header">Значение</f:facet>
+						<h:inputText value="#{con.dataValue}" size="55"/>
+					</h:column>	
+					<h:column >
+						<f:facet name="header">Текст</f:facet>
+						<h:inputText value="#{con.dataValueText}" size="55"/>
+					</h:column>	
+					<h:column >
+						<f:facet name="header">Описание</f:facet>
+						<h:inputText value="#{con.description}" size="55"/>
+					</h:column>		
+					<h:column >
+						<f:facet name="header">Действия</f:facet>
+						<h:commandLink actionListener="#{editBiz.deleteConstantItem}" onclick="if (! confirm('Удалить константу ?') ) { return false;}; return true; "  >
+								<f:attribute name="constidx" value="#{con.index}" />
+								<f:attribute name="whatRule" value="M"/>
+								<a4j:ajax render="pnlDataM" />
+								<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+						</h:commandLink>					
+					</h:column>															
+				</h:dataTable>
+			</h:panelGroup>
+			</a4j:region>
+ 		</rich:collapsiblePanel>
+ 		
+   		<h:commandButton value="Сохранить" action="#{editBiz.save}"/> <h:commandButton value="Отмена" action="#{editBiz.cancel}" immediate="true"/>
+   	</h:form>
+        <script type="text/javascript">
+        CodeMirror.fromTextArea(#{rich:element('rbody')}, {
+            lineNumbers: true,
+            mode: "text/javascript"
+          });
+        CodeMirror.fromTextArea(#{rich:element('rrbody')}, {
+            lineNumbers: true,
+            mode: "text/javascript"
+          });        
+        </script>   
+</ui:composition>

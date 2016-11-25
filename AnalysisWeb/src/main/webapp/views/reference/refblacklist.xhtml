@@ -1,0 +1,161 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmMain" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+
+			<h:panelGrid columns="2" layout="block">
+				<h:panelGroup>
+					<rich:fileUpload id="upload" fileUploadListener="#{listRefBlacklist.uploadFileListener}"
+									 acceptedTypes="csv"
+									 ontyperejected="alert('Допускаются только файлы формата csv');"
+									 immediateUpload="true"
+									 maxFilesQuantity="1"
+									 addLabel="Загрузить из файла" clearAllLabel="Удалить все" clearLabel="Удалить"
+									 doneLabel="Готово" listHeight="58"/>
+					<h:commandButton value="Добавить в базу" action="#{listRefBlacklist.saveToDatabase}"/>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{listRefBlacklist.procSize != 0}" id="infoPanel">
+					<h:panelGrid columns="2">
+						<h:outputText value="Обработано записей: "/>
+						<h:outputText value="#{listRefBlacklist.procSize}"/>
+
+						<h:outputText value="Успешно: "/>
+						<h:outputText value="#{listRefBlacklist.successSize}"/>
+
+						<h:outputText value="Ошибок: "/>
+						<h:panelGroup>
+							<h:outputText value="#{listRefBlacklist.errorSize} "/>
+							<h:commandLink value="Просмотреть" action="#{listRefBlacklist.downloadLogFile}"/>
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:panelGroup>
+			</h:panelGrid>
+			<p></p>
+
+			<h:commandLink value="Добавить человека в список" action="#{listRefBlacklist.addItem}"/>
+			<p></p>
+			 <h:panelGroup id="pnlFull">
+         	    <h:outputText value="Поиск" />
+         	    <h:panelGrid columns="4">
+         	    <h:outputText value="Фамилия" />
+         	    <h:inputText id="snam" value="#{listRefBlacklist.surname}"/>
+         	    <h:outputText value="Серия паспорта" />
+         	    <h:inputText id="spasp" value="#{listRefBlacklist.series}"/>
+         	    <h:outputText value="Имя" />
+         	    <h:inputText id="nam" value="#{listRefBlacklist.name}"/>
+         	    <h:outputText value="Номер паспорта" />
+         	    <h:inputText id="npasp" value="#{listRefBlacklist.number}"/>
+         	    <h:outputText value="Отчеcтво" />
+         	    <h:inputText id="mnam" value="#{listRefBlacklist.midname}"/>
+         	    <h:outputText value="Номер телефона" />
+         	    <h:inputText id="tel" value="#{listRefBlacklist.mobilephone}"/>
+         	    <h:outputText value="Дата рождения" />
+         	    <rich:calendar value="#{listRefBlacklist.birthdate}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         	    <h:outputText value="Email" />
+         	    <h:inputText id="mail" value="#{listRefBlacklist.email}"/>
+         	    <h:outputText value="Полное название работодателя" />
+         	    <h:inputText id="efull" value="#{listRefBlacklist.employerFullName}"/>
+         	    <h:outputText value="Регион" />
+         	    <h:inputText id="region" value="#{listRefBlacklist.regionName}"/>
+         	    <h:outputText value="Краткое название работодателя" />
+         	    <h:inputText id="eshort" value="#{listRefBlacklist.employerShortName}"/>
+         	    <h:outputText value="Сельская территория" />
+         	    <h:inputText id="area" value="#{listRefBlacklist.areaName}"/>
+         	    <h:outputText value="Причина попадания в список" />
+         	    <h:selectOneMenu value="#{listRefBlacklist.reason}">
+        			<f:selectItems value="#{comrefs.blackListReasonTypesNull}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Город" />
+         	    <h:inputText id="city" value="#{listRefBlacklist.cityName}"/>
+        		<h:outputText value="Источник информации" />
+         	    <h:selectOneMenu value="#{listRefBlacklist.source}">
+        			<f:selectItems value="#{comrefs.blackListSourceTypesNull}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Село" />
+         	    <h:inputText id="place" value="#{listRefBlacklist.placeName}"/>
+        		<h:outputText value="Активность записи" />
+        		<h:selectOneMenu value="#{listRefBlacklist.isactive}">
+        			<f:selectItems value="#{refs.activeTypes}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Улица" />
+         	    <h:inputText id="street" value="#{listRefBlacklist.streetName}"/>
+         	    </h:panelGrid>
+             	<a4j:commandButton value="Найти" actionListener="#{listRefBlacklist.searchLsn}" render="pnlResults" /> <a4j:commandButton value="Очистить" actionListener="#{listRefBlacklist.clearLsn}" render="frmMain" />
+             </h:panelGroup>
+    		<p></p>		
+			<h:panelGroup id="pnlResults">
+				<h:panelGroup>
+					<h:outputText value="Найдено #{listRefBlacklist.model.rowCount} людей" />
+				</h:panelGroup>	
+				<rich:extendedDataTable id="reqTable"
+		                         value="#{listRefBlacklist.model}"               
+		                         var="ref"
+		                         selectionMode="none" >
+		               
+		                <rich:column width="250">
+		                	<f:facet name="header">ФИО</f:facet>
+		                	<h:outputText value="#{ref.surname} #{ref.name} #{ref.midname}"/>
+		                </rich:column>	
+		                 <rich:column width="100">
+		                	<f:facet name="header">дата рождения</f:facet>
+		                	<h:outputText value="#{ref.birthdate}">
+		                	    <f:convertDateTime pattern="dd.MM.yyyy" />
+		                	</h:outputText>
+		                </rich:column>
+		                <rich:column width="100">
+		                	<f:facet name="header">паспорт</f:facet>
+		                	<h:outputText value="#{ref.series} #{ref.number}"/>
+		                </rich:column>
+		                <rich:column width="250">
+		                	<f:facet name="header">адрес</f:facet>
+		                	<h:outputText value="#{ref.addressDescription}"/>
+		                </rich:column>	
+		                <rich:column width="100">
+		                	<f:facet name="header">номер телефона</f:facet>
+		                	<h:outputText value="#{ref.mobilePhone}"/>
+		                </rich:column>	
+		                <rich:column width="200">
+		                	<f:facet name="header">причина</f:facet>
+		                	<h:outputText value="#{ref.reasonId.name}" rendered="#{not empty ref.reasonId}"/>
+		                </rich:column>
+		                <rich:column width="200">
+		                	<f:facet name="header">источник</f:facet>
+		                	<h:outputText value="#{ref.sourceId.name}" rendered="#{not empty ref.sourceId}"/>
+		                </rich:column>
+		                <rich:column width="100">
+		                	<f:facet name="header">действия</f:facet>
+		                	<h:panelGrid columns="2">          		
+								<h:panelGroup >
+									<h:link outcome="editblacklist?faces-redirect=true" >
+										<f:param name="refid" value="#{ref.id}" />
+										<h:graphicImage value="/resources/icons/edit.gif" title="редактировать" />
+									</h:link>
+								</h:panelGroup>
+								<h:panelGroup style="margin-left:8px">
+									<h:commandLink actionListener="#{listRefBlacklist.deleteItem}" onclick="if (! confirm('Удалить запись из списка ?') ) { return false;}; return true; "  >
+										<f:attribute name="refid" value="#{ref.id}" />
+										<a4j:ajax render="@form" />
+										<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+									</h:commandLink>
+								</h:panelGroup>
+							</h:panelGrid> 
+		                </rich:column>		                	                
+		          	</rich:extendedDataTable>				
+			</h:panelGroup>
+
+			<h:panelGrid columns="1" style="text-align: right; width: 100%;">
+				<h:commandButton value="Загрузить в файл" action="#{listRefBlacklist.downloadCsvFile}"/>
+			</h:panelGrid>
+
+		</h:form>
+    </ui:define>
+</ui:composition>

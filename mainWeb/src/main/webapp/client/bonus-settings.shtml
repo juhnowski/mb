@@ -1,0 +1,57 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/bonus_new.js"></script>
+</head>
+
+<body ng-controller="MainCtrl" ng-cloak>
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main ng-controller="BonusCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block td">
+                <h3 class="h3">Настройки бонусов</h3>
+
+                <form>
+                    <div class="box-20 clr" style="margin-bottom:14px;">
+                        Использовать бонусы при оплате
+                        <label class="checkbox notsel">
+                            <i></i>
+                            <input type="checkbox" ng-model="bonusInfo.bonusPay">
+                        </label>
+                    </div>
+                </form>
+
+                <form>
+                    <h3 class="h3 h3--bt1">
+                        <label class="btn btn--green" ng-click="saveBonusUsing(bonusInfo.bonusPay)">
+                            Сохранить изменения
+                        </label>
+                    </h3>
+                </form>
+
+
+                <ul class="right-block__menu-top">
+                    <li><a href="/main/client/bonus.shtml">Начисления</a></li>
+                    <li><a href="/main/client/bonus-plus.shtml">Получить бонусы</a></li>
+                    <li class="active"><a href="/main/client/bonus-settings.shtml">Настройки бонусов</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+</body>
+</html>

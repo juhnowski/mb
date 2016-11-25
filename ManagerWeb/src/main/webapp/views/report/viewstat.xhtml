@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="report" />
+
+   <ui:define name="metadata">
+     	<f:event type="preRenderView" listener="#{stat.init}" />
+	</ui:define>
+    <ui:define name="title">Manager console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form>
+        
+            <rich:panel styleClass="table100" >
+            	<f:facet name="header" styleClass="layout-field-name"><h:outputText value="Статистика по кредитным заявкам" /></f:facet>
+            	
+		            <h:panelGrid columns="2" styleClass="bb0">
+		              <h:outputText value="В процессе заполнения"/>
+					  <h:outputText value="#{stat.cnt_process}"/>
+		              <h:outputText value="Заполнены и переданы менеджеру"/>
+					  <h:outputText value="#{stat.cnt_filled}"/>
+		              <h:outputText value="Кредиты в работе"/>
+					  <h:outputText value="#{stat.cnt_decision}"/>
+					  <h:outputText value="Отказано в кредите"/>
+					  <h:outputText value="#{stat.cnt_rejected}"/>
+					  <h:outputText value="Передано коллектору"/>
+					  <h:outputText value="#{stat.cnt_collector}"/>
+					  <h:outputText value="Передано в суд"/>
+					  <h:outputText value="#{stat.cnt_court}"/>
+					  <h:outputText value="Успешно завершены"/>
+					  <h:outputText value="#{stat.cnt_closed}"/>
+					  <h:outputText value="Отказ клиента"/>
+					  <h:outputText value="#{stat.cnt_refused}"/>
+					
+		            </h:panelGrid>
+	            	<h:link styleClass="button" outcome="/views/creditrequest/index">Подробно</h:link>            	
+            	
+            </rich:panel>
+        
+            <rich:panel styleClass="table100" >
+            	<f:facet name="header" styleClass="layout-field-name"><h:outputText value="Статистика по займам" /></f:facet>
+            	
+		            <h:panelGrid columns="2" styleClass="bb0">
+		                <h:outputText value="Выдано займов на сумму"/>
+					  <h:outputText value="#{stat.sum_out}">
+					      <f:convertNumber pattern="############.00" />
+					  </h:outputText>
+					   <h:outputText value="Возвращенная сумма по займам"/>
+					  <h:outputText value="#{stat.sum_back}">
+					      <f:convertNumber pattern="############.00" />
+					  </h:outputText>    
+		            </h:panelGrid>            	
+            	 	<h:link styleClass="button" outcome="/views/credit/index">Подробно</h:link> 
+       		</rich:panel>
+       		
+       		<rich:panel styleClass="table100" >
+            	<f:facet name="header" styleClass="layout-field-name"><h:outputText value="Баланс по платежным системам" /></f:facet>
+            	<rich:dataTable id="reqs" value="#{stat.lstBalance}" var="req" rendered="#{stat.lstBalance.size()>0}">
+				     <rich:column>
+				        <h:outputText value="#{req.partner.name}" rendered="#{not empty req.partner}"/>
+				     </rich:column> 
+				     <rich:column>
+				       <h:panelGroup>
+				          <h:outputText value="#{req.amount}" >
+							 <f:convertNumber pattern="############.##" />
+						  </h:outputText> 
+						  <h:outputText value=" руб. " />
+						</h:panelGroup>
+				     </rich:column> 
+				     <rich:column>
+				        <h:outputText value="#{req.eventDate}" >
+							 <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+						</h:outputText> 
+				     </rich:column>                   
+			    </rich:dataTable>
+			    <h:panelGroup >
+			      <h:outputText value="Пока нет баланса ни по одной платежной системе" rendered="#{stat.lstBalance.size()==0}" styleClass="bb0"/>
+			    </h:panelGroup> 
+				 <a4j:commandLink value="Запрос баланса" styleClass="button" actionListener="#{stat.newBalance}" immediate="true" render="@form"/>                       
+            </rich:panel>	
+        </h:form>
+    </ui:define>
+</ui:composition>

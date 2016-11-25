@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+	<h:outputText value="Автоматические ответы на вопросы" />	
+	<h:dataTable var="entry" value="#{editPlugCtl.extCtl.autoAnswers}">
+		<h:column>
+			<f:facet name="header"><h:outputText value="Вопрос" /></f:facet>
+			<h:outputText styleClass="text-bold" value="#{entry.questionKey}" /><br/>
+			<h:outputText value="#{entry.questionText}" />
+		</h:column>
+		<h:column>
+			<f:facet name="header"><h:outputText value="Ответ" /></f:facet>
+			<h:panelGroup>
+				<h:outputText value="#{entry.answerValueText}" rendered="#{entry.answerType == 1 or entry.answerType == 2}" >
+				</h:outputText>
+				<h:outputText value="#{entry.answerValue}" rendered="#{entry.answerType == 3}" >
+					<f:convertNumber pattern="################.###" />
+				</h:outputText>			
+				<h:outputText value="#{entry.answerValue}" rendered="#{entry.answerType == 4}" >
+					<f:convertNumber minFractionDigits="2" type="currency" />
+				</h:outputText>			
+				<h:outputText value="#{entry.answerValue}" rendered="#{entry.answerType == 5}" />
+				<h:outputText value="#{entry.answerValue}" rendered="#{entry.answerType == 6}" >
+					<f:convertDateTime pattern="dd.MM.yyyy" />
+				</h:outputText>						
+			</h:panelGroup><br/>
+			<a4j:commandLink value="изменить"  oncomplete="#{rich:component('popQA')}.show()" actionListener="#{editPlugCtl.extCtl.loadCurrentQA}" immediate="true" execute="@this" render="@form">
+				<f:attribute name="qaKey" value="#{entry.questionKey}" />
+			</a4j:commandLink>
+		</h:column>		
+	</h:dataTable>	
+	
+    <rich:popupPanel id="popQA" modal="true" autosized="true" resizeable="false">
+        <f:facet name="header">
+            <h:outputText value="Введите ответ по умолчанию" />
+        </f:facet>
+        <h:outputText value="#{editPlugCtl.extCtl.currentQA.questionKey}"/><br/>
+        <h:outputText value="#{editPlugCtl.extCtl.currentQA.questionText}"/>
+        <h:inputText value="#{editPlugCtl.extCtl.currentQA.answerValue}" rendered="#{editPlugCtl.extCtl.currentQA.answerType == 3}" >
+        	<f:validateRegex pattern="[0-9]+"/>
+        </h:inputText>
+        <h:inputText value="#{editPlugCtl.extCtl.currentQA.answerValue}" rendered="#{editPlugCtl.extCtl.currentQA.answerType == 4}" >
+        	<f:validateRegex pattern="[0-9]+"/>
+        </h:inputText>   
+        <h:inputText value="#{editPlugCtl.extCtl.currentQA.answerValue}" rendered="#{editPlugCtl.extCtl.currentQA.answerType == 5}" >
+        	<f:validateLength minimum="1" />
+        </h:inputText> 
+        <rich:calendar value="#{editPlugCtl.extCtl.currentQA.answerValue}" datePattern="dd.MM.yyyy" popup="true" rendered="#{editPlugCtl.extCtl.currentQA.answerType == 6}" >
+        </rich:calendar>            
+        <a4j:commandButton value="Готово" onclick="#{rich:component('popQA')}.hide()" render="@form"></a4j:commandButton>
+    </rich:popupPanel>			
+</ui:composition>

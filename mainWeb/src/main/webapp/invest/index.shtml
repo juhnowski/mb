@@ -1,0 +1,191 @@
+﻿<!--#include file="_head.shtml"-->
+
+	<body>
+		
+		<!--#include file="_header.shtml"-->
+
+		<!--  Start main -->
+		<main>
+
+				
+
+			<div class="main-block">
+				<div class="block-calculator">
+					<h2>Расчитайте выгоду</h2>
+					<h4>и узнайте инвестиционную привлекательность</h4>
+
+					<div class="tabs-calculation">
+						
+						<section class="tabs">
+
+							<span class="span-valuta">Валюта</span>
+							<input id="tab_1" type="radio" name="tab" checked="checked"/>
+							<input id="tab_2" type="radio" name="tab"/>
+							<input id="tab_3" type="radio" name="tab"/>
+
+							<label for="tab_1" id="tab_l1">Рубли</label>
+							<!--label for="tab_2" id="tab_l2">Доллары США</label-->
+							<!--label for="tab_3" id="tab_l3">Евро</label-->
+							<div style="clear:both"></div>
+							
+
+							<div class="tabs_cont">
+								<div id="tab_c1" class="deposit">
+									
+									<div class="tab-top">
+										<span class="span-valuta">Сумма</span>
+
+										<div class="tab-top-slide">
+											<div class="slider"></div> 
+											<input type="hidden" id="hidden"/>
+											<div class="tab-top-slide-inside">
+												<div class="btsi-1">1.5 млн.</div>
+												<div class="btsi-2">22 млн.</div>
+												<div class="btsi-3">42 млн.</div>
+												<div class="btsi-4">62 млн.</div>
+												<div class="btsi-5">82 млн.</div>
+												<div class="btsi-6">100 млн.</div>
+											</div>
+										</div>
+
+										<div class="tab-top-rubl"><span class="slider-result">200 000</span> <span>руб.</span></div>
+									</div>
+
+
+									<div class="tab-bottom">
+										<span class="span-valuta">Срок</span>
+										<div class="tb-center">
+
+											<form action="#" method="post">
+												<div class="tb-block-radio">
+													<div class="radio" data-value="12" id="radio-1"></div><div class="cifri"> 12 </div><span>мес.</span>
+													<label>24% годовых</label>
+												</div>
+
+												<div class="tb-block-radio">
+													<div class="radio" data-value="18" id="radio-2"></div><div class="cifri"> 18 </div><span>мес.</span>
+													<label>24% годовых</label>
+												</div>
+
+												<div class="tb-block-radio noneborder">
+													<div class="radio" data-value="24" id="radio-3"></div><div class="cifri"> 24 </div><span>мес.</span>
+													<label>24% годовых</label>
+												</div>									
+												<input type="hidden" id="radion" />
+											</form>
+											
+										</div>
+									</div>
+
+								</div>
+
+								<div id="tab_c2" class="deposit">
+									Текст 2-го таба
+								</div>
+
+								<div id="tab_c3">
+									Текст 3-го таба
+								</div>
+							</div>
+
+						</section>
+
+						
+						<div class="block-diagramm">
+							<div class="bd-top">
+
+								<div class="zona-outside">
+									<div id="zona-1" class="zona">
+										<span class="z-text">
+											ВЛОЖИЛИ: <br>
+											<label><span class="slider-result">200 000</span> <label>руб.</label></label>
+										</span>
+										<div class="zona-inside"></div>
+									</div>
+								</div>
+
+								<div class="b-pointer"></div>
+
+								<div class="zona-outside-two">
+									<div id="zona-2" class="zona z-2">
+										<span class="z-text">
+											Получите: <br>
+											<label><span class="slider-result-two">250 000</span> <label>руб.</label></label>
+										</span>
+										<div class="zona-inside zi-two"></div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="bd-middle">
+								<span>Ваш ежемесячный доход</span>
+								<span>30 000 <label>руб.</label></span>
+							</div>
+							
+							<div class="bd-bottom">
+								<div class="bd-bottom-inside">
+									<div class="pict-1"></div>
+									<div class="p-text">Вложили</div>
+									<div class="p-numbers"><label class="slider-result">200 000</label> <span>руб.</span></div>
+								</div>
+								<div class="bd-bottom-inside">
+									<div class="pict-1 p-2"></div>
+									<div class="p-text">Получите</div>
+									<div class="p-numbers"><label class="slider-result-two">250 000</label> <span>руб.</span></div>
+								</div>
+								<div class="bd-bottom-inside">
+									<div class="pict-1 p-3"></div>
+									<div class="p-text">Срок</div>
+									<div class="p-numbers">12 <span>месяцев</span></div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				
+				<div class="block-steps">
+					<h2>всего 3 простых шага</h2>
+
+					<div class="block-numbers">
+						<div class="numbers-one">
+							1<span>Подтвердите свой <br>интерес</span>
+						</div>
+
+						<div class="line-dote"></div>
+
+						<div class="numbers-one n-two">
+							2<span>получите персональное <br>предложение</span>
+						</div>
+
+						<div class="line-dote"></div>
+
+						<div class="numbers-one n-three">
+							3<span>узнайте подробности у <br>лучшего менеджера</span>
+						</div>
+
+						<div class="block-pointer"></div>
+						
+						<!--<div class="button-confirm">ПОДТВЕРДИТЬ</div>-->
+					</div>
+				</div>
+			</div>
+			
+
+			
+		</main>
+		<!-- Stop main -->
+
+
+
+		<!--#include file="_footer.shtml"-->
+		<!--#include file="_modal.shtml"-->
+
+
+
+
+
+	</body>
+</html>

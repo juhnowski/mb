@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+	<deployment>
+		<dependencies>
+			<module name="javax.faces.api"></module>
+			<module name="com.sun.jsf-impl"></module>
+			<module name="org.jboss.modules"></module>
+			<module name="org.apache.commons.io"></module>
+			<module name="org.apache.commons.lang"></module>
+			<module name="org.apache.commons.lang3"></module>
+			<module name="org.apache.commons.codec"></module>
+            <module name="org.apache.commons.beanutils"></module>
+			<module name="org.apache.httpcomponents"></module>			
+			<module name="javax.transaction.api"></module>
+			<module name="org.hibernate.commons-annotations"></module>
+			<module name="org.hibernate.envers"></module>
+			<module name="org.hibernate"></module>
+			<module name="org.hibernate.validator"></module>
+			<module name="org.dom4j"></module>
+			<module name="org.spring" export="true" meta-inf="export"></module>
+			<module name="org.spring.security" export="true" meta-inf="export" ></module>
+			<module name="org.activiti"></module>
+			<module name="com.fasterxml.jackson"></module>
+			<module name="org.joda.time" slot="2.1" />
+			<module name="javax.inject.api" />
+			<module name="javax.ejb.api"/>
+			<module name="org.bouncycastle"></module>
+			<module name="org.admnkz.xmldsigri_sc"></module>
+			<module name="org.apache.axis"></module>
+			<module name="javax.xml.bind.api"></module>
+			<module name="org.jboss.resteasy.resteasy-jaxb-provider"></module>
+			<module name="org.jboss.resteasy.resteasy-jaxrs"></module>
+			<module name="org.jboss.resteasy.resteasy-cdi"></module>
+			<module name="ru.simplgroupp.microcredit.service"></module>
+			<module name="ru.simplgroupp.microdep.service"></module>
+			<module name="ru.signalcom" slot="main" export="true"></module>
+			<module name="deployment.microdep.war"></module>
+			
+			<module name="javax.servlet.api"></module>
+			<module name="javax.servlet.jsp.api"></module>
+			<module name="javax.servlet.jstl.api"></module>
+			<!--<module name="com.sun.net.ssl"></module> -->
+		</dependencies>
+	</deployment>
+
+	
+	<sub-deployment name="engine-persistence.jar">
+		<dependencies>
+			<module name="org.jboss.modules"></module>
+			<module name="org.apache.commons.io"></module>
+			<module name="org.apache.commons.lang"></module>
+			<module name="ru.simplgroupp.microcredit.service"></module>
+			<module name="ru.simplgroupp.microdep.service"></module>
+			<module name="deployment.microdep.war"></module>
+		</dependencies>
+	</sub-deployment>
+	<sub-deployment name="engine-ejb.jar">
+		<dependencies>
+			<module name="org.jboss.modules"></module>
+			<module name="org.apache.commons.io"></module>
+			<module name="org.apache.commons.lang"></module>
+			<module name="org.apache.commons.lang3"></module>
+			<module name="org.apache.commons.codec"></module>
+            <module name="org.apache.commons.beanutils"></module>
+			<module name="org.apache.httpcomponents"></module>
+			<module name="javax.transaction.api"></module>
+			<module name="org.hibernate.commons-annotations"></module>
+			<module name="org.hibernate.envers"></module>
+			<module name="org.hibernate"></module>
+			<module name="org.hibernate.validator"></module>
+			<module name="org.dom4j"></module>
+			<module name="org.joda.time" slot="2.1" />
+			<module name="org.spring"></module>
+			<module name="org.activiti"></module>
+			<module name="com.fasterxml.jackson"></module>			
+			<module name="javax.inject.api" />
+			<module name="ru.simplgroupp.microcredit.service"></module>
+			<module name="ru.simplgroupp.microdep.service"></module>
+			<module name="deployment.microdep.war"></module>
+			<!--<module name="com.sun.net.ssl"></module> don't remove for a while -->
+
+		</dependencies>
+	</sub-deployment>
+	<sub-deployment name="reports.jar">
+		<dependencies>
+			<module name="org.jboss.modules"></module>
+                        <module name="com.fasterxml.jackson"></module>
+
+			<!--<module name="com.sun.net.ssl"></module> don't remove for a while -->
+
+		</dependencies>
+	</sub-deployment>
+	<sub-deployment name="Fias.jar">
+		<dependencies>
+			<module name="org.jboss.modules"></module>
+			<module name="org.apache.commons.io"></module>
+			<module name="org.apache.commons.lang"></module>
+                        <module name="org.dom4j"></module>
+			<module name="ru.simplgroupp.microcredit.service"></module>
+			<module name="ru.simplgroupp.microdep.service"></module>
+			<module name="deployment.microdep.war"></module>
+
+		</dependencies>
+	</sub-deployment>
+	<sub-deployment name="analysisWeb.war">
+		<dependencies>
+			<module name="javax.faces.api"></module>
+			<module name="com.sun.jsf-impl"></module>
+			<module name="org.jboss.modules"></module>
+			<module name="org.apache.commons.io"></module>
+			<module name="org.apache.commons.lang"></module>
+			<module name="org.apache.commons.lang3"></module>
+			<module name="org.apache.commons.codec"></module>
+			<module name="org.apache.httpcomponents"></module>
+			<module name="javax.transaction.api"></module>
+			<module name="org.hibernate.commons-annotations"></module>
+			<module name="org.hibernate.envers"></module>
+			<module name="org.hibernate"></module>
+			<module name="org.hibernate.validator"></module>
+			<module name="org.dom4j"></module>
+			<module name="org.joda.time" slot="2.1" />
+			<module name="org.spring"></module>
+			<module name="org.activiti"></module>
+			<module name="com.fasterxml.jackson"></module>
+			<module name="javax.inject.api" />
+			<module name="ru.simplgroupp.microcredit.service"></module>
+			<module name="ru.simplgroupp.microdep.service"></module>
+			<module name="deployment.microdep.war"></module>
+
+		</dependencies>
+	</sub-deployment>
+
+	<sub-deployment name="client-common.jar">
+		<dependencies>
+			<module name="org.apache.commons.codec"></module>
+			<module name="com.fasterxml.jackson"></module>
+			<module name="org.apache.commons.lang"></module>
+		</dependencies>
+	</sub-deployment>
+
+	<sub-deployment name="mainWeb.war">
+		<dependencies>
+			<module name="javax.faces.api"></module>
+			<module name="com.sun.jsf-impl"></module>
+			<module name="org.jboss.modules"></module>
+			<module name="org.apache.commons.io"></module>
+			<module name="org.apache.commons.lang"></module>
+			<module name="org.apache.commons.lang3"></module>
+			<module name="org.apache.commons.codec"></module>
+			<module name="org.apache.commons.beanutils"></module>
+			<module name="org.apache.httpcomponents"></module>
+			<module name="javax.transaction.api"></module>
+			<module name="org.hibernate.commons-annotations"></module>
+			<module name="org.hibernate.envers"></module>
+			<module name="org.hibernate"></module>
+			<module name="org.hibernate.validator"></module>
+			<module name="org.dom4j"></module>
+			<module name="org.joda.time" slot="2.1" />
+			<module name="org.spring"></module>
+			<module name="org.activiti"></module>
+			<module name="com.fasterxml.jackson"></module>
+			<module name="javax.inject.api" />
+			<module name="org.codehaus.jackson.jackson-jaxrs" />
+			<module name="org.codehaus.jackson.jackson-mapper-asl" />
+			<module name="ru.simplgroupp.microcredit.service"></module>
+			<module name="ru.simplgroupp.microdep.service"></module>
+			<module name="deployment.microdep.war"></module>
+			<module name="org.jboss.resteasy.resteasy-multipart-provider"></module>
+			<module name="org.jboss.resteasy.resteasy-hibernatevalidator-provider"></module>
+		</dependencies>
+	</sub-deployment>
+	<sub-deployment name="cmsWeb.war">
+		<dependencies>
+			<module name="org.jboss.modules"></module>
+			<module name="org.apache.commons.io"></module>
+			<module name="org.apache.commons.lang"></module>
+			<module name="org.apache.commons.lang3"></module>
+			<module name="org.apache.commons.codec"></module>
+			<module name="org.apache.httpcomponents"></module>
+			<module name="javax.transaction.api"></module>
+			<module name="javax.inject.api" />
+			<module name="org.codehaus.jackson.jackson-jaxrs" />
+			<module name="org.codehaus.jackson.jackson-mapper-asl" />
+			<module name="ru.simplgroupp.microcredit.service"></module>
+			<module name="ru.simplgroupp.microdep.service"></module>
+			<module name="deployment.microdep.war"></module>
+
+		</dependencies>
+	</sub-deployment>
+	<sub-deployment name="oktellWeb.war">
+		<dependencies>
+			<module name="org.apache.commons.codec"/>
+			<module name="org.codehaus.jackson.jackson-jaxrs"/>
+			<module name="org.codehaus.jackson.jackson-mapper-asl"/>
+		</dependencies>
+	</sub-deployment>
+	<sub-deployment name="managerWeb.war">
+		<dependencies>
+			<module name="javax.faces.api"></module>
+			<module name="com.sun.jsf-impl"></module>
+			<module name="org.jboss.modules"></module>
+			<module name="org.apache.commons.io"></module>
+			<module name="org.apache.commons.lang"></module>
+			<module name="org.apache.commons.lang3"></module>
+			<module name="org.apache.commons.codec"></module>
+			<module name="org.apache.httpcomponents"></module>
+			<module name="javax.transaction.api"></module>
+			<module name="org.hibernate.commons-annotations"></module>
+			<module name="org.hibernate.envers"></module>
+			<module name="org.hibernate"></module>
+			<module name="org.hibernate.validator"></module>
+			<module name="org.dom4j"></module>
+			<module name="org.joda.time" slot="2.1" />
+			<module name="org.spring"></module>
+			<module name="org.activiti"></module>
+			<module name="com.fasterxml.jackson"></module>
+			<module name="javax.inject.api" />
+			<module name="ru.simplgroupp.microcredit.service"></module>
+			<module name="ru.simplgroupp.microdep.service"></module>
+			<module name="deployment.microdep.war"></module>
+
+		</dependencies>
+	</sub-deployment>
+	<sub-deployment name="managerNew.war">
+		<dependencies>
+			<module name="javax.faces.api"></module>
+			<module name="com.sun.jsf-impl"></module>
+			<module name="org.jboss.modules"></module>
+			<module name="org.apache.commons.io"></module>
+			<module name="org.apache.commons.lang"></module>
+			<module name="org.apache.commons.lang3"></module>
+			<module name="org.apache.commons.codec"></module>
+			<module name="org.apache.httpcomponents"></module>
+			<module name="javax.transaction.api"></module>
+			<module name="org.hibernate.commons-annotations"></module>
+			<module name="org.hibernate.envers"></module>
+			<module name="org.hibernate"></module>
+			<module name="org.hibernate.validator"></module>
+			<module name="org.dom4j"></module>
+			<module name="org.joda.time" slot="2.1" />
+			<module name="org.spring"></module>
+			<module name="org.activiti"></module>
+			<module name="com.fasterxml.jackson"></module>
+			<module name="javax.inject.api" />
+			<module name="ru.simplgroupp.microcredit.service"></module>
+			<module name="ru.simplgroupp.microdep.service"></module>
+			<module name="deployment.microdep.war"></module>
+
+		</dependencies>
+	</sub-deployment>
+	<sub-deployment name="cryptoservice.jar">
+		<dependencies>
+			<module name="javax.api"></module>
+			<module name="org.jboss.modules"></module>
+			<module name="org.admnkz.xmldsigri_sc"></module>
+			<module name="org.apache.axis"></module>
+			<module name="javax.xml.soap.api"></module>
+			<module name="org.apache.commons.io"></module>
+			<module name="org.apache.commons.lang"></module>
+			<module name="org.apache.commons.codec"></module>
+			<module name="org.apache.ws.security"></module>
+			<module name="org.bouncycastle"></module>
+			<module name="javax.mail.api"></module>
+			<module name="ru.simplgroupp.microcredit.service"></module>
+			<module name="ru.signalcom" slot="main" export="true"
+				optional="true" services=""></module>
+			<module name="ru.simplgroupp.microdep.service"></module>
+			<module name="deployment.microdep.war"></module>
+
+		</dependencies>
+	</sub-deployment>
+	
+</jboss-deployment-structure>

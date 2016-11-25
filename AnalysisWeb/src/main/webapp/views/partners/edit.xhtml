@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<h:panelGrid columns="2">
+			   <h:outputText value="Название в системе"/>
+			   <h:inputText value="#{editPartner.partner.name}" size="150"/>
+			   <h:outputText value="Название для человека"/>
+			   <h:inputText value="#{editPartner.partner.realName}" size="150"/>
+			   <h:outputText value="Тестовый url"/>
+			   <h:inputText value="#{editPartner.partner.urlTest}" size="150"/>
+			   <h:outputText value="Рабочий url"/>
+			   <h:inputText value="#{editPartner.partner.urlWork}" size="150"/>
+			   <h:outputText value="Тестовый номер"/>
+			   <h:inputText value="#{editPartner.partner.codeTest}" size="50"/>
+			   <h:outputText value="Рабочий номер"/>
+			   <h:inputText value="#{editPartner.partner.codeWork}" size="50"/>
+			   <h:outputText value="Тестовая группа"/>
+			   <h:inputText value="#{editPartner.partner.groupTest}" size="50"/>
+			   <h:outputText value="Рабочая группа"/>
+			   <h:inputText value="#{editPartner.partner.groupWork}" size="50"/>
+			   <h:outputText value="Тестовое имя входа"/>
+			   <h:inputText value="#{editPartner.partner.loginTest}" size="150"/>
+			   <h:outputText value="Рабочее имя входа"/>
+			   <h:inputText value="#{editPartner.partner.loginWork}" size="150"/>
+			   <h:outputText value="Тестовый пароль"/>
+			   <h:inputText value="#{editPartner.partner.passwordTest}" size="150"/>
+			   <h:outputText value="Рабочий пароль"/>
+			   <h:inputText value="#{editPartner.partner.passwordWork}" size="150"/>
+			   <h:outputText value="Версия запроса"/>
+			   <h:inputText value="#{editPartner.partner.requestVersion}" size="50"/>
+			   <h:outputText value="Версия выгрузки"/>
+			   <h:inputText value="#{editPartner.partner.uploadVersion}" size="50"/>
+			   <h:outputText value="Дата для версии выгрузки"/>
+			   <rich:calendar value="#{editPartner.partner.dateVersion}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+			   <h:outputText value="Тестовый url для выгрузки"/>
+			   <h:inputText value="#{editPartner.partner.urlUploadTest}" size="150"/>
+			   <h:outputText value="Рабочий url для выгрузки"/>
+			   <h:inputText value="#{editPartner.partner.urlUploadWork}" size="150"/>
+			   <h:outputText value="Каталог для выгрузки"/>
+			   <h:inputText value="#{editPartner.partner.uploadInbox}" size="50"/>
+			   <h:outputText value="Каталог для загрузки"/>
+			   <h:inputText value="#{editPartner.partner.uploadOutbox}" size="50"/>
+			   <h:outputText value="Тестовый пароль для выгрузки"/>
+			   <h:inputText value="#{editPartner.partner.passwordUploadTest}" size="150"/>
+			   <h:outputText value="Рабочий пароль для выгрузки"/>
+			   <h:inputText value="#{editPartner.partner.passwordUploadWork}" size="150"/>
+			   <h:outputText value="Может проводить платежи"/>
+			   <h:selectBooleanCheckbox  value="#{editPartner.partner.canMakePayment}" />			   
+			   <h:outputText value="Может выдавать кредитные истории"/>
+			   <h:selectBooleanCheckbox  value="#{editPartner.partner.canMakeCreditHistory}" />
+			   <h:outputText value="Может делать скоринг"/>
+			   <h:selectBooleanCheckbox  value="#{editPartner.partner.canMakeScoring}" />
+			</h:panelGrid>
+			<h:commandButton value="Сохранить" action="#{editPartner.save}"/>
+			<h:commandButton value="Закрыть" action="#{editPartner.close}"/>
+			
+        </h:form>
+    </ui:define>
+</ui:composition>

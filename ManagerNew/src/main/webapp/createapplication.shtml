@@ -1,0 +1,760 @@
+﻿<!--#include file="_head.shtml"-->
+
+	<body>
+		
+		<div class="wrapper">
+
+			<!--  Start header -->
+			<header>
+				<div class="header-inside">
+					<div class="header-bell">
+						<div class="bell">
+							<span>10</span>
+						</div>
+					</div>
+
+					<div class="header-chat">
+						<div class="chat">
+							<span>4</span>
+						</div>
+					</div>
+
+					<div class="header-inside-button">
+						<span></span>
+						<label>Новая заявка</label>
+					</div>
+				</div>
+			</header>
+			<!-- Stop header -->
+
+			<!--  Start main -->
+			<div class="main-block">
+				<!--#include file="_sidebar.shtml"-->
+
+				<div class="main-content">
+					<div class="main-content-inside">
+						<div class="main-content-inside-head">
+							<div class="mcih-menu">
+								<ul>
+									<li><a href="">Главная</a><label></label></li>
+									<li><a href="">Заёмщики</a><label></label></li>
+									<li class="mcih-active"><a href="">Кульбышев Евгений Витальевич</a><label></label></li>
+								</ul>
+							</div>
+
+							<div class="new-task-outside">
+								<div class="new-task" id="new-task">
+									<div class="circle"></div>
+									<div class="new-task-text">
+										<span>Новая задача</span>
+										<span>Поступила <a href="">заявка</a> на займ</span>
+									</div>
+									<div class="new-task-mark">
+										<div class="ntm-top"></div>
+										<div class="ntm-bottom" id="n-task"></div>
+									</div>
+								</div>
+
+								<div class="new-task" id="new-chat">
+									<div class="circle circle-two"></div>
+									<div class="new-task-text">
+										<span>Чат</span>
+										<span>Есть новые <a href="">ответы</a></span>
+									</div>
+									<div class="new-task-mark">
+										<div class="ntm-top"></div>
+										<div class="ntm-bottom" id="n-chat"></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+
+						<div class="borrowers-main">
+
+							<!-- Start table-client -->
+							<div class="table-client">
+								<div class="table-client-inside">
+									<div class="bcli-head">
+										<div class="bh-left createappl">
+											Создать заявку
+										</div>
+									</div>
+
+
+
+									<!------ Start block-anketa ------>
+									<div class="block-anketa">
+
+
+										<!---- Start block-anketa-left ---->
+										<div class="block-anketa-left">
+
+											<!-- Старт "Персональные данные" -->
+											<div class="blocks-of-data">
+												<div class="blocks-of-data-head">Персональные данные</div>
+												<div class="blocks-of-data-body">
+													<div class="bodb-input">
+														<span>Фамилия <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Фамилия заёмщика" onblur="if (this.placeholder=='') this.placeholder='Фамилия заёмщика';" onfocus="if (this.placeholder=='Фамилия заёмщика') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Имя <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Имя заёмщика" onblur="if (this.placeholder=='') this.placeholder='Имя заёмщика';" onfocus="if (this.placeholder=='Имя заёмщика') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Отчество <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Отчество заёмщика" onblur="if (this.placeholder=='') this.placeholder='Отчество заёмщика';" onfocus="if (this.placeholder=='Отчество заёмщика') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>E-mail: <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="E-mail заёмщика" onblur="if (this.placeholder=='') this.placeholder='E-mail заёмщика';" onfocus="if (this.placeholder=='E-mail заёмщика') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Телефон (моб) <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" id="phone" placeholder="+7 (___) ___-__-__" onblur="if (this.placeholder=='') this.placeholder='+7 (___) ___-__-__';" onfocus="if (this.placeholder=='+7 (___) ___-__-__') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Дата рождения <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" id="date" class="datepicker" placeholder="__/__/____" onblur="if (this.placeholder=='') this.placeholder='__/__/____';" onfocus="if (this.placeholder=='__/__/____') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Место рождения <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Место рождения" onblur="if (this.placeholder=='') this.placeholder='Место рождения';" onfocus="if (this.placeholder=='Место рождения') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Пол <label>*</label></span>
+														<div class="bodb-input-inside">
+															<div class="radioblock">
+																<div class="radio"><span></span>Мужской</div>
+																<div class="radio"><span></span>Женский</div>
+																<input type="hidden" id="radion" />
+															</div>
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Серия/номер паспорта <label>*</label></span>
+														<div class="bodb-input-inside">
+															<div class="bii-left">
+																<input type="text" />
+															</div>
+															<div class="bii-right">
+																<input type="text" />
+															</div>
+														</div><span class="wrong-box">Неверно заполнено поле</span>
+													</div>
+
+													<div class="bodb-input">
+														<span>Дата выдачи документа <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" id="date2" class="datepicker" placeholder="__/__/____" onblur="if (this.placeholder=='') this.placeholder='__/__/____';" onfocus="if (this.placeholder=='__/__/____') this.placeholder='';">
+														</div>
+													</div>																																					
+
+													<div class="bodb-input">
+														<span>Код подразделения <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" id="code" placeholder="___-___" onblur="if (this.placeholder=='') this.placeholder='___-___';" onfocus="if (this.placeholder=='___-___') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Выдавшая организация <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Место рождения" onblur="if (this.placeholder=='') this.placeholder='Место рождения';" onfocus="if (this.placeholder=='Место рождения') this.placeholder='';">
+														</div>
+													</div>
+
+												</div>
+											</div>
+											<!-- Стоп "Персональные данные" -->
+
+
+											<!-- Старт "Информация о проживании и контакты" -->
+											<div class="blocks-of-data">
+												<div class="blocks-of-data-head">Информация о проживании и контакты</div>
+												<div class="blocks-of-data-body">
+													<div class="bodb-input">
+														<span class="ln-height">Основание занятия <br> жилого помещения <label>*</label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">неважно <span></span></a>
+																<ul class="drop">
+																	<li>семейное владение</li>
+																	<li>собственность</li>
+																	<li>ипотека</li>
+																	<li>аренда</li>
+																	<li>живу с родителями</li>
+																	<li>живу с кем-либо</li>
+																	<li>жильё обеспечивается работодателем</li>
+																	<li>общежите/воинская часть</li>
+																	<li>муниципальное жильё</li>
+																	<li>Другое</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Дата регистрации <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" id="date5" class="datepicker" placeholder="__/__/____" onblur="if (this.placeholder=='') this.placeholder='__/__/____';" onfocus="if (this.placeholder=='__/__/____') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Дата начала проживания <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" id="date5" class="datepicker" placeholder="__/__/____" onblur="if (this.placeholder=='') this.placeholder='__/__/____';" onfocus="if (this.placeholder=='__/__/____') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Домашний телефон <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" id="phone" placeholder="+7 (___) ___-__-__" onblur="if (this.placeholder=='') this.placeholder='+7 (___) ___-__-__';" onfocus="if (this.placeholder=='+7 (___) ___-__-__') this.placeholder='';">
+														</div>
+													</div>											
+
+													<div class="bodb-input">
+														<span class="ln-height">Не звонить по<br> домашнему телефону <label></label></span>
+														<div class="bodb-input-inside">
+															<div class="radioblock">
+																<div class="checkboxes">
+																	<div class="check check-two">
+																		<input type="checkbox" value="jQuery">
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span class="ln-height">Домашний телефон по<br> месту проживания <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" id="phone" placeholder="+7 (___) ___-__-__" onblur="if (this.placeholder=='') this.placeholder='+7 (___) ___-__-__';" onfocus="if (this.placeholder=='+7 (___) ___-__-__') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span class="ln-height2">Не звонить по<br> домашнему телефону по<br> месту проживания <label></label></span>
+														<div class="bodb-input-inside">
+															<div class="radioblock">
+																<div class="checkboxes">
+																	<div class="check check-two">
+																		<input type="checkbox" value="jQuery">
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>													
+
+												</div>
+											</div>
+											<!-- Стоп "Информация о проживании и контакты" -->
+
+
+
+
+
+											<!-- Старт "Счет для перечисления денег" -->
+											<div class="blocks-of-data">
+												<div class="blocks-of-data-head">Счет для перечисления денег</div>
+												<div class="blocks-of-data-body">								
+													<div class="bodb-input">
+														<span class="ln-height">Вид счёта <label>*</label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">счёт Яндекс.деньги  <span></span></a>
+																<ul class="drop">
+																	<li>счёт Яндекс.деньги </li>
+																	<li>Кредитная карта</li>
+																	<li>Карта Payonline</li>
+																	<li>Золотая корона</li>
+																	<li>Unistream</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- Стоп "Счет для перечисления денег" -->
+
+
+
+											<!-- Старт "Дополнительные данные" -->
+											<div class="blocks-of-data">
+												<div class="blocks-of-data-head">Дополнительные данные</div>
+												<div class="blocks-of-data-body">
+													<div class="bodb-input">
+														<span>Являюсь пенсионером <label>*</label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">да <span></span></a>
+																<ul class="drop">
+																	<li>да</li>
+																	<li>нет</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+
+
+													<div class="bodb-input">
+														<span class="ln-height">Подтверждающий<br> документ <label>*</label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">Пенсионное удостоверение <span></span></a>
+																<ul class="drop">
+																	<li>Пенсионное удостоверение</li>
+																	<li>Справка из ПФР</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+
+
+													<div class="bodb-input">
+														<span>Номер документа <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Номер документа" onblur="if (this.placeholder=='') this.placeholder='Номер документа';" onfocus="if (this.placeholder=='Номер документа') this.placeholder='';">
+														</div>
+													</div>
+
+
+													<div class="bodb-input">
+														<span class="ln-height">Дата выдачи<br> документа <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" id="date3" class="datepicker" placeholder="__/__/____" onblur="if (this.placeholder=='') this.placeholder='__/__/____';" onfocus="if (this.placeholder=='__/__/____') this.placeholder='';">
+														</div>
+													</div>
+
+
+
+													<div class="bodb-input">
+														<span class="ln-height">Получать информацию <br> на телефон <label></label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">да <span></span></a>
+																<ul class="drop">
+																	<li>да</li>
+																	<li>нет</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+
+
+													<div class="bodb-input">
+														<span class="ln-height">Являюсь должностным <br> лицом <label></label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">да <span></span></a>
+																<ul class="drop">
+																	<li>да</li>
+																	<li>нет</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+
+
+													<div class="bodb-input">
+														<span class="ln-height">Являюсь родственником <br> должностного лица <label></label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">да <span></span></a>
+																<ul class="drop">
+																	<li>да</li>
+																	<li>нет</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+
+
+
+													<div class="bodb-input">
+														<span class="ln-height">Бенефициарный <br> владелец <label></label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">да <span></span></a>
+																<ul class="drop">
+																	<li>да</li>
+																	<li>нет</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+
+
+													<div class="bodb-input">
+														<span class="ln-height">Действую в интересах <br> другого <label></label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">да <span></span></a>
+																<ul class="drop">
+																	<li>да</li>
+																	<li>нет</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+
+
+													
+												</div>
+											</div>
+											<!-- Стоп "Дополнительные данные" -->
+
+
+
+
+
+
+
+
+
+
+
+
+										</div>
+										<!---- Stop block-anketa-left ---->
+
+
+
+
+
+										<!---- Start block-anketa-right ---->
+										<div class="block-anketa-right">
+
+											<!-- Старт "Дополнительные данные" -->
+											<div class="blocks-of-data">
+												<div class="blocks-of-data-head">Дополнительные данные</div>
+												<div class="blocks-of-data-body">
+													<div class="bodb-input">
+														<span>Семейное положение <label>*</label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">неважно <span></span></a>
+																<ul class="drop">
+																	<li>неважно</li>
+																	<li>Холост/Незамужем</li>
+																	<li>Женат/Замужем</li>
+																	<li>Разведён(а)</li>
+																	<li>Вдовец/Вдова</li>
+																	<li>Гражданский брак/Совместное проживание</li>
+																	<li>Другое</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Количество детей <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Количество детей" onblur="if (this.placeholder=='') this.placeholder='Количество детей';" onfocus="if (this.placeholder=='Количество детей') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Есть автомобиль? <label></label></span>
+														<div class="bodb-input-inside">
+															<div class="radioblock">
+																<div class="checkboxes">
+																	<div class="check check-two">
+																		<input type="checkbox" value="jQuery">
+																	</div>
+																	Да, есть
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- Стоп "Дополнительные данные" -->
+
+
+											<!-- Старт "Занятость и образование" -->
+											<div class="blocks-of-data">
+												<div class="blocks-of-data-head">Занятость и образование</div>
+												<div class="blocks-of-data-body">
+													<div class="bodb-input">
+														<span>Занятость <label>*</label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">неважно <span></span></a>
+																<ul class="drop">
+																	<li>неважно</li>
+																	<li>Постоянный, полный рабочий день</li>
+																	<li>Временная, неполный рабочий день</li>
+																	<li>Пенсионер</li>
+																	<li>Работающий пенсионер</li>
+																	<li>Студент, учащийся</li>
+																	<li>Собсвтенное дело</li>
+																	<li>Льготный пенсионер</li>
+																	<li>Неработающий</li>
+																	<li>Другое</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Образование <label>*</label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">неважно <span></span></a>
+																<ul class="drop">
+																	<li>неважно</li>
+																	<li>Начальная школа</li>
+																	<li>Средняя школа</li>
+																	<li>Специализированная средняя школа</li>
+																	<li>Незаконченное высшее</li>
+																	<li>Высшее</li>
+																	<li>Два и более высших</li>
+																	<li>Учёная степень</li>
+																	<li>Другое</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Доход <label>*</label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Доход" onblur="if (this.placeholder=='') this.placeholder='Доход';" onfocus="if (this.placeholder=='Доход') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span class="ln-height">Дата начала<br> трудовой деятельности <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" id="date3" class="datepicker" placeholder="__/__/____" onblur="if (this.placeholder=='') this.placeholder='__/__/____';" onfocus="if (this.placeholder=='__/__/____') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Дополнительный доход <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Дополнительный доход" onblur="if (this.placeholder=='') this.placeholder='Дополнительный доход';" onfocus="if (this.placeholder=='Дополнительный доход') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span class="ln-height">Источник <br>дополнительного дохода <label></label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct">неважно <span></span></a>
+																<ul class="drop">
+																	<li>неважно</li>
+																	<li>Сдача квартиры в аренду</li>
+																	<li>Алименты</li>
+																	<li>Доход от ценных бумаг, депозитов</li>
+																	<li>Пенсия</li>
+																	<li>Подсобное хозяйство</li>
+																	<li>Помощь родственников</li>
+																	<li>Премия, бонус</li>
+																	<li>Работа по совместительству</li>
+																	<li>Репетиторство, частная практика</li>
+																	<li>Сверхурочные, чаевые</li>
+																	<li>Строительство, ремонт квартир</li>
+																	<li>Частный извоз</li>
+																	<li>Другое</li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- Стоп "Занятость и образование" -->
+
+											<!-- Старт "Адрес регистрации" -->
+											<div class="blocks-of-data">
+												<div class="blocks-of-data-head">Адрес регистрации</div>
+												<div class="blocks-of-data-body">
+													<div class="bodb-input">
+														<span>Регион <label></label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct"><span></span></a>
+																<ul class="drop">
+																	<li></li>
+																	<li></li>
+																	<li></li>
+																	<li></li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+													
+													<div class="bodb-input">
+														<span>Дом <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Дом" onblur="if (this.placeholder=='') this.placeholder='Дом';" onfocus="if (this.placeholder=='Дом') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Корпус <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Корпус" onblur="if (this.placeholder=='') this.placeholder='Корпус';" onfocus="if (this.placeholder=='Корпус') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Строение <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Строение" onblur="if (this.placeholder=='') this.placeholder='Строение';" onfocus="if (this.placeholder=='Строение') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Квартира <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Квартира" onblur="if (this.placeholder=='') this.placeholder='Квартира';" onfocus="if (this.placeholder=='Квартира') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span class="ln-height2">Адрес регистрации <br> совпадает с адресом<br>  проживания <label></label></span>
+														<div class="bodb-input-inside">
+															<div class="radioblock">
+																<div class="checkboxes">
+																	<div class="check check-two">
+																		<input type="checkbox" value="jQuery">
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- Стоп "Адрес регистрации" -->
+
+
+
+											<!-- Старт "Адрес проживания" -->
+											<div class="blocks-of-data">
+												<div class="blocks-of-data-head">Адрес проживания</div>
+												<div class="blocks-of-data-body">
+													<div class="bodb-input">
+														<span>Регион <label></label></span>
+														<div class="bodb-input-inside">
+															<div class="select-two">
+																<a href="#" class="slct"><span></span></a>
+																<ul class="drop">
+																	<li></li>
+																	<li></li>
+																	<li></li>
+																	<li></li>
+																</ul>
+																<input type="hidden" />
+															</div>		
+														</div>
+													</div>
+													
+													<div class="bodb-input">
+														<span>Дом <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Дом" onblur="if (this.placeholder=='') this.placeholder='Дом';" onfocus="if (this.placeholder=='Дом') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Корпус <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Корпус" onblur="if (this.placeholder=='') this.placeholder='Корпус';" onfocus="if (this.placeholder=='Корпус') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Строение <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Строение" onblur="if (this.placeholder=='') this.placeholder='Строение';" onfocus="if (this.placeholder=='Строение') this.placeholder='';">
+														</div>
+													</div>
+
+													<div class="bodb-input">
+														<span>Квартира <label></label></span>
+														<div class="bodb-input-inside">
+															<input type="text" placeholder="Квартира" onblur="if (this.placeholder=='') this.placeholder='Квартира';" onfocus="if (this.placeholder=='Квартира') this.placeholder='';">
+														</div>
+													</div>
+
+												</div>
+											</div>
+											<!-- Стоп "Адрес проживания" -->
+
+
+									
+										</div>
+										<!---- End block-anketa-right ---->
+
+
+									</div>
+									<!------ Stop block-anketa ------>
+
+
+								</div>
+							</div>
+							<!-- End table-client -->
+
+						</div>
+
+
+					</div>
+				</div>
+			
+				<div class="sidbar-fon"></div>
+			</div>
+			<!-- Stop main -->
+
+			<!--#include file="_footer.shtml"-->
+		
+		</div>
+
+
+		<!--#include file="_modal.shtml"-->
+
+
+
+	</body>
+</html>

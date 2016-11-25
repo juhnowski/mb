@@ -1,0 +1,153 @@
+<footer class="footer">
+    <div class="center">
+        <a class="footer__logo" href="/"></a>
+
+        <ul class="pull-right footer__menu">
+            <li><a class="footer__rules">Соглашения и правила</a></li>
+            <li><a class="callback" href="mailto:support@mb.ru"><i class="ico ico--callback"></i>support@mb.ru</a></li>
+            <li><a class="footer__tel tel" href="tel:88008834354">8 800 883 43 54</a></li>
+        </ul>
+
+        <p class="copyright">ООО «Мобифинанс» состоит в государственном реестре микрофинансовых организаций ЦБ РФ за
+            номером 2/12/01/77/001299 от 03.04.2012 года. Все материалы, статьи и картинки, расположенные на сайте,
+            являются объектом авторского права и могут быть перепечатаны только при условии разрешения на публикацию от
+            пресс-службы компании.</p>
+
+        <p class="developer">powered by <a href="http://sputnik.asap.digital">Sputnik credit conveyer</a></p>
+    </div>
+</footer>
+
+
+<script src="js/js.js"></script>
+<script src="js/js_lk.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/js.storage.js"></script>
+
+
+<div class="alert_box hide">
+    <div class="alert_up login_up">
+        <h3>Личный кабинет</h3>
+        <form onsubmit="return false">
+            <input class="input" type="email" id="login" placeholder="E-mail">
+            <input class="input" type="password" id="password" placeholder="Пароль">
+            <label class="checkbox pull-left">Запомнить / <a>Забыли пароль?</a> <input type="checkbox"
+                                                                                       checked="checked"></label>
+            <button class="btn btn--green pull-right">Войти</button>
+        </form>
+        <a class="close"></a>
+    </div>
+
+
+    <div class="alert_up pass_recowery_up">
+        <h3>Восстановление доступа</h3>
+        <form>
+            <input class="input email" placeholder="E-mail">
+            <input class="input password-1" type="password" placeholder="Введите новый пароль">
+            <input class="input password-2" type="password" placeholder="Введите новый пароль еще раз">
+            <button class="btn btn--green pull-right">Выслать код</button>
+        </form>
+        <a class="close"></a>
+    </div>
+
+
+    <div class="alert_up pass_new_up">
+        <h3>Восстановление доступа</h3>
+        <form>
+            <h4>Укажите код, присланный в e-mail</h4>
+            <div class="input-box-cod">
+                <input type="password" maxlength="4">
+                <span class="loading-sms"><span></span></span>
+                <span class="confirm-ok">Пароль активирован</span>
+            </div>
+            <p>На Ваш электронный адрес vitaliytkachenko@gmail.com выслан код активации нового пароля</p>
+        </form>
+        <a class="close"></a>
+    </div>
+
+
+    <div class="alert_up send-sms_up">
+        <h3>Ввести смс-код</h3>
+        <form>
+            <div class="clr">
+                <input placeholder="Код из SMS" class="input pull-left" id="phoneCode">
+                <label class="btn btn--green pull-left" id="confirmSmsCode">Подтвердить</label>
+            </div>
+            <div class="marker-red marker-red--error mb-20 hide" id="smsConfirmError"></div>
+            <p class="timer" data-second="60">
+                Введите полученный вами SMS-код. Отправить код повторно можно будет через <b>0:60</b>
+            </p>
+            <p class="retry-sms hide"><a id="retrySendSms">повторно отправить код</a></p>
+        </form>
+        <a class="close"></a>
+    </div>
+
+
+    <!--#if expr="$page = overview" -->
+    <div id="addCardDialog" class="alert_up add-card_up" ng-controller="AddCardCtrl">
+        <h3>Добавить карту</h3>
+        <form>
+            <div class="clr">
+                <input class="input pull-left card" ng-model="number" ng-required="true" placeholder="Номер карты"/>
+                <label class="btn btn--green pull-left" ng-click="addCard()">Добавить</label>
+            </div>
+            <div class="marker-red marker-red--error mb-20 hide" ng-if="error">
+                Не верный номер карты
+            </div>
+            <div class="marker-red marker-red--error mb-20 hide" ng-if="conflictError">
+                Вы уже добавили эту карту, пожалуйста, выберете её в списке
+            </div>
+        </form>
+        <a class="close"></a>
+    </div>
+    <!--#endif-->
+
+</div>
+
+
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadRecaptcha&render=explicit" async defer></script>
+<script>
+    /**
+     * инициализация прелоадера
+     * использование
+     * preloader.show(); показать прелоадер
+     * preloader.hide(); скрыть прелоадер
+     */
+    var preloader = $('body').loadingIndicator({
+        showOnInit: false,
+        useImage: false
+    }).data("loadingIndicator");
+</script>
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function () {
+            try {
+                w.yaCounter33551078 = new Ya.Metrika(
+                        {id: 33551078, clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true}
+                );
+            } catch (e) {
+            }
+        });
+        var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () {
+                    n.parentNode.insertBefore(s, n);
+                }
+                ;
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        }
+        else {
+            f();
+        }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/33551078" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
+<!-- /Yandex.Metrika counter -->

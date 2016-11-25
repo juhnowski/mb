@@ -1,0 +1,222 @@
+<!--#set var="typePage" value="lk-setting" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'settings_job'">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/settings_job.js"></script>
+    <title>Личный кабинет | «Мобифинанс»</title>
+</head>
+
+<body ng-controller="MainCtrl" ng-cloak>
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main ng-controller="SettingsJobCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_settings_left_menu.shtml"-->
+
+            <div class="right-block td">
+                <form name="jobForm">
+                    <h3 class="h3 h3--bt1">
+                        Сфера деятельности
+                        <span class="h3__right opacity-50" data-ai="{value:'canEdit', yes:'hide'}">
+                            <i class="ico ico--lock"></i>Редактирование запрещено
+                        </span>
+                    </h3>
+
+                    <div class="table-settings"
+                         ng-class="{'table-settings--disabled' : !aiData.canEdit, 'opacity-50' : !aiData.canEdit}">
+                        <table>
+                            <tr>
+                                <td>Занятость</td>
+                                <td>
+                                    <select id="typeWorkId" ng-model="peopleData.typeWorkId">
+                                        <option ng-repeat="type in peopleData.employTypes"
+                                                value="{{ type.id }}" ng-bind="type.value"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr ng-hide="hideWorkAdditional">
+                                <td>Сфера деятельности</td>
+                                <td>
+                                    <select id="organization" ng-model="peopleData.professionId"
+                                            ng-required="!hideWorkAdditional">
+                                        <option ng-repeat="type in peopleData.organizationTypes"
+                                                value="{{ type.id }}" ng-bind="type.value"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr ng-hide="hideWorkAdditional">
+                                <td>Место работы</td>
+                                <td>
+                                    <input class="input required" ng-model="peopleData.placeWork">
+                                </td>
+                            </tr>
+                            <tr ng-hide="hideWorkAdditional">
+                                <td>Занимаемая должность</td>
+                                <td>
+                                    <select id="occupationId" ng-required="!hideWorkAdditional"
+                                            ng-model="peopleData.occupationId">
+                                        <option ng-repeat="type in peopleData.professionTypes"
+                                                value="{{ type.id }}" ng-bind="type.value"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr ng-hide="hideWorkAdditional">
+                                <td>Название должности</td>
+                                <td>
+                                    <input class="input required" ng-required="!hideWorkAdditional"
+                                           ng-model="peopleData.occupation">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form name="jobAddressForm" ng-hide="hideWorkAdditional">
+                    <h3 class="h3 h3--bt1">
+                        Адрес места работы
+                        <span class="h3__right opacity-50" data-ai="{value:'canEdit', yes:'hide'}">
+                            <i class="ico ico--lock"></i>Редактирование запрещено
+                        </span>
+                    </h3>
+
+                    <div class="table-settings"
+                         ng-class="{'table-settings--disabled' : !aiData.canEdit, 'opacity-50' : !aiData.canEdit}">
+                        <table id="workAddressFias">
+                            <tr>
+                                <td class="fias-title">Регион</td>
+                                <td class="fias-select">
+                                    <select data-address="level1"></select>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table ng-hide="hideWorkAdditional">
+                            <tr>
+                                <td>Дом</td>
+                                <td>
+                                    <input class="input" name="house"
+                                           ng-model="peopleData.work.house"
+                                           ng-required="!hideWorkAdditional"
+                                           ng-pattern="/^[\d\u0410-\u044f]*$/">
+                                </td>
+                                <td ng-show="jobAddressForm.house.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры и русские
+                                        символы</p>
+                                </td>
+                                <td ng-show="jobAddressForm.house.$error.required">
+                                    <p class="marker-red marker-red--error">Обязательно для заполнениния</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Корпус</td>
+                                <td>
+                                    <input class="input" name="korpus"
+                                           ng-model="peopleData.work.korpus"
+                                           ng-pattern="/^[\d\u0410-\u044f]*$/">
+                                </td>
+                                <td ng-show="jobAddressForm.korpus.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры и русские
+                                        символы</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Строение</td>
+                                <td>
+                                    <input class="input" name="building"
+                                           ng-model="peopleData.work.building"
+                                           ng-pattern="/^[\d\u0410-\u044f]*$/">
+                                </td>
+                                <td ng-show="jobAddressForm.building.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры и русские
+                                        символы</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Квартира</td>
+                                <td>
+                                    <input class="input" name="flat"
+                                           ng-model="peopleData.work.flat"
+                                           ng-pattern="/^[\d\u0410-\u044f]*$/">
+                                </td>
+                                <td ng-show="jobAddressForm.flat.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры и русские
+                                        символы</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form name="jobAdditionalForm">
+                    <h3 class="h3 h3--bt1">
+                        Данные о сфере деятельности
+                        <span class="h3__right opacity-50" data-ai="{value:'canEdit', yes:'hide'}">
+                            <i class="ico ico--lock"></i>Редактирование запрещено
+                        </span>
+                    </h3>
+
+                    <div class="table-settings"
+                         ng-class="{'table-settings--disabled' : !aiData.canEdit, 'opacity-50' : !aiData.canEdit}">
+                        <table>
+                            <tr ng-hide="hideWorkAdditional">
+                                <td>Дата трудоустройства</td>
+                                <td>
+                                    <input id="dateStartWork" class="input datepicker-input date-not-dd"
+                                           placeholder="мм / гггг" name="dateStartWork"
+                                           ng-model="dateStartWorkFormatted" ng-required="true">
+                                </td>
+                                <td>
+                                    <input class="datepicker" ng-model="peopleData.dateStartWork">
+                                </td>
+                                <td ng-show="jobAdditionalForm.dateStartWork.$error.required">
+                                    <p class="marker-red marker-red--error">Обязательно для заполнения</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ежемесячный доход</td>
+                                <td>
+                                    <input class="input" name="salary" only-digits
+                                           ng-model="peopleData.salary" ng-pattern="/^[\d]*$/" ng-required="true">
+                                </td>
+                                <td ng-show="jobAdditionalForm.salary.$error.pattern">
+                                    <p class="marker-red marker-red--error">Может содержать только цифры</p>
+                                </td>
+                                <td ng-show="jobAdditionalForm.salary.$error.required">
+                                    <p class="marker-red marker-red--error">Обязательно для заполнения</p>
+                                </td>
+                            </tr>
+                            <tr ng-hide="hideWorkAdditional">
+                                <td>Рабочий телефон, добавочный</td>
+                                <td>
+                                    <input id="phoneWork" class="input" type="tel"
+                                           ng-model="peopleData.work.phone.value">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form data-ai="{value:'canEdit', no:'hide'}">
+                    <h3 class="h3 h3--bt1">
+                        <label class="btn btn--green" ng-click="sendSms()">
+                            Сохранить изменения
+                        </label>
+                    </h3>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+
+</body>
+</html>

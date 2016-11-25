@@ -1,0 +1,41 @@
+<!--#set var="typePage" value="page" -->
+<!--#include file="_head.shtml"-->
+	<title>Ответы на часто задаваемые вопросы</title>
+	<meta name="description" content="Мы ответим на любые вопросы о займах, условиях займа, а так же способах его получения">
+	<meta name="keywords" content="">
+</head>
+
+<body class="faq">
+
+<header class="header clr">
+<div class="center">
+<!--#include file="_menu.shtml"-->
+<h1 class="header__h1">Вопросы и ответы</h1>
+
+	</div>
+</div>
+</header>
+
+<main>
+
+	<article class="center list clr">
+
+		<div class="box"  id="content">
+			
+			<ul class="nav-block" id="category">
+
+			</ul>
+
+
+		</div>
+
+	</article>
+
+
+</main>
+
+<!--#include file="_footer.shtml"-->
+
+<script type="text/javascript">
+	initCMSData('faq');
+</script>

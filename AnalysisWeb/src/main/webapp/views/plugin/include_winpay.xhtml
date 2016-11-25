@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+	<h:panelGrid columns="2">
+		<h:outputText value="Секретный ключ" />
+		<h:inputText value="#{editPlugCtl.extCtl.secretKey}" size="50"/>
+		<h:outputText value="payUrl" />
+		<h:inputText value="#{editPlugCtl.extCtl.payUrl}" size="100"/>
+		<h:outputText value="statusUrl" />
+		<h:inputText value="#{editPlugCtl.extCtl.statusUrl}" size="100"/>
+		<h:outputText value="balanceUrl" />
+		<h:inputText value="#{editPlugCtl.extCtl.balanceUrl}" size="100"/>
+		
+	</h:panelGrid>
+
+				
+</ui:composition>

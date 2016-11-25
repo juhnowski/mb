@@ -1,0 +1,373 @@
+﻿<!--#include file="_head.shtml"-->
+
+	<body>
+		
+		<div class="wrapper">
+
+			<!--  Start header -->
+			<header>
+				<div class="header-inside">
+					<div class="header-bell">
+						<div class="bell">
+							<span>10</span>
+						</div>
+					</div>
+
+					<div class="header-chat">
+						<div class="chat">
+							<span>4</span>
+						</div>
+					</div>
+
+					<div class="header-inside-button">
+						<span></span>
+						<label>Новая заявка</label>
+					</div>
+				</div>
+			</header>
+			<!-- Stop header -->
+
+			<!--  Start main -->
+			<div class="main-block">
+				<!--#include file="_sidebar.shtml"-->
+
+				<div class="main-content">
+					<div class="main-content-inside">
+						<div class="main-content-inside-head">
+							<div class="mcih-menu">
+								<ul>
+									<li><a href="">Главная</a><label></label></li>
+									<li class="mcih-active"><a href="">Чат</a><label></label></li>
+								</ul>
+							</div>
+
+							<div class="new-task-outside">
+								<div class="new-task" id="new-task">
+									<div class="circle"></div>
+									<div class="new-task-text">
+										<span>Новая задача</span>
+										<span>Поступила <a href="">заявка</a> на займ</span>
+									</div>
+									<div class="new-task-mark">
+										<div class="ntm-top"></div>
+										<div class="ntm-bottom" id="n-task"></div>
+									</div>
+								</div>
+
+								<div class="new-task" id="new-chat">
+									<div class="circle circle-two"></div>
+									<div class="new-task-text">
+										<span>Чат</span>
+										<span>Есть новые <a href="">ответы</a></span>
+									</div>
+									<div class="new-task-mark">
+										<div class="ntm-top"></div>
+										<div class="ntm-bottom" id="n-chat"></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+
+
+
+						<div class="borrowers-main">	
+
+							<!-- Start block-journals -->
+							<div class="block-journals">
+								<div class="block-journals-left btc-left">
+									<div class="block-journals-left-inside">
+										<div class="bcli-head">
+											<div class="bh-left take-client">
+												Взять клиента
+											</div>
+											<div class="bh-right">
+												<span id=""></span>
+											</div>
+										</div>
+
+
+										<div class="journals-events-body">
+											<div class="chat-user">
+												<div class="chat-user-left cu-active"> <!-- для активного клиента добавляем сюда класс 'cu-active' -->
+													<div class="country-time">
+														<img src="img-country/ru.jpg">
+														<div class="c-time">14:31</div>
+													</div>
+												</div>
+												<div class="chat-user-center">
+													<h6>Гость</h6>
+													<div class="cuc-text">72.17.298.247, Россия, Ростов-на-Дону</div>
+												</div>
+												<div class="chat-user-right">
+													<div class="cur-inside"></div>
+												</div>
+											</div>
+
+											<div class="chat-user">
+												<div class="chat-user-left">
+													<div class="country-time">
+														<img src="img-country/ru.jpg">
+														<div class="c-time">14:31</div>
+													</div>
+												</div>
+												<div class="chat-user-center">
+													<h6>Константин В.О.</h6>
+													<div class="cuc-text">12.38.271.245, Россия, Санкт-Петербург</div>
+												</div>
+												<div class="chat-user-right">
+													<div class="cur-inside"></div>
+												</div>
+											</div>
+
+											<div class="chat-user">
+												<div class="chat-user-left">
+													<div class="country-time">
+														<img src="img-country/tailand.jpg">
+														<div class="c-time">14:31</div>
+													</div>
+												</div>
+												<div class="chat-user-center">
+													<h6>Гость</h6>
+													<div class="cuc-text">46.74.372.384, Тайланд, Пхукет</div>
+												</div>
+												<div class="chat-user-right">
+													<div class="cur-inside"></div>
+												</div>
+											</div>
+
+											<div class="chat-user">
+												<div class="chat-user-left">
+													<div class="country-time">
+														<img src="img-country/ukr.jpg">
+														<div class="c-time">14:31</div>
+													</div>
+												</div>
+												<div class="chat-user-center">
+													<h6>Гость</h6>
+													<div class="cuc-text">37.38.455.493, Украина, Киев</div>
+												</div>
+												<div class="chat-user-right">
+													<div class="cur-inside"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="block-journals-right btc-right">
+									<div class="bcli-head">
+										<div class="bh-left pict-chat">
+											Чат
+										</div>
+										<div class="bh-right">
+											<span id=""></span>
+										</div>
+									</div>
+
+
+									<div class="journals-action-body">
+										<div class="chat-clients">
+											<div class="chat-clients-left">
+												<div class="ccl-client">
+													<div class="chat-user-center">
+														<h6>Гость <span class="cuc-online"></span></h6>
+														<div class="cuc-text">72.17.298.247</div>
+													</div>
+													<label>4</label>
+												</div>
+
+
+												<div class="ccl-client">
+													<div class="chat-user-center">
+														<h6>Константин <span></span></h6>
+														<div class="cuc-text">22.12.234.921</div>
+													</div>
+												</div>
+
+
+												<div class="ccl-client ccl-active">
+													<div class="chat-user-center">
+														<h6>Гость <span class="cuc-online"></span></h6>
+														<div class="cuc-text">12.42.258.234</div>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="chat-clients-right">
+												<div class="ccr-client-head">
+													<div class="country-city">
+														<img src="img-country/ru.jpg">
+														<span>Россия, Санкт-Петербург</span>
+													</div>
+
+													<a href="" class="button-finish">Завершить диалог</a>
+												</div>
+
+												<div class="ccr-client-body">
+													<div class="block-dialog">
+														<img src="photo/nazarenko.jpg">
+														<div class="block-dialog-text">
+															<p>
+																<span class="bd-triangle"></span>
+																Добрый день! Чем могу помочь?
+															</p>
+														</div>
+														<div class="bd-time">18:25</div>
+													</div>
+
+													<div class="block-dialog bd-client">
+														<img src="photo/chat-client.jpg">
+														<div class="block-dialog-text">
+															<p>
+																<span class="bd-triangle"></span>
+																Привет! У меня возникли трудности с займом,
+																я не могу понять почему до сих пор не
+																зачислены средства которые я отправил еще
+																3 дня назад?
+															</p>
+														</div>
+														<div class="bd-time">18:27</div>
+													</div>
+
+
+													<div class="block-dialog">
+														<img src="photo/nazarenko.jpg">
+														<div class="block-dialog-text">
+															<p>
+																<span class="bd-triangle"></span>
+																Сообщите номер вашего займа, пожалуйста.
+															</p>
+														</div>
+														<div class="bd-time">18:25</div>
+													</div>
+
+
+													<div class="block-dialog bd-client">
+														<img src="photo/chat-client.jpg">
+														<div class="block-dialog-text">
+															<p>
+																<span class="bd-triangle"></span>
+																#2374493202121034484763
+															</p>
+														</div>
+														<div class="bd-time">18:27</div>
+													</div>
+
+
+													<div class="block-dialog">
+														<img src="photo/nazarenko.jpg">
+														<div class="block-dialog-text">
+															<p>
+																<span class="bd-triangle"></span>
+																Минутку пожалуйста...
+															</p>
+
+															<p>
+																Проблема на стороне клиент-банка с которого
+																вы совершили перевод, деньги могут ити до
+																5 рабочих дней. Если в  течении двух дней
+																средства не поступят, свяжитесь с банком 
+																через который вы совершали оплату.
+															</p>
+														</div>
+														<div class="bd-time">18:25</div>
+													</div>
+
+
+
+													<div class="block-dialog bd-client out-chat">
+														<img src="photo/chat-client.jpg">
+														<div class="block-dialog-text">
+															<p>
+																<span class="bd-triangle"></span>
+																Пользователь покинул чат
+															</p>
+														</div>
+														<div class="bd-time">18:29</div>
+													</div>
+
+
+
+												</div>
+
+
+
+												<div class="ccr-client-message">
+													<textarea class="messege" name="messege" placeholder="Введите сообщение..." onblur="if (this.placeholder=='') this.placeholder='Введите сообщение...';" onfocus="if (this.placeholder=='Введите сообщение...') this.placeholder='';"></textarea>
+
+													<div class="ccm-button">
+														<input type="file">
+														<div class="sound"></div>
+														<input type="submit">
+													</div>
+												</div>
+
+
+												<div class="block-rank">
+													<div class="block-star">
+														<div class="block-star-text">
+															Пользователь оставил оценку:
+														</div>
+														<div class="block-star-star">
+															<form>
+																<div class="stars">
+																	<input type="radio" name="star" class="star-1" id="star-1" />
+																	<label class="star-1" for="star-1">1</label>
+																	<input type="radio" name="star" class="star-2" id="star-2" />
+																	<label class="star-2" for="star-2">2</label>
+																	<input type="radio" name="star" class="star-3" id="star-3" />
+																	<label class="star-3" for="star-3">3</label>
+																	<input type="radio" name="star" class="star-4" id="star-4" />
+																	<label class="star-4" for="star-4">4</label>
+																	<input type="radio" name="star" class="star-5" id="star-5" />
+																	<label class="star-5" for="star-5">5</label>
+																	<span></span>
+																</div>
+															</form>
+														</div>
+													</div>
+
+													<div class="block-close-chat">
+														<div class="close-chat">Закрыть чат</div>
+													</div>
+
+
+												</div>
+
+
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+							<!-- End block-journals -->
+
+
+						</div>
+
+
+					</div>
+				</div>
+			
+				<div class="sidbar-fon"></div>
+			</div>
+			<!-- Stop main -->
+
+			<!--#include file="_footer.shtml"-->
+		
+		</div>
+
+
+		<!--#include file="_modal.shtml"-->
+
+
+
+	</body>
+</html>

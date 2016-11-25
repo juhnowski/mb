@@ -1,0 +1,106 @@
+.ico,
+.header .logo,
+.ui-slider-handle,
+.select2-selection__arrow ,
+.communication .helps li:before,
+.faq dt:before,
+.faq .list .nav-block li:before, .politics dt:before, .news .list .readmore:before,
+.social_group a,
+.footer .developer,
+.alert_up .close,
+time:before,
+.contacts .fadeInUp:before,
+.politics dt a[href$=".pdf"]:before,
+
+.help,
+.social-connect a,
+.ui-datepicker-trigger{
+	background-image: url(../images/sprite.png)
+}
+
+.help span i,
+.home-page .header:before, 
+.statistic_block .box:after,
+.anketa-nav {
+	display: none;
+}
+.zaem-slider .value .input {
+	line-height: 45px;
+	padding: 0 10px;
+}
+.paymend:after {
+	margin: 40px auto 10px;
+	width: 1084px;
+	height: 266px;
+	background-image: url(../images/payments_768.png);
+}
+.ico-trigger.active i:before {
+	top: -6px;
+}
+.ico-trigger.active i:after {
+	bottom: -6px;
+}
+.ico-trigger.active i {
+	background: #fff;
+}
+.img-head:before,
+.statistic_block .center, .statistic_block ul {
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAFoEvQfAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjRGRkNDMEYzMjQ3OTExRTU5Q0Q0QjI1MzYzN0Y2MThFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjRGRkNDMEY0MjQ3OTExRTU5Q0Q0QjI1MzYzN0Y2MThFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NEZGQ0MwRjEyNDc5MTFFNTlDRDRCMjUzNjM3RjYxOEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NEZGQ0MwRjIyNDc5MTFFNTlDRDRCMjUzNjM3RjYxOEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6Um/m0AAAADUlEQVR42mNgYGAwBgAAOAA09STvGgAAAABJRU5ErkJggg==);
+}
+.statistic_block p span {
+	background: #fff;
+}
+.visible-lg {
+	display: block !important;
+}
+
+.fieldset .input {
+	line-height: 69px;
+}
+.anketa {
+	padding-top: 40px;
+}
+.checkbox input {
+	z-index: 1;
+	background:none;
+	height: auto;
+	left: 14px;
+	margin-top: 4px;
+	width: auto;
+}
+.checkbox.sex input {
+	left: 0;
+	top: 27px;
+}
+.ui-datepicker,
+.select2-dropdown {
+	background: #fff;
+}
+.input-box-cod input {
+	line-height: 48px;
+}
+.repay_loan .box-44 input {
+	line-height: 38px;
+}
+.menu-user a {
+  white-space: nowrap;
+}
+.accruals .add_friend .input {
+	line-height: 36px
+}
+.menu-user a{
+	width: auto;
+	padding:0 20px 0 60px;
+}
+.ico.lk-loan,
+.ico.lk-settings {
+	left: 20px;
+}
+.loading-sms {
+	background: url(../images/ajax-loader.gif);
+	height: 32px;
+	width: 30px;
+}
+.loading-sms:before, .loading-sms:after {
+	display: none;
+}

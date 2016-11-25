@@ -1,0 +1,44 @@
+<div class="left-block td">
+    <h3 class="h3">Мой аккаунт</h3>
+    <ul>
+        <li ng-class="{active : page == 'settings_personal'}">
+            <a href="settings_personal.shtml">Анкетные данные</a>
+        </li>
+        <li ng-class="{active : page == 'settings_address'}">
+            <a href="settings_address.shtml">Адрес проживания</a>
+        </li>
+        <li ng-class="{active : page == 'settings_job'}">
+            <a href="settings_job.shtml">Занятость</a>
+        </li>
+        <!--<li ng-class="{active : page == 'settings_social'}">-->
+            <!--<a href="settings_social.shtml">Социальные сети</a>-->
+        <!--</li>-->
+        <li ng-class="{active : page == 'settings_profile'}">
+            <a href="settings_profile.shtml">Настройки профиля</a>
+        </li>
+    </ul>
+
+
+    <div class="balance-block">
+        <p>
+            <a href="bonus.shtml" class="bonus-show">
+                Бонусы: <b ng-bind="(bonus * 1).toFixed(0)"></b>
+            </a>
+        </p>
+        <p>
+            <a class="balance-show ng-binding" href="balance.shtml">
+                Счет: <b><span ng-bind="(savings * 1).toFixed(0)"></span> <i>руб.</i></b>
+            </a>
+        </p>
+    </div>
+
+    <div class="support-block">
+        <a class="img support-show"><img src="/main/img/support.png" alt=""></a>
+        <h3>Есть вопросы?</h3>
+        <p><a href="#" class="custom-chatra-button"><i class="ico ico--arrow-right-green"></i>Войти в чат</a></p>
+    </div>
+</div>
+
+<script>
+    $('.settings_part').addClass('active')
+</script>

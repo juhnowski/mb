@@ -1,0 +1,260 @@
+﻿<!--#include file="_head.shtml"-->
+
+	<body>
+		
+		<div class="wrapper">
+
+			<!--  Start header -->
+			<header>
+				<div class="header-inside">
+					<div class="header-bell">
+						<div class="bell">
+							<span>10</span>
+						</div>
+					</div>
+
+					<div class="header-chat">
+						<div class="chat">
+							<span>4</span>
+						</div>
+					</div>
+
+					<div class="header-inside-button">
+						<span></span>
+						<label>Новая заявка</label>
+					</div>
+				</div>
+			</header>
+			<!-- Stop header -->
+
+			<!--  Start main -->
+			<div class="main-block">
+				<!--#include file="_sidebar.shtml"-->
+
+				<div class="main-content">
+					<div class="main-content-inside">
+						<div class="main-content-inside-head">
+							<div class="mcih-menu">
+								<ul>
+									<li><a href="">Главная</a><label></label></li>
+									<li class="mcih-active"><a href="">История чатов</a><label></label></li>
+								</ul>
+							</div>
+
+							<div class="new-task-outside">
+								<div class="new-task" id="new-task">
+									<div class="circle"></div>
+									<div class="new-task-text">
+										<span>Новая задача</span>
+										<span>Поступила <a href="">заявка</a> на займ</span>
+									</div>
+									<div class="new-task-mark">
+										<div class="ntm-top"></div>
+										<div class="ntm-bottom" id="n-task"></div>
+									</div>
+								</div>
+
+								<div class="new-task" id="new-chat">
+									<div class="circle circle-two"></div>
+									<div class="new-task-text">
+										<span>Чат</span>
+										<span>Есть новые <a href="">ответы</a></span>
+									</div>
+									<div class="new-task-mark">
+										<div class="ntm-top"></div>
+										<div class="ntm-bottom" id="n-chat"></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="main-content-inside-body">
+							<div class="block-search">
+								<div class="block-search-head">
+									<div class="bs-left">
+										Поиск
+									</div>
+
+									<div class="bs-right">
+										<span id="search-rolldown"></span>
+										<!--span id="search-extended"></span-->
+									</div>
+								</div>
+
+								<div class="block-search-body">
+									<div class="block-inpt">
+										<label>Фамилия</label>
+										<input type="text">
+									</div>
+
+									<div class="block-inpt">
+										<label>Имя</label>
+										<input type="text">
+									</div>
+
+									<div class="block-inpt">
+										<label>Отчество</label>
+										<input type="text">
+									</div>
+
+
+
+									<div class="block-inpt">
+										<label>Период переписки</label>
+										<div class="birth-date-ot">
+											<span>с</span>
+											<input type="text" class="datepicker">
+											<div class="picta-calendar"></div>
+										</div>
+
+
+										<div class="birth-date-do">
+											<span>по</span>
+											<input type="text" class="datepicker">
+											<div class="picta-calendar pc-two"></div>
+										</div>
+									</div>
+
+									<div class="block-inpt bi-chat">
+										<div class="block-inpt-resset"></div>
+										<input type="submit" value="Поиск">
+									</div>
+								</div>
+							</div>
+
+							<div class="block-tables">
+								<div class="block-tables-head">
+									<div class="bth-left h-chat">
+										История чатов
+									</div>
+
+									<div class="bth-right">
+										<label>1023</label> чатов
+										<span id="borrowers-rolldown"></span>
+									</div>
+								</div>
+
+								<!-- Примечание для программиста: количество активных звёзд определяет цифра в селекторе 'class="star-.."'  Например 'class="star-4"' говорит о том, что активных звёзд будет 4 -->
+								<div class="bt-body-pagination">
+									<div class="block-tables-body btb-chat">
+										<table>
+											<tr>
+												<td>Дата</td>
+												<td>С</td>
+												<td>До</td>
+												<td>Клиент</td>
+												<td>Оператор</td>
+												<td>Оценка разговора</td>
+												<td></td>
+											</tr>
+
+											<tr class="td-active">
+												<td>19.10.2015</td>
+												<td>14:43</td>
+												<td>14:48</td>
+												<td>Кульбышев Евгений Николаевич</td>
+												<td>Назаренко Владимир Хромович</td>
+												<td class="td-star"><div class="yes-rating star-2"><label></label><label></label><label></label><label></label><label></label></div></td>
+												<td><a href="chat-user.shtml">Открыть</a></td>
+											</tr>
+
+											<tr class="td-expired">
+												<td>18.10.2015</td>
+												<td>16:38</td>
+												<td>16:54</td>
+												<td>Назаренко Виктор Викорович</td>
+												<td>Пихов Анатолий</td>
+												<td class="td-star"><div class="yes-rating star-1"><label></label><label></label><label></label><label></label><label></label></div></td>
+												<td><a href="">Открыть</a></td>
+											</tr>
+
+											<tr>
+												<td>17.10.2015</td>
+												<td>12:49</td>
+												<td>13:11</td>
+												<td>Миц Ринат Сергеевич</td>
+												<td>Костенко Ирина</td>
+												<td class="td-star"><div class="yes-rating star-5"><label></label><label></label><label></label><label></label><label></label></div></td>
+												<td><a href="">Открыть</a></td>
+											</tr>
+
+											<tr>
+												<td>16.10.2015</td>
+												<td>09:45</td>
+												<td>10:02</td>
+												<td>Луценко Виктор Петрович</td>
+												<td>Сапожникова Анна</td>
+												<td class="td-star"><div class="yes-rating star-3"><label></label><label></label><label></label><label></label><label></label></div></td>
+												<td><a href="">Открыть</a></td>
+											</tr>
+
+											<tr class="td-active">
+												<td>15.10.2015</td>
+												<td>23:34</td>
+												<td>23:36</td>
+												<td>Скори Елена Фёдоровна</td>
+												<td>Климог Григорий Петрович</td>
+												<td>Нет оценки</td>
+												<td><a href="">Открыть</a></td>
+											</tr>
+
+										</table>
+									</div>
+
+									<div class="block-paginaiton">
+										<div class="bp-select">
+											Показывать на странице
+											<div class="select">
+												<form action="#" method="post" >
+
+													<div class="select">
+														<a href="#" class="slct">10</a>
+														<ul class="drop">
+															<li>10</li>
+															<li>50</li>
+															<li>100</li>
+														</ul>
+														<input type="hidden" />
+													</div>		
+													
+												</form>
+											</div>
+										</div>
+
+																		
+										<div class="bp-paginaiton">
+											<div class="prev"></div>
+											<ul>
+												<li>1</li>
+												<li>2</li>
+												<li>3</li>
+												<li class="pagin-active">4</li>
+												<li class="pagin-active">....</li>
+												<li class="pagin-active">50</li>
+											</ul>
+											<div class="next"></div>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="sidbar-fon"></div>
+			</div>
+			<!-- Stop main -->
+
+			<!--#include file="_footer.shtml"-->
+		
+		</div>
+
+
+		<!--#include file="_modal.shtml"-->
+
+	</body>
+</html>

@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+     <ui:define name="title">Business analysis console</ui:define>
+
+     <ui:define name="pageContent">
+     <h:form id="frmUpload">
+    		
+    			<rich:messages globalOnly="true" layout="table" />
+    			<h:outputText value="Условие при необходимости записывается в виде стандартного условия sql, например (surname like '%ИВАНОВ%') and (name like '%ИВАН%')" styleClass="text-italic"/>
+    			<br />
+    			<h:panelGrid id="table_upload" columns="4">
+    			    <h:outputText value="таблица в БД" />
+    				
+    				   <h:selectOneMenu id="typeId" value="#{csv.table}" required="true" valueChangeListener="#{csv.changeTable}">
+         	               <f:selectItems value="#{refs.tables}" />
+        			      <a4j:ajax event="change" execute="@this"  />
+		   	           </h:selectOneMenu>
+    				  
+    				<h:outputText value="Условие" />
+    				<h:inputText id="where" value="#{csv.where}" size="100" />
+    				
+    			</h:panelGrid>
+    			<h:commandButton value="Сформировать файл" action="#{csv.uploadToCsv}"/>
+    			    
+    			
+         </h:form>
+         
+         <h:form>
+    			<h:panelGrid columns="2" rendered="#{csv.models.size()>0}">
+    				<h:outputText value="Результаты стратегии" />
+    				<h:selectOneMenu value="#{csv.selectedModelId}">
+    					<f:selectItem itemLabel="не выводить" itemValue="#{null}"/>
+    					<f:selectItems value="#{csv.models}" var="mdl" itemValue="#{mdl.id}" itemLabel="#{mdl.target} #{mdl.version} #{mdl.product.name} #{mdl.way.name}"/>
+    				</h:selectOneMenu>
+    				<h:outputText value="Условие" />
+    				<h:inputText id="where" value="#{csv.modelWhere}" size="100" />    				
+    			</h:panelGrid>
+         		<h:commandButton value="Сформировать файл" action="#{csv.uploadModelToCsv}" rendered="#{csv.models.size()>0}"/>
+         </h:form>
+     </ui:define>
+</ui:composition>
+

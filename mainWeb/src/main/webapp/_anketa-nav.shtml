@@ -1,0 +1,10 @@
+<div class="anketa-nav notsel">
+    <ul class="clr">
+        <li class="active"><span>Авторизация</span></li>
+        <li class="not-access"><span>Анкетные<br> данные</span></li>
+        <li class="not-access"><span>Адрес<br> проживания</span></li>
+        <li class="not-access"><span>Трудовая<br> деятельность</span></li>
+        <li class="not-access"><span>Кредитная<br> история</span></li>
+        <li class="not-access"><span>Подтверждение</span></li>
+    </ul>
+</div>

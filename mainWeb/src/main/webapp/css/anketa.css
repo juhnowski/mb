@@ -1,0 +1,272 @@
+body {
+	background: #f7f7f7;
+}
+
+.anketa-nav {
+	background: #8b2851
+}
+.anketa-nav ul{
+	font-size: 1px;
+	text-align: center;
+	counter-reset: headings 0;
+}
+.anketa-nav li:before{
+	width: 10px;
+	height: 20px;
+	content: '';
+	position: absolute;
+	top: 30px;
+	right: -30px;
+	background: url(/main/img/sprite.svg) -126px -590px
+}
+.anketa-nav li:last-child:before{
+	display: none;
+}
+.anketa-nav li:after{
+	width: 29px;
+	height: 29px;
+	content: '';
+	background: #fff;
+	border-radius: 50%;
+	position: absolute;
+	top: 26px;
+	left: 0;
+	text-align: center;
+	line-height: 28px;
+	font-size: 12px;
+	font-weight: 700;
+	color: #8b2851;
+	counter-increment: headings 1;
+	content: counter(headings, decimal);
+}
+.anketa-nav li{
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
+	margin-left: 48px;
+}
+.anketa-nav span{
+	display: block;
+	padding: 24px 0 0 40px;
+	position: relative;
+	height: 80px;
+	font-size: 14px;
+	color: #fff;
+	line-height: 14px;
+	font-weight: 600;
+	line-height: 16px;
+	text-align: left;
+}
+.anketa-nav li.not-access {
+	opacity: .23;
+	cursor: auto;
+}
+.anketa-nav li.active span {
+	border-bottom: 4px solid #fdb92e;
+}
+.anketa-nav li.active span:after{
+	position: absolute;
+	bottom: 0;
+	left: 6px;
+	content: '';
+	border: 8px solid transparent;
+	border-bottom-color: #fdb92e;
+}
+
+.anketa-nav li:nth-child(1) {
+	margin-left: 0;
+}
+.anketa-nav li:nth-child(1) span,
+.anketa-nav li:last-child span{
+	padding-top: 32px;
+}
+
+.anketa {
+	background: #fff;
+	border-left: 1px solid #e7e7e8;
+	border-right: 1px solid #e7e7e8;
+	padding: 30px 142px 130px 150px;
+}
+.anketa .step{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	opacity: 0;
+	z-index: -1;
+	height: 0;
+	overflow: hidden;
+}
+.anketa .step.active{
+	position: relative;
+	opacity: 1;
+	z-index: 1;
+	height: auto;
+	overflow: inherit;
+	animation: instep 1s;
+}
+@keyframes outstep {
+	0% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: scale(.9);
+		transform: scale(.9);
+		opacity: 0;
+	}
+}
+@keyframes instep {
+	0% {
+		-webkit-transform: scale(.9);
+		transform: scale(.9);
+		opacity: 0;
+	}
+	100% {
+		-webkit-transform: scale(1);
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+.anketa .col a{
+	text-decoration: underline;
+}
+
+.pagin {
+	overflow: hidden;
+}
+.pagin .prev{
+	letter-spacing: .8px;
+	padding-right: 20px;
+	padding-left: 44px;
+	color: #5f6a7c;
+	border: 1px solid #e0e2e3
+}
+.pagin .next{
+	letter-spacing: 0.6px;
+	padding-left: 20px;
+	padding-right: 40px;
+	line-height: 46px;
+}
+.pagin .prev .ico{
+	left: 16px;
+	top: 17px;
+}
+.pagin .next .ico{
+	right: 16px;
+	top: 17px;
+}
+
+/* Step 1
+======================================================*/
+.step-1 .ico--confirm {
+	left: 308px;
+	top: 5px;
+}
+.step-1 .fieldset:first-child {
+	padding-bottom: 10px;
+}
+.step-1 .col{
+	width: 480px;
+	margin: 10px 0;
+}
+
+.col.w360 {
+	width: 360px;
+}
+.col.pr20 {
+	padding-right: 20px;
+}
+.col .col {
+	margin: 0;
+}
+.col.w100 {
+	width: 100px;
+}
+.col.w200 {
+	width: 200px;
+}
+.col.w230 {
+	width: 230px;
+}
+
+.fieldset__checkbox--col {
+	height: 48px;
+	margin: 0;
+	line-height: 48px;
+}
+
+
+
+/* Step 2
+======================================================*/
+.col--460{
+	width: 460px;
+}
+
+
+/* Step 5
+======================================================*/
+.step-5 .fieldset {
+	padding-bottom: 20px;
+}
+.fieldset__card {
+	position: relative;
+	padding-left: 29px;
+}
+.fieldset__contact {
+	margin-left: 55px;
+	margin-bottom: 8px;
+}
+.step-6 hr {
+	margin: 20px 30px;
+}
+
+.zaem-slider {
+	position: relative;
+	top: 0;
+	left: 0;
+	margin: 0;
+	width: auto;
+	height: 226px;
+	padding: 0 30px;
+}
+.zaem-slider .box {
+	width: 420px;
+}
+.zaem-slider::before {
+	display: none;
+}
+
+.zaem-slider ul {
+	height: auto;
+	margin: 0;
+	position: absolute;
+	right: 0;
+	top: -15px;
+}
+.zaem-slider ul::before {
+	border: 0;
+	border-bottom: 1px solid #e5e5e5;
+	border-top: 1px solid #e5e5e5;
+	height: 65px;
+	left: 0;
+	top: 76px;
+	width: 136px;
+}
+.zaem-slider li {
+	float: none;
+	line-height: 18px;
+	padding-top: 20px;
+	width: 165px !important;
+}
+.zaem-slider li b {
+	font-size: 22px;
+	line-height: 24px;
+}
+.zaem-slider li:nth-child(2) {
+	padding-bottom: 2px;
+	padding-left: 0;
+}

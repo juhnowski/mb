@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="toHome:#{menuCon.toHome}:#views#index.xhtml"
+    NAME="output" PATH="/views/index.xhtml"
+    TARGET="rules:#views#index.xhtml" TITLE="#{menuCon.toHome}:toHome" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toHomeCR:#{menuCon.toHomeCR}:#views#creditrequest#index.xhtml"
+    NAME="output1" PATH="/views/creditrequest/index.xhtml"
+    TARGET="rules:#views#creditrequest#index.xhtml"
+    TITLE="#{menuCon.toHomeCR}:toHomeCR" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toListCR:#{menuCon.toListCR}:#views#creditrequest#list.xhtml"
+    NAME="output2" PATH="/views/creditrequest/list.xhtml"
+    TARGET="rules:#views#creditrequest#list.xhtml"
+    TITLE="#{menuCon.toListCR}:toListCR" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toNewCR:#{menuCon.toNewCR}:#views#creditrequest#newmanual.xhtml"
+    NAME="output3" PATH="/views/creditrequest/newmanual.xhtml"
+    TARGET="rules:#views#creditrequest#newmanual.xhtml"
+    TITLE="#{menuCon.toNewCR}:toNewCR" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toHomeC:#{menuCon.toHomeC}:#views#credit#index.xhtml"
+    NAME="output4" PATH="/views/credit/index.xhtml"
+    TARGET="rules:#views#credit#index.xhtml"
+    TITLE="#{menuCon.toHomeC}:toHomeC" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toListC:#{menuCon.toListC}:#views#credit#list.xhtml"
+    NAME="output5" PATH="/views/credit/list.xhtml"
+    TARGET="rules:#views#credit#list.xhtml"
+    TITLE="#{menuCon.toListC}:toListC" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toHomeP:#{menuCon.toHomeP}:#views#payment#index.xhtml"
+    NAME="output6" PATH="/views/payment/index.xhtml"
+    TARGET="rules:#views#payment#index.xhtml"
+    TITLE="#{menuCon.toHomeP}:toHomeP" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toListP:#{menuCon.toListP}:#views#payment#list.xhtml"
+    NAME="output7" PATH="/views/payment/list.xhtml"
+    TARGET="rules:#views#payment#list.xhtml"
+    TITLE="#{menuCon.toListP}:toListP" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toHomeCU:#{menuCon.toHomeCU}:#views#customer#index.xhtml"
+    NAME="output8" PATH="/views/customer/index.xhtml"
+    TARGET="rules:#views#customer#index.xhtml"
+    TITLE="#{menuCon.toHomeCU}:toHomeCU" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toListCU:#{menuCon.toListCU}:#views#customer#list.xhtml"
+    NAME="output9" PATH="/views/customer/list.xhtml"
+    TARGET="rules:#views#customer#list.xhtml"
+    TITLE="#{menuCon.toListCU}:toListCU" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toSets:#{menuCon.toSets}:#views#admin#settings.xhtml"
+    NAME="output10" PATH="/views/admin/settings.xhtml"
+    TARGET="rules:#views#admin#settings.xhtml"
+    TITLE="#{menuCon.toSets}:toSets" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toCallback:#{menuCon.toCallback}:#views#callback#index.xhtml"
+    NAME="output11" PATH="/views/callback/index.xhtml"
+    TARGET="rules:#views#callback#index.xhtml"
+    TITLE="#{menuCon.toCallback}:toCallback" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toReports:#{menuCon.toReports}:#views#report#index.xhtml"
+    NAME="output12" PATH="/views/report/index.xhtml"
+    TARGET="rules:#views#report#index.xhtml"
+    TITLE="#{menuCon.toReports}:toReports" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toStat:#{menuCon.toStat}:#views#report#viewstat.xhtml"
+    NAME="output13" PATH="/views/report/viewstat.xhtml"
+    TARGET="rules:#views#report#viewstat.xhtml"
+    TITLE="#{menuCon.toStat}:toStat" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toCollector:#{menuCon.toCollector}:#views#report#listcollector.xhtml"
+    NAME="output14" PATH="/views/report/listcollector.xhtml"
+    TARGET="rules:#views#report#listcollector.xhtml"
+    TITLE="#{menuCon.toCollector}:toCollector" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toReportSets:#{menuCon.toReportSets}:#views#report#listreport.xhtml"
+    NAME="output15" PATH="/views/report/listreport.xhtml"
+    TARGET="rules:#views#report#listreport.xhtml"
+    TITLE="#{menuCon.toReportSets}:toReportSets" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toRoles:#{menuCon.toRoles}:#views#roles#index.xhtml"
+    NAME="output16" PATH="/views/roles/index.xhtml"
+    TARGET="rules:#views#roles#index.xhtml"
+    TITLE="#{menuCon.toRoles}:toRoles" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toHelp:#{menuCon.toHelp}:#views#help#index.xhtml"
+    NAME="output17" PATH="/views/help/index.xhtml"
+    TARGET="rules:#views#help#index.xhtml"
+    TITLE="#{menuCon.toHelp}:toHelp" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="logoutSuccess:#{userData.logout}:#views#login.xhtml"
+    NAME="output18" PATH="/views/login.xhtml"
+    TARGET="rules:#views#login.xhtml"
+    TITLE="#{userData.logout}:logoutSuccess" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="collector:#{menuCon.collector}:#views#collector#index.xhtml"
+    NAME="output19" PATH="/views/collector/index.xhtml"
+    TARGET="rules:#views#collector#index.xhtml"
+    TITLE="#{menuCon.collector}:collector" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="collectorSuperviser:#{menuCon.collectorSuperviser}:#views#collector#supervisor#index.xhtml"
+    NAME="output20" PATH="/views/collector/supervisor/index.xhtml"
+    TARGET="rules:#views#collector#supervisor#index.xhtml"
+    TITLE="#{menuCon.collectorSuperviser}:collectorSuperviser" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#index.xhtml" PATH="/views/index.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#login.xhtml" PATH="/views/login.xhtml"
+  SHAPE="32,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#login.xhtml:0" NAME="item"
+   PATH="/views/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{loginData.login}:#views#index.xhtml" NAME="output"
+    PATH="/views/index.xhtml" TARGET="rules:#views#index.xhtml"
+    TITLE="#{loginData.login}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#creditrequest#list.xhtml"
+  PATH="/views/creditrequest/list.xhtml" SHAPE="272,209,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#creditrequest#edit.xhtml"
+  PATH="/views/creditrequest/edit.xhtml" SHAPE="32,305,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#creditrequest#edit.xhtml:0" NAME="item"
+   PATH="/views/creditrequest/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{editCR.cancel}:#views#creditrequest#index.xhtml"
+    NAME="output" PATH="/views/creditrequest/index.xhtml"
+    TARGET="rules:#views#creditrequest#index.xhtml"
+    TITLE="#{editCR.cancel}:canceled" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="actionexecuted::#views#creditrequest#index.xhtml" NAME="output3"
+    PATH="/views/creditrequest/index.xhtml"
+    TARGET="rules:#views#creditrequest#index.xhtml"
+    TITLE="actionexecuted" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#creditrequest#index.xhtml"
+  PATH="/views/creditrequest/index.xhtml" SHAPE="256,321,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#creditrequest#index.xhtml:0"
+   NAME="item" PATH="/views/creditrequest/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="actionexecuted:#{actCR.executeLsn}:#views#creditrequest#index.xhtml"
+    NAME="output" PATH="/views/creditrequest/index.xhtml"
+    TARGET="rules:#views#creditrequest#index.xhtml"
+    TITLE="#{actCR.executeLsn}:actionexecuted" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#credit#edit.xhtml"
+  PATH="/views/credit/edit.xhtml" SHAPE="32,449,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#credit#edit.xhtml:0" NAME="item"
+   PATH="/views/credit/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{editCredit.cancel}:#views#credit#index.xhtml"
+    NAME="output" PATH="/views/credit/index.xhtml"
+    TARGET="rules:#views#credit#index.xhtml"
+    TITLE="#{editCredit.cancel}:canceled" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#credit#index.xhtml"
+  PATH="/views/credit/index.xhtml" SHAPE="240,465,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#credit#index.xhtml:0" NAME="item"
+   PATH="/views/credit/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="actionexecuted:#{actC.executeLsn}:#views#credit#index.xhtml"
+    NAME="output" PATH="/views/credit/index.xhtml"
+    TARGET="rules:#views#credit#index.xhtml"
+    TITLE="#{actC.executeLsn}:actionexecuted" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#creditrequest#view.xhtml"
+  PATH="/views/creditrequest/view.xhtml" SHAPE="32,449,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#creditrequest#view.xhtml:0" NAME="item"
+   PATH="/views/creditrequest/view.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{editCR.cancel}:#views#creditrequest#index.xhtml"
+    NAME="output" PATH="/views/creditrequest/index.xhtml"
+    TARGET="rules:#views#creditrequest#index.xhtml"
+    TITLE="#{editCR.cancel}:canceled" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#customer#edit.xhtml"
+  PATH="/views/customer/edit.xhtml" SHAPE="32,673,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#customer#edit.xhtml:0" NAME="item"
+   PATH="/views/customer/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{editPeople.cancel}:#views#customer#index.xhtml"
+    NAME="output" PATH="/views/customer/index.xhtml"
+    TARGET="rules:#views#customer#index.xhtml"
+    TITLE="#{editPeople.cancel}:canceled" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#customer#index.xhtml"
+  PATH="/views/customer/index.xhtml" SHAPE="240,689,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#creditrequest#edit_cr.xhtml"
+  PATH="/views/creditrequest/edit_cr.xhtml" SHAPE="32,449,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#creditrequest#edit_cr.xhtml:0"
+   NAME="item" PATH="/views/creditrequest/edit_cr.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{editCRequest.cancel}:#views#creditrequest#index.xhtml"
+    NAME="output" PATH="/views/creditrequest/index.xhtml"
+    TARGET="rules:#views#creditrequest#index.xhtml"
+    TITLE="#{editCRequest.cancel}:canceled" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editCRequest.save}:#views#creditrequest#edit.xhtml"
+    NAME="output1" PATH="/views/creditrequest/edit.xhtml"
+    TARGET="rules:#views#creditrequest#edit.xhtml"
+    TITLE="#{editCRequest.save}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#payment#view.xhtml"
+  PATH="/views/payment/view.xhtml" SHAPE="32,929,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#payment#view.xhtml:0" NAME="item"
+   PATH="/views/payment/view.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{viewPaymentController.cancel}:#views#payment#index.xhtml"
+    NAME="output" PATH="/views/payment/index.xhtml"
+    TARGET="rules:#views#payment#index.xhtml"
+    TITLE="#{viewPaymentController.cancel}:canceled" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#payment#index.xhtml"
+  PATH="/views/payment/index.xhtml" SHAPE="240,945,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#customer#list.xhtml"
+  PATH="/views/customer/list.xhtml" SHAPE="304,1201,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#report#index.xhtml"
+  PATH="/views/report/index.xhtml" SHAPE="304,1425,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#payment#list.xhtml"
+  PATH="/views/payment/list.xhtml" SHAPE="304,977,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#credit#list.xhtml"
+  PATH="/views/credit/list.xhtml" SHAPE="304,721,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#credit#list.xhtml:0" NAME="item"
+   PATH="/views/credit/list.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="actionexecuted:#{actC.executeLsn}:#views#credit#list.xhtml"
+    NAME="output" PATH="/views/credit/list.xhtml"
+    TARGET="rules:#views#credit#list.xhtml"
+    TITLE="#{actC.executeLsn}:actionexecuted" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#help#index.xhtml"
+  PATH="/views/help/index.xhtml" SHAPE="304,721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#admin#index.xhtml"
+  PATH="/views/admin/index.xhtml" SHAPE="304,753,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#admin#settings.xhtml"
+  PATH="/views/admin/settings.xhtml" SHAPE="304,753,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#admin#edit.xhtml"
+  PATH="/views/admin/edit.xhtml" SHAPE="32,1217,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#admin#edit.xhtml:0" NAME="item"
+   PATH="/views/admin/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{editUsers.cancel}:#views#admin#index.xhtml"
+    NAME="output" PATH="/views/admin/index.xhtml"
+    TARGET="rules:#views#admin#index.xhtml"
+    TITLE="#{editUsers.cancel}:canceled" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editUsers.save}:#views#admin#index.xhtml"
+    NAME="output1" PATH="/views/admin/index.xhtml"
+    TARGET="rules:#views#admin#index.xhtml"
+    TITLE="#{editUsers.save}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#creditrequest#edit_ch.xhtml"
+  PATH="/views/creditrequest/edit_ch.xhtml" SHAPE="32,801,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#creditrequest#edit_ch.xhtml:0"
+   NAME="item" PATH="/views/creditrequest/edit_ch.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{editChReq.close}:#views#creditrequest#index.xhtml"
+    NAME="output" PATH="/views/creditrequest/index.xhtml"
+    TARGET="rules:#views#creditrequest#index.xhtml"
+    TITLE="#{editChReq.close}:canceled" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editChReq.save}:#views#creditrequest#index.xhtml"
+    NAME="output1" PATH="/views/creditrequest/index.xhtml"
+    TARGET="rules:#views#creditrequest#index.xhtml"
+    TITLE="#{editChReq.save}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#credit#edit_cr.xhtml"
+  PATH="/views/credit/edit_cr.xhtml" SHAPE="32,1057,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#credit#edit_cr.xhtml:0" NAME="item"
+   PATH="/views/credit/edit_cr.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cancel:#{editC.cancel}:#views#credit#index.xhtml" NAME="output"
+    PATH="/views/credit/index.xhtml"
+    TARGET="rules:#views#credit#index.xhtml"
+    TITLE="#{editC.cancel}:cancel" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editC.save}:#views#credit#index.xhtml" NAME="output1"
+    PATH="/views/credit/index.xhtml"
+    TARGET="rules:#views#credit#index.xhtml"
+    TITLE="#{editC.save}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#report#viewstat.xhtml"
+  PATH="/views/report/viewstat.xhtml" SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#report#listreport.xhtml"
+  PATH="/views/report/listreport.xhtml" SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#report#viewreport.xhtml"
+  PATH="/views/report/viewreport.xhtml" SHAPE="32,1153,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#report#viewreport.xhtml:0" NAME="item"
+   PATH="/views/report/viewreport.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="close:#{viewReport.close}:#views#report#listreport.xhtml"
+    NAME="output" PATH="/views/report/listreport.xhtml"
+    TARGET="rules:#views#report#listreport.xhtml"
+    TITLE="#{viewReport.close}:close" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{viewReport.save}:#views#report#listreport.xhtml"
+    NAME="output1" PATH="/views/report/listreport.xhtml"
+    TARGET="rules:#views#report#listreport.xhtml"
+    TITLE="#{viewReport.save}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#report#listcollector.xhtml"
+  PATH="/views/report/listcollector.xhtml" SHAPE="304,913,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#roles#index.xhtml"
+  PATH="/views/roles/index.xhtml" SHAPE="304,913,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#callback#index.xhtml"
+  PATH="/views/callback/index.xhtml" SHAPE="304,913,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#creditrequest#newmanual.xhtml"
+  PATH="/views/creditrequest/newmanual.xhtml" SHAPE="304,945,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#collector#call_result.xhtml"
+  PATH="/views/collector/call_result.xhtml" SHAPE="32,1025,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#collector#call_result.xhtml:0"
+   NAME="item" PATH="/views/collector/call_result.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{callCollector.cancel}:#views#collector#index.xhtml"
+    NAME="output" PATH="/views/collector/index.xhtml"
+    TARGET="rules:#views#collector#index.xhtml"
+    TITLE="#{callCollector.cancel}:canceled" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#collector#supervisor#view.xhtml"
+  PATH="/views/collector/supervisor/view.xhtml" SHAPE="32,1281,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#collector#supervisor#view.xhtml:0"
+   NAME="item" PATH="/views/collector/supervisor/view.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="close:#{viewCollectorSuperviserController.close}:#views#collector#supervisor#index.xhtml"
+    NAME="output" PATH="/views/collector/supervisor/index.xhtml"
+    TARGET="rules:#views#collector#supervisor#index.xhtml"
+    TITLE="#{viewCollectorSuperviserController.close}:close" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#collector#supervisor#index.xhtml"
+  PATH="/views/collector/supervisor/index.xhtml" SHAPE="304,1297,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#collector#index.xhtml"
+  PATH="/views/collector/index.xhtml" SHAPE="304,1041,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

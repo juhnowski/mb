@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+     <ui:define name="title">Business analysis console</ui:define>
+
+     <ui:define name="pageContent">
+   
+         <h:form id="frmMain">
+         	 <h:panelGroup id="pnlFull">
+         	    <h:outputText value="Поиск" />
+         	    <h:panelGrid columns="2">
+         	    <h:outputText value="Слово из названия" />
+         	    <h:inputText id="nm" value="#{listRefSys.name}"/>
+         	  </h:panelGrid>
+             	<a4j:commandButton value="Найти" actionListener="#{listRefSys.searchLsn}" render="pnlResults" /> <a4j:commandButton value="Очистить" actionListener="#{listRefSys.clearLsn}" render="frmMain" />
+             </h:panelGroup>
+    		<p></p>		
+			<h:panelGroup id="pnlResults">
+				<h:panelGroup>
+					<h:outputText value="Найдено #{listRefSys.model.rowCount} справочника" />
+				</h:panelGroup>	
+				<rich:extendedDataTable id="reqTable"
+		                         value="#{listRefSys.model}"               
+		                         var="ref"
+		                         selectionMode="none"
+		                         sortPriority="#{listRefSys.model.sortPriorities}">
+		                <rich:column>
+		                	<f:facet name="header">ID справочника</f:facet>
+		                	<h:outputText value="#{ref.id}"/>
+		                </rich:column>
+		                <rich:column width="500">
+		                	<f:facet name="header">название справочника</f:facet>
+		                	<h:outputText value="#{ref.name}"/>
+		                </rich:column>	
+		                <rich:column width="100">
+		                	<f:facet name="header">действия</f:facet>
+		                	<h:panelGrid columns="2">          		
+								<h:panelGroup >
+									<h:link outcome="edit?faces-redirect=true" >
+										<f:param name="refid" value="#{ref.id}" />
+										<h:graphicImage value="/resources/icons/edit.gif" title="редактировать" />
+									</h:link>
+								</h:panelGroup>
+								<h:panelGroup style="margin-left:8px">
+									<h:commandLink actionListener="#{listRefSys.deleteItem}" onclick="if (! confirm('Удалить справочник ?') ) { return false;}; return true; "  >
+										<f:attribute name="refid" value="#{ref.id}" />
+										<a4j:ajax render="@form" />
+										<h:graphicImage value="/resources/icons/delete.gif" title="удалить" />
+									</h:commandLink>
+								</h:panelGroup>
+							</h:panelGrid> 
+		                </rich:column>		                	                
+		          	</rich:extendedDataTable>				
+			</h:panelGroup>
+         </h:form>
+     </ui:define>
+</ui:composition>
+

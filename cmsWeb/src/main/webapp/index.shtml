@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url=question.shtml">
+    <title></title>
+</head>
+<body>
+<h1>Добро пожаловать в CMS</h1>
+<!--#include file="_header.shtml"-->
+
+</body>
+</html>

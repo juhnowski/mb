@@ -1,0 +1,16 @@
+		<div class="statistic_block">
+			<div class="box">
+				<div class="center">
+					<h3>Сегодня мы выдали займов</h3>
+					<p><b>0</b> <span>займов</span> <i class="ico arrow-right"></i> <b>0</b> <span>рублей</span></p>
+					<ul class="hidden-xs">
+						<li>Ставка от 1%</li>
+						<li>от 1,000 - до 35,000 <span>руб.</span></li>
+						<li>Нет штрафов</li>
+					</ul>
+					<i class="ico arrow-bottom"></i>
+					<a href="/main/anketa.shtml" class="btn blue sendToAnketa">Получить заём</a>
+				</div>
+			</div>
+			<p class="detals">* Получить заем очень просто. Если вас устраивают условия, на которых мы выдаем микрозаймы,<br> вы должны зарегистрироваться у нас на сайте, заполнив короткую анкету.</p>
+		</div>

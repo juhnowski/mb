@@ -1,0 +1,143 @@
+/* 768 
+-----------------------------------------------------------------------------*/
+@media (max-width: 1180px) {
+
+.logo {
+	overflow: hidden;
+	width: 65px;
+	height: 65px;
+}
+.logo img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 219px;
+	max-width:none;
+}
+
+.left-block .ico-lk:hover:after,
+.left-block .setting:hover:after,
+.lk-menu li:hover:before,
+.lk-menu .active:before,
+.lk-menu li.head,
+.left-block .ico-lk:before,
+.left-block .setting,
+.lk-menu li:before,
+.lk-edit-setting .lk-menu a:before{
+	display: none;
+}
+.status-bar .box {
+	width: 364px;
+}
+.left-block {
+	float: none;
+	padding-bottom:0;
+	width: auto;
+	overflow: hidden;
+	background: #fff;
+	border: 2px solid #d8dade;
+	border-radius: 5px;
+	margin-bottom: 30px;
+	position: relative;
+}
+.left-block .fieldset {
+	float: left;
+	border:0;
+	overflow: hidden;
+	border-radius: 0;
+	margin-bottom: 0;
+}
+.left-block .fieldset .row {
+	border:0;
+}
+.left-block .lk-menu li{
+	float: left;
+}
+.left-block .lk-menu li a{
+	padding:0;
+	text-align: center;
+	line-height: 58px !important;
+	border-left:2px solid #d8dade !important
+}
+.left-block .lk-menu li:nth-child(2) a{
+	border-left:0 !important
+}
+.left-block .lk-menu li:nth-child(2) a {
+	width: 163px;
+}
+.left-block .lk-menu li:nth-child(3) a {
+	width: 200px;
+}
+.left-block .lk-menu li:nth-child(4) a{
+	width: 200px;
+}
+.left-block .lk-menu li:nth-child(5) a{
+	width: 200px;
+}
+.left-block .lk-menu li:nth-child(6) a{
+	width: 200px;
+}
+.left-block .ico-lk,
+.left-block .setting {
+	width: 180px !important;
+	padding:0 !important;
+	text-align: center;
+	border-left:2px solid #d8dade !important
+}
+
+.lk-edit-setting .lk-menu li:nth-child(2) a {
+	width: 120px;
+}
+.lk-edit-setting .lk-menu li:nth-child(3) a {
+	width: 150px;
+}
+.lk-edit-setting .lk-menu li:nth-child(4) a{
+	width: 180px;
+}
+.lk-edit-setting .lk-menu li:nth-child(5) a{
+	width: 170px;
+}
+.left-block .ico-lk {
+	width: 140px !important;
+}
+
+.right-block {
+	float: none;
+	padding-bottom:10px;
+	width: auto;
+	margin-bottom: 30px;
+}
+
+.lk-bonus .left-block .ico-lk {
+	width: 243px !important;
+}
+.lk-bonus .left-block li:nth-child(2) a {
+	width: 260px;
+}
+.lk-bonus .left-block li:nth-child(3) a {
+	width: 260px;
+}
+.lk-bonus .left-block li:nth-child(4) a {
+	width: 210px;
+}
+.lk-bonus .left-block li:nth-child(1) a {
+	width: 150px;
+}
+
+
+.form-v2 .group label {
+	font-size: 12px
+}
+
+
+
+
+
+
+
+
+
+
+
+
+}

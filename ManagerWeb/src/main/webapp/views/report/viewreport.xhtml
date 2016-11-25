@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="report" />
+	
+    <ui:define name="title">Manager console</ui:define>
+
+    <ui:define name="pageContent" >
+        <h:form id="frmEdit">
+        <rich:messages globalOnly="true" layout="table" />
+		
+		<rich:panel header="Отчет" styleClass="layout block4" >
+        	<h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+   			    <h:outputText value="Название отчета" /> <h:inputText value="#{viewReport.report.name}" />
+   			    <h:outputText value="Код отчета" /> <h:inputText value="#{viewReport.report.code}" />
+   			    <h:outputText value="Mime тип отчета" /> <h:inputText value="#{viewReport.report.mimeType}" />
+   			    <h:outputText value="Выполняется через" /> <h:inputText value="#{viewReport.report.reportExecutor}" />
+   			    <h:outputText value="Вид отчета" /> <h:outputText value="#{viewReport.report.reportType.name}" rendered="#{not empty viewReport.report.reportType}"/>
+              
+         	 	<h:outputText value="Шаблон отчета" />
+         	 	<h:inputTextarea id="rbody" value="#{viewReport.report.body}" cols="120" rows="25"/>
+   		    </h:panelGrid>
+   		   
+   		</rich:panel>    
+   		
+   		 <h:commandButton  value="Сохранить" styleClass="button ml0" action="#{viewReport.save}"/> 
+   		 <h:commandButton value="Закрыть" styleClass="button grey" action="#{viewReport.close}" immediate="true"/>
+        </h:form>
+    </ui:define> 
+</ui:composition>

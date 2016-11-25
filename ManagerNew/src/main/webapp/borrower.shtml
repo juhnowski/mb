@@ -1,0 +1,633 @@
+﻿<!--#include file="_head.shtml"-->
+
+	<body>
+		
+		<div class="wrapper">
+
+			<!--  Start header -->
+			<header>
+				<div class="header-inside">
+					<div class="header-bell">
+						<div class="bell">
+							<span>10</span>
+						</div>
+					</div>
+
+					<div class="header-chat">
+						<div class="chat">
+							<span>4</span>
+						</div>
+					</div>
+
+					<div class="header-inside-button">
+						<span></span>
+						<label>Новая заявка</label>
+					</div>
+				</div>
+			</header>
+			<!-- Stop header -->
+
+			<!--  Start main -->
+			<div class="main-block">
+				<!--#include file="_sidebar.shtml"-->
+
+				<div class="main-content">
+					<div class="main-content-inside">
+						<div class="main-content-inside-head">
+							<div class="mcih-menu">
+								<ul>
+									<li><a href="">Главная</a><label></label></li>
+									<li><a href="">Заёмщики</a><label></label></li>
+									<li class="mcih-active"><a href="">Кульбышев Евгений Витальевич</a><label></label></li>
+								</ul>
+							</div>
+
+							<div class="new-task-outside">
+								<div class="new-task" id="new-task">
+									<div class="circle"></div>
+									<div class="new-task-text">
+										<span>Новая задача</span>
+										<span>Поступила <a href="">заявка</a> на займ</span>
+									</div>
+									<div class="new-task-mark">
+										<div class="ntm-top"></div>
+										<div class="ntm-bottom" id="n-task"></div>
+									</div>
+								</div>
+
+								<div class="new-task" id="new-chat">
+									<div class="circle circle-two"></div>
+									<div class="new-task-text">
+										<span>Чат</span>
+										<span>Есть новые <a href="">ответы</a></span>
+									</div>
+									<div class="new-task-mark">
+										<div class="ntm-top"></div>
+										<div class="ntm-bottom" id="n-chat"></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+
+						<div class="borrowers-main">
+
+							<!-- Start block-client -->
+							<div class="block-client">
+								<div class="block-client-left">
+									<div class="block-client-left-inside">
+										<div class="bcli-head">
+											<div class="bh-left">
+												Кульбышев Евгений Витальевич
+											</div>
+
+											<div class="bh-right">
+												<!--span></span-->
+											</div>
+										</div>
+
+
+										<div class="bcli-body">
+
+											<section class="tabs-one">
+												<input id="tab-one_1" type="radio" name="tab-one" checked="checked"/>
+												<input id="tab-one_2" type="radio" name="tab-one"/>
+
+												<label for="tab-one_1" id="tab-one_l1">Действия в системе</label>
+												<label for="tab-one_2" id="tab-one_l2">Общие данные</label>
+												<div style="clear:both"></div>
+
+												<div class="tabs-one_cont">
+
+													<div id="tab-one_c1" class="tab-one_c1">
+														<div class="toc1-left">
+															<div class="toc1-left-top"><span></span><h4>Подано заявок</h4></div>
+															<div class="toc1-left-bottom">14</div>
+														</div>
+
+														<div class="toc1-right">
+															<div class="toc1-right-one"><span></span><h4>Статистика по займайм</h4></div>
+															<div class="div-active">Активные <label>1</label></div>
+															<div>Закрытые <label>12</label></div>
+															<div class="div-expired">Просроченные <label>1</label></div>
+														</div>
+													</div>
+
+
+
+													<div id="tab-one_c2" class="tab-one_c2">
+														<div class="borrower-information">
+															<div class="address-residence">
+																<div><span></span><h5>Адрес проживания</h5></div>
+																<div class="bi-text">
+																	Краснодарский край, р-н Темрюкский, <br>
+																	п. Ильич, ул. Набережная, дом 14
+																</div>
+															</div>
+
+															<div class="date-birth">
+																<div><span></span><h5>Дата рождения</h5></div>
+																<div class="bi-text">
+																	19.03.1985
+																</div>
+															</div>
+														</div>
+
+														<div class="borrower-information">
+															<div class="address-propiska">
+																<div><span></span><h5>Адрес прописки</h5></div>
+																<div class="bi-text">
+																	Краснодарский край, р-н Темрюкский, <br>
+																	п. Ильич, ул. Набережная, дом 14
+																</div>
+															</div>
+
+															<div class="social-network">
+																<div><span></span><h5>Социальные сети</h5></div>
+																<div class="bi-text network">
+																	<a href="" class="ok"></a>
+																	<a href="" class="vk"></a>
+																	<a href="" class="f"></a>
+																</div>
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</section>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="block-client-right">
+									<div class="block-client-right-head">
+										<div class="bcrh-img bg-man"> <!-- Если сотрудник женщина - клас bg-man необходимо изменить на класс bg-woman -->
+											<img src="photo/kulbichev.jpg">
+										</div>
+										
+										<div class="clien-info">
+											<h6>Время клиента</h6>
+											<div class="time-number">11<label>:</label>43 <span>(GMT+3)</span></div>
+											<div class="clien-info-text">Тверской район, Москва</div>
+										</div>
+									</div>
+
+									<div class="block-client-right-body">
+										<div class="bcrb-inside">
+											<div class="button-call">
+												<div class="button-call-head">
+													<span></span>Позвонить<label></label>
+												</div>
+												<div class="button-call-body" id="bcb">
+												</div>
+											</div>
+
+											<div class="button-write">
+												<div class="button-write-head">
+													<span></span>Написать<label></label>
+												</div>
+												<div class="button-write-body" id="bwb">
+												</div>
+											</div>
+
+											<div class="button-bonus">
+												<div class="button-bonus-head">
+													<span></span>Начислить бонус<label></label>
+												</div>
+												<div class="button-bonus-body" id="bbb">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- End block-client -->
+
+
+							<!-- Start table-client -->
+							<div class="table-client">
+								<div class="table-client-inside">
+									<div class="bcli-head">
+										<div class="bh-left bl-tablecl">
+											Таблица клиента
+										</div>
+
+										<div class="bh-right">
+											<span id="loaner-rolldown"></span>
+										</div>
+									</div>
+
+									<div class="tci-body">
+										<section class="tabs-two">
+
+											<input id="tab-two_1" type="radio" name="tab-two" checked="checked"/>
+											<input id="tab-two_2" type="radio" name="tab-two"/>
+											<input id="tab-two_3" type="radio" name="tab-two"/>
+											<input id="tab-two_4" type="radio" name="tab-two"/>
+											<input id="tab-two_5" type="radio" name="tab-two"/>
+
+											<label for="tab-two_1" id="tab-two_l1">Заявки</label>
+											<label for="tab-two_2" id="tab-two_l2">Займы</label>
+											<label for="tab-two_3" id="tab-two_l3">Платежи</label>
+											<label for="tab-two_4" id="tab-two_l4">Задачи</label>
+											<label for="tab-two_5" id="tab-two_l5">Бонусы</label>
+
+											<div style="clear:both"></div>
+
+											<div class="tabs-two_cont">
+												<div id="tab-two_c1">
+
+													<div class="button-calculate">Посчитать</div>
+
+													<div class="client-applications" id="client-applications">
+														<table cellpadding="0" cellspacing="0" border="0">
+															<tr class="tr-title">
+																<td>Номер</td>
+																<td>Статус</td>
+																<td>Дата подачи</td>
+																<td>Ставка, %</td>
+																<td>Сумма, руб.</td>
+																<td>Дата изменения статуса</td>
+															</tr>
+
+															<tr>
+																<td>A025017041400021</td>
+																<td><span class="trtdcollector">Передана коллектору</span></td>
+																<td>17.04.2014</td>
+																<td>1,2%</td>
+																<td>9 000,00</td>
+																<td>13.12.2014</td>
+															</tr>
+
+															<tr>
+																<td>A025017041428334</td>
+																<td><span class="filled">Заявка заполнена</span></td>
+																<td>17.05.2014</td>
+																<td>1,2%</td>
+																<td>13 000,00</td>
+																<td>19.01.2015</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+
+												<div id="tab-two_c2">
+
+													<div class="button-calculate">Посчитать</div>
+
+													<div class="client-applications" id="client-loans">
+														<table cellpadding="0" cellspacing="0" border="0">
+															<tr class="tr-title">
+																<td>Номер</td>
+																<td>Дата</td>
+																<td>Дата окончания<br> по графику</td>
+																<td>Фактическая дата окончания</td>
+																<td>Сумма, руб.</td>
+																<td>Ставка</td>
+																<td>Статус</td>
+																<td>Вид</td>
+																<td>Закрыт?</td>
+															</tr>
+
+															<tr>
+																<td>111</td>
+																<td>17.04.2014</td>
+																<td>17.04.2015</td>
+																<td>17.04.2015</td>
+																<td>9 000,00</td>
+																<td>1,2%</td>
+																<td><span class="trtdcollector">Передана коллектору</span></td>
+																<td>микрозайм</td>
+																<td>нет</td>
+															</tr>
+
+															<tr>
+																<td>112</td>
+																<td>17.04.2014</td>
+																<td>17.05.2015</td>
+																<td>17.04.2015</td>
+																<td>13 000,00</td>
+																<td>1,2%</td>
+																<td><span class="filled">Закрыт</span></td>
+																<td>нанозайм</td>
+																<td>нет</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+
+
+												<div id="tab-two_c3">
+
+													<div class="button-calculate">Посчитать</div>
+
+													<div class="client-applications" id="client-payments">
+														<table cellpadding="0" cellspacing="0" border="0">
+															<tr class="tr-title">
+																<td>Дата</td>
+																<td>Дата проведения</td>
+																<td>Клиент</td>
+																<td>Сумма, руб.</td>
+																<td>Партнёр</td>
+																<td>Направление</td>
+																<td>Статус</td>
+															</tr>
+
+															<tr>
+																<td>17.04.2014</td>
+																<td>17.04.2014 11:40</td>
+																<td>Андросов Дмитрий Валерьевич</td>
+																<td>83931,00</td>
+																<td>Яндекс</td>
+																<td>Клиент системе</td>
+																<td>Новый</td>
+															</tr>
+
+															<tr>
+																<td>17.04.2014</td>
+																<td>17.04.2014 11:50</td>
+																<td>Назаренко Владимир Николаевич</td>
+																<td>150 000,00</td>
+																<td>Сеть Контакт</td>
+																<td>Система клиенту</td>
+																<td>Проведён</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+
+
+												<div id="tab-two_c4">
+
+													<div class="button-calculate">Посчитать</div>
+
+													<div class="client-applications" id="client-tasks">
+														<table cellpadding="0" cellspacing="0" border="0">
+															<tr class="tr-title">
+																<td>Дата поступления</td>
+																<td>Номер заявки</td>
+																<td>Фио</td>
+																<td>Ответственный</td>
+																<td>Действия</td>
+															</tr>
+
+															<tr>
+																<td>17.04.2014</td>
+																<td>1040013021</td>
+																<td>Андросов Дмитрий Валерьевич</td>
+																<td>Главный менеджер</td>
+																<td><a href="" class="button-tasks">Отдать задачу</a></td>
+															</tr>
+
+															<tr>
+																<td>17.04.2014</td>
+																<td>1040013022</td>
+																<td>Назаренко Владимир Николаевич</td>
+																<td>Администратор</td>
+																<td><a href="" class="button-tasks">Отдать задачу</a></td>
+															</tr>
+														</table>
+													</div>
+												</div>
+
+
+												<div id="tab-two_c5">
+
+													<div class="button-calculate">Начислить бонус</div>
+
+													<div class="client-applications" id="client-bonus">
+														<table cellpadding="0" cellspacing="0" border="0">
+															<tr class="tr-title">
+																<td>Количество бонусов</td>
+																<td>Дата операции</td>
+																<td>Операция</td>
+																<td>Причина</td>
+															</tr>
+
+															<tr>
+																<td>150</td>
+																<td>17.04.2014</td>
+																<td>Внесение наличности</td>
+																<td>Желание клиента</td>
+															</tr>
+
+															<tr>
+																<td>280</td>
+																<td>17.05.2014</td>
+																<td>Перевод между картами</td>
+																<td>Необходимость</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+											</div>
+										</section>									
+									</div>
+								</div>
+							</div>
+							<!-- End table-client -->
+
+
+							<!-- Start block-journals -->
+							<div class="block-journals">
+								<div class="block-journals-left">
+									<div class="block-journals-left-inside">
+										<div class="bcli-head">
+											<div class="bh-left bl-tablecl">
+												Журнал событий системы
+											</div>
+
+											<div class="bh-right">
+												<!--span id=""></span-->
+											</div>
+										</div>
+
+										<div class="button-today">Сегодня</div>
+
+										<div class="journals-events-body">
+											<div class="event">
+												<div class="event-time">
+													<span class="et-circle"></span>
+													<span class="et-text">
+														6:00
+														<span>сегодня</span>
+													</span>
+												</div>
+												<div class="event-text">
+													<div class="event-text-content">
+														<h6>Внесение денег на счёт</h6>
+														<span>Была произведена выплата клиенту.</span>
+													</div>
+													<div class="triangle"></div>
+												</div>
+											</div>
+
+											<div class="event">
+												<div class="event-time">
+													<span class="et-circle"></span>
+													<span class="et-text">
+														18:43
+														<span>вчера</span>
+													</span>
+												</div>
+												<div class="event-text">
+													<div class="event-text-content">
+														<h6>Обращение к внешнему партнеру - ОКБ IDV</h6>
+														<span>Был выполнен запрос к сервису верификации ОКБ.</span>
+														<div class="event-audio">
+															<audio preload="auto" controls>
+																<source src="audio/BlueDucks_FourFlossFiveSix.mp3">
+																<source src="audio/BlueDucks_FourFlossFiveSix.ogg">
+																<source src="audio/BlueDucks_FourFlossFiveSix.wav">
+															</audio>															
+														</div>
+													</div>
+													<div class="triangle"></div>
+												</div>
+											</div>
+
+											<div class="event">
+												<div class="event-time">
+													<span class="et-circle"></span>
+													<span class="et-text">
+														14:46
+														<span>18.12.15</span>
+													</span>
+												</div>
+												<div class="event-text">
+													<div class="event-text-content">
+														<h6>Верификатор задал вопросы</h6>
+														<span>Были заданы вопросы по заявке</span>
+														<div class="event-audio">
+															<audio preload="auto" controls>
+																<source src="audio/BlueDucks_FourFlossFiveSix.mp3">
+																<source src="audio/BlueDucks_FourFlossFiveSix.ogg">
+																<source src="audio/BlueDucks_FourFlossFiveSix.wav">
+															</audio>															
+														</div>
+													</div>
+													<div class="triangle"></div>
+												</div>
+											</div>
+
+											<div class="button-events">Смотреть всё</div>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="block-journals-right">
+									<div class="bcli-head">
+										<div class="bh-left bl-tablecl">
+											Журнал действий сотрудников
+										</div>
+										<div class="bh-right">
+											<!--span id=""></span-->
+										</div>
+									</div>
+
+									<div class="button-today">Сегодня</div>
+
+									<div class="journals-action-body">
+										<div class="event">
+											<div class="event-time">
+												<span class="et-circle"></span>
+												<span class="et-text">
+													6:00
+													<span>сегодня</span>
+												</span>
+											</div>
+											<div class="event-text">
+												<div class="event-text-content">
+													<img src="photo/androsov.jpg">
+													<h6>Андросов Дмитрий</h6>
+													<span>Позвонил клиенту для уточнения срока оплаты займа.</span>
+												</div>
+												<div class="triangle"></div>
+											</div>
+										</div>
+
+										<div class="event">
+											<div class="event-time">
+												<span class="et-circle"></span>
+												<span class="et-text">
+													8:43
+													<span>вчера</span>
+												</span>
+											</div>
+											<div class="event-text">
+												<div class="event-text-content">
+													<img src="photo/nazarenko.jpg">
+													<h6>Назаренко Владимир</h6>
+													<span>сделал повторный платеж 12311 по займу 12312413541233</span>
+												</div>
+												<div class="triangle"></div>
+											</div>
+										</div>
+
+										<div class="event">
+											<div class="event-time">
+												<span class="et-circle"></span>
+												<span class="et-text">
+													14:46
+													<span>18.12.15</span>
+												</span>
+											</div>
+											<div class="event-text">
+												<div class="event-text-content">
+													<img src="photo/klimova.jpg">
+													<h6>Климова Татьяна</h6>
+													<span>сделал повторный платеж 12311 по займу 12312413541233</span>
+												</div>
+												<div class="triangle"></div>
+											</div>
+										</div>
+
+										<div class="event">
+											<div class="event-time">
+												<span class="et-circle"></span>
+												<span class="et-text">
+													21:23
+													<span>17.12.15</span>
+												</span>
+											</div>
+											<div class="event-text">
+												<div class="event-text-content">
+													<img src="photo/androsov.jpg">
+													<h6>Андросов Дмитрий</h6>
+													<span>Отредактировал данные анкеты клиента</span>
+												</div>
+												<div class="triangle"></div>
+											</div>
+										</div>
+
+										<div class="button-events be-two">Смотреть всё</div>									
+									</div>
+								</div>
+							</div>
+							<!-- End block-journals -->
+
+
+						</div>
+
+
+					</div>
+				</div>
+			
+				<div class="sidbar-fon"></div>
+			</div>
+			<!-- Stop main -->
+
+			<!--#include file="_footer.shtml"-->
+		
+		</div>
+
+
+		<!--#include file="_modal.shtml"-->
+
+
+	</body>
+</html>

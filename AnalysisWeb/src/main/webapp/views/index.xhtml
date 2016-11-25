@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form>
+            <h:outputLabel value="Обзор: " />
+            <h:panelGrid columns="2">
+                  <h:outputText value="Продуктов - "/>
+				  <h:outputText value="#{viewIndex.productsCount}"/>
+	              <h:outputText value="Пакетов с настройками - "/>
+				  <h:outputText value="#{viewIndex.rulesCount}"/>
+				  <h:outputText value="Дата создания активной модели для принятия решения - "/>
+				  <h:outputText value="#{viewIndex.modelDate}">
+				    <f:convertDateTime pattern="dd.MM.yyyy"/>
+				  </h:outputText>  
+				  <h:outputText value="Версия активной модели для принятия решения - "/>
+				  <h:outputText value="#{viewIndex.modelVersion}"/>
+				  <h:outputText value="Вопросов для верификатора - "/>
+				  <h:outputText value="#{viewIndex.questionCount}"/>
+			</h:panelGrid>	  
+        </h:form>
+    </ui:define>
+</ui:composition>

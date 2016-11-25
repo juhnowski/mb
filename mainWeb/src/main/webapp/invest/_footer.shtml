@@ -1,0 +1,199 @@
+<!--  Start footer -->
+<footer>
+	<div class="footer-inside">
+		<div class="footer-inside-top">
+			<div class="fit-left">
+				<div class="foot-phone">+7 (495) 281 53 54</div>
+				<div class="copyrite">
+				© 2015 Ontime, права на торговый знак принадлежат<br>
+					ООО МФО «Ontime». Регистрационный номер записи<br>
+					в государственном реестре микрофинансовых<br>
+					организаций 2110177000478
+				</div>
+			</div>
+
+			<div class="fit-center">
+				<h4>Меню</h4>
+				<ul>
+					<li><a href="index.shtml" class="active">Калькулятор доходности</a></li>
+					<li><a href="aboutcompany.shtml">О компании</a></li>
+					<li><a href="procent.shtml">Процентная ставка</a></li>
+					<li><a href="document.shtml">Документы</a></li>
+				</ul>
+			</div>
+
+			<div class="fit-right">
+				<h4>Подписка на новости</h4>
+				<ul class="fr-lh">
+					<li>
+						Хотите получать свежую информацию?<br>
+						Подпишитесь и будьте вкурсе 24/7
+					</li>
+				</ul>
+
+				<div class="block-subscribe">
+					<form id="myform" action="javascript:send('forma.php','myform','result');" method="post">
+						<input type="text" placeholder="Ваш e-mail" onblur="if (this.placeholder=='') this.placeholder='Ваш e-mail';" onfocus="if (this.placeholder=='Ваш e-mail') this.placeholder='';">
+						<div onclick="chDiv()">
+							<input type="submit" onclick="send('myform','result');" value="Подписаться">
+						</div>
+						<div id="result" class="resi"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-inside-bottom">
+			<div class="fib-left">
+				Оставляя свои контактные данные на сайте investor.moneyman.ru, пользователь даёт своё<br>
+				согласие на получения информации о компании Ontime.
+			</div>
+			<a href="">
+				<div class="fib-right">
+					powered by
+					<div class="logo-foot"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+</footer>
+<!-- Stop footer -->
+
+
+
+
+
+	<script>
+		var slider1 = $(".slider").slider({
+			animate: true,
+			range: "min",
+			value: 200000,
+			min: 0,
+			max: 1000000,
+			step: 1,
+		
+			//обновляем скрытое поле формы, так что можно передать данные с помощью формы			
+			change: function(event, ui) { 			
+				$('#hidden').attr('value', ui.value);
+			}			
+		});
+
+		slider1.bind('slide', function(event, ui) {
+				var valueRadio = window['radioList'].getValueFromActive()
+				$my=$(".slider-result").html(ui.value);			
+				
+				// ui.value - значенее с слайдера о сумме вложений
+				// valueRadio - срок вложений
+				window['zone1'].setValue(ui.value).render();
+
+				/* Сумма вложений по истечению срока вложения*/
+				var zone2Value = (valueRadio*2*ui.value/100)+ui.value;
+
+				zone2.setValue(zone2Value).render();
+
+				$my2=$(".slider-result-two").html(zone2Value);
+				//console.log(valueRadio);
+		});
+
+		// Блок для изменения диаграмм
+		function createZone(dZone, maxHeight, maxValue) {
+
+			this.dZone = dZone;
+			this.maxHeight = (maxHeight == undefined) ? 100 : maxHeight;
+			this.maxValue  = (maxValue == undefined) ? 100 : maxValue;
+		
+			this.procent = null;
+
+			this.validate = function () {
+				if ((this.procent != null) && (this.procent >= 0) && (this.procent <= this.maxValue) && (this.dZone != null)) {
+					return true;
+				}
+				return false;
+			}
+
+			this.render = function () {
+				/*if(!this.validate()) {
+					alert('Параметр не верен!!');
+					return false;
+				}*/
+
+				var height = (this.maxHeight * this.procent)/this.maxValue;	//Максимальная высота блока
+				this.dZone.style.height = height + 'px';
+			}
+
+			this.setValue = function (procent) {
+				this.procent = procent;
+				return this;
+			}
+		};
+
+		var dZone1 = window.document.getElementById('zona-1');
+		var zone1 = new createZone(dZone1, 60, 1500000);
+		zone1.setValue(200000).render();
+
+		var dZone2 = window.document.getElementById('zona-2');
+		var zone2 = new createZone(dZone2, 60, 1500000);
+		zone2.setValue(250000).render();
+
+
+		/* Блок подключающий радиокнопки */		
+		function radioList() {
+			this.radioList = [];
+			this.activeRadio = null;
+
+			this.getValueFromActive = function () {
+
+				for(var i = 0; i < this.radioList.length; i++) {
+					if ($(this.radioList[i]).hasClass('active')) {
+						this.activeRadio = this.radioList[i];					
+						break;
+					}
+				}
+
+				if (this.activeRadio != null) {
+					//alert(this.activeRadio.attr['data-value']);
+					return this.activeRadio.getAttribute('data-value');
+				}
+
+				alert('Активных элементов нет');
+			}
+
+			this.addRadio = function (dNode, isActive) {
+				dNode.onclick = this.getOnClick();
+				this.radioList[this.radioList.length] = dNode;
+
+				if (isActive == true) {
+					this.activeRadio = (isActive == true) ? dNode : null;
+					this.activeRadio.classList.add('active');
+			 	}
+			}
+
+			this.getOnClick = function () {
+				var self = this;
+				var result = function(event) {
+
+				var s = $('.slider');
+				s.trigger("slide", {"value": $('.slider').slider("option", "value")});					
+				}
+				return result;
+			}
+		}
+
+
+		var radio1 = window.document.getElementById('radio-1');
+		var radioList = new radioList();
+		radioList.addRadio(radio1, true);
+
+		var radio2 = window.document.getElementById('radio-2');
+		radioList.addRadio(radio2);
+
+		var radio3 = window.document.getElementById('radio-3');
+		radioList.addRadio(radio3);
+
+	</script>
+
+
+	<script type="text/javascript" src="js/radio.js"></script>
+
+	<script type="text/javascript" src="js/modal.js"></script>
+	<script type="text/javascript" src="js/elements.js"></script>

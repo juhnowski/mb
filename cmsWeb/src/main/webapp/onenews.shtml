@@ -1,0 +1,235 @@
+<!--#include file="_header.shtml"-->
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-12">
+                <h2>Новость</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="news.shtml">Новости</a>
+                    </li>
+                    <li class="active">
+                        <strong>Новость</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content">
+
+            <div class="row">
+
+                <div class="ibox-title">
+                    <h5>Основной контент</h5>
+                </div>
+
+                <div class="ibox-content m-b-md">
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Title</label>
+
+                            <div class="col-sm-10">
+                                <input id="title" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Description</label>
+
+                            <div class="col-sm-10"><input type="text" class="form-control" id="description"></div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Keywords</label>
+
+                            <div class="col-sm-10"><input type="text" class="form-control tags-input" id="keywords"></div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Фото</label>
+
+                            <div class="col-sm-10">
+                                <div class="m-b galeryimg">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group preview-block hide">
+                            <label class="col-sm-2 control-label">Фото предпросмотра</label>
+
+                            <div class="col-sm-10">
+                                <div class="m-b img-preview">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <form id="my-awesome-dropzone" class="dropzone" action="rest/cms/uploadNews"
+                              style="display: none;">
+                            <button type="submit" class="btn btn-primary pull-right">Сохранить</button>
+                            <div class="dz-default dz-message" style="background-image: none"><span
+                                    style="display: block">Загрузить файл</span></div>
+                        </form>
+                        <input type="hidden" class="q-id" value="">
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Наименование</label>
+
+                            <div class="col-sm-10"><input type="text" class="form-control q-name"></div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Дата</label>
+
+                            <div class="col-sm-10"><input type="text" class="form-control q-date"></div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Текст полный</label>
+
+                            <div class="col-sm-10">
+                                <div class="click2edit q-text">
+
+                                </div>
+                                <button type="button" onclick="edit($(this))" class="btn btn-warning btn-xs">
+                                    Редактировать
+                                </button>
+                            </div>
+                        </div>
+                        <input type="hidden" class="q-fileName">
+                        <input type="hidden" class="q-fileNamePreview">
+                        <br>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button onclick="saveOneNews()" class="btn btn-primary pull-right m-l">Сохранить
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB из <strong>250GB</strong>
+            </div>
+            <div>
+                <strong>Copyright</strong> Credit Sputnik &copy; 2014-2015
+            </div>
+        </div>
+
+        <!--#include file="_footer.shtml"-->
+        <!-- SUMMERNOTE -->
+        <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
+        <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+        <script src="js/plugins/summernote/summernote.min.js"></script>
+        <script src="js/plugins/codrops/component.js"></script>
+
+        <script type="text/javascript">
+            getNewsById();
+            $(document).ready(function () {
+
+                Dropzone.options.myAwesomeDropzone = {
+                    maxFiles: 1,
+                    autoProcessQueue: false,
+                    uploadMultiple: false,
+                    acceptedFiles: ".jpeg,.jpg,.png,.gif",
+                    dictDefaultMessage: "Перетащите файл сюда",
+
+                    // Dropzone settings
+                    init: function () {
+                        var myDropzone = this;
+
+                        this.element.querySelector("button[type=submit]").addEventListener("click", function (e) {
+                            $.blockUI({
+                                message: '<div id="bird"></div>',
+                                timeout: 2000
+                            });
+                            e.preventDefault();
+                            e.stopPropagation();
+                            myDropzone.processQueue();
+                        });
+                        this.on("sendingmultiple", function () {
+                        });
+                        this.on("complete", function (files) {
+                            $('.q-fileName').val(files.name);
+                            saveOneNews();
+                            $.unblockUI();
+                        });
+                        this.on("errormultiple", function (files, response) {
+                        });
+                    },
+                    sending: function(file, xhr, data) {
+                        var id = getUrlParameter('id');
+                        data.append("newsId", id);
+                    }
+
+                }
+
+                $('.fancybox').fancybox({
+                    openEffect: 'none',
+                    closeEffect: 'none'
+                });
+
+            });
+            $(document).ready(function(){
+
+                $('.summernote').summernote();
+
+            });
+            var edit = function(t) {
+                t.siblings('.click2edit').summernote({focus: true});
+            };
+
+
+
+
+            crop = function(){
+                $container =  $('.resize-container');
+                var crop_canvas,
+                        left = $('.overlay').offset().left - $container.offset().left,
+                        top =  $('.overlay').offset().top - $container.offset().top,
+                        width = $('.overlay').width(),
+                        height = $('.overlay').height();
+
+                crop_canvas = document.createElement('canvas');
+                crop_canvas.width = width;
+                crop_canvas.height = height;
+
+                crop_canvas.getContext('2d').drawImage($('.resize-image').get(0), left, top, width, height, 0, 0, width, height);
+                var byt = crop_canvas.toDataURL("image/png");
+//                window.open(byt);
+                var id = getUrlParameter('id');
+                var res = {
+                    code:crop_canvas.toDataURL("image/png"),
+                    fileName:$('.q-fileName').val(),
+                    newsId: id
+                };
+
+                $.ajax({
+                    url: "rest/cms/saveNewsPreviewFoto",
+                    type: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify(res),
+                    success: function (ans) {
+                        if (ans.success) {
+                            console.log(ans.data)
+                            $('.q-fileNamePreview').val(ans.data);
+                            saveOneNews();
+                        } else {
+                            alert("false " + ans.errorMessage);
+                        }
+                    }
+                });
+            }
+        </script>
+        </body>
+        </html>

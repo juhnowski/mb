@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	>
+	<div class="rf-p" id="divPnl">
+		<div class="rf-p-hdr" id="hdrPnl">Требуется отредактировать анкету</div>
+	
+		<a4j:region>
+			
+			<a4j:repeat var="qa1" value="#{editTVE.questList}" >
+			 
+			     <h:panelGroup style="display:block" rendered="#{qa1.answerStatus == 2}"  styleClass="ques_list">
+					
+					   <h:panelGrid columns="2" styleClass="table_ques trtdfirst" >
+					     <h:outputText value="Вопрос: "/>
+					     <h:outputText value="#{qa1.question.questionText}" />
+						 <h:outputText value="Ответ: "/>
+						 <h:panelGroup>
+						    <h:outputText value="#{qa1.answerValueNumber}" rendered="#{not empty qa1.answerValueNumber}"/>
+						    <h:outputText value="#{qa1.answerValueMoney}" rendered="#{not empty qa1.answerValueMoney}"/>
+						    <h:outputText value="#{qa1.answerValueDate}" rendered="#{not empty qa1.answerValueDate}">
+						      <f:convertDateTime pattern="dd.MM.yyyy" />
+						    </h:outputText>
+						    <h:outputText value="#{qa1.answerValueString}" rendered="#{not empty qa1.answerValueString}"/>
+						    <h:outputText value="#{refs.getRefText(qa1.answerValueRef)}" rendered="#{not empty qa1.answerValueRef}"/>
+						  </h:panelGroup>
+						</h:panelGrid>  
+					</h:panelGroup>
+					
+					<h:panelGroup style="display:block" rendered="#{qa1.answerStatus == 1}"  styleClass="ques_list">
+					   <h:panelGrid columns="2" styleClass="table_ques trtdfirst">  
+					      <h:outputText value="Вопрос: "/>
+					      <h:outputText value="#{qa1.question.questionText}" />
+					      <h:outputText value="Ответ: "/>
+					      <h:panelGroup>
+						    <h:outputText value="Отказался отвечать"/>
+						  </h:panelGroup>
+						</h:panelGrid>
+					</h:panelGroup>
+				
+			</a4j:repeat>
+			<h:panelGroup>
+			 <h:link value="Редактировать анкету" outcome="edit_cr?faces-redirect=true" styleClass="button ml0">
+				<f:param name="ccRequestId" value="#{editTVE.creditRequest.id}" />
+			  </h:link>
+			  <h:commandButton styleClass="button ml0" value="Анкета отредактирована" actionListener="#{editTVE.moreLsn}" onclick="#{rich:component('popupIndicator')}.show();return true;">
+				<a4j:ajax render="@form" />
+			  </h:commandButton>
+				<ui:include src="stdActionsBar.xhtml" >
+					<ui:param name="currentCtl" value="#{editTVE}" />
+				</ui:include>			  
+			  <br/>
+			 
+			</h:panelGroup>
+		</a4j:region>
+	</div>
+</ui:composition>	

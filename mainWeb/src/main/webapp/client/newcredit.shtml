@@ -1,0 +1,68 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="/main/rest/firstrequest/calculateStakeUnknown.js"></script>
+    <script src="js/newcredit.js"></script>
+    <script src="js/lk-directives.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+
+<!--#include file="include/_header.shtml"-->
+
+<main ng-controller="AddCreditCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block td">
+                <h3 class="h3">Получить новый заем</h3>
+
+                <div class="box-20 clr" ng-if="allowed == false">
+                    <table class="table-1">
+                        <tr>
+                            <td>Статус</td>
+                            <td ng-bind-template="{{ data.discardMessage || 'Получить новый заем невозможно' }}"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="box-20 clr" ng-if="allowed" lk-rm-class-if="{hide: slidersConfig}">
+                    <div class="zaem-slider notsel">
+                        <div lk-money-slider data="slidersConfig" ng-model="local.creditSum"></div>
+                        <div style="margin-bottom: 30px"></div>
+                        <div lk-days-slider data="slidersConfig" ng-model="local.creditDays"></div>
+                    </div>
+
+                    <table class="table-1">
+                        <tr>
+                            <td>Возвращаете</td>
+                            <td ng-bind-template="{{ local.total_zaim }} руб."></td>
+                        </tr>
+                        <tr>
+                            <td>Процент в день</td>
+                            <td ng-bind-template="{{ local.procent_zaim }} %"></td>
+                        </tr>
+                        <tr>
+                            <td>Дата возврата</td>
+                            <td ng-bind-html="local.date_zaim_html"></td>
+                        </tr>
+                    </table>
+
+                    <a class="btn btn--green mb29 pull-right" ng-click="getCredit()">Отправить заявку</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+
+</body>
+</html>

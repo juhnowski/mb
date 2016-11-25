@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="toHome:#{menuCon.toHome}:#views#index.xhtml"
+    NAME="output" PATH="/views/index.xhtml"
+    TARGET="rules:#views#index.xhtml" TITLE="#{menuCon.toHome}:toHome" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toModel:#{menuCon.toModel}:#views#model#index.xhtml"
+    NAME="output1" PATH="/views/model/index.xhtml"
+    TARGET="rules:#views#model#index.xhtml"
+    TITLE="#{menuCon.toModel}:toModel" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toListAll:#{menuCon.toListAll}:#views#rule#list.xhtml"
+    NAME="output2" PATH="/views/rule/list.xhtml"
+    TARGET="rules:#views#rule#list.xhtml"
+    TITLE="#{menuCon.toListAll}:toListAll" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toProcList:#{menuCon.toProcList}:#views#process#index.xhtml"
+    NAME="output3" PATH="/views/process/index.xhtml"
+    TARGET="rules:#views#process#index.xhtml"
+    TITLE="#{menuCon.toProcList}:toProcList" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toPlugins:#{menuCon.toPlugins}:#views#plugin#index.xhtml"
+    NAME="output4" PATH="/views/plugin/index.xhtml"
+    TARGET="rules:#views#plugin#index.xhtml"
+    TITLE="#{menuCon.toPlugins}:toPlugins" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="logoutSuccess:#{userData.logout}:#views#login.xhtml"
+    NAME="output5" PATH="/views/login.xhtml"
+    TARGET="rules:#views#login.xhtml"
+    TITLE="#{userData.logout}:logoutSuccess" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toVerify:#{menuCon.toVerify}:#views#verify#index.xhtml"
+    NAME="output6" PATH="/views/verify/index.xhtml"
+    TARGET="rules:#views#verify#index.xhtml"
+    TITLE="#{menuCon.toVerify}:toVerify" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toCsv:#{menuCon.toCsv}:#views#tables#indexcsv.xhtml"
+    NAME="output7" PATH="/views/tables/indexcsv.xhtml"
+    TARGET="rules:#views#tables#indexcsv.xhtml"
+    TITLE="#{menuCon.toCsv}:toCsv" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toRefRefuse:#{menuCon.toRefRefuse}:#views#reference#refuse.xhtml"
+    NAME="output8" PATH="/views/reference/refuse.xhtml"
+    TARGET="rules:#views#reference#refuse.xhtml"
+    TITLE="#{menuCon.toRefRefuse}:toRefRefuse" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toRefRegion:#{menuCon.toRefRegion}:#views#reference#region.xhtml"
+    NAME="output9" PATH="/views/reference/region.xhtml"
+    TARGET="rules:#views#reference#region.xhtml"
+    TITLE="#{menuCon.toRefRegion}:toRefRegion" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toRefSystem:#{menuCon.toRefSystem}:#views#reference#list.xhtml"
+    NAME="output10" PATH="/views/reference/list.xhtml"
+    TARGET="rules:#views#reference#list.xhtml"
+    TITLE="#{menuCon.toRefSystem}:toRefSystem" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toRefOther:#{menuCon.toRefOther}:#views#reference#listother.xhtml"
+    NAME="output11" PATH="/views/reference/listother.xhtml"
+    TARGET="rules:#views#reference#listother.xhtml"
+    TITLE="#{menuCon.toRefOther}:toRefOther" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toRefEventCode:#{menuCon.toRefEventCode}:#views#reference#eventcode.xhtml"
+    NAME="output12" PATH="/views/reference/eventcode.xhtml"
+    TARGET="rules:#views#reference#eventcode.xhtml"
+    TITLE="#{menuCon.toRefEventCode}:toRefEventCode" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toRefCRequest:#{menuCon.toRefCRequest}:#views#reference#crequest.xhtml"
+    NAME="output13" PATH="/views/reference/crequest.xhtml"
+    TARGET="rules:#views#reference#crequest.xhtml"
+    TITLE="#{menuCon.toRefCRequest}:toRefCRequest" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toUpdateRef:#{menuCon.toUpdateRef}:#views#reference#update.xhtml"
+    NAME="output14" PATH="/views/reference/update.xhtml"
+    TARGET="rules:#views#reference#update.xhtml"
+    TITLE="#{menuCon.toUpdateRef}:toUpdateRef" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toHolidays:#{menuCon.toHolidays}:#views#reference#holidays.xhtml"
+    NAME="output15" PATH="/views/reference/holidays.xhtml"
+    TARGET="rules:#views#reference#holidays.xhtml"
+    TITLE="#{menuCon.toHolidays}:toHolidays" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toUploading:#{menuCon.toUploading}:#views#upload#index.xhtml"
+    NAME="output16" PATH="/views/upload/index.xhtml"
+    TARGET="rules:#views#upload#index.xhtml"
+    TITLE="#{menuCon.toUploading}:toUploading" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toListUploading:#{menuCon.toListUploading}:#views#upload#list.xhtml"
+    NAME="output17" PATH="/views/upload/list.xhtml"
+    TARGET="rules:#views#upload#list.xhtml"
+    TITLE="#{menuCon.toListUploading}:toListUploading" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toRequests:#{menuCon.toRequests}:#views#requests#list.xhtml"
+    NAME="output18" PATH="/views/requests/list.xhtml"
+    TARGET="rules:#views#requests#list.xhtml"
+    TITLE="#{menuCon.toRequests}:toRequests" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toParse:#{menuCon.toParse}:#views#requests#parse.xhtml"
+    NAME="output19" PATH="/views/requests/parse.xhtml"
+    TARGET="rules:#views#requests#parse.xhtml"
+    TITLE="#{menuCon.toParse}:toParse" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toPartners:#{menuCon.toPartners}:#views#partners#list.xhtml"
+    NAME="output20" PATH="/views/partners/list.xhtml"
+    TARGET="rules:#views#partners#list.xhtml"
+    TITLE="#{menuCon.toPartners}:toPartners" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toAntifraudRules:#{menuCon.toAntifraudRules}:#views#antifraud#list.xhtml"
+    NAME="output21" PATH="/views/antifraud/list.xhtml"
+    TARGET="rules:#views#antifraud#list.xhtml"
+    TITLE="#{menuCon.toAntifraudRules}:toAntifraudRules" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toLog:#{menuCon.toLog}:#views#eventlog#list.xhtml"
+    NAME="output22" PATH="/views/eventlog/list.xhtml"
+    TARGET="rules:#views#eventlog#list.xhtml"
+    TITLE="#{menuCon.toLog}:toLog" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toBizActions:#{menuCon.toBizActions}:#views#bizaction#list.xhtml"
+    NAME="output23" PATH="/views/bizaction/list.xhtml"
+    TARGET="rules:#views#bizaction#list.xhtml"
+    TITLE="#{menuCon.toBizActions}:toBizActions" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toRefBlacklist:#{menuCon.toRefBlacklist}:#views#reference#refblacklist.xhtml"
+    NAME="output24" PATH="/views/reference/refblacklist.xhtml"
+    TARGET="rules:#views#reference#refblacklist.xhtml"
+    TITLE="#{menuCon.toRefBlacklist}:toRefBlacklist" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toRefOrganizations:#{menuCon.toRefOrganizations}:#views#reference#listorganizations.xhtml"
+    NAME="output25" PATH="/views/reference/listorganizations.xhtml"
+    TARGET="rules:#views#reference#listorganizations.xhtml"
+    TITLE="#{menuCon.toRefOrganizations}:toRefOrganizations" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toWorkplaces:#{menuCon.toWorkplaces}:#views#reference#workplaces.xhtml"
+    NAME="output26" PATH="/views/reference/workplaces.xhtml"
+    TARGET="rules:#views#reference#workplaces.xhtml"
+    TITLE="#{menuCon.toWorkplaces}:toWorkplaces" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toAntifraudField:#{menuCon.toAntifraudField}:#views#reference#antifraud-field.xhtml"
+    NAME="output27" PATH="/views/reference/antifraud-field.xhtml"
+    TARGET="rules:#views#reference#antifraud-field.xhtml"
+    TITLE="#{menuCon.toAntifraudField}:toAntifraudField" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="toCreditCompare:#{menuCon.toCreditCompare}:#views#reference#creditcompare.xhtml"
+    NAME="output28" PATH="/views/reference/creditcompare.xhtml"
+    TARGET="rules:#views#reference#creditcompare.xhtml"
+    TITLE="#{menuCon.toCreditCompare}:toCreditCompare" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#index.xhtml" PATH="/views/index.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#model#index.xhtml"
+  PATH="/views/model/index.xhtml" SHAPE="256,289,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#process#index.xhtml"
+  PATH="/views/process/index.xhtml" SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#plugin#index.xhtml"
+  PATH="/views/plugin/index.xhtml" SHAPE="304,497,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#plugin#edit.xhtml"
+  PATH="/views/plugin/edit.xhtml" SHAPE="32,593,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#plugin#edit.xhtml:0" NAME="item"
+   PATH="/views/plugin/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editPlug.save}:#views#plugin#index.xhtml"
+    NAME="output" PATH="/views/plugin/index.xhtml"
+    TARGET="rules:#views#plugin#index.xhtml"
+    TITLE="#{editPlug.save}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{editPlug.cancel}:#views#plugin#index.xhtml"
+    NAME="output1" PATH="/views/plugin/index.xhtml"
+    TARGET="rules:#views#plugin#index.xhtml"
+    TITLE="#{editPlug.cancel}:canceled" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#rule#list.xhtml"
+  PATH="/views/rule/list.xhtml" SHAPE="304,273,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#model#view.xhtml"
+  PATH="/views/model/view.xhtml" SHAPE="32,369,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#model#view.xhtml:0" NAME="item"
+   PATH="/views/model/view.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="closed:#{viewModel.close}:#views#model#index.xhtml"
+    NAME="output" PATH="/views/model/index.xhtml"
+    TARGET="rules:#views#model#index.xhtml"
+    TITLE="#{viewModel.close}:closed" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#model#edit.xhtml"
+  PATH="/views/model/edit.xhtml" SHAPE="32,369,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#model#edit.xhtml:0" NAME="item"
+   PATH="/views/model/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editModel.save}:#views#model#index.xhtml"
+    NAME="output" PATH="/views/model/index.xhtml"
+    TARGET="rules:#views#model#index.xhtml"
+    TITLE="#{editModel.save}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{editModel.cancel}:#views#model#index.xhtml"
+    NAME="output1" PATH="/views/model/index.xhtml"
+    TARGET="rules:#views#model#index.xhtml"
+    TITLE="#{editModel.cancel}:canceled" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#login.xhtml" PATH="/views/login.xhtml"
+  SHAPE="32,257,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#login.xhtml:0" NAME="item"
+   PATH="/views/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{loginData.login}:#views#index.xhtml" NAME="output"
+    PATH="/views/index.xhtml" TARGET="rules:#views#index.xhtml"
+    TITLE="#{loginData.login}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#verify#index.xhtml"
+  PATH="/views/verify/index.xhtml" SHAPE="304,337,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#verify#edit.xhtml"
+  PATH="/views/verify/edit.xhtml" SHAPE="32,689,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#verify#edit.xhtml:0" NAME="item"
+   PATH="/views/verify/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editQuest.save}:#views#verify#index.xhtml"
+    NAME="output" PATH="/views/verify/index.xhtml"
+    TARGET="rules:#views#verify#index.xhtml"
+    TITLE="#{editQuest.save}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{editQuest.cancel}:#views#verify#index.xhtml"
+    NAME="output1" PATH="/views/verify/index.xhtml"
+    TARGET="rules:#views#verify#index.xhtml"
+    TITLE="#{editQuest.cancel}:canceled" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#reference#refuse.xhtml"
+  PATH="/views/reference/refuse.xhtml" SHAPE="304,369,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#reference#list.xhtml"
+  PATH="/views/reference/list.xhtml" SHAPE="304,401,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#model#run.xhtml"
+  PATH="/views/model/run.xhtml" SHAPE="48,1153,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#model#run.xhtml:0" NAME="item"
+   PATH="/views/model/run.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="closed:#{runModel.close}:#views#model#index.xhtml"
+    NAME="output1" PATH="/views/model/index.xhtml"
+    TARGET="rules:#views#model#index.xhtml"
+    TITLE="#{runModel.close}:closed" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#reference#eventcode.xhtml"
+  PATH="/views/reference/eventcode.xhtml" SHAPE="304,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#reference#crequest.xhtml"
+  PATH="/views/reference/crequest.xhtml" SHAPE="304,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#reference#holidays.xhtml"
+  PATH="/views/reference/holidays.xhtml" SHAPE="304,497,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#bizaction#list.xhtml"
+  PATH="/views/bizaction/list.xhtml" SHAPE="304,561,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#reference#refblacklist.xhtml"
+  PATH="/views/reference/refblacklist.xhtml" SHAPE="304,593,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#reference#editblacklist.xhtml"
+  PATH="/views/reference/editblacklist.xhtml" SHAPE="32,945,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#reference#editblacklist.xhtml:0"
+   NAME="item" PATH="/views/reference/editblacklist.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editRefBlacklist.save}:#views#reference#refblacklist.xhtml"
+    NAME="output" PATH="/views/reference/refblacklist.xhtml"
+    TARGET="rules:#views#reference#refblacklist.xhtml"
+    TITLE="#{editRefBlacklist.save}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="cancel:#{editRefBlacklist.close}:#views#reference#refblacklist.xhtml"
+    NAME="output1" PATH="/views/reference/refblacklist.xhtml"
+    TARGET="rules:#views#reference#refblacklist.xhtml"
+    TITLE="#{editRefBlacklist.close}:cancel" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#bizaction#edit.xhtml"
+  PATH="/views/bizaction/edit.xhtml" SHAPE="32,977,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#bizaction#edit.xhtml:0" NAME="item"
+   PATH="/views/bizaction/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editBiz.save}:#views#bizaction#list.xhtml"
+    NAME="output" PATH="/views/bizaction/list.xhtml"
+    TARGET="rules:#views#bizaction#list.xhtml"
+    TITLE="#{editBiz.save}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editBiz.cancel}:#views#bizaction#list.xhtml"
+    NAME="output1" PATH="/views/bizaction/list.xhtml"
+    TARGET="rules:#views#bizaction#list.xhtml"
+    TITLE="#{editBiz.cancel}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editBiz.close}:#views#bizaction#list.xhtml"
+    NAME="output2" PATH="/views/bizaction/list.xhtml"
+    TARGET="rules:#views#bizaction#list.xhtml"
+    TITLE="#{editBiz.close}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#upload#index.xhtml"
+  PATH="/views/upload/index.xhtml" SHAPE="304,625,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#reference#listorganizations.xhtml"
+  PATH="/views/reference/listorganizations.xhtml" SHAPE="304,721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#eventlog#list.xhtml"
+  PATH="/views/eventlog/list.xhtml" SHAPE="304,721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#reference#editorganizations.xhtml"
+  PATH="/views/reference/editorganizations.xhtml" SHAPE="32,1473,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#reference#editorganizations.xhtml:0"
+   NAME="item" PATH="/views/reference/editorganizations.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editOrganizations.save}:#views#reference#listorganizations.xhtml"
+    NAME="output" PATH="/views/reference/listorganizations.xhtml"
+    TARGET="rules:#views#reference#listorganizations.xhtml"
+    TITLE="#{editOrganizations.save}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="close:#{editOrganizations.close}:#views#reference#listorganizations.xhtml"
+    NAME="output1" PATH="/views/reference/listorganizations.xhtml"
+    TARGET="rules:#views#reference#listorganizations.xhtml"
+    TITLE="#{editOrganizations.close}:close" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#eventlog#view.xhtml"
+  PATH="/views/eventlog/view.xhtml" SHAPE="32,1473,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#eventlog#view.xhtml:0" NAME="item"
+   PATH="/views/eventlog/view.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="close:#{viewLog.close}:#views#eventlog#list.xhtml" NAME="output"
+    PATH="/views/eventlog/list.xhtml"
+    TARGET="rules:#views#eventlog#list.xhtml"
+    TITLE="#{viewLog.close}:close" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#requests#list.xhtml"
+  PATH="/views/requests/list.xhtml" SHAPE="304,721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#requests#view.xhtml"
+  PATH="/views/requests/view.xhtml" SHAPE="32,1473,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#requests#view.xhtml:0" NAME="item"
+   PATH="/views/requests/view.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="close:#{viewReq.close}:#views#requests#list.xhtml" NAME="output"
+    PATH="/views/requests/list.xhtml"
+    TARGET="rules:#views#requests#list.xhtml"
+    TITLE="#{viewReq.close}:close" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#crypto#list.xhtml"
+  PATH="/views/crypto/list.xhtml" SHAPE="304,721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#crypto#edit.xhtml"
+  PATH="/views/crypto/edit.xhtml" SHAPE="32,1473,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#crypto#edit.xhtml:0" NAME="item"
+   PATH="/views/crypto/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="close:#{editCrypto.close}:#views#crypto#list.xhtml"
+    NAME="output" PATH="/views/crypto/list.xhtml"
+    TARGET="rules:#views#crypto#list.xhtml"
+    TITLE="#{editCrypto.close}:close" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#views#crypto#edit.xhtml:1" NAME="item1"
+   PATH="/views/crypto/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="save:#{editCrypto.save}:#views#crypto#list.xhtml" NAME="output"
+    PATH="/views/crypto/list.xhtml"
+    TARGET="rules:#views#crypto#list.xhtml"
+    TITLE="#{editCrypto.save}:save" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#partners#edit.xhtml"
+  PATH="/views/partners/edit.xhtml" SHAPE="32,737,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#partners#edit.xhtml:0" NAME="item"
+   PATH="/views/partners/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="close:#{editPartner.close}:#views#partners#list.xhtml"
+    NAME="output" PATH="/views/partners/list.xhtml"
+    TARGET="rules:#views#partners#list.xhtml"
+    TITLE="#{editPartner.close}:close" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#views#partners#edit.xhtml:1" NAME="item1"
+   PATH="/views/partners/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="save:#{editPartner.save}:#views#partners#list.xhtml"
+    NAME="output" PATH="/views/partners/list.xhtml"
+    TARGET="rules:#views#partners#list.xhtml"
+    TITLE="#{editPartner.save}:save" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#partners#list.xhtml"
+  PATH="/views/partners/list.xhtml" SHAPE="304,753,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#upload#list.xhtml"
+  PATH="/views/upload/list.xhtml" SHAPE="304,753,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#upload#view.xhtml"
+  PATH="/views/upload/view.xhtml" SHAPE="32,1537,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#upload#view.xhtml:0" NAME="item"
+   PATH="/views/upload/view.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="close:#{viewUploading.close}:#views#upload#list.xhtml"
+    NAME="output" PATH="/views/upload/list.xhtml"
+    TARGET="rules:#views#upload#list.xhtml"
+    TITLE="#{viewUploading.close}:close" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#reference#listother.xhtml"
+  PATH="/views/reference/listother.xhtml" SHAPE="304,785,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#tables#indexcsv.xhtml"
+  PATH="/views/tables/indexcsv.xhtml" SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#bizaction#view.xhtml"
+  PATH="/views/bizaction/view.xhtml" SHAPE="32,1169,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#bizaction#view.xhtml:0" NAME="item"
+   PATH="/views/bizaction/view.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editBiz.runNow}:#views#bizaction#list.xhtml"
+    NAME="output" PATH="/views/bizaction/list.xhtml"
+    TARGET="rules:#views#bizaction#list.xhtml"
+    TITLE="#{editBiz.runNow}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editBiz.cancel}:#views#bizaction#list.xhtml"
+    NAME="output1" PATH="/views/bizaction/list.xhtml"
+    TARGET="rules:#views#bizaction#list.xhtml"
+    TITLE="#{editBiz.cancel}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editBiz.close}:#views#bizaction#list.xhtml"
+    NAME="output2" PATH="/views/bizaction/list.xhtml"
+    TARGET="rules:#views#bizaction#list.xhtml"
+    TITLE="#{editBiz.close}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#requests#parse.xhtml"
+  PATH="/views/requests/parse.xhtml" SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#reference#region.xhtml"
+  PATH="/views/reference/region.xhtml" SHAPE="304,849,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#products#list.xhtml"
+  PATH="/views/products/list.xhtml" SHAPE="304,849,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#products#edit.xhtml"
+  PATH="/views/products/edit.xhtml" SHAPE="32,1601,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#products#edit.xhtml:0" NAME="item"
+   PATH="/views/products/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="close:#{editProduct.close}:#views#products#list.xhtml"
+    NAME="output" PATH="/views/products/list.xhtml"
+    TARGET="rules:#views#products#list.xhtml"
+    TITLE="#{editProduct.close}:close" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#views#products#edit.xhtml:1" NAME="item1"
+   PATH="/views/products/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="close:#{editProduct.save}:#views#products#list.xhtml"
+    NAME="output" PATH="/views/products/list.xhtml"
+    TARGET="rules:#views#products#list.xhtml"
+    TITLE="#{editProduct.save}:close" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#reference#workplaces.xhtml"
+  PATH="/views/reference/workplaces.xhtml" SHAPE="304,977,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#reference#antifraud-field.xhtml"
+  PATH="/views/reference/antifraud-field.xhtml" SHAPE="304,977,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#reference#update.xhtml"
+  PATH="/views/reference/update.xhtml" SHAPE="304,977,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#reference#edit_creditcompare.xhtml"
+  PATH="/views/reference/edit_creditcompare.xhtml" SHAPE="32,2081,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#reference#edit_creditcompare.xhtml:0"
+   NAME="item" PATH="/views/reference/edit_creditcompare.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{editCreditCompare.save}:#views#reference#creditcompare.xhtml"
+    NAME="output" PATH="/views/reference/creditcompare.xhtml"
+    TARGET="rules:#views#reference#creditcompare.xhtml"
+    TITLE="#{editCreditCompare.save}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="canceled:#{editCreditCompare.cancel}:#views#reference#creditcompare.xhtml"
+    NAME="output1" PATH="/views/reference/creditcompare.xhtml"
+    TARGET="rules:#views#reference#creditcompare.xhtml"
+    TITLE="#{editCreditCompare.cancel}:canceled" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#reference#creditcompare.xhtml"
+  PATH="/views/reference/creditcompare.xhtml" SHAPE="304,2097,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#antifraud#list.xhtml"
+  PATH="/views/antifraud/list.xhtml" SHAPE="304,1041,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

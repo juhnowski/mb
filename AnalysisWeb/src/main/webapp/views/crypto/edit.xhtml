@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<h:panelGrid columns="2">
+			   <h:outputText value="CN"/>
+			   <h:outputText value="#{editCrypto.certificate.subjectCN}" />
+			   <h:outputText value="Альяс"/>
+			   <h:inputText value="#{editCrypto.certificate.privateKeyAlias}" size="75"/>
+			   <h:outputText value="Пароль сертификата"/>
+			   <h:inputText value="#{editCrypto.certificate.privateKeyPassword}" />
+			   <h:outputText value="Путь к сертификату"/>
+			   <h:inputText value="#{editCrypto.certificate.privateKeyPath}" size="75"/>
+			   <h:outputText value="Дата начала действия"/>
+			   <h:outputText value="#{editCrypto.certificate.dateStart}">
+			       <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+			   </h:outputText>
+			   <h:outputText value="Дата окончания действия"/>
+			   <h:outputText value="#{editCrypto.certificate.dateFinish}">
+			       <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+			   </h:outputText>
+			   <h:outputText value="Провайдер"/>
+			   <h:outputText value="#{editCrypto.certificate.providerName}" />
+			   <h:outputText value="Вид сертификата" />
+			   <h:outputText value="Корневой сертификат" rendered="#{editCrypto.certificate.subjectType==3}"/>
+			   <h:outputText value="Промежуточный сертификат" rendered="#{editCrypto.certificate.subjectType==2}"/>
+			   <h:outputText value="Конечный сертификат" rendered="#{editCrypto.certificate.subjectType==1}"/>
+			   <h:outputText value="Название для нас"/>
+			   <h:inputText value="#{editCrypto.settings.ID}" size="75"/>
+			   <h:outputText value="Алгоритм подписи"/>
+			   <h:outputText value="#{editCrypto.settings.signatureAlg}" />
+			   <h:outputText value="Алгоритм цифровой"/>
+			   <h:outputText value="#{editCrypto.settings.digestAlg}" />
+			   <h:outputText value="Алгоритм secure random"/>
+			   <h:outputText value="#{editCrypto.settings.secureRandomAlg}" />
+			   <h:outputText value="Алгоритм закрытого ключа"/>
+			   <h:outputText value="#{editCrypto.settings.privateKeyAlg}" />
+			   <h:outputText value="Алгоритм создателя ключа"/>
+			   <h:outputText value="#{editCrypto.settings.keyManagerAlg}" />
+			   <h:outputText value="SSL протокол"/>
+			   <h:outputText value="#{editCrypto.settings.sslProtocol}" />
+			   <h:outputText value="JSSE провайдер"/>
+			   <h:outputText value="#{editCrypto.settings.jsseProviderName}" />
+			</h:panelGrid>
+			<h:commandButton value="Закрыть" action="#{editCrypto.close}"/>
+			<h:commandButton value="Сохранить" action="#{editCrypto.save}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

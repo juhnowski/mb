@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+    <div class="rf-p" id="divPnl">
+        <div class="rf-p-hdr" id="hdrPnl">Требуется принять решение по кредиту</div>
+
+        <a4j:region>
+            <h:panelGroup style="display:block" styleClass="ques_list">
+                <h:panelGrid columns="2" styleClass="table_ques">
+                    <h:outputText value="Дать кредит"/>
+                    <h:panelGroup/>
+                    <h:outputText value="Предложить заемщику другие условия"/>
+                    <h:selectOneMenu value="#{editTCD.hasOffer}" valueChangeListener="#{editTCD.changeOffer}">
+                        <f:selectItems value="#{refs.yesNo}"/>
+                        <a4j:ajax event="change" execute="@this" render="idoffer"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <a4j:outputPanel id="idoffer">
+                    <h:panelGrid columns="2" styleClass="table_ques" rendered="#{editTCD.hasOffer==1}">
+                        <h:outputText value="На сколько дней"/>
+                        <h:inputText value="#{editTCD.creditDays}"/>
+
+                        <h:outputText value="На какую сумму"/>
+                        <h:panelGroup>
+                            <h:inputText id="sumOffer" value="#{editTCD.creditSum}"  required="true" 
+                                requiredMessage="Необходимо заполнить сумму" valueChangeListener="#{editTCD.changeSum}">
+                               
+                                <a4j:ajax event="change" execute="@this" render="@this" />
+                            </h:inputText>
+                             <rich:message for="sumOffer"/>    
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </a4j:outputPanel>
+                <h:panelGrid columns="2" styleClass="table_ques">
+                    <h:outputText value="Комментарий"/>
+                    <h:inputText value="#{editTCD.commentApprove}"/>
+
+                    <h:panelGroup/>
+                    <h:commandButton value="Дать кредит" styleClass="button ml0" actionListener="#{editTCD.approveLsn}"
+                                     onclick="#{rich:component('popupIndicator')}.show();return true;">
+                        <a4j:ajax render="@form"/>
+                    </h:commandButton>
+
+                </h:panelGrid>
+            </h:panelGroup>
+
+            <h:panelGroup style="display:block" styleClass="ques_list">
+                <h:panelGrid columns="2" styleClass="table_ques">
+                    <h:outputText value="Отказать"/>
+                    <h:panelGroup/>
+                    <h:outputText value="Комментарий"/>
+                    <h:inputText value="#{editTCD.commentRefuse}"/>
+                    <h:outputText value="Причина отказа"/>
+                    <h:selectOneMenu value="#{editTCD.rejectReasonCode}">
+                        <f:selectItems value="#{refs.refuseReasons}"/>
+                    </h:selectOneMenu>
+                    <h:panelGroup/>
+                    <h:commandButton value="Отказать" styleClass="button ml0" actionListener="#{editTCD.refuseLsn}"
+                                     onclick="#{rich:component('popupIndicator')}.show();return true;">
+                        <a4j:ajax render="@form"/>
+                    </h:commandButton>
+
+                </h:panelGrid>
+            </h:panelGroup>
+
+            <h:panelGroup style="display:block" styleClass="ques_list">
+                <ui:include src="stdActionsBar.xhtml">
+                    <ui:param name="currentCtl" value="#{editTCD}"/>
+                </ui:include>
+            </h:panelGroup>
+        </a4j:region>
+    </div>
+
+</ui:composition>	

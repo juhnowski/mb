@@ -1,0 +1,50 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/balance.js"></script>
+</head>
+
+<body ng-controller="MainCtrl" ng-cloak>
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main ng-controller="BalanceCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block">
+                <h3 class="h3">Информация</h3>
+
+                <div class="box-20 clr">
+                    <table class="table-1">
+                        <tr>
+                            <td></td>
+                            <td>
+                                Для того, чтобы использовать деньги оставшиеся на счету при погашении займа, <br>
+                                Вам нужно указать сумму за вычетом суммы на вашем счете. <br>
+                                Деньги будут списаны автоматически.
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <ul class="right-block__menu-top">
+                    <li class="active"><a href="/main/client/balance.shtml">Информация</a></li>
+                    <li><a href="/main/client/balance-history.shtml">История</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+</body>
+</html>

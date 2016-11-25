@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/templatemin.xhtml"> 
+<ui:define name="metadata">
+        
+ 	</ui:define>
+ 	
+    <ui:define name="title">Analysis console</ui:define>
+
+	<ui:define name="pageHeader">
+		<h:outputText value="Вход в кабинет аналитика" />
+	</ui:define>
+    <ui:define name="pageContent">
+    <h:form id="frm">
+       <rich:messages globalOnly="true"/>
+        	<h:panelGrid columns="2" styleClass="login_input bb">
+        	<h:panelGroup >
+        		<h:outputLabel value="Email" styleClass="l_i valid"> 
+        		
+        		<h:inputText id="username" value="#{loginData.userName}" required="true" requiredMessage="Необходимо заполнить имя пользователя">
+        		 39467129394671293946712939467129		</h:inputText>  
+        		  <rich:message for="username" style="font-size: 12px;"/>
+        		</h:outputLabel>
+        		
+        	   </h:panelGroup>
+        	   
+        	   <h:panelGroup  >	
+        		<h:outputLabel  value="Пароль" styleClass="l_i valid" > 
+         		
+        		<h:inputSecret id="password" value="#{loginData.userPassword}" required="true" requiredMessage="Необходимо заполнить пароль">
+        	
+        		</h:inputSecret>  
+        		  <rich:message for="password" style="font-size: 12px;"/>
+        		</h:outputLabel>
+        		
+        	</h:panelGroup>
+        	
+        	
+        	
+        	</h:panelGrid>
+           	<h:panelGroup styleClass="send_form bt">
+			   <h:commandButton value="Войти" action="#{loginData.login}" styleClass="submit" >
+			   </h:commandButton>
+			   <h:commandButton value="Забыли пароль?" action="#{loginData.forget}" styleClass="remind_pass" immediate="true"></h:commandButton>
+			</h:panelGroup> 
+        </h:form>    		
+    
+       
+    </ui:define>
+</ui:composition>

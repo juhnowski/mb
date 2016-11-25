@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<h:panelGrid columns="2">
+			    <h:outputText value="Название продукта"/>
+			    <h:inputText value="#{editProduct.product.name}" size="150"/>
+			    <h:outputText value="Описание продукта"/>
+			    <h:inputText value="#{editProduct.product.description}" size="250"/>
+			    <h:outputText value="Код продукта"/>
+			    <h:inputText value="#{editProduct.product.code}" size="150"/>
+			    <h:outputText value="Способ погашения"/>
+			    <h:selectOneMenu value="#{editProduct.product.paymentType.id}">
+        			<f:selectItems value="#{comrefs.creditFreqPaymentTypes}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Активность записи" /> 
+        		<h:selectOneMenu value="#{editProduct.product.isActive}">
+        			<f:selectItems value="#{comrefs.yesNoNull}" />
+        		</h:selectOneMenu>
+			</h:panelGrid>
+			<rich:panel header="Конфигурация">
+			
+		
+			<rich:dataTable   var="cname" value="#{editProduct.listConfig}" >
+		       <rich:column>
+			       <h:outputText value="#{cname.name}"  />
+			   </rich:column>
+			   <rich:column>
+			   <h:link outcome="edit_config?faces-redirect=true" >
+					<f:param name="prodid" value="#{editProduct.product.id}" />
+					<f:param name="confid" value="#{cname.codeInteger}" />
+			 	    <h:outputText value="Редактировать"  />
+			  </h:link>
+			  </rich:column>
+			  <rich:column>
+			  <h:link outcome="view_config?faces-redirect=true" >
+					<f:param name="prodid" value="#{editProduct.product.id}" />
+					<f:param name="confid" value="#{cname.codeInteger}" />
+			 	    <h:outputText value="Посмотреть"  />
+			  </h:link>
+			  </rich:column>
+			</rich:dataTable>
+	
+			
+			</rich:panel>
+			
+			 <h:commandButton value="Сохранить" action="#{editProduct.save}"/>
+		     <h:commandButton value="Закрыть" action="#{editProduct.close}"/>
+        </h:form>
+       
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                >
+
+    <rich:tabPanel switchType="client" styleClass="mb20" >
+        <rich:tab header="Краткий поиск" name="tabQuick">
+			<f:attribute name="searchFull" value="false" />
+				 <h:panelGroup>
+				 	<ui:include src="/views/include/bar-saveload1.xhtml" >
+				 		<ui:param name="listMgr" value="#{listPM.quickManager}" />
+				 		<ui:param name="barPrefix" value="quick" />
+				 	</ui:include>
+				 </h:panelGroup> 			
+            <h:panelGroup id="pnlSearchQuick" styleClass="search">
+      
+	                <h:panelGrid columns="3" styleClass="table_search">
+	                    <h:outputText value="Фамилия клиента"/>
+	                    <h:outputText value="Имя клиента"/>
+	                    <h:outputText value="Отчество клиента"/>
+	
+	                    <h:inputText value="#{listPM.quick.surname}"/>
+	                    <h:inputText value="#{listPM.quick.name}"/>
+	                    <h:inputText value="#{listPM.quick.midname}"/>
+	
+	                </h:panelGrid>
+	
+	                <a4j:commandButton value="Найти" action="#{listPM.dummy}" actionListener="#{listPM.searchQuickLsn}"
+	                                   render="pnlResults" execute="@form" styleClass="button"/>
+	                <a4j:commandButton value="Очистить" actionListener="#{listPM.clearQuickLsn}" render="frmMain"
+	                                   execute="@form" styleClass="button grey"/>
+  
+            </h:panelGroup>
+        </rich:tab>
+
+        <rich:tab header="Расширенный поиск" name="tabFull">
+        	<f:attribute name="searchFull" value="true" />
+				 <h:panelGroup>
+				 	<ui:include src="/views/include/bar-saveload1.xhtml" >
+				 		<ui:param name="listMgr" value="#{listPM.dataManager}" />
+				 		<ui:param name="barPrefix" value="full" />
+				 	</ui:include>
+				 </h:panelGroup>         
+            <h:panelGroup id="pnlSearchFull" styleClass="search">
+
+                <h:panelGrid columns="4" styleClass="table_search">
+                    <h:outputText value="Фамилия клиента"/>
+                    <h:outputText value="Имя клиента"/>
+                    <h:outputText value="Отчество клиента"/>
+                    <h:outputText value="Серия и номер паспорта"/>
+
+                    <h:inputText value="#{listPM.data.surname}"/>
+                    <h:inputText value="#{listPM.data.name}"/>
+                    <h:inputText value="#{listPM.data.midname}"/>
+                    <h:panelGroup><h:inputText styleClass="serial_input"
+                                               value="#{listPM.data.paspSeries}"/><h:outputText value="-"/><h:inputText
+                            styleClass="number_input" value="#{listPM.data.paspNumber}"/></h:panelGroup>
+
+                    <h:outputText value="Дата рождения"/>
+                    <h:outputText value="Email клиента"/>
+                    <h:outputText value="Телефон клиента"/>
+                    <h:panelGroup/>
+
+                    <h:panelGroup>
+                        <h:outputText value="с "/> <rich:calendar styleClass="w76"
+                                                                  buttonIcon="/resources/icons/calendarIcon.png"
+                                                                  value="#{listPM.data.dateBirth.from}" popup="true"
+                                                                  showApplyButton="false" datePattern="dd.MM.yy"
+                                                                  enableManualInput="true"/>
+                        <h:outputText value=" по "/> <rich:calendar styleClass="w76"
+                                                                    buttonIcon="/resources/icons/calendarIcon.png"
+                                                                    value="#{listPM.data.dateBirth.to}" popup="true"
+                                                                    showApplyButton="false" datePattern="dd.MM.yy"
+                                                                    enableManualInput="true"/>
+                    </h:panelGroup>
+                    <h:inputText value="#{listPM.data.email}"/>
+                    <h:inputText value="#{listPM.data.phone}"/>
+                    <h:panelGroup/>
+                </h:panelGrid>
+
+
+                <a4j:commandButton value="Найти" action="#{listPM.dummy}" actionListener="#{listPM.searchLsn}"
+                                   render="pnlResults" execute="@form" styleClass="button"/>
+                <a4j:commandButton value="Очистить" actionListener="#{listPM.clearLsn}" render="frmMain" execute="@form"
+                                   styleClass="button grey"/>
+                                   
+            </h:panelGroup>
+        </rich:tab>
+    </rich:tabPanel>
+
+</ui:composition>	

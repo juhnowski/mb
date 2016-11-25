@@ -1,0 +1,209 @@
+/*В данном файле содержаться множество стилей применяемых в шаблоне элементов. По окончанию работ ненужные стили можно удалить. Все стили в самом начале имеют комментарий для какого элемента применяется данный стиль. */
+
+/* Стили оформления select (выпадающего списка) */
+/*--- Start Select ---*/
+.select {
+  box-sizing: border-box;
+  width: 67px;
+  height: 36px;
+  float: right;
+}
+
+.slct {
+  box-sizing: border-box;
+  display: block;
+  width: 67px;
+  height: 36px;
+  padding: 4px 34px 4px 10px;
+  border-radius: 5px;
+  border: 1px #ddd solid;
+  color: #777;
+  font-family: 'OpenSans-Regular';
+  font-size: 14px;
+  line-height: 26px;
+  font-weight: 300;
+  overflow: hidden;
+  text-align: right;
+  background: #fff url(../images/sprite.svg) 14px -74px no-repeat;
+}
+
+.select a {text-decoration: none; }
+
+.slct.active {
+  border-radius: 5px;
+}
+
+.drop {
+  box-sizing: border-box;
+  width: 67px;
+  margin: 0;
+  padding: 0;
+  border: 1px #ddd solid;
+  display: none;
+  position: absolute;
+  bottom: 91px;
+  background: #fff;
+  z-index: 10;
+  box-shadow: 0px 5px 30px -1px #c5c5c5;
+  border-radius: 5px;
+}
+
+.drop li {
+  box-sizing: border-box; 
+  height: 32px;
+  list-style: none;
+  cursor: pointer;
+  display: block;
+  padding: 4px 0px 0px 0px;
+  color: #777;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.drop li:hover {
+  background: #468cc8;
+  color: #fff;
+  border-radius:0;
+}
+
+.drop li:first-child {border-radius: 5px 5px 0 0;} 
+.drop li:last-child {border-radius: 0 0 5px 5px;} 
+
+.drop li:first-child:hover {border-radius: 5px 5px 0 0;} 
+.drop li:last-child:hover {border-radius: 0 0 5px 5px;}
+
+/*--- Stop Select ---*/
+
+
+
+/* Стили оформления чекбокс */
+/*--- Start checkbox ---*/
+.check input[type=checkbox] {
+  position: absolute;
+  left: -10000px;
+}
+
+.checkboxes {
+  overflow: hidden;
+  text-align: left;
+}
+
+.check {
+  width: 17px;
+  height: 17px;
+  margin: 0 8px 0 0;
+  background: url(../images/sprite.svg) no-repeat -22px -230px;
+  cursor: pointer;
+  position: relative;
+  float: left;
+}
+
+.check.active {background-position: -22px -270px;}
+/*--- Stop checkbox ---*/
+
+
+/* Стили оформления радиокнопок */
+/*--- Start radio ---*/
+.radio {
+  box-sizing: border-box;
+  display: block;
+  width: 108px;
+  height: 20px;
+  float: left;
+  cursor: pointer;
+}
+
+.radio span {
+  display: block;
+  width: 21px;
+  height: 21px;
+  margin: 9px 9px 0 0;
+  float: left;
+  position: relative;
+  background: url(../images/sprite.svg) no-repeat -73px -228px;
+}
+
+.radio.active span {background-position: -73px -268px;}
+/*--- Stop radio ---*/
+
+
+
+
+/*--- Start select-two ---*/
+.select-two {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  float: right;
+  position: relative;
+}
+
+.select-two .slct {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 0px 0px 0px 15px;
+  border-radius: 5px;
+  border: 1px #ddd solid;
+  color: #777;
+  font-family: 'OpenSans-Regular';
+  font-size: 14px;
+  line-height: 40px;
+  overflow: hidden;
+  text-align: left;
+  text-decoration: none;
+  background: none;
+}
+
+.select-two .slct span {
+  display: block;
+  width: 9px;
+  height: 9px;
+  background: url(../images/sprite.svg) -31px -88px no-repeat;
+  left: inherit;
+  right: 13px;
+  top: 18px;
+}
+
+.select-two .slct.active span {background-position: -31px -68px;}
+
+.select-two .select a {text-decoration: none; }
+
+.select-two .slct.active {border-radius: 5px;}
+
+.select-two .drop {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 4px;
+  border: 1px #dedede solid;
+  display: none;
+  position: relative;
+  bottom: inherit;
+  top: 2px;
+  background: #fff;
+  z-index: 10;
+  border-radius: 3px;
+}
+
+.select-two .drop li {
+  box-sizing: border-box; 
+  height: 32px;
+  padding: 0px 0px 0px 11px;
+  list-style: none;
+  cursor: pointer;
+  display: block;
+  color: #666;
+  font-size: 14px;
+  line-height: 32px;
+  text-align: left;
+}
+
+.select-two .drop li:hover {
+  background: #69c3dd;
+  color: #fff;
+  border-radius: 3px 3px;
+}
+/*--- Stop .select-two ---*/

@@ -1,0 +1,130 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmViewConfig" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<rich:tabPanel switchType="client" >
+			    <rich:tab header="Конфигурация продукта">
+			
+			<rich:dataTable id="vconfig" var="conf" value="#{editPConfig.config}" rendered="#{editPConfig.config.size()!=0}">
+				
+				<h:column>
+					<f:facet name="header">Описание:</f:facet>
+					<h:outputText value="#{conf.description}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Тип параметра:</f:facet>
+					<h:outputText value="#{conf.dataType}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Значение параметра:</f:facet>
+					<h:outputText value="#{conf.dataValue}" />
+				</h:column>	
+				<h:column>
+					<f:facet name="header">Параметр конфигурации:</f:facet>
+					<h:outputText value="#{conf.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Дата начала действия:</f:facet>
+					<h:outputText value="#{conf.databeg}" >
+					    <f:convertDateTime pattern="dd.MM.yyyy"/>
+					</h:outputText>
+			
+				</h:column>
+				<h:column>
+					<f:facet name="header">Дата окончания действия:</f:facet>
+					<h:outputText value="#{conf.dataend}" >
+					    <f:convertDateTime pattern="dd.MM.yyyy"/>
+					</h:outputText>
+				</h:column>
+																
+			</rich:dataTable>	
+			<h:outputText value="Нет ни одного параметра конфигурации" rendered="#{editPConfig.config.size()==0}"/>
+			</rich:tab>
+			
+			
+			<rich:tab header="Сообщения для продукта">
+			
+			<rich:dataTable id="vmessage" var="mes" value="#{editPConfig.messages}" rendered="#{editPConfig.messages.size()!=0}">
+				
+				<h:column>
+					<f:facet name="header">Описание:</f:facet>
+					<h:outputText value="#{mes.description}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Заголовок:</f:facet>
+					<h:outputText value="#{mes.subject}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Сообщение:</f:facet>
+					<h:outputText value="#{mes.body}" />
+				</h:column>	
+				<h:column>
+					<f:facet name="header">Название в системе:</f:facet>
+					<h:outputText value="#{mes.name}" />
+				</h:column>
+																
+			</rich:dataTable>	
+			<h:outputText value="Нет ни одного сообщения" rendered="#{editPConfig.messages.size()==0}"/>
+			</rich:tab>
+			
+			<rich:tab header="Правила для продукта">
+			
+			<rich:dataTable id="rule" var="rul" value="#{editPConfig.rules}" rendered="#{editPConfig.rules.size()!=0}">
+				
+				<h:column>
+					<f:facet name="header">Описание:</f:facet>
+					<h:outputText value="#{rul.description}" size="60"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Knowledge base:</f:facet>
+					<h:outputText value="#{rul.kbase}" size="15"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Название в системе:</f:facet>
+					<h:outputText value="#{rul.name}" size="60"/>
+				</h:column>
+					<h:column>
+					<f:facet name="header">Дата начала действия:</f:facet>
+					<h:outputText value="#{rul.databeg}" >
+					    <f:convertDateTime pattern="dd.MM.yyyy"/>
+					</h:outputText>
+			
+				</h:column>
+				<h:column>
+					<f:facet name="header">Дата окончания действия:</f:facet>
+					<h:outputText value="#{rul.dataend}" >
+					    <f:convertDateTime pattern="dd.MM.yyyy"/>
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Текст правила:</f:facet>
+					<rich:collapsiblePanel expanded="false">
+					    <h:inputTextarea value="#{rul.ruleBody}" cols="100" rows="30"/>
+					</rich:collapsiblePanel>
+				</h:column>
+																	
+			</rich:dataTable>	
+			
+			<h:outputText value="Нет ни одного правила" rendered="#{editPConfig.rules.size()==0}"/>
+			</rich:tab>
+			
+			</rich:tabPanel>
+			
+			<h:panelGrid >
+			    <h:link outcome="edit?faces-redirect=true" >
+					<f:param name="prodid" value="#{editPConfig.productId}" />
+					<h:outputText value="Закрыть"  />
+			    </h:link>
+				  
+			</h:panelGrid>
+        </h:form>
+       
+    </ui:define>
+</ui:composition>

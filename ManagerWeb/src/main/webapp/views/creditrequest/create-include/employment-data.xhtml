@@ -1,0 +1,190 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:panelGrid columns="2" columnClasses="top-valigned grid-col-2,top-valigned grid-col-2">
+        <rich:panel header="Занятость и образование" styleClass="layout">
+            <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                <h:panelGroup>
+                    <h:outputText value="Занятость"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu id="occupationCode"
+                                     value="#{createCreditRequestController.employmentData.occupationCode}">
+                        <f:selectItem itemLabel="" itemValue=""/>
+                        <f:selectItems value="#{refs.typeWorkCodes}"/>
+                        <rich:validator/>
+                        <a4j:ajax event="change" execute="@this" render="job"/>
+                    </h:selectOneMenu>
+                    <rich:message for="occupationCode"/>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Образование"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu id="educationCode"
+                                     value="#{createCreditRequestController.employmentData.educationCode}">
+                        <f:selectItem itemLabel="" itemValue=""/>
+                        <f:selectItems value="#{refs.educationTypeCodes}"/>
+                        <rich:validator/>
+                    </h:selectOneMenu>
+                    <rich:message for="educationCode"/>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Доход"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText id="salary" value="#{createCreditRequestController.employmentData.salary}">
+                        <f:convertNumber pattern="############.##"/>
+                        <rich:validator/>
+                    </h:inputText>
+                    <rich:message for="salary"/>
+                </h:panelGroup>
+
+                <h:outputText value="Дата начала трудовой деятельности"/>
+                <h:panelGroup>
+                    <rich:calendar id="enterEmploymentDate"
+                                   value="#{createCreditRequestController.employmentData.enterEmploymentDate}"
+                                   buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy"
+                                   enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px"/>
+                    <rich:message for="enterEmploymentDate"/>
+                </h:panelGroup>
+
+                <h:outputText value="Дополнительный доход"/>
+                <h:panelGroup>
+                    <h:inputText id="additionalIncome"
+                                 value="#{createCreditRequestController.employmentData.additionalIncome}">
+                        <f:convertNumber pattern="############.##"/>
+                    </h:inputText>
+                    <rich:message for="additionalIncome"/>
+                </h:panelGroup>
+
+                <h:outputText value="Источник дополнительного дохода"/>
+                <h:panelGroup>
+                    <h:selectOneMenu id="additionalIncomeSourceCode"
+                                     value="#{createCreditRequestController.employmentData.additionalIncomeSourceCode}">
+                        <f:selectItem itemLabel="" itemValue=""/>
+                        <f:selectItems value="#{refs.extSalaries}"/>
+                    </h:selectOneMenu>
+                    <rich:message for="additionalIncomeSourceCode"/>
+                </h:panelGroup>
+            </h:panelGrid>
+        </rich:panel>
+        <a4j:outputPanel id="job">
+            <rich:panel header="Информация о месте работы" styleClass="layout"
+                        rendered="#{createCreditRequestController.peopleWorking}">
+                <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                    <h:panelGroup>
+                        <h:outputText value="Профессия"/>
+                        <span class="asterisk">*</span>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:selectOneMenu id="professionCode" validator="#{createCreditRequestController.validateJobFieldNotNull}"
+                                         value="#{createCreditRequestController.employmentData.professionCode}">
+                            <f:selectItem itemLabel="" itemValue=""/>
+                            <f:selectItems value="#{refs.organizationTypeCodes}"/>
+                            <rich:validator/>
+                        </h:selectOneMenu>
+                        <rich:message for="professionCode"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputText value="Частота получения дохода"/>
+                        <span class="asterisk">*</span>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:selectOneMenu id="salaryFrequenceCode" validator="#{createCreditRequestController.validateJobFieldNotNull}"
+                                         value="#{createCreditRequestController.employmentData.salaryFrequenceCode}">
+                            <f:selectItem itemLabel="" itemValue=""/>
+                            <f:selectItems value="#{refs.salaryFreqTypeCodes}"/>
+                            <rich:validator/>
+                        </h:selectOneMenu>
+                        <rich:message for="salaryFrequenceCode"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputText value="Место работы"/>
+                        <span class="asterisk">*</span>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:inputText id="employmentPlace"
+                                     validator="#{createCreditRequestController.validateJobFieldNotBlank}"
+                                     value="#{createCreditRequestController.employmentData.employmentPlace}">
+                            <rich:validator/>
+                        </h:inputText>
+                        <rich:message for="employmentPlace"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputText value="Должность"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:inputText id="position" value="#{createCreditRequestController.employmentData.position}">
+                            <rich:validator/>
+                        </h:inputText>
+                        <rich:message for="position"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputLabel value="Дата начала работы в должности"/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <rich:calendar id="enterPositionDate"
+                                       value="#{createCreditRequestController.employmentData.enterPositionDate}"
+                                       buttonIcon="/resources/icons/calendarIcon.png" popup="true"
+                                       datePattern="dd.MM.yyyy"
+                                       enableManualInput="true" showApplyButton="false" cellWidth="24px"
+                                       cellHeight="22px">
+                            <rich:validator/>
+                        </rich:calendar>
+                        <rich:message for="enterPositionDate"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <h:outputText value="Рабочий телефон" for="workPhone"/>
+                        <span class="asterisk">*</span>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <h:inputText id="workPhone" styleClass="phone-mask" validator="#{createCreditRequestController.validateJobFieldNotBlank}"
+                                     converter="ru.simplgroupp.webapp.view.DigitalConvertor"
+                                     value="#{createCreditRequestController.employmentData.workPhone}">
+                            <rich:validator/>
+                        </h:inputText>
+                        <rich:message for="workPhone"/>
+                    </h:panelGroup>
+
+                    <h:outputText value="Не звонить по рабочему телефону" for="workPhoneAvailable"/>
+                    <h:panelGroup>
+                        <h:selectBooleanCheckbox id="workPhoneAvailable"
+                                                 value="#{createCreditRequestController.employmentData.workPhoneAvailable}"/>
+                        <rich:message for="workPhoneAvailable"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </rich:panel>
+            <h:outputScript>
+                $(function () {
+                $('[type=tel], .phone-mask').mask('+7 (999) 999 99 99');
+                $('.rf-cal-inp').mask('99.99.9999');
+                });
+            </h:outputScript>
+        </a4j:outputPanel>
+    </h:panelGrid>
+    <h:panelGroup>
+        <a4j:commandButton value="Назад" styleClass="button grey" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" immediate="true" execute="@this" render="@form"
+                           action="#{createCreditRequestController.previousStep}"/>
+        <a4j:commandButton value="Далее" styleClass="button" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" render="@form"
+                           action="#{createCreditRequestController.saveEmploymentData}"/>
+    </h:panelGroup>
+    <h:outputScript>
+        $(function () {
+            $('[type=tel], .phone-mask').mask('+7 (999) 999 99 99');
+            $('.rf-cal-inp').mask('99.99.9999');
+        });
+    </h:outputScript>
+</ui:composition>

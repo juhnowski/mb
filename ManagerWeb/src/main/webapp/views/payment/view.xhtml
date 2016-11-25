@@ -1,0 +1,115 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="payment" />
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmView">
+			<rich:messages globalOnly="true" layout="table" />
+					<h:panelGrid columns="2" columnClasses="top-valigned, top-valigned">
+                        <rich:panel header="Платёж" styleClass="layout block1">
+                            <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                                <h:outputText value="ID" /> <h:outputText value="#{viewPaymentController.payment.id}" />
+                                <h:outputText value="Дата" />   <h:outputText value="#{viewPaymentController.payment.createDate}">
+                                                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                                                </h:outputText>
+                                <h:outputText value="Дата проведения" /> <h:outputText value="#{viewPaymentController.payment.processDate}">
+                                                                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                                                                        </h:outputText>
+                                <h:outputText value="Клиент" /> <h:outputText value="#{viewPaymentController.creditRequest.peopleMain.peoplePersonalActive.fullName}"/>
+                                <h:outputText value="Сумма" /> <h:outputText value="#{viewPaymentController.payment.amount}"/>
+                                <h:outputText value="Партнёр" /> <h:outputText value="#{viewPaymentController.payment.partner == null ? '' : viewPaymentController.payment.partner.name}"/>
+                                <h:outputText value="Направление" /> <h:outputText value="#{viewPaymentController.payment.paymentType.name}"/>
+                                <h:outputText value="Статус" /> <h:outputText value="#{msg['payment.status.'.concat(viewPaymentController.payment.status)]}"/>
+                                <h:outputText value="Выплачен" /> 
+                                <h:outputText value="да" rendered="#{viewPaymentController.payment.isPaid}"/>
+                                <h:outputText value="нет" rendered="#{not viewPaymentController.payment.isPaid}"/>
+                            </h:panelGrid>
+                        </rich:panel>
+                        <rich:panel header="Заявка" styleClass="layout block2">
+							<h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+								<h:outputText value="ID" /> <h:outputText value="#{viewPaymentController.creditRequest.id}" />
+								<h:outputText value="Номер" /> <h:outputText value="#{viewPaymentController.creditRequest.uniqueNomer}" />
+								<h:outputText value="Статус заявки" /> <h:outputText value="#{viewPaymentController.creditRequest.status.name}" />
+								<h:outputText value="Дата заполнения" /> <h:outputText value="#{viewPaymentController.creditRequest.dateContest}"><f:convertDateTime pattern="dd.MM.yyyy" /></h:outputText>
+								<h:outputText value="Ставка" /> 
+								<h:outputText value="#{viewPaymentController.creditRequest.stake}" >
+								  <f:convertNumber type="percent" minFractionDigits="1"/>
+								</h:outputText>
+								<h:outputText value="Сумма" /> <h:outputText value="#{viewPaymentController.creditRequest.creditSum}" />
+								<h:outputText value="Срок в днях" /> <h:outputText value="#{viewPaymentController.creditRequest.creditDays}" />
+								<h:outputText value="Как переводим деньги" /> <h:outputText value="#{viewPaymentController.creditRequest.account.accountType.name}" />
+								<h:outputText value="Комментарии" rendered="#{not empty viewPaymentController.creditRequest.comment}"/><h:outputText value="#{viewPaymentController.creditRequest.comment}" rendered="#{not empty viewPaymentController.creditRequest.comment}"/>
+								<h:outputText value="Причина отказа" rendered="#{viewPaymentController.creditRequest.rejectReason != null}"/>
+								<h:panelGroup > 
+								 	<h:outputText value="#{viewPaymentController.creditRequest.rejectReason.name}" rendered="#{viewPaymentController.creditRequest.rejectReason != null}" />
+								</h:panelGroup>
+								
+							</h:panelGrid>			
+						</rich:panel>
+						<rich:panel header="Заём" styleClass="layout block1" rendered="#{viewPaymentController.creditRequest.acceptedCredit != null}">
+							<h:panelGrid columns="2" rendered="#{viewPaymentController.creditRequest.acceptedCredit != null}" columnClasses="layout-field-name, top-valigned">
+								<h:outputText value="Номер займа" /> 
+								<h:outputText value="#{viewPaymentController.creditRequest.acceptedCredit.creditAccount}"/>
+								<h:outputText value="Дата начала" /> 
+								<h:outputText value="#{viewPaymentController.creditRequest.acceptedCredit.databeg}" />
+								<h:outputText value="Дата окончания по графику" /> 
+								<h:outputText value="#{viewPaymentController.creditRequest.acceptedCredit.dataend} " />
+								<h:outputText value="Сумма" /> 
+								<h:outputText value="#{viewPaymentController.creditRequest.acceptedCredit.creditSum}" >
+									<f:convertNumber pattern="############.00" />
+								</h:outputText>
+								<h:outputText value="Сумма возврата" /> 
+								<h:outputText value="#{viewPaymentController.creditRequest.acceptedCredit.creditSumBack}" >
+									<f:convertNumber pattern="############.00" />
+								</h:outputText>
+								<h:outputText value="Ставка" /> 
+								<h:outputText value="#{viewPaymentController.creditRequest.acceptedCredit.creditPercent}" >
+									<f:convertNumber type="percent" minFractionDigits="1"/>
+								</h:outputText>
+								<h:outputText value="Закрыт?" />
+								<h:panelGroup>
+									<h:outputText value="да" rendered="#{viewPaymentController.creditRequest.acceptedCredit.isOver}" />
+									<h:outputText value="нет" rendered="#{! viewPaymentController.creditRequest.acceptedCredit.isOver}" />
+								</h:panelGroup> 
+							</h:panelGrid>
+						</rich:panel>						
+						<rich:panel header="Клиент" styleClass="layout block2">
+							<h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">								
+								<h:outputText value="ФИО" /> <h:outputText value="#{viewPaymentController.creditRequest.peopleMain.peoplePersonalActive.fullName}" />
+								<h:outputText value="Документ" rendered="#{viewPaymentController.creditRequest.peopleMain.activePassport!=null}"/> <h:outputText value="#{viewPaymentController.creditRequest.peopleMain.activePassport.descriptionFull} " rendered="#{viewPaymentController.creditRequest.peopleMain.activePassport!=null}"/>
+								<h:outputText value="Адрес прописки" rendered="#{viewPaymentController.creditRequest.peopleMain.registerAddress!=null}"/> <h:outputText value="#{viewPaymentController.creditRequest.peopleMain.registerAddress.description} " rendered="#{viewPaymentController.creditRequest.peopleMain.registerAddress!=null}"/>
+								<h:outputText value="Адрес проживания" rendered="#{viewPaymentController.creditRequest.peopleMain.registerAddress!=null}" />
+								<h:panelGroup rendered="#{viewPaymentController.creditRequest.peopleMain.registerAddress!=null}">
+									<h:outputText value="#{viewPaymentController.creditRequest.peopleMain.registerAddress.description}" rendered="#{viewPaymentController.creditRequest.peopleMain.registerAddress.isSame}" />
+									<h:outputText value="#{viewPaymentController.creditRequest.peopleMain.residentAddress.description}" rendered="#{! viewPaymentController.creditRequest.peopleMain.registerAddress.isSame}" />
+								</h:panelGroup>
+								<h:outputText value="Мобильный телефон" /><h:outputText value="#{viewPaymentController.creditRequest.peopleMain.cellPhone.value}"/>
+								<h:outputText value="Email" /><h:outputText value="#{viewPaymentController.creditRequest.peopleMain.email.value}"/>
+							</h:panelGrid>	
+						</rich:panel>
+					</h:panelGrid>
+	                 <rich:panel header="Статус платежа" styleClass="layout ">
+                            <h:panelGrid id="tblStatus" columns="2" columnClasses="layout-field-name, top-valigned" >
+                                
+                                <h:outputText value="Ответ сервиса" rendered="#{not empty viewPaymentController.response}"/>
+                                <h:inputTextarea id="response" value="#{viewPaymentController.response}" rendered="#{not empty viewPaymentController.response}"/>
+                                <h:outputText value="Статус платежа" rendered="#{not empty viewPaymentController.status}"/>
+                                <h:outputText id="status" value="#{viewPaymentController.status}" rendered="#{not empty viewPaymentController.status}"/>                       
+                            </h:panelGrid>
+                            <a4j:commandLink value="Проверить" styleClass="button ml0" actionListener="#{viewPaymentController.checkStatus}"  render="tblStatus response status"/>
+		             </rich:panel>
+			<h:panelGrid columns="2">
+			   <h:commandButton value="Позвонить" styleClass="button ml0" action="#{viewPaymentController.call}" onclick="alert('Был сделан звонок'); return false;"></h:commandButton>
+			   <h:commandButton value="Закрыть" styleClass="button grey" action="#{viewPaymentController.cancel}">	</h:commandButton>
+			</h:panelGrid>
+			
+        </h:form>
+    </ui:define>
+</ui:composition>

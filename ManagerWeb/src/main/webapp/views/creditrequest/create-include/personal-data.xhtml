@@ -1,0 +1,178 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:panelGrid columns="2" columnClasses="top-valigned grid-col-2,top-valigned grid-col-2">
+        <rich:panel header="Персональные данные" styleClass="layout">
+            <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned, grid-col-2">
+                <h:panelGroup>
+                    <h:outputText value="Фамилия"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText id="lastName" value="#{createCreditRequestController.personalData.lastName}">
+                        <rich:validator/>
+                    </h:inputText>
+                    <rich:message for="lastName"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Имя"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText id="firstName" value="#{createCreditRequestController.personalData.firstName}">
+                        <rich:validator/>
+                    </h:inputText>
+                    <rich:message for="firstName"/>
+                </h:panelGroup>
+                <h:outputText value="Отчество"/>
+                <h:panelGroup>
+                    <h:inputText id="middleName" value="#{createCreditRequestController.personalData.middleName}"/>
+                    <rich:message for="middleName"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Email"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText id="email" value="#{createCreditRequestController.personalData.email}"
+                                 validator="#{createCreditRequestController.validateEmail}">
+                        <rich:validator/>
+                    </h:inputText>
+                    <rich:message for="email"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Мобильный телефон"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText id="phone" value="#{createCreditRequestController.personalData.phone}"
+                                 converter="ru.simplgroupp.webapp.view.DigitalConvertor"
+                                 validator="#{createCreditRequestController.validatePhone}"
+                                 styleClass="phone-mask">
+                        <rich:validator/>
+                    </h:inputText>
+                    <rich:message for="phone"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Дата рождения"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <rich:calendar id="birthDate" value="#{createCreditRequestController.personalData.birthDate}"
+                                   buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy"
+                                   enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px">
+                        <rich:validator/>
+                    </rich:calendar>
+                    <rich:message for="birthDate"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Место рождения"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText id="birthPlace" value="#{createCreditRequestController.personalData.birthPlace}">
+                        <rich:validator/>
+                    </h:inputText>
+                    <rich:message for="birthPlace"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Пол"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:selectOneMenu id="genderCode" value="#{createCreditRequestController.personalData.genderCode}">
+                        <f:selectItem itemLabel="" itemValue=""/>
+                        <f:selectItems value="#{refs.genderCodes}"/>
+                        <rich:validator/>
+                    </h:selectOneMenu>
+                    <rich:message for="genderCode"/>
+                </h:panelGroup>
+            </h:panelGrid>
+        </rich:panel>
+        <rich:panel header="Пасспортные данные" styleClass="layout">
+            <h:panelGrid columns="2" columnClasses="layout-field-name , top-valigned">
+                <h:panelGroup>
+                    <h:outputText value="Серия паспорта"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText id="passportSerial" converter="ru.simplgroupp.webapp.view.DigitalConvertor"
+                                 value="#{createCreditRequestController.personalData.passportSerial}"
+                                 styleClass="passport-serial-mask">
+                        <rich:validator/>
+                    </h:inputText>
+                    <rich:message for="passportSerial"/>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Номер паспорта"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText id="passportNumber" converter="ru.simplgroupp.webapp.view.DigitalConvertor"
+                                 value="#{createCreditRequestController.personalData.passportNumber}"
+                                 styleClass="passport-number-mask">
+                        <rich:validator/>
+                    </h:inputText>
+                    <rich:message for="passportNumber"/>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Дата выдачи документа"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <rich:calendar id="passportIssueDate"
+                                   value="#{createCreditRequestController.personalData.passportIssueDate}"
+                                   buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy"
+                                   enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px">
+                        <rich:validator/>
+                    </rich:calendar>
+                    <rich:message for="passportIssueDate"/>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Код подразделения"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText id="passportDepartmentCode"
+                                 value="#{createCreditRequestController.personalData.passportDepartmentCode}"
+                                 styleClass="code-department-mask">
+                        <rich:validator/>
+                    </h:inputText>
+                    <rich:message for="passportDepartmentCode"/>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <h:outputText value="Выдавшая организация"/>
+                    <span class="asterisk">*</span>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:inputText id="passportIssueOrganization"
+                                 value="#{createCreditRequestController.personalData.passportIssueOrganization}">
+                        <rich:validator/>
+                    </h:inputText>
+                    <rich:message for="passportIssueOrganization"/>
+                </h:panelGroup>
+            </h:panelGrid>
+        </rich:panel>
+    </h:panelGrid>
+    <h:panelGroup>
+        <a4j:commandButton value="Назад" styleClass="button grey" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" immediate="true" execute="@this" render="@form"
+                           action="#{createCreditRequestController.previousStep}"/>
+        <a4j:commandButton value="Далее" styleClass="button" onclick="this.disabled=true"
+                           oncomplete="this.disabled=false" render="@form"
+                           action="#{createCreditRequestController.savePersonalData}"/>
+    </h:panelGroup>
+    <h:outputScript>
+        $(function () {
+            $('.code-department-mask').mask('999-999');
+            $('.passport-serial-mask').mask('99 99');
+            $('.passport-number-mask').mask('999999');
+            $('[type=tel], .phone-mask').mask('+7 (999) 999 99 99');
+            $('.rf-cal-inp').mask('99.99.9999');
+        });
+    </h:outputScript>
+</ui:composition>

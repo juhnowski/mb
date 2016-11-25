@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/templatemin.xhtml"> 
+
+<ui:define name="metadata">
+        
+ 	</ui:define>
+ 	
+    <ui:define name="title">Manager console</ui:define>
+
+	<ui:define name="pageHeader">
+		<h:outputText value="Ошибка" />
+	</ui:define>
+    <ui:define name="pageContent">
+        <h:form styleClass="login error_page">
+       <h1>Ошибка приложения</h1>
+      <p class="text_mess">При выполнении приложения произошла ошибка.
+      <br/> 
+      Пожалуйста, перейдите в <h:outputLink value="index.xhtml"><h:outputText value="рабочий кабинет" /> </h:outputLink></p>
+
+        </h:form>    	
+    </ui:define>
+</ui:composition>

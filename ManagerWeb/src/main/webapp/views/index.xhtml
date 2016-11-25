@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="home" />
+
+   <ui:define name="metadata">
+     		
+	</ui:define>
+    <ui:define name="title">Manager console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form>
+        	
+        	  <rich:tabPanel switchType="client" rendered="#{stateAll.taskInfoCount > 0}"  styleClass="table_small">
+        		<a4j:repeat var="taskinfo" value="#{stateAll.taskInfos}">
+        		  <rich:tab header="#{taskinfo.description} (#{taskinfo.itemCount})">
+	        		
+	        			<rich:dataTable var="wfo" value="#{stateAll.tasks[taskinfo.name]}" rows="#{stateAll.maxRows}">     
+		        			<f:facet name="header">
+		        			    <rich:columnGroup >
+		        			      <rich:column >
+	                                 <h:outputText value="Дата" />
+	                               </rich:column>
+	                               <rich:column >
+	                                 <h:outputText value="Номер" />
+	      
+	                               </rich:column>
+	                               <rich:column >
+	                                 <h:outputText value="ФИО" />
+	      
+	                               </rich:column>
+	                               <rich:column >
+	                                 <h:outputText value="Назначена" />
+	      
+	                               </rich:column>	                               
+		        			    </rich:columnGroup>
+		        			</f:facet>  			
+	        				<rich:column>
+	        					
+	        					<h:outputText value="#{wfo.createTime}">
+	        						<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+	        					</h:outputText>
+	        				</rich:column>  
+	        				<rich:column rendered="#{wfo.businessObjectClass == 'ru.simplgroupp.transfer.CreditRequest'}">
+	        				
+	        					<h:outputText value="#{wfo.businessObject.uniqueNomer}"/>	        					
+	        				</rich:column>
+	        				<rich:column rendered="#{wfo.businessObjectClass == 'ru.simplgroupp.transfer.CreditRequest'}">
+	        				
+	        					<h:outputText value="#{wfo.businessObject.peopleMain.peoplePersonalActive.fullName}"  rendered="#{wfo.businessObject.peopleMain.peoplePersonalActive!=null}" />	        					
+	        				</rich:column>
+	        				<rich:column rendered="#{wfo.businessObjectClass == 'ru.simplgroupp.transfer.Credit'}">
+	        				
+	        					<h:outputText value="#{wfo.businessObject.idCredit}"/>	        					
+	        				</rich:column>	        				     				
+	        				<rich:column rendered="#{wfo.businessObjectClass == 'ru.simplgroupp.transfer.Payment'}">
+	        				
+	        					<h:outputText value="#{wfo.businessObject.credit.idCredit}"/>	        					
+	        				</rich:column>
+	        				<rich:column>
+	        					<h:outputText value="мне" rendered="#{wfo.assigneeUserId == userData.user.id}" />
+	        					<h:outputText value="никому" rendered="#{wfo.assigneeUserId == 0}" />
+	        					<h:outputText value="другому" rendered="#{(wfo.assigneeUserId != 0) and (wfo.assigneeUserId != userData.user.id)}" />
+	        				</rich:column>	
+	        			</rich:dataTable>
+	        			<h:link styleClass="button" value="посмотреть ещё" outcome="listtasks">
+	        				<f:param name="taskname" value="#{taskInfo.name}" />
+	        			</h:link>
+	        		</rich:tab>
+	        			
+        		</a4j:repeat>  
+        	  </rich:tabPanel>	       		
+        
+           
+        </h:form>
+    </ui:define>
+</ui:composition>

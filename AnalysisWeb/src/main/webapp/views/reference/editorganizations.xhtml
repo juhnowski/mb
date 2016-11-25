@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<h:panelGrid columns="2">
+			   <h:outputText value="Название"/>
+			   <h:panelGroup>
+			     <h:inputText id="stxt" value="#{editOrganizations.org.name}" required="true" requiredMessage="Необходимо заполнить название" size="60"/>
+			     <rich:message for="stxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Инн"/>
+			   <h:panelGroup>
+			     <h:inputText id="ntxt" value="#{editOrganizations.org.inn}"  />
+			     <rich:message for="ntxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Кпп"/>
+			   <h:panelGroup>
+			     <h:inputText id="mtxt" value="#{editOrganizations.org.kpp}"/>
+			     <rich:message for="mtxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Огрн"/>
+			   <h:panelGroup>
+			     <h:inputText id="ogrntxt" value="#{editOrganizations.org.ogrn}"/>
+			     <rich:message for="ogrntxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Телефон"/>
+			   <h:panelGroup>
+			     <h:inputText id="sptxt" value="#{editOrganizations.org.phone}" />
+			     <rich:message for="sptxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Бесплатный телефон для клиентов"/>
+			   <h:panelGroup>
+			     <h:inputText id="spfreetxt" value="#{editOrganizations.org.freePhone}" />
+			     <rich:message for="spfreetxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Email"/>
+			   <h:panelGroup>
+			     <h:inputText id="nptxt" value="#{editOrganizations.org.email}" />
+			     <rich:message for="nptxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Активность записи" /> 
+        		<h:selectOneMenu value="#{editOrganizations.org.isActive}">
+        			<f:selectItems value="#{comrefs.yesNoNull}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Тип организации" /> 
+        		<h:selectOneMenu value="#{editOrganizations.org.orgType.id}">
+        			<f:selectItems value="#{comrefs.organizationByTypes}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Дата начала"/>
+			   <h:panelGroup>
+			      <rich:calendar id="dbtxt" value="#{editOrganizations.org.databeg}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+			     <rich:message for="dbtxt"/>
+			   </h:panelGroup>
+			   <h:outputText value="Дата окончания"/>
+			   <h:panelGroup>
+			      <rich:calendar id="detxt" value="#{editOrganizations.org.dataend}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+			     <rich:message for="detxt"/>
+			   </h:panelGroup>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+			    <h:commandLink value="Сохранить" action="#{editOrganizations.save}" />
+			    <h:commandLink value="Закрыть" action="#{editOrganizations.close}" />
+			</h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

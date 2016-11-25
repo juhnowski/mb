@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+<rich:tabPanel switchType="client" styleClass="mb20">
+       <rich:tab header="Краткий поиск">
+            
+             <h:panelGroup id="pnlSearchQuick"  styleClass="search">
+             
+          
+         	 	<h:panelGrid id="srch1" columns="3" styleClass="table_search td2pdg30">
+         	 	    <h:outputText value="Фамилия клиента" /> 
+	         	 	<h:outputText value="Дата выдачи" />
+	         	 	<h:outputText value="Сумма займа" />
+	         	 	
+	         	 	
+	         	 	<h:inputText value="#{listCredit.prmSurname1}"/>
+	         	 	<h:panelGroup>
+         	 			<h:outputText value="с "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCredit.prmDatabeg1.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" />
+         	 			<h:outputText value=" по "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCredit.prmDatabeg1.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" />
+         	 		</h:panelGroup>
+	         	 	 
+	         	 	<h:panelGroup>
+         	 			<h:outputText value="от "/> 
+         	 			<h:inputText value="#{listCredit.prmCreditsum1.from}" styleClass="w66" >
+         	 			  <f:convertNumber pattern="##########.00" />
+         	 			</h:inputText>  
+						<h:outputText value=" до "/> 
+						<h:inputText value="#{listCredit.prmCreditsum1.to}" styleClass="w66" >
+						   <f:convertNumber pattern="##########.00" />
+						 </h:inputText>          	 				
+         	 		</h:panelGroup>  
+         	 	
+         	 	    <h:outputText value="Дата окончания по графику" />
+	         	 	<h:outputText value="Фактическая дата окончания" />
+	         	 	<h:outputText value="Рабочее состояние займа" />
+	         	 	
+	         	 	<h:panelGroup>
+         	 			<h:outputText value="с "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCredit.prmDataend1.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" showWeekDaysBar="false" showWeeksBar="false"/>
+         	 			<h:outputText value=" по "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCredit.prmDataend1.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" showWeekDaysBar="false" showWeeksBar="false"/>
+         	 		</h:panelGroup>
+					 
+					<h:panelGroup>
+         	 			<h:outputText value="с "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCredit.prmDataendfact1.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" showWeekDaysBar="false" showWeeksBar="false"/>
+         	 			<h:outputText value=" по "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCredit.prmDataendfact1.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" showWeekDaysBar="false" showWeeksBar="false"/>
+         	 		</h:panelGroup>  
+	         	 	<h:selectOneMenu value="#{listCredit.prmIsActive1}" >
+         	 			<f:selectItems value="#{refs.yesNoNull}" />
+         	 		</h:selectOneMenu>
+	         	 	
+         	 	</h:panelGrid>
+         	 	
+         	
+				<a4j:commandButton value="Найти" action="#{listCredit.dummy}" actionListener="#{listCredit.searchLsn}" render="pnlResults" execute="@form" styleClass="button" /> 
+				<a4j:commandButton value="Очистить" actionListener="#{listCredit.clearLsn}" render="frmMain" execute="@form" styleClass="button grey" />
+				<a4j:commandButton value="Сохранить условия" actionListener="#{listCredit.saveCondLsn}" render="frmMain" execute="@form" styleClass="button grey" />         	 	         								    
+				<a4j:commandButton value="Загрузить условия" actionListener="#{listCredit.loadCondLsn}" render="frmMain" execute="@form" styleClass="button grey" />
+             </h:panelGroup>
+            </rich:tab>
+            
+             <rich:tab header="Расширенный поиск">  
+         	 <h:panelGroup id="pnlSearchFull"  styleClass="search"> 
+         	
+         	 	<h:panelGrid id="srch3" columns="4" styleClass="table_search">
+         	 	    <h:outputText value="Фамилия клиента" />
+         	 	    <h:outputText value="Номер займа" />
+         	 	    <h:outputText value="Состояние займа" />
+         	 	    <h:outputText value="Рабочее состояние займа" />
+         	 	     
+         	 	    <h:inputText value="#{listCredit.prmSurname2}"/>
+         	 		<h:inputText value="#{listCredit.prmNomer}" />         	 		 
+         	 		<h:selectOneMenu value="#{listCredit.prmStatusId}" >
+         	 			<f:selectItems value="#{refs.creditStatusesNull}" />
+         	 		</h:selectOneMenu>
+         	 		<h:selectOneMenu value="#{listCredit.prmIsActive2}" >
+         	 			<f:selectItems value="#{refs.yesNoNull}" />
+         	 		</h:selectOneMenu>
+         	 		
+	         	 	<h:outputText value="Сумма займа" />
+	         	 	<h:outputText value="Ставка займа" />
+	         	 	<h:outputText value="Дата выдачи" />
+	         	 	<h:outputText value="Дата окончания по графику" />
+	         	 	 
+	         	 	<h:panelGroup>
+         	 			<h:outputText value="от "/> <h:inputText value="#{listCredit.prmCreditsum2.from}" styleClass="w66" />
+						<h:outputText value=" до "/> <h:inputText value="#{listCredit.prmCreditsum2.to}" styleClass="w66" />        	 				
+         	 		</h:panelGroup>           	 		 
+	         	 	<h:panelGroup>
+         	 			<h:outputText value="от "/> <h:inputText value="#{listCredit.prmCreditstake.from}" styleClass="w66"/>
+						<h:outputText value=" до "/> <h:inputText value="#{listCredit.prmCreditstake.to}" styleClass="w66"/>        	 				
+         	 		</h:panelGroup>          	 		         	 	    	         	 	
+	         	 	<h:panelGroup >
+         	 			<h:outputText value="с "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCredit.prmDatabeg2.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" showWeekDaysBar="false" showWeeksBar="false"/>
+         	 			<h:outputText value=" по "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCredit.prmDatabeg2.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" showWeekDaysBar="false" showWeeksBar="false"/>
+         	 		</h:panelGroup>
+	         	 	<h:panelGroup>
+         	 			<h:outputText value="с "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCredit.prmDataend2.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" showWeekDaysBar="false" showWeeksBar="false"/>
+         	 			<h:outputText value=" по "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCredit.prmDataend2.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" showWeekDaysBar="false" showWeeksBar="false"/>
+         	 		</h:panelGroup>
+         	 		
+					<h:outputText value="Фактическая дата окончания" />
+					<h:outputText value="Источник информации" /> 
+					<h:outputText value="Кредит завершен?" />
+					<h:outputText value="Выдан своей организацией?" />
+					
+					<h:panelGroup>
+         	 			<h:outputText value="с "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCredit.prmDataendfact2.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" showWeekDaysBar="false" showWeeksBar="false"/>
+         	 			<h:outputText value=" по "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCredit.prmDataendfact2.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" showWeekDaysBar="false" showWeeksBar="false"/>
+         	 		</h:panelGroup>           	 	
+         	 		<h:selectOneMenu value="#{listCredit.prmPartnerId}" >
+         	 			<f:selectItems value="#{refs.partnersForCreditHistoryNull}" />
+         	 		</h:selectOneMenu>
+         	 		<h:selectOneMenu value="#{listCredit.prmIsOver}">
+						<f:selectItems value="#{refs.yesNoNull}" />
+         	 		</h:selectOneMenu> 
+         	 		<h:selectOneMenu value="#{listCredit.prmIsSameorg}">
+						<f:selectItems value="#{refs.yesNoNull}" />
+         	 		</h:selectOneMenu> 
+         	 	
+         	 	</h:panelGrid>
+         	      	 	
+             	<a4j:commandButton value="Найти" action="#{listCredit.dummy}" actionListener="#{listCredit.searchLsn}" render="pnlResults" execute="@form" styleClass="button" /> 
+             	<a4j:commandButton value="Очистить" actionListener="#{listCredit.clearLsn}" render="frmMain" execute="@form" styleClass="button grey" />
+             </h:panelGroup>
+             
+           </rich:tab>  
+             
+    </rich:tabPanel> 	
+     			
+</ui:composition>	

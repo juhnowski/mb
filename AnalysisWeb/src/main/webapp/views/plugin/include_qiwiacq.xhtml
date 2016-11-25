@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+	<h:panelGrid columns="2">
+		<h:outputText value="orderUrl" />
+		<h:inputText value="#{editPlugCtl.extCtl.orderUrl}" size="100"/>
+		<h:outputText value="statusUrl" />
+		<h:inputText value="#{editPlugCtl.extCtl.statusUrl}" size="100"/>
+		<h:outputText value="payUrl" />
+		<h:inputText value="#{editPlugCtl.extCtl.payUrl}" size="100"/>		
+		<h:outputText value="имя пользователя" />
+		<h:inputText value="#{editPlugCtl.extCtl.login}" size="50"/>
+		<h:outputText value="пароль" />
+		<h:inputText value="#{editPlugCtl.extCtl.password}" size="50"/>		
+		<h:outputText value="провайдер" />
+		<h:inputText value="#{editPlugCtl.extCtl.providerId}" size="50"/>		
+		<h:outputText value="время ожидания соединения, мс" />
+		<h:inputText value="#{editPlugCtl.extCtl.connectTimeout}" size="50"/>
+		<h:outputText value="время жизни, часов" />
+		<h:inputText value="#{editPlugCtl.extCtl.lifeTime}" size="50"/>						
+	</h:panelGrid>
+
+				
+</ui:composition>

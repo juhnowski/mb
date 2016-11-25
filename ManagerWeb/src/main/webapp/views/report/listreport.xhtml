@@ -1,0 +1,104 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="report" />
+	
+    <ui:define name="title">Manager console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="frmMain">
+        	 <rich:panel header="Поиск" styleClass="layout block4 table_small" >
+             <h:panelGroup id="pnlSearchQuick"  styleClass="search">
+         	 	<h:panelGrid columns="3" styleClass="table_search">
+         	 	    <h:outputText value="Mime тип" />
+         	 	    <h:outputText value="Выполняется через" />
+         	 	    <h:outputText value="Название отчета" />
+         	 	    <h:inputText value="#{listReport.mimeType}"/>
+         	 	    <h:inputText value="#{listReport.executor}"/>
+         	 	    <h:inputText value="#{listReport.reportName}"/>
+         	 	    
+                    <h:outputText value="Тип отчета" />
+                    <h:outputText value="Код отчета" /> 
+         	 	    <h:outputText value="Продукт" />
+         	 	     
+         	 	    
+          	 	    <h:selectOneMenu value="#{listReport.reportType}" >
+         	 			<f:selectItems value="#{refs.reportTypes}" />
+         	 		</h:selectOneMenu>  
+         	 		<h:inputText value="#{listReport.code}"/>
+         	 	</h:panelGrid>
+         	 
+				<a4j:commandButton value="Найти"  actionListener="#{listReport.searchLsn}" render="pnlResults" execute="@form" styleClass="button" /> 
+				<a4j:commandButton value="Очистить" actionListener="#{listReport.clearLsn}" render="frmMain" execute="@form" styleClass="button grey" />         	 	             
+             </h:panelGroup>
+           </rich:panel>  
+           
+           <h:panelGroup id="pnlResults" styleClass="div">
+				<h:panelGroup id="cnt" styleClass="total_result" >
+					<h:outputText value="Найдено " /><b><h:outputText value="#{listReport.model.rowCount} отчетов" /></b>					
+				</h:panelGroup>	
+				<rich:dataTable id="reqTable"
+		                         value="#{listReport.model}"               
+		                         var="req"
+		                         selectionMode="single"
+		                         rows="20"
+		                         sortPriority="#{listReport.model.sortPriorities}"
+		                         styleClass="table2">
+	               
+	               <rich:column headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Название отчета</f:facet>
+	                	<h:outputText value="#{req.name}"/>
+	                </rich:column>
+	                <rich:column headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Код отчета</f:facet>
+	                	<h:outputText value="#{req.code}"/>
+	                </rich:column>
+	                <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">Mime тип</f:facet> 	                	
+	                	<h:outputText value="#{req.mimeType}"/>
+	                </rich:column>	
+	                <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">Как запускается</f:facet> 	                	
+	                	<h:outputText value="#{req.reportExecutor}"/>
+	                </rich:column>	
+	                <rich:column headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Вид отчета</f:facet>
+	                	<h:outputText value="#{req.reportType.name}" rendered="#{not empty req.reportType}"/>
+	                </rich:column>
+	                <rich:column headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Продукт</f:facet>
+	                	<h:outputText value="#{req.product.name}" rendered="#{not empty req.product}"/>
+	                </rich:column>		                		                
+	                <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	                		<h:outputText value="Действия" />
+	                		<br/>
+	                        <a4j:commandLink execute="@this" value="сбросить" render="reqTable"
+	                            action="#{listReport.model.reset}">
+	                        </a4j:commandLink>                		
+	            		</f:facet> 
+	                	<h:panelGrid columns="2">          		
+							<h:panelGroup >
+								<h:link outcome="viewreport?faces-redirect=true" styleClass="open" >
+									<f:param name="reportid" value="#{req.id}" />
+								</h:link>
+							</h:panelGroup>
+					       <h:panelGroup  >
+								<h:commandLink styleClass="delete" actionListener="#{listReport.deleteItem}" onclick="if (! confirm('Удалить отчет?') ) { return false;}; return true; "  >
+									<f:attribute name="reportid" value="#{req.id}" />
+									<a4j:ajax render="@all" />
+									
+								</h:commandLink>
+						  </h:panelGroup>						
+						</h:panelGrid> 
+	                </rich:column>		
+	                <f:facet name="footer">
+	                	<rich:dataScroller />
+	                </f:facet>
+	          	</rich:dataTable>				
+			</h:panelGroup>	        
+        </h:form>
+    </ui:define>
+</ui:composition>

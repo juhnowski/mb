@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+          <rich:panel header="Поиск" id="pnlSearch" styleClass="search" >
+            
+         	 <h:panelGroup id="pnlSearchFull" >
+         	 	<h:panelGrid columns="3" styleClass="table_search  td3pl20">
+         	 		<h:outputText value="Фамилия клиента" /> 
+                    <h:outputText value="Дата платежа" />
+                    <h:outputText value="Статус" />
+                    
+                    <h:inputText value="#{listPaymentsController.filter.lastName}"/>
+                    <h:panelGroup>
+                        <h:outputText value="с "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listPaymentsController.filter.from}" popup="true" showApplyButton="false" datePattern="dd.MM.yy" />
+                        <h:outputText value=" по "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listPaymentsController.filter.to}" popup="true" showApplyButton="false" datePattern="dd.MM.yy" />
+                    </h:panelGroup>
+                     <h:selectOneMenu value="#{listPaymentsController.filter.status}" >
+                        <f:selectItem itemLabel="Все" itemValue="" />
+                        <f:selectItem itemLabel="Проведены" itemValue="1" />
+                        <f:selectItem itemLabel="В ошибке" itemValue="2" />
+                        <f:selectItem itemLabel="В обработке" itemValue="3" />
+                        <f:selectItem itemLabel="Отменены" itemValue="4" />
+                        <f:selectItem itemLabel="Удалены" itemValue="5" />
+                    </h:selectOneMenu>
+
+                    <h:outputText value="Партнёр" />
+                    <h:outputText value="Направление" />
+                    <h:panelGroup/>  
+                    
+                    <h:selectOneMenu value="#{listPaymentsController.filter.partnerId}" >
+                        <f:selectItems value="#{refs.partnersForPaymentNull}" />
+                    </h:selectOneMenu>
+                
+                    <h:selectOneMenu value="#{listPaymentsController.filter.paymentTypeId}" >
+                        <f:selectItems value="#{refs.paymentTypesRefNull}" />
+                    </h:selectOneMenu>
+                    
+                    <h:panelGroup/>
+                    
+         	 	</h:panelGrid>
+         	 	
+             	<a4j:commandButton value="Найти" action="#{listPaymentsController.dummy}"
+                                   actionListener="#{listPaymentsController.searchLsn}"
+                                   render="pnlResults" execute="@form" styleClass="button" />
+                 <a4j:commandButton value="Очистить" actionListener="#{listPaymentsController.clearLsn}" render="frmMain" execute="@form" styleClass="button grey" />
+             </h:panelGroup>
+     		</rich:panel>
+
+</ui:composition>	

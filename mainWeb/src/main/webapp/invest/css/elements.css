@@ -1,0 +1,68 @@
+
+/*В данном файле содержиться множество стилей применяемых в шаблоне элементов. По окончанию работ ненужные стили можно удалить. Все стили в самом начале имеют комментарий для какого элемента применяется данный стиль. */
+
+/* Стили оформления select (выпадающего списка) */
+/*--- Start Select ---*/
+.workspace .select {
+  width: 141px;
+  height: 34px;
+  margin: 20px auto 0;
+}
+
+.workspace .slct {background: #fff url(../images/sprite.svg) -866px 8px no-repeat;}
+
+.workspace .slct {
+  display: block;
+  width: 110px;
+  height: 21px;
+  padding: 4px 15px 4px 14px;
+  border-radius: 3px;
+  border: 1px #e9ebeb solid;
+  color: #7c8a95;
+  font-size: 13px;
+  line-height: 22px;
+  font-weight: 300;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis; 
+}
+
+.workspace .select a {text-decoration: none;}
+
+.workspace .slct.active {
+  border-radius: 5px 5px 0 0;
+  border-bottom: none;
+}
+
+.workspace .drop {
+  width: 139px;
+  margin: 0;
+  padding: 0;
+  border: 1px #e9ebeb solid;
+  border-top: none;
+  display: none;
+  position: absolute;
+  background: #fff;
+  z-index: 10;
+}
+
+.workspace .drop li {
+  list-style: none;
+  border-top: 1px #e9ebeb dotted;
+  cursor: pointer;
+  display: block;
+  color: #444;
+  padding: 4px 0px 4px 14px;
+  color: #7c8a95;
+  font-size: 12px;
+  line-height: 22px;
+  font-weight: 300;
+}
+
+.workspace .drop li:hover {
+  background-color: #e9ebeb;
+  color: #222;
+}
+
+/*--- Stop Select ---*/

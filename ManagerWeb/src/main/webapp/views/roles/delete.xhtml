@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+	<ui:define name="metadata">
+	</ui:define>
+    <ui:define name="pageContent">
+<style type="css"> 
+
+</style>    
+        <h:form>
+        	<rich:messages globalOnly="true"/>
+        	<h:panelGrid columns="2">
+        		<h:outputText value="Имя"/> <h:outputText value="#{delRole.role.name}"/>
+        		<h:outputText value="Название"/> <h:outputText value="#{delRole.role.realName}" />
+        	</h:panelGrid>
+        	<h:commandButton value="Удалить" action="#{delRole.delete}"/> <h:commandButton value="Отмена" action="#{delRole.cancel}" immediate="true"/>
+        </h:form>
+    </ui:define>
+</ui:composition> 

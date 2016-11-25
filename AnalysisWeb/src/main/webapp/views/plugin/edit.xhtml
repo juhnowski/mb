@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+	<ui:define name="metadata">
+		<f:viewParam name="pluginName" value="#{editPlug.prmPluginName}">
+		</f:viewParam>
+		<f:event type="preRenderView" listener="#{editPlug.init}" />
+	</ui:define>
+    <ui:define name="pageContent">
+        <h:form>
+        	<rich:messages globalOnly="true" />
+        	<rich:tabPanel switchType="client">
+        		<rich:tab header="Основные">
+		        	<ui:include src="include_edit.xhtml" >
+		        		<ui:param name="editPlugCtl" value="#{editPlug}" />
+		        	</ui:include>        		
+        		</rich:tab>
+        		<rich:tab header="Дополнительные">
+		        	<ui:include src="include_edit_ext.xhtml" >
+		        		<ui:param name="editPlugCtl" value="#{editPlug}" />
+		        	</ui:include>          		
+        		</rich:tab>        		
+        	</rich:tabPanel>
+			<h:commandButton value="Сохранить" action="#{editPlug.save}"></h:commandButton>
+			<h:commandButton value="Отмена" action="#{editPlug.cancel}" immediate="true"></h:commandButton>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,37 @@
+<div class="zaem-slider notsel">
+    <div class="box">
+
+        <h3 class="value pull-left"><span class="pref">Сумма:</span> <span id="summ_zaim"/> <span
+                class="suf">руб.</span></h3>
+
+        <!--<div class="input-box pull-right"><i class="ico ico--rub"></i><input id="summ_zaim-input" class="input numer"></div>-->
+
+        <div class="slider" id="summ_zaim_slider"></div>
+
+        <div class="min pull-left" id="minSumLabel"></div>
+        <div class="max pull-right" id="maxSumLabel"></div>
+
+    </div>
+
+    <div class="box">
+        <h3 class="value pull-left">
+            <span class="pref">Срок:</span> <span id="days_zaim"/> <span class="suf">дней</span>
+        </h3>
+
+        <!--<div class="input-box pull-right"><i class="ico ico--calendar"></i><input class="input numer" id="date_zaim-input"></div>-->
+
+        <div id="date_zaim_slider" class="slider"></div>
+
+        <div class="min pull-left" id="minDateLabel"></div>
+        <div class="max pull-right" id="maxDateLabel"></div>
+
+    </div>
+
+    <ul class="clr">
+        <li>Возвращаете: <b><span id="total_zaim"/> <span class="suf">руб.</span></b></li>
+        <li>Процент: <b><span id="procent_zaim"/> <span class="suf">в день</span></b></li>
+        <li>Дата возврата: <b id="date_zaim"/></li>
+    </ul>
+
+    <!--<a class="btn" href="/main/anketa.shtml" id="sendToAnketa">Оформить займ</a>-->
+</div>

@@ -1,0 +1,65 @@
+.credit-denied.hidden, .lk-addcredit.hidden, .lk-prolong .hidden {
+    display: none;
+}
+
+.lk table.bordered {
+    margin:0;
+}
+
+.lk table.bordered td {
+    padding: 2px 0 2px 20px;
+    color: #525252;
+    font: 14px/18px 'Myriad Pro','MyriadPro-Regular';
+    font-weight: 600;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.lk table.bordered td.indicator{
+    padding:10px 0 0 0;
+
+}
+
+.lk .slider {
+    margin: 0;
+}
+
+.lk .send_form.bt .submit {
+    width: inherit;
+}
+
+.lk .select .box i {
+    height: inherit;
+}
+
+.lk .l_i.select .value {
+    overflow: hidden;
+}
+
+.lk .text_mess {
+    padding: 0;
+}
+
+#what_is_it{
+    width:90px;
+    margin:20px auto;
+    display: block;
+}
+#what_is_it:before,
+#what_is_it:after {
+    border-bottom: 7px solid #f1efeb;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    content: '';
+    left: 50%;
+    margin-left: -7px;
+    position: absolute;
+    top: -6px;
+    z-index: 10;
+}
+#what_is_it:before {
+    border-bottom: 7px solid #cdcbc9;
+    top: -7px;
+}
+#what_is_it:hover:after {
+    border-bottom: 7px solid #e5e2de;
+}

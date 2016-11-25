@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+    <ui:define name="metadata">
+
+    </ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="frmEdit" prependId="false">
+            <rich:messages globalOnly="true" layout="table" />
+            <h:panelGroup id="pnlAdd">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Тип: "/>
+                    <h:inputText value="#{refAntifraudField.type}" />
+                    <h:outputText value="Описание: "/>
+                    <h:inputText value="#{refAntifraudField.description}" />
+                </h:panelGrid>
+                <a4j:commandButton value="Добавить" actionListener="#{refAntifraudField.addItem}" render="pnlData" />
+            </h:panelGroup>
+            <p></p>
+
+
+            <h:panelGroup id="pnlData">
+                <h:dataTable id="regions" var="ref" value="#{refAntifraudField.antifraudFieldTypeList}" >
+                    <h:column>
+                        <f:facet name="header">ID:</f:facet>
+                        <h:outputText value="#{ref.id}" size="30"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Тип:</f:facet>
+                        <h:inputText value="#{ref.type}" size="30"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Описание:</f:facet>
+                        <h:inputText value="#{ref.description}" size="30"/>
+                    </h:column>
+
+                </h:dataTable>
+            </h:panelGroup>
+            <h:panelGrid columns="2">
+
+                <h:commandLink value="Сохранить" actionListener="#{refAntifraudField.saveItems}" />
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

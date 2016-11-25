@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="admin" />
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Manager console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" rendered="#{menuCon.enabled_Admin}">
+			<rich:messages globalOnly="true" layout="table" />
+						
+						<rich:panel header="Пользователь системы" styleClass="layout block4" >
+							<h:panelGrid columns="2"  columnClasses="layout-field-name, top-valigned">
+							
+								<h:panelGroup>
+						          <h:outputText value="Фамилия" /> 
+						          <span class="asterisk">*</span>
+						        </h:panelGroup>  
+						        <h:panelGroup>
+								  <h:inputText id="surname" value="#{editUsers.surname}" required="true" requiredMessage="Необходимо заполнить фамилию">
+								    <f:validateRegex pattern="[А-Яа-яЁё-]*"/>
+								  </h:inputText>
+								  <rich:message for="surname"/> 
+								</h:panelGroup>    
+                                <h:panelGroup>
+						          <h:outputText value="Имя" /> 
+						          <span class="asterisk">*</span>
+						        </h:panelGroup>   
+						        <h:panelGroup>
+								  <h:inputText id="name" value="#{editUsers.name}" required="true" requiredMessage="Необходимо заполнить имя">
+								      <f:validateRegex pattern="[А-Яа-яЁё-]*"/>
+								  </h:inputText>  
+								  <rich:message for="name"/> 
+								</h:panelGroup>  
+                                <h:outputText value="Отчество" /> 
+								<h:inputText value="#{editUsers.midname}" />
+								<h:panelGroup>
+                                  <h:outputText value="Логин" />
+                                  <span class="asterisk">*</span>
+						        </h:panelGroup>    
+						        <h:panelGroup>
+								  <h:inputText id="login" value="#{editUsers.users.userName}" required="true" requiredMessage="Необходимо заполнить логин" valueChangeListener="#{editUsers.changeLogin}">
+								    <a4j:ajax event="change" execute="@this" render="@this" />
+								  </h:inputText>
+								  
+								  <rich:message for="login"/>
+								</h:panelGroup>  
+								<h:panelGroup>
+                                  <h:outputText value="Пароль" /> 
+                                  <span class="asterisk">*</span>
+						        </h:panelGroup>
+						        <h:panelGroup>
+								  <h:inputText value="#{editUsers.users.password}" required="true" requiredMessage="Необходимо заполнить пароль"/>
+								  <rich:message for="password"/>
+								</h:panelGroup>
+								  
+								<h:outputText value="Рабочее место" />
+								<h:selectOneMenu value="#{editUsers.workplaceId}">
+									
+									<f:selectItems value="#{refs.workplaces}" var="workplace" />
+								</h:selectOneMenu>
+							</h:panelGrid>
+							<rich:pickList value="#{editUsers.users.roles}" sourceCaption="Все роли" targetCaption="Роли пользователя" listWidth="165px" listHeight="100px" orderable="true" addAllText="Добавить все" addText="Добавить" removeAllText="Удалить все" removeText="Удалить" upTopText="Первая" upText="Выше" downText="Ниже" downBottomText="Последняя" styleClass="button_header" itemClass="list_button">
+							  <f:selectItems value="#{refs.rolesRef}" var="roles" itemValue="#{roles}" itemLabel="#{roles.realName}" />
+							  <f:converter converterId="convertRole" />
+							</rich:pickList>
+						</rich:panel>						
+			
+	        <h:commandButton value="Сохранить" styleClass="button ml0" action="#{editUsers.save}"/>
+            <h:commandButton value="Закрыть" styleClass="button grey" action="#{editUsers.cancel}"/>
+							
+        </h:form>
+    </ui:define>
+</ui:composition>

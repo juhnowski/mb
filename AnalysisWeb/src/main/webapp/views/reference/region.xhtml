@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			 <h:panelGroup id="pnlAdd">
+			     <h:panelGrid columns="2">
+			        <h:outputText value="Название региона: "/>
+			        <h:inputText value="#{refRegion.name}" />
+			        <h:outputText value="Код по Октмо: "/>
+			        <h:inputText value="#{refRegion.code}" />
+			        <h:outputText value="Код автомобильный: "/>
+			        <h:inputText value="#{refRegion.codeReg}"/>			        
+			        <h:outputText value="Код ISO: "/>
+			        <h:inputText value="#{refRegion.codeIso}"/>	
+			      
+			     </h:panelGrid>
+             	<a4j:commandButton value="Добавить" actionListener="#{refRegion.addItem}" render="pnlData" /> 
+             </h:panelGroup>
+    		<p></p>		
+			
+			
+			<h:panelGroup id="pnlData">
+			<h:dataTable id="regions" var="ref" value="#{refRegion.lstRegions}" rendered="#{refRegion.lstRegions.size()!=0}">
+				<h:column>
+					<f:facet name="header">Название региона:</f:facet>
+					<h:inputText value="#{ref.name}" size="200"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Код по Октмо:</f:facet>
+					<h:inputText value="#{ref.code}" size="30"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Код автомобильный:</f:facet>
+					<h:inputText value="#{ref.codereg}" size="30"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Код ISO:</f:facet>
+					<h:inputText value="#{ref.codeIso}" size="30"/>
+				</h:column>
+																
+			</h:dataTable>	
+			</h:panelGroup>		
+			<h:panelGrid columns="2">
+				
+				<h:commandLink value="Сохранить" actionListener="#{refRegion.saveItems}" />
+			</h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

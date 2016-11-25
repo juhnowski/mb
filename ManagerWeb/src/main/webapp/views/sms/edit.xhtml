@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+    <ui:param name="top_selected_item" value="collector"/>
+    <ui:define name="metadata">
+
+    </ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="frmView">
+            <rich:panel header="Отправка смс" styleClass="layout">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputLabel value="Номер:" for="itPhoneNumber"/>
+                    <h:inputText id="itPhoneNumber" value="#{smsController.phoneNumber}"/>
+                </h:panelGrid>
+
+                <hr/>
+
+                <h:panelGrid columns="1">
+                    <h:inputTextarea rows="2" value="#{smsController.smsText}"/>
+                    <h:panelGrid columns="1">
+                        <h:panelGroup>
+                            <h:commandButton value="Отправить" action="#{smsController.sendSms}" styleClass="button"> </h:commandButton>
+                            <h:commandButton value="Отменить" action="#{smsController.cancel}" styleClass="button grey"> </h:commandButton>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </rich:panel>
+        </h:form>
+        <rich:jQuery selector="#itPhoneNumber" query="mask('+7 (999) 999-99-99')"/>
+    </ui:define>
+</ui:composition>

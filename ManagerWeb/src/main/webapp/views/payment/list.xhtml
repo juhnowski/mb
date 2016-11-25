@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/templateListCR.xhtml">
+     <ui:param name="top_selected_item" value="payment" />
+     <ui:define name="title">Business analysis console</ui:define>
+
+     <ui:define name="pageList">
+     	
+         <h:form id="frmMain">
+			<ui:include src="inc_search.xhtml" />
+    		<p></p>	
+			<ui:include src="inc_search_result.xhtml" />
+         </h:form>
+     </ui:define> 
+</ui:composition>
+

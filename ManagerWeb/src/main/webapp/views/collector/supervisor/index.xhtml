@@ -1,0 +1,137 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+    <ui:param name="top_selected_item" value="collector"/>
+
+    <ui:define name="title">Manager console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="frmMain">
+            <rich:tabPanel>
+                <rich:tab>
+                    <f:facet name="header">
+                        <h:outputText value="Активные задачи"/>
+                    </f:facet>
+                    <h:panelGroup styleClass="div">
+                        <h:outputText value="Нет активных задач" styleClass="msg" rendered="#{taskListController.activeTasksList.size() == 0}"/>
+                        <rich:dataTable id="activeTasksTable" rendered="#{taskListController.activeTasksList.size() != 0}"
+                                        value="#{taskListController.activeTasksList}"
+                                        var="atl"
+                                        selectionMode="single"
+                                        rows="20"
+                                        styleClass="table2">
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">Исполнитель</f:facet>
+                                <h:outputText value="#{atl.user.fullName}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">Клиент</f:facet>
+                                <h:outputText value="#{atl.peopleMain.peoplePersonalActive.fullName}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header"><h:outputText value="Номер кредита"/></f:facet>
+                                <h:outputText value="#{atl.credit.creditAccount}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header"><h:outputText value="Сумма текущего долга"/></f:facet>
+                                <h:outputText value="#{atl.credit.creditSum}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header"><h:outputText value="Сумма возврата"/></f:facet>
+                                <h:outputText value="#{atl.credit.creditSumBack}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header"><h:outputText value="Дата поступления"/></f:facet>
+                                <h:outputText value="#{atl.databeg}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header"><h:outputText value="Дней просрочки"/></f:facet>
+                                <h:outputText value="#{atl.credit.maxDelay}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Действия"/>
+                                </f:facet>
+                                <h:panelGrid columns="2">
+                                    <h:panelGroup>
+                                        <h:link outcome="view?faces-redirect=true" styleClass="open">
+                                            <f:param name="collectorID" value="#{atl.id}"/>
+                                        </h:link>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+                            </rich:column>
+                            <f:facet name="footer">
+                                <rich:dataScroller/>
+                            </f:facet>
+                        </rich:dataTable>
+                    </h:panelGroup>
+                </rich:tab>
+                <rich:tab>
+                    <f:facet name="header">
+                        <h:outputText value="Новые задачи"/>
+                    </f:facet>
+                    <h:panelGroup styleClass="div">
+                        <h:outputText value="Нет новых задач" styleClass="msg" rendered="#{taskListController.newTasksList.size() == 0}"/>
+                        <rich:dataTable id="newTasksTable" rendered="#{taskListController.newTasksList.size() != 0}"
+                                        value="#{taskListController.newTasksList}"
+                                        var="ntl"
+                                        selectionMode="single"
+                                        rows="20"
+                                        styleClass="table2">
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">Исполнитель</f:facet>
+                                <h:outputText value="#{ntl.user.fullName}" rendered="#{ntl.user != null}"/>
+                                <h:outputText value="" rendered="#{ntl.user == null}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">Клиент</f:facet>
+                                <h:outputText value="#{ntl.peopleMain.peoplePersonalActive.fullName}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header"><h:outputText value="Номер кредита"/></f:facet>
+                                <h:outputText value="#{ntl.credit.creditAccount}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header"><h:outputText value="Сумма текущего долга"/></f:facet>
+                                <h:outputText value="#{ntl.credit.creditSum}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header"><h:outputText value="Сумма возврата"/></f:facet>
+                                <h:outputText value="#{ntl.credit.creditSumBack}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header"><h:outputText value="Дата поступления"/></f:facet>
+                                <h:outputText value="#{ntl.databeg}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header"><h:outputText value="Дней просрочки"/></f:facet>
+                                <h:outputText value="#{ntl.credit.maxDelay}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Действия"/>
+                                </f:facet>
+                                <h:panelGrid columns="2">
+                                    <h:panelGroup>
+                                        <h:link outcome="view?faces-redirect=true" styleClass="open">
+                                            <f:param name="collectorID" value="#{ntl.id}"/>
+                                        </h:link>
+                                    </h:panelGroup>
+                                </h:panelGrid>
+                            </rich:column>
+                            <f:facet name="footer">
+                                <rich:dataScroller/>
+                            </f:facet>
+                        </rich:dataTable>
+                    </h:panelGroup>
+                </rich:tab>
+            </rich:tabPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>

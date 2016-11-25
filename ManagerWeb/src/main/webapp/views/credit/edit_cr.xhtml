@@ -1,0 +1,187 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:app-cc="http://java.sun.com/jsf/composite/app-cc"
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="credit" />
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form prependId="false" id="frmEdit">
+			<rich:messages globalOnly="true" layout="table" />
+			<h:panelGroup>
+				<h:outputText value="#{editC.currentState.stateDef.description}"/>
+			</h:panelGroup>
+			<h:panelGrid columns="2" columnClasses="top-valigned p020200, top-valigned">
+				<rich:panel header="Основные данные" styleClass="layout">
+				   <h:panelGrid columns="2" columnClasses="layout-field-name , top-valigned">
+				   		<h:outputText value="Состояние" />
+				   		<h:selectOneMenu value="#{editC.credit.isActive}">
+				   			<f:selectItem itemLabel="рабочее" itemValue="#{1}" />
+				   			<f:selectItem itemLabel="аварийное" itemValue="#{0}" />
+				   		</h:selectOneMenu>
+				   			   		
+				   		<h:outputText value="Статус" />
+				   		<h:selectOneMenu value="#{editC.credit.creditStatus.id}">
+				   			<f:selectItems value="#{refs.creditStatuses}" />
+				   		</h:selectOneMenu>	
+				   		
+				   		<h:outputText value="Дата изменения статуса" />
+				   		<rich:calendar value="#{editC.credit.dateStatus}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" required="true" >
+               	      	</rich:calendar>
+				   
+				      <h:outputText value="Фактическая дата начала" /> 
+                      <rich:calendar value="#{editC.credit.creditDataBeg}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" required="true" >
+               	      </rich:calendar>
+
+				      <h:outputText value="Плановая дата окончания" /> 
+                      <rich:calendar value="#{editC.credit.creditDataEnd}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" required="true" >
+               	      </rich:calendar>
+               	      
+               	      <h:outputText value="Сумма займа" />
+               	      <h:inputText value="#{editC.credit.creditSum}" required="true" requiredMessage="Необходимо заполнить сумму" validatorMessage="Сумма должна состоять только из цифр">
+               	      		<f:convertNumber pattern="############.##" />
+               	      </h:inputText>
+           
+				   </h:panelGrid>
+				</rich:panel>
+				<rich:panel header="Аварийное состояние" styleClass="layout" rendered="#{editC.credit.isActive == 0}">
+				   <h:panelGrid columns="2" columnClasses="layout-field-name , top-valigned">
+				   		<h:outputText value="Время аварии" rendered="#{editC.credit.accidentLog != null}" />
+				   		<h:outputText value="#{editC.credit.accidentLog.eventTime}" rendered="#{editC.credit.accidentLog != null}">
+				   			<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+				   		</h:outputText>
+				   		
+				   		<h:outputText value="Точка возврата" rendered="#{editC.credit.accidentLog != null}" />
+				   		<h:outputText value="#{editC.credit.accidentLog.description}" rendered="#{editC.credit.accidentLog != null}">
+				   		</h:outputText>				   		
+				   </h:panelGrid>
+				</rich:panel>				
+				<rich:panel header="Продления" styleClass="layout" rendered="#{editC.credit.longs.size()>0}">
+					<rich:dataTable var="pr" value="#{editC.credit.longs}" >
+						<h:column>
+							<f:facet name="header"><h:outputText value="дата продления" /></f:facet>
+							<h:outputText value="#{pr.longDate}">
+							    <f:convertDateTime pattern="dd.MM.yyyy" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header"><h:outputText value="на сколько дней" /></f:facet>
+							<h:outputText value="#{pr.longdays}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header"><h:outputText value="действия" /></f:facet>
+							<a4j:commandLink value="отменить" actionListener="#{editC.prolongCancelLsn}" render="@all">
+								<f:attribute name="prolongid" value="#{pr.id}" />
+							</a4j:commandLink>
+						</h:column>												
+					</rich:dataTable>
+				</rich:panel>
+				
+				<rich:panel header="Платежи клиенту" styleClass="layout">
+					<h:link outcome="/views/credit/newpayto" styleClass="hlink">
+						<f:param name="creditid" value="#{editC.credit.id}"/>
+						<f:param name="faces-redirect" value="true"/>
+						<h:outputText value="Добавить"/>
+					</h:link>
+					<h:dataTable id="tblPayTo" var="pay" value="#{editC.credit.payFromSystem}" >
+						<h:column>
+							<f:facet name="header"><h:outputText value="дата оплаты" /></f:facet>
+							<h:outputText value="#{pay.createDate}" >
+							    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header"><h:outputText value="дата проведения" /></f:facet>
+							<h:outputText value="#{pay.processDate}" >
+							    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+							</h:outputText>
+						</h:column>		
+						<h:column>
+							<f:facet name="header"><h:outputText value="сумма" /></f:facet>
+							<h:outputText value="#{pay.amount}" />
+						</h:column>								
+						<h:column>
+							<f:facet name="header"><h:outputText value="способ оплаты" /></f:facet>
+							<h:outputText value="#{pay.account.accountType.name}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header"><h:outputText value="оплачен" /></f:facet>
+							<h:outputText value="#{(pay.isPaid)?'да':'нет'}" />
+						</h:column>	
+						<h:column>
+							<f:facet name="header"><h:outputText value="состояние" /></f:facet>
+							<h:outputText value="#{pay.statusName}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header"><h:outputText value="действия" /></f:facet>
+							<h:link outcome="/views/credit/edit_cr_pay">
+								<f:param name="payid" value="#{pay.id}" />
+								<f:param name="creditid" value="#{editC.credit.id}" />
+								<f:param name="peopleid" value="#{editC.credit.peopleMain.id}" />
+								<h:outputText value="изменить"/>
+							</h:link>
+						</h:column>																
+					</h:dataTable>
+				</rich:panel>
+				
+				<rich:panel header="Платежи от клиента" styleClass="layout" rendered="#{editC.credit.payToSystem.size()>0}">
+					<h:dataTable var="pay" value="#{editC.credit.payToSystem}" >
+						<h:column>
+							<f:facet name="header"><h:outputText value="дата оплаты" /></f:facet>
+							<h:outputText value="#{pay.createDate}" >
+							    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header"><h:outputText value="дата проведения" /></f:facet>
+							<h:outputText value="#{pay.processDate}">
+							    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+							</h:outputText>
+						</h:column>		
+						<h:column>
+							<f:facet name="header"><h:outputText value="сумма" /></f:facet>
+							<h:outputText value="#{pay.amount}" />
+						</h:column>								
+						<h:column>
+							<f:facet name="header"><h:outputText value="способ оплаты" /></f:facet>
+							<h:outputText value="#{pay.account.accountType.name}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header"><h:outputText value="оплачен" /></f:facet>
+							<h:outputText value="#{(pay.isPaid)?'да':'нет'}" />
+						</h:column>		
+						<h:column>
+							<f:facet name="header"><h:outputText value="состояние" /></f:facet>
+							<h:outputText value="#{pay.statusName}" />
+						</h:column>																		
+						<h:column>
+							<f:facet name="header"><h:outputText value="действия" /></f:facet>
+							<h:link outcome="/views/credit/edit_cr_pay">
+								<f:param name="payid" value="#{pay.id}" />
+								<f:param name="creditid" value="#{editC.credit.id}" />
+								<f:param name="peopleid" value="#{editC.credit.peopleMain.id}" />
+								<h:outputText value="изменить"/>
+							</h:link>
+						</h:column>																
+					</h:dataTable>
+				</rich:panel>				
+				
+					
+			</h:panelGrid>			
+			<h:panelGroup>
+             	<h:selectOneMenu value="#{editC.returnAction}">
+             		<f:selectItem itemLabel="-- остаться на месте --" itemValue="#{null}"/>
+             		<f:selectItems var="actc" value="#{editC.currentState.stateDef.actions}" itemLabel="#{actc.name}" itemValue="#{actc.signalRef}" />
+             	</h:selectOneMenu>
+              <h:commandLink value="Сохранить изменения"  action="#{editC.save}" styleClass="button ml0" onclick="#{rich:component('popupIndicator')}.show();return true;">
+              </h:commandLink>
+			  
+			  <h:link value="Закрыть" outcome="edit?faces-redirect=true" styleClass="button grey" onclick="#{rich:component('popupIndicator')}.show();return true;">
+                  <f:param name="creditid" value="#{editC.credit.id}" />
+              </h:link>
+			</h:panelGroup>							
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
+                template="/templates/template.xhtml">
+    <ui:define name="metadata">
+
+    </ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="frmEdit" prependId="false">
+            <h:panelGroup id="pnlAdd">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Название"/>
+                    <h:inputText value="#{workplaceController.name}" required="true"
+                                 requiredMessage="Заполните поле"/>
+                </h:panelGrid>
+                <h:panelGrid columns="1">
+                    <a4j:commandButton value="Добавить" actionListener="#{workplaceController.create}"
+                                       render="panelData"/>
+
+                </h:panelGrid>
+            </h:panelGroup>
+            <h:panelGroup id="panelData">
+                <rich:extendedDataTable id="reqTable"
+                                        value="#{workplaceController.workplaces}"
+                                        var="workplace"
+                                        selectionMode="none" >
+                    <rich:column width="50">
+                        <f:facet name="header">ID:</f:facet>
+                        <h:outputText value="#{workplace.id}"/>
+                    </rich:column>
+                    <rich:column width="300">
+                        <f:facet name="header">Название:</f:facet>
+                        <h:inputText value="#{workplace.name}" size="95"/>
+                    </rich:column>
+                </rich:extendedDataTable>
+            </h:panelGroup>
+            <h:panelGrid columns="1">
+                <a4j:commandButton value="Сохранить" actionListener="#{workplaceController.saveAll}"
+                                   render="panelData"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

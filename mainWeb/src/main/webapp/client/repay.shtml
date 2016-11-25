@@ -1,0 +1,179 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'repay'">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/repay.js"></script>
+</head>
+
+<body ng-controller="MainCtrl" ng-cloak>
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main ng-controller="RepayCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block td">
+                <h3 class="h3">Погасить займ</h3>
+
+                <div class="box-20" ng-if="repay.canPay">
+                    <div class="repay_loan">
+                        <h3>
+                            <i class="ico card pull-right"></i>Банковская карта
+                        </h3>
+                        <form method="POST" name="winpayForm" ng-submit="winpay($event)">
+                            <div class="w354 fieldset__card pull-left">
+                                <input class="input" placeholder="XXXX XXXX XXXX XXXX">
+                            </div>
+
+                            <label class="btn pull-left btn--green">
+                                Оплатить
+                                <input class="hide" type="submit">
+                            </label>
+
+                            <!--<input class="input"-->
+                                   <!--name="sum"-->
+                                   <!--ng-require="true"-->
+                                   <!--ng-pattern="/^[0-9]*$/"-->
+                                   <!--ng-change="checkMin(repay.sumBack, repay.sumBackMin)"-->
+                                   <!--ng-model="repay.sumBack">-->
+                            <!--<button type="submit" class="btn blue" style="padding-top: 0 !important;">Оплатить-->
+                            <!--</button>-->
+
+                            <!--<p ng-if="repay.sumBonusPay>0">-->
+                                <!--(учитывая сумму бонусов: <span class="sumBonusPay">{{repay.sumBonusPay}}</span>-->
+                                <!--р.)<br/>-->
+                            <!--</p>-->
+                            <!--<p>Вы можете погасить заём, используя Ваш кошелек в системе Яндекс.Деньги. Для этого-->
+                                <!--Вам-->
+                                <!--необходимо перейти по ссылке, нажав на кнопку «Оплатить». Обращаем Ваше-->
+                                <!--внимание, что-->
+                                <!--минимальная сумма платежа составляет <u-->
+                                        <!--ng-bind-template="{{ repay.sumBackMin }} рублей"></u>.-->
+                                <!--В случае внесения меньшей суммы платеж не будет принят.</p>-->
+                        </form>
+                        <span class="error-input-message"
+                              ng-if="(tab[1]) &&((isInvalid(winpayForm.sum)) || (!isRangeOk))">
+                            Введена неверная сумма оплаты
+                        </span>
+
+
+                        <!--<li>-->
+                            <!--<div class="head clr">-->
+                                <!--<h3 class="title tab radio"-->
+                                    <!--ng-click="toggleFoldRadio('tab-2', ['tab-1', 'tab-3', 'tab-4']);toggleTab(2)">-->
+                                    <!--<i class="ico y-money"></i>Яндекс.Деньги</h3>-->
+                                <!--&lt;!&ndash;<span class="line"></span>&ndash;&gt;-->
+                            <!--</div>-->
+                            <!--<div class="box-44 tab-2" id="tab-2">-->
+                                <!--<form method="POST" name="yandexForm" ng-submit="yandex($event)">-->
+                                    <!--<input class="input"-->
+                                           <!--name="sum"-->
+                                           <!--ng-require="true"-->
+                                           <!--ng-pattern="/^[0-9]*$/"-->
+                                           <!--ng-change="checkMin(repay.sumBack, repay.sumBackMin)"-->
+                                           <!--ng-model="repay.sumBack">-->
+                                    <!--<button type="submit" class="btn blue" style="padding-top: 0 !important;">Оплатить-->
+                                    <!--</button>-->
+                                    <!--<p ng-if="repay.sumBonusPay>0">-->
+                                        <!--(учитывая сумму бонусов: <span class="sumBonusPay">{{repay.sumBonusPay}}</span>-->
+                                        <!--р.)<br/>-->
+                                    <!--</p>-->
+                                    <!--<p>Вы можете погасить заём, используя Ваш кошелек в системе Яндекс.Деньги. Для этого-->
+                                        <!--Вам-->
+                                        <!--необходимо перейти по ссылке, нажав на кнопку «Оплатить». Обращаем Ваше-->
+                                        <!--внимание, что-->
+                                        <!--минимальная сумма платежа составляет <u-->
+                                                <!--ng-bind-template="{{ repay.sumBackMin }} рублей"></u>.-->
+                                        <!--В случае внесения меньшей суммы платеж не будет принят.</p>-->
+                                <!--</form>-->
+                            <!--</div>-->
+                        <!--<span class="error-input-message"-->
+                              <!--ng-if="(tab[2]) && (isInvalid(yandexForm.sum) || (!isRangeOk))">-->
+                            <!--Введена неверная сумма оплаты-->
+                        <!--</span>-->
+                        <!--</li>-->
+                        <!--<li>
+                            <div class="head clr">
+                                <h3 class="title tab radio"
+                                    ng-click="toggleFoldRadio('tab-3', ['tab-1', 'tab-2', 'tab-4'])">
+                                    <i class="ico qiwi"></i>QIWI кошелёк</h3>
+                                <span class="line"></span>
+                            </div>
+                            <div class="box-44 tab-3" id="tab-3" ng-form="payForm">
+                                <input class="input" name="sum"
+                                       ng-require="true"
+                                       ng-pattern="/^[0-9]*$/"
+                                       ng-change="checkMin(repay.sumBack, repay.sumBackMin)"
+                                       ng-model="repay.sumBack">
+                                <span class="btn blue" style="top: 0" ng-click="pay('qiwi', repay.sumBack)">Оплатить</span>
+                                <p ng-if="repay.sumBonusPay>0">
+                                    (учитывая сумму бонусов: <span class="sumBonusPay">{{repay.sumBonusPay}}</span> р.)<br/>
+                                </p>
+                                <p>Вы можете погасить заём, используя Ваш кошелек в системе Яндекс.Деньги. Для этого Вам
+                                    необходимо перейти по ссылке, нажав на кнопку «Оплатить». Обращаем Ваше внимание, что
+                                    минимальная сумма платежа составляет <u
+                                            ng-bind-template="{{ repay.sumBackMin }} рублей"></u>.
+                                    В случае внесения меньшей суммы платеж не будет принят.</p>
+                            </div>
+                            <span class="error-input-message"
+                                  ng-if="payForm.sum.length && (isInvalid(payForm.sum) || !isRangeOk)">
+                                Введена неверная сумма оплаты
+                            </span>
+                        </li>
+                        <li>
+                            <div class="head clr">
+                                <h3 class="title tab radio"
+                                    ng-click="toggleFoldRadio('tab-4', ['tab-3', 'tab-2', 'tab-1'])">
+                                    <i class="ico gold-korona"></i>Золотая корона
+                                </h3>
+                                <span class="line last-li"></span>
+                            </div>
+                            <div class="box-44 tab-4" id="tab-4" ng-form="payForm">
+                                <p>Вы можете погасить заём, используя Ваш кошелек в системе Яндекс.Деньги. Для этого Вам
+                                    необходимо перейти по ссылке, нажав на кнопку «Оплатить». Обращаем Ваше внимание, что
+                                    минимальная сумма платежа составляет <u
+                                            ng-bind-template="{{ repay.sumBackMin }} рублей"></u>.
+                                    В случае внесения меньшей суммы платеж не будет принят.</p>
+                            </div>
+                        </li>
+
+                                            <li>
+                                                <div class="head clr">
+                                                    <h3 class="title tab radio" data-tab="tab-4"><i class="ico bonus"></i>Оплата бонусами</h3>
+                                                    <span class="line"></span>
+                                                </div>
+                                                <div class="box-44 tab-4">
+                                                    <input value="60000">
+                                                    <span class="btn blue">Оплатить</span>
+                                                </div>
+                                            </li>
+                        -->
+                    </div>
+                </div>
+
+                <div class="box-20" ng-if="!repay.canPay">
+                    <table class="table-1">
+                        <tr>
+                            <td>Статус</td>
+                            <td>У вас нет активных займов, погашение невозможно.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:param name="top_selected_item" value="credit" />
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit">
+			<rich:messages globalOnly="true" layout="table" />
+			<rich:tabPanel switchType="client">
+				<rich:tab header="Заём">
+					
+					
+						<rich:panel header="Заём" styleClass="layout" >
+							<h:panelGrid columns="2"  columnClasses="layout-field-name, top-valigned">
+								<h:outputText value="№ займа" /> 
+								<h:outputText value="#{editCredit.credit.idCredit}" />
+
+								<h:outputText value="Клиент" /> 
+								<h:outputText value="#{editCredit.credit.creditRequest.peopleMain.peoplePersonalActive.surname} #{editCredit.credit.creditRequest.peopleMain.peoplePersonalActive.name} #{editCredit.credit.creditRequest.peopleMain.peoplePersonalActive.midname}" />
+
+                            	<h:outputText value="Дата рождения" /> 
+								<h:outputText value="#{editCredit.credit.creditRequest.peopleMain.peoplePersonalActive.birthDate}" >
+								  <f:convertDateTime pattern="dd.MM.yyyy"/>
+								</h:outputText>
+								
+                                <h:outputText value="Паспорт" rendered="#{userData.canViewPassport}" /> 
+								<h:outputText value="#{editCredit.credit.creditRequest.peopleMain.activePassport.descriptionFull}" rendered="#{userData.canViewPassport}"/>
+								
+								<h:outputText value="№ счета" /> 
+								<h:outputText value="#{editCredit.credit.creditAccount}" />
+	
+								<h:outputText value="Дата выдачи займа" /> 
+								<h:outputText value="#{editCredit.credit.creditDataBeg}" >
+								  <f:convertDateTime pattern="dd.MM.yyyy"/>
+								</h:outputText>
+								<h:outputText value="Дата окончания по графику" /> 
+								<h:outputText value="#{editCredit.credit.creditDataEnd}">
+								  <f:convertDateTime pattern="dd.MM.yyyy"/>
+								</h:outputText>
+								<h:outputText value="Дата выплаты займа" rendered="#{not empty editCredit.credit.creditDataEndFact}"/> 
+								<h:outputText value="#{editCredit.credit.creditDataEndFact}" rendered="#{not empty editCredit.credit.creditDataEndFact}">
+								   <f:convertDateTime pattern="dd.MM.yyyy"/>
+								</h:outputText>
+								<h:outputText value="Статус займа" rendered="#{not empty editCredit.credit.creditStatus}"/> 
+								<h:outputText value="#{editCredit.credit.creditStatus.name}"  rendered="#{not empty editCredit.credit.creditStatus}"/>
+								<h:outputText value="Вид займа" rendered="#{not empty editCredit.credit.creditType}"/> 
+ 							    <h:outputText value="#{editCredit.credit.creditType.name}" rendered="#{not empty editCredit.credit.creditType}"/>
+								<h:outputText value="Отношение к займу" rendered="#{not empty editCredit.credit.creditRelation}"/> 
+								<h:outputText value="#{editCredit.credit.creditRelation.name}" rendered="#{not empty editCredit.credit.creditRelation}"/>
+								<h:outputText value="Сумма" /> 
+								<h:outputText value="#{editCredit.credit.creditSum}" >
+									<f:convertNumber pattern="############.00" />
+								</h:outputText>
+								<h:outputText value="Валюта займа" rendered="#{not empty editCredit.credit.currency}"/> 
+								<h:outputText value="#{editCredit.credit.currency.name}" rendered="#{not empty editCredit.credit.currency}"/>
+								<h:outputText value="Сумма возврата" /> 
+								<h:outputText value="#{editCredit.credit.creditSumBack}" >
+									<f:convertNumber pattern="############.00" />
+								</h:outputText>
+								<h:outputText value="Ставка" rendered="#{not empty editCredit.credit.creditPercent}"/> 
+								<h:outputText value="#{editCredit.credit.creditPercent}" rendered="#{not empty editCredit.credit.creditPercent}">
+									<f:convertNumber type="percent" minFractionDigits="1"/>
+								</h:outputText>
+								<h:outputText value="Текущий долг" rendered="#{not empty editCredit.credit.currentDebt}"/> 
+								<h:outputText value="#{editCredit.credit.currentDebt}" rendered="#{not empty editCredit.credit.currentDebt}">
+									<f:convertNumber pattern="############.00" />
+								</h:outputText>
+								<h:outputText value="Текущий просроченный долг" rendered="#{not empty editCredit.credit.currentOverdueDebt}"/> 
+								<h:outputText value="#{editCredit.credit.currentOverdueDebt}" rendered="#{not empty editCredit.credit.currentOverdueDebt}">
+									<f:convertNumber pattern="############.00" />
+								</h:outputText>
+								<h:outputText value="Максимальный просроченный долг" rendered="#{not empty editCredit.credit.maxOverdueDebt}"/> 
+								<h:outputText value="#{editCredit.credit.maxOverdueDebt}" rendered="#{not empty editCredit.credit.maxOverdueDebt}">
+									<f:convertNumber pattern="############.00" />
+								</h:outputText>
+								<h:outputText value="Неиспользованный лимит" rendered="#{not empty editCredit.credit.creditLimitUnused}"/> 
+								<h:outputText value="#{editCredit.credit.creditLimitUnused}" rendered="#{not empty editCredit.credit.creditLimitUnused}">
+									<f:convertNumber pattern="############.00" />
+								</h:outputText>
+								<h:outputText value="Количество продлений" rendered="#{not empty editCredit.credit.creditLong}"/> 
+								<h:outputText value="#{editCredit.credit.creditLong}" rendered="#{not empty editCredit.credit.creditLong}"/>
+								
+								<h:outputText value="Дней просрочки" rendered="#{not empty editCredit.credit.maxDelay}"/> 
+								<h:outputText value="#{editCredit.credit.maxDelay}" rendered="#{not empty editCredit.credit.maxDelay}"/>
+								<h:outputText value="Погашение за счет обеспечения" rendered="#{not empty editCredit.credit.creditMoneyBack}"/>
+								<h:panelGroup rendered="#{not empty editCredit.credit.creditMoneyBack}">
+									<h:outputText value="да" rendered="#{editCredit.credit.creditMoneyBack==1}" />
+									<h:outputText value="нет" rendered="#{! editCredit.credit.creditMoneyBack==0}" />
+								</h:panelGroup> 
+								<h:outputText value="Закрыт?" />
+								<h:panelGroup>
+									<h:outputText value="да" rendered="#{editCredit.credit.isOver}" />
+									<h:outputText value="нет" rendered="#{! editCredit.credit.isOver}" />
+								</h:panelGroup> 
+								<h:outputText value="Выдан системой?" />
+								<h:panelGroup>
+									<h:outputText value="да" rendered="#{editCredit.credit.isSameOrg}" />
+									<h:outputText value="нет" rendered="#{! editCredit.credit.isSameOrg}" />
+								</h:panelGroup> 
+								<h:outputText value="Заём находится в состоянии " />
+								<h:panelGroup>
+									<h:outputText value="рабочий" rendered="#{editCredit.credit.isActive==1}" />
+									<h:outputText value="приостановлен" rendered="#{editCredit.credit.isActive==0}" />
+								</h:panelGroup> 
+								<h:outputText value="Поставщик информации" /> 
+								<h:outputText value="#{editCredit.credit.partner.realName}" />
+								<h:link outcome="/views/credit/newdebt" styleClass="hlink"
+                                    rendered="#{editCredit.credit.forCourt}">
+                                    <f:param name="creditId" value="#{editCredit.credit.id}"/>
+                                    <f:param name="faces-redirect" value="true"/>
+                                    <h:outputText value="Редактировать решение суда"/>
+                                </h:link>
+							</h:panelGrid>
+						</rich:panel>	
+						
+						<rich:panel header="Заявка по займу" styleClass="layout" >
+							<h:panelGrid columns="2"  columnClasses="layout-field-name, top-valigned">
+							    <h:outputText value="№ заявки" /> 
+								<h:outputText value="#{editCredit.credit.creditRequest.uniqueNomer}"/>
+							
+								<h:outputText value="Дата заявки" /> 
+								<h:outputText value="#{editCredit.credit.creditRequest.dateContest}">
+								   <f:convertDateTime pattern="dd.MM.yyyy"/>
+								</h:outputText>
+								<h:outputText value="Сумма заявки" rendered="#{userData.canViewCRData}" /> 
+								<h:outputText value="#{editCredit.credit.creditRequest.creditSum}" rendered="#{userData.canViewCRData}" >
+									<f:convertNumber pattern="############.00" />
+								</h:outputText>
+								<h:outputText value="Кол-во дней заявки" rendered="#{userData.canViewCRData}" /> 
+								<h:outputText value="#{editCredit.credit.creditRequest.creditDays}" rendered="#{userData.canViewCRData}" />
+								
+								<h:outputText value="Ставка заявки" rendered="#{userData.canViewCRData}" /> 
+								<h:outputText value="#{editCredit.credit.creditRequest.stake}" rendered="#{userData.canViewCRData}" >
+									<f:convertNumber type="percent" minFractionDigits="1"/>
+								</h:outputText>
+								<h:outputText value="Статус заявки" /> 
+								<h:outputText value="#{editCredit.credit.creditRequest.status.name}"/>
+								<h:outputText value="Дата смены статуса" /> 
+								<h:outputText value="#{editCredit.credit.creditRequest.dateStatus}">
+								   <f:convertDateTime pattern="dd.MM.yyyy"/>
+								</h:outputText>
+							</h:panelGrid>	
+						</rich:panel>						
+					
+					
+					<rich:collapsiblePanel header="Продления" switchType="client" expanded="false" rendered="#{editCredit.credit.hasLongs!=0}">
+							<rich:dataTable id="reqprs"
+				                         value="#{editCredit.credit.longs}"               
+				                         var="reqpr"
+				                         rows="10"
+				                          styleClass="table2 table3">
+				            <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Дата продления" />
+								</f:facet>
+									<h:outputText value="#{reqpr.longDate}" >
+									    <f:convertDateTime pattern="dd.MM.yyyy" />
+									</h:outputText>    
+							 </rich:column>
+				            
+							 <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Дней продления" />
+								</f:facet>
+									<h:outputText value="#{reqpr.longdays}" >
+									 </h:outputText> 
+							 </rich:column>    
+							 
+							 <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Сумма" />
+								</f:facet>
+									<h:outputText value="#{reqpr.longamount}" >
+									</h:outputText>
+							 </rich:column>
+							 <rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Статус продления" />
+								</f:facet>
+								    <h:panelGroup>
+									    <h:outputText value="активно" rendered="#{reqpr.isActive==1}" />
+									    <h:outputText value="требует оплаты" rendered="#{reqpr.isActive==2}" />
+									 </h:panelGroup>
+							 </rich:column>    
+								<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">
+									<h:outputText value="Ставка" />
+								</f:facet>
+									<h:outputText value="#{reqpr.longstake}" >
+									  <f:convertNumber type="percent" />
+									</h:outputText>
+							 </rich:column>   
+				    	</rich:dataTable>	 	
+					</rich:collapsiblePanel>
+				
+				    <rich:collapsiblePanel header="Выплата клиенту" switchType="client" expanded="false" >
+						<rich:dataTable id="tblPayss" value="#{editCredit.paysSystem}" var="pays"  styleClass="table2 table3">
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">	<h:outputText value="Дата выплаты" /></f:facet>
+								<h:outputText value="#{pays.createDate}" >
+								   <f:convertDateTime pattern="dd.MM.yyyy"/>
+								 </h:outputText>  
+							</rich:column>
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">	<h:outputText value="Дата проведения" /></f:facet>
+								<h:outputText value="#{pays.processDate}" rendered="#{not empty pays.processDate}">
+								   <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+								 </h:outputText>  
+							</rich:column>
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">	<h:outputText value="Сумма" /></f:facet>
+								<h:outputText value="#{pays.amount}" >
+								   <f:convertNumber pattern="############.##" />
+								</h:outputText>   
+							</rich:column>	
+							
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">	<h:outputText value="Вид платежа" /></f:facet>
+								<h:outputText value="#{pays.paysumId.name}" />
+							</rich:column>	
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">	<h:outputText value="Платим через" /></f:facet>
+								<h:outputText value="#{pays.partner.realName}" />
+							</rich:column>		
+							<rich:column headerClass="th0" styleClass="td0">
+							 	<f:facet name="header">
+									<h:outputText value="Реально оплачено" />
+								</f:facet>
+									<h:panelGroup>
+									  <h:outputText value="да" rendered="#{pays.isPaid}" />
+									  <h:outputText value="нет" rendered="#{! pays.isPaid}" />
+								  </h:panelGroup> 
+							 </rich:column>																	
+						</rich:dataTable>
+					</rich:collapsiblePanel>
+					
+					<rich:collapsiblePanel header="Оплата кредита" switchType="client" expanded="false" rendered="#{editCredit.pays.size()>0}">
+						<rich:dataTable id="tblPays" value="#{editCredit.pays}" var="pay"  styleClass="table2 table3">
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">	<h:outputText value="Дата выплаты" /></f:facet>
+								<h:outputText value="#{pay.createDate}" >
+								   <f:convertDateTime pattern="dd.MM.yyyy"/>
+								 </h:outputText>  
+							</rich:column>
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">	<h:outputText value="Дата проведения" /></f:facet>
+								<h:outputText value="#{pay.processDate}" rendered="#{not empty pay.processDate}">
+								   <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+								 </h:outputText>  
+							</rich:column>
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">	<h:outputText value="Сумма" /></f:facet>
+								<h:outputText value="#{pay.amount}" >
+								   <f:convertNumber pattern="############.##" />
+								</h:outputText>   
+							</rich:column>	
+								
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">	<h:outputText value="Вид платежа" /></f:facet>
+								<h:outputText value="#{pay.paysumId.name}" />
+							</rich:column>	
+							<rich:column headerClass="th0" styleClass="td0">
+								<f:facet name="header">	<h:outputText value="Платим через" /></f:facet>
+								<h:outputText value="#{pay.partner.realName}" />
+							</rich:column>		
+																						
+						</rich:dataTable>
+					</rich:collapsiblePanel>
+					
+					<rich:collapsiblePanel header="Подписанные клиентом документы" switchType="client" expanded="false" rendered="#{editCredit.credit.hasOfficialDocuments!=0}">
+						
+						<rich:dataTable id="ofdocs"
+							value="#{editCredit.credit.officialDocuments}"               
+							var="ofdoc"
+							rows="10"
+							styleClass="table2 table3">
+							<rich:column width="100" headerClass="th0" styleClass="td0">
+			              		<f:facet name="header">
+									<h:outputText value="Номер подписанного документа" />
+								</f:facet>
+								<h:outputText value="#{ofdoc.docNumber}" />
+								
+							</rich:column>
+							<rich:column width="100" headerClass="th0" styleClass="td0">
+			              		<f:facet name="header">
+									<h:outputText value="Дата подписанного документа" />
+								</f:facet>
+								<h:outputText value="#{ofdoc.docDate}" >
+								    <f:convertDateTime pattern="dd.MM.yyyy" />
+								</h:outputText>
+								
+							</rich:column>
+							<rich:column width="100" headerClass="th0" styleClass="td0">
+			              		<f:facet name="header">
+									<h:outputText value="Смс код подписи" />
+								</f:facet>
+								<h:outputText value="#{ofdoc.smsCode}" />
+								
+							</rich:column>
+			            	<rich:column width="200" headerClass="th0" styleClass="td0">
+			              		<f:facet name="header">
+									<h:outputText value="Вид подписанного документа" />
+								</f:facet>
+								<h:outputText value="#{ofdoc.documentType.name}" />
+								
+							</rich:column>
+							<rich:column width="100" headerClass="th0" styleClass="td0">
+			              		<f:facet name="header">
+									<h:outputText value="Действия" />
+								</f:facet>
+								<h:commandLink styleClass="hlink" value="Посмотреть" actionListener="#{editCredit.downloadDocument}" 
+									rendered="#{userData.canViewContacts and userData.canViewPassport and userData.canViewAddress and not empty ofdoc.docText}">
+								    <f:attribute name="docid" value="#{ofdoc.id}" />
+								</h:commandLink>
+							</rich:column>
+						</rich:dataTable>
+					</rich:collapsiblePanel>	
+				</rich:tab>		
+				<rich:tab header="Посчитать">
+				<rich:panel header="Считаем для клиента" styleClass="layout" >
+				 <h:panelGrid id="table_calc" columns="2" columnClasses="layout-field-name, top-valigned">
+				    <h:outputText value="На дату"/>
+				     <rich:calendar id="dbcred" value="#{editCredit.dateCalc}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" showWeeksBar="false" showWeekDaysBar="false" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" valueChangeListener="#{editCredit.changeDate}">
+				         <a4j:ajax event="change" execute="@this"/>
+                	 </rich:calendar>
+                	<h:outputText value="Выберите опцию"/>
+				    <h:selectOneMenu value="#{editCredit.calc}" valueChangeListener="#{editCredit.changeCalcType}">
+				        <f:selectItem itemLabel="Сумма платежа на дату" itemValue="1" />
+                        <f:selectItem itemLabel="Сумма платежа при продлении" itemValue="2" />
+                        <a4j:ajax event="change" execute="@this" render="table_calc" />
+				    </h:selectOneMenu>
+				    
+				    <h:outputText value="До какой даты продляем" rendered="#{editCredit.calc==2}"/>
+				     <rich:calendar id="dnew" value="#{editCredit.dateNew}" buttonIcon="/resources/icons/calendarIcon.png" popup="true" datePattern="dd.MM.yyyy" showWeeksBar="false" showWeekDaysBar="false" enableManualInput="true" showApplyButton="false" cellWidth="24px" cellHeight="22px" valueChangeListener="#{editCredit.changeDateNew}" rendered="#{editCredit.calc==2}">
+				         <a4j:ajax event="change" execute="@this"/>
+                	 </rich:calendar>
+				     <h:outputText value="Общая сумма"/>
+				      <h:outputText value="#{editCredit.sumAll}" >
+						<f:convertNumber pattern="############.##" />
+					  </h:outputText>
+					   <h:outputText value="Основной долг"/>
+				      <h:outputText value="#{editCredit.sumMain}" >
+						<f:convertNumber pattern="############.##" />
+					  </h:outputText>
+					  <h:outputText value="Сумма процентов"/>
+				      <h:outputText value="#{editCredit.sumPercent}" >
+						<f:convertNumber pattern="############.##" />
+					  </h:outputText>
+					  <h:outputText value="Дней просрочки" rendered="#{editCredit.daysOverdue!=0}" />
+				      <h:outputText value="#{editCredit.daysOverdue}" rendered="#{editCredit.daysOverdue!=0}" />
+					  <h:outputText value="Штраф" rendered="#{editCredit.calc==1 and editCredit.sumPenalty!=0}" />
+				      <h:outputText value="#{editCredit.sumPenalty}" rendered="#{editCredit.calc==1 and editCredit.sumPenalty!=0}" >
+						<f:convertNumber pattern="############.##" />
+					  </h:outputText>
+					  <h:outputText value="Сумма процентов без штрафа" rendered="#{editCredit.calc==1 and editCredit.sumPenalty!=0}" />
+				      <h:outputText value="#{editCredit.sumPercentWithoutPenalty}" rendered="#{editCredit.calc==1 and editCredit.sumPenalty!=0}" >
+						<f:convertNumber pattern="############.##" />
+					  </h:outputText>
+					  <h:outputText id="txtlong" value="Максимально возможная дата продления "  rendered="#{editCredit.calc==2 and hasProlongFromOverdue==0}"/>
+					  <h:outputText value="#{editCredit.dateLong}"  rendered="#{editCredit.calc==2 and hasProlongFromOverdue==0}">
+							<f:convertDateTime pattern="dd.MM.yyyy"/>
+					  </h:outputText> 
+					  <h:outputText value="Сумма процентов к выплате" rendered="#{editCredit.calc==2}" />
+				      <h:outputText value="#{editCredit.sumPercentPay}" rendered="#{editCredit.calc==2}" >
+						<f:convertNumber pattern="############.##" />
+					  </h:outputText>
+					  <h:outputText value="По данному займу нет возможности сделать продление, сумма дней бывших продлений равна максимально допустимой" rendered="#{editCredit.credit.creditDataEnd==editCredit.dateLong and editCredit.calc==2}"/>
+					  <h:outputText value="На данную дату нет возможности сделать продление, продление возможно только из льготного периода просрочки" rendered="#{daysOverdue>=14 and editCredit.calc==2}"/>
+				    </h:panelGrid>
+				    
+				    <a4j:commandLink value="Посчитать" styleClass="button" actionListener="#{editCredit.recalc}" immediate="true" render="table_calc">
+					
+					</a4j:commandLink>
+					</rich:panel>
+				</rich:tab>		
+			</rich:tabPanel>
+			<h:commandButton value="Закрыть" styleClass="button grey" action="#{editCredit.cancel}"/>
+		    <a4j:commandButton value="Сделать платеж Яндекс" styleClass="button ml0" action="#{editCredit.makePayment}" rendered="#{userData.user.admin}"/>	
+       
+        </h:form>
+    </ui:define>
+</ui:composition>

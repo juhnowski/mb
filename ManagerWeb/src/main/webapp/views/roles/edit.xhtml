@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+	<ui:define name="metadata">
+	</ui:define>
+    <ui:define name="pageContent">
+		<style type="css"> 
+
+		</style> 
+		<h:panelGroup style="display:block">   
+	        <h:form>
+	        	<rich:messages globalOnly="true"/>
+	        	<h:panelGrid columns="3">
+	        		<h:outputText value="Имя *"/> 
+	        		<h:inputText id="txtName" value="#{editRole.role.name}" required="true" requiredMessage="Необходимо заполнить имя роли" />
+	        		<rich:messages for="txtName"/>
+	        		
+	        		<h:outputText value="Название *"/> 
+	        		<h:inputText id="txtRealName" value="#{editRole.role.realName}" required="true" requiredMessage="Необходимо заполнить название роли"/>
+	        		<rich:messages for="txtRealName"/>
+	        	</h:panelGrid>
+
+        		<rich:accordion switchType="client">	        	
+		        	<a4j:repeat var="reft" value="#{editRole.featuresTop}">
+	        			<rich:accordionItem header="#{reft.name}">
+
+		        			<h:panelGrid columns="2">
+		        				<a4j:commandLink actionListener="#{editRole.featureSwitchLsn}" render="@this" execute="@this" >
+		        					<f:attribute name="featureid" value="#{reft.id}" />
+		        					<f:attribute name="onoff" value="#{editRole.featureEnabled(reft.id)}" />
+		        					<h:graphicImage value="/resources/icons/inlist.png" rendered="#{editRole.featureEnabled(reft.id)}" style="border: solid 1px" />
+		        					<h:graphicImage value="/resources/icons/notinlist.png" rendered="#{not editRole.featureEnabled(reft.id)}" style="border: solid 1px" />
+		        				</a4j:commandLink>        			
+		        				<h:outputText value="разрешено" />
+		        			</h:panelGrid>	        			
+			        		<h:panelGrid columns="2" columnClasses="top-valigned, top-valigned">
+				        		<rich:dataTable var="ft" value="#{editRole.featuresFor(reft.id)}">
+				        			<rich:column>
+				        				<f:facet name="header"><h:outputText value="название" /></f:facet>
+				        				<h:outputText value="#{ft.name}"/>
+				        			</rich:column>
+				        			<rich:column>
+				        				<f:facet name="header"><h:outputText value="разрешено" /></f:facet>
+				        				<a4j:commandLink actionListener="#{editRole.featureSwitchLsn}" render="@this" execute="@this">
+				        					<f:attribute name="featureid" value="#{ft.id}" />
+				        					<f:attribute name="onoff" value="#{editRole.featureEnabled(ft.id)}" />
+				        					<h:graphicImage value="/resources/icons/inlist.png" rendered="#{editRole.featureEnabled(ft.id)}" />
+				        					<h:graphicImage value="/resources/icons/notinlist.png" rendered="#{not editRole.featureEnabled(ft.id)}" />
+				        				</a4j:commandLink>
+				        				
+				        			</rich:column>
+				        			
+				        		</rich:dataTable>	        		
+				        		<rich:dataTable var="biz" value="#{editRole.bizActionsFor(reft.id)}" >
+				        			<rich:column>
+				        				<f:facet name="header"><h:outputText value="название" /></f:facet>
+				        				<h:outputText value="#{biz.description}"/>
+				        			</rich:column>
+				        			<rich:column>
+				        				<f:facet name="header"><h:outputText value="разрешено" /></f:facet>
+				        				<a4j:commandLink actionListener="#{editRole.bizactSwitchLsn}" render="@this" execute="@this">
+				        					<f:attribute name="bizactionid" value="#{biz.id}" />
+				        					<f:attribute name="onoff" value="#{editRole.bizactEnabled(biz.id)}" />
+				        					<h:graphicImage value="/resources/icons/inlist.png" rendered="#{editRole.bizactEnabled(biz.id)}" />
+				        					<h:graphicImage value="/resources/icons/notinlist.png" rendered="#{not editRole.bizactEnabled(biz.id)}" />
+				        				</a4j:commandLink>
+				        			</rich:column>
+				        			
+				        		</rich:dataTable> 	        		
+			        		</h:panelGrid>
+	        			
+	        			</rich:accordionItem>        		
+	        		</a4j:repeat>
+        		</rich:accordion>
+	        	<h:commandButton value="Сохранить" action="#{editRole.save}"/> <h:commandButton value="Закрыть" action="#{editRole.cancel}" immediate="true"/>
+	        </h:form>
+        </h:panelGroup>
+
+    </ui:define>
+</ui:composition> 

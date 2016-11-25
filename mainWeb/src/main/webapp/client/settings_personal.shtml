@@ -1,0 +1,208 @@
+<!--#set var="typePage" value="lk-setting" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'settings_personal'">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/settings_personal.js"></script>
+</head>
+
+<body ng-controller="MainCtrl" ng-cloak>
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main ng-controller="SettingsPersonalCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_settings_left_menu.shtml"-->
+
+            <div class="right-block td">
+                <form name="mainForm">
+                    <h3 class="h3 h3--bt1">
+                        Персональные данные
+                        <span class="h3__right opacity-50">
+                            <i class="ico ico--lock"></i>Редактирование только через техподдержку
+                        </span>
+                    </h3>
+
+                    <div class="table-settings table-settings--disabled opacity-50">
+                        <table>
+                            <tr>
+                                <td>Фамилия</td>
+                                <td>
+                                    <input class="input required" ng-required="true"
+                                           ng-model="peopleData.mainData.surname">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Имя</td>
+                                <td>
+                                    <input class="input required" ng-required="true"
+                                           ng-model="peopleData.mainData.name">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Отчество</td>
+                                <td>
+                                    <input class="input required" ng-required="true"
+                                           ng-model="peopleData.mainData.middlename">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Дата рождения</td>
+                                <td>
+                                    <input class="input required" ng-required="true"
+                                           ng-model="peopleData.mainData.birthday">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Место рождения</td>
+                                <td>
+                                    <input class="input required" ng-required="true"
+                                           ng-model="peopleData.mainData.birthplace">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Пол</td>
+                                <td>
+                                    <select id="gender" class="required" ng-required="true"
+                                            ng-model="peopleData.mainData.gender">
+                                        <option ng-repeat="type in peopleData.mainData.genderTypes"
+                                                value="{{ type.id }}" ng-bind="type.value"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form name="passportForm">
+                    <h3 class="h3 h3--bt1">
+                        Паспорт
+                        <span class="h3__right opacity-50">
+                            <i class="ico ico--lock"></i>Редактирование только через техподдержку
+                        </span>
+                    </h3>
+
+                    <div class="table-settings table-settings--disabled opacity-50">
+                        <table>
+                            <tr>
+                                <td>Серия</td>
+                                <td>
+                                    <input id="passportSeries" class="input required" ng-required="true"
+                                           ng-model="peopleData.passportData.series">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Номер</td>
+                                <td>
+                                    <input id="passportNumber" class="input required" ng-required="true"
+                                           ng-model="peopleData.passportData.number">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Дата выдачи</td>
+                                <td>
+                                    <input id="passportGivenDate" class="input date required" ng-required="true"
+                                           ng-model="peopleData.passportData.docDate">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Кем выдан</td>
+                                <td>
+                                    <input class="input required" ng-required="true"
+                                           ng-model="peopleData.passportData.docOrg">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Код подразделения</td>
+                                <td>
+                                    <input id="passportOrgCode" class="input required" ng-required="true"
+                                           ng-model="peopleData.passportData.docOrgCode">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form name="familyForm">
+                    <h3 class="h3 h3--bt1">
+                        Семейное положение
+                        <span class="h3__right opacity-50" data-ai="{value:'canEdit', yes:'hide'}">
+                            <i class="ico ico--lock"></i>Редактирование запрещено
+                        </span>
+                    </h3>
+
+                    <div class="table-settings"
+                         ng-class="{'table-settings--disabled' : !aiData.canEdit, 'opacity-50' : !aiData.canEdit}">
+                        <table>
+                            <tr>
+                                <td>Семейное положение</td>
+                                <td>
+                                    <select id="marriage" class="required" ng-required="true"
+                                            ng-model="peopleData.miscData.marriage">
+                                        <option ng-repeat="type in peopleData.miscData.marriageTypes"
+                                                value="{{ type.id }}" ng-bind="type.value"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Дети</td>
+                                <td>
+                                    <input name="children" class="input required" only-digits
+                                           ng-model="peopleData.miscData.children"
+                                           ng-pattern="/^[\d]*$/">
+                                </td>
+                                <td ng-show="familyForm.children.$error.pattern">
+                                    <p class="marker-red marker-red--error">Поле должно содержать только цифры</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form name="educationForm">
+                    <h3 class="h3 h3--bt1">
+                        Образование
+                        <span class="h3__right opacity-50" data-ai="{value:'canEdit', yes:'hide'}">
+                            <i class="ico ico--lock"></i>Редактирование запрещено
+                        </span>
+                    </h3>
+
+                    <div class="table-settings"
+                         ng-class="{'table-settings--disabled' : !aiData.canEdit, 'opacity-50' : !aiData.canEdit}">
+                        <table>
+                            <tr>
+                                <td>Образование</td>
+                                <td>
+                                    <select id="education" class="required" ng-required="true"
+                                            ng-model="peopleData.employmentData.educationId">
+                                        <option ng-repeat="type in peopleData.employmentData.educationTypes"
+                                                value="{{ type.id }}" ng-bind="type.value"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+
+                <form data-ai="{value:'canEdit', no:'hide'}">
+                    <h3 class="h3 h3--bt1">
+                        <label class="btn btn--green" ng-click="sendSms()">
+                            Сохранить изменения
+                        </label>
+                    </h3>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+
+</body>
+</html>

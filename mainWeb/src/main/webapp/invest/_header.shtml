@@ -1,0 +1,29 @@
+	<!--  Start header -->
+	<header>
+		<div class="header-inside">
+			<a href="http://ontime.money/main/"><div class="logo"></div></a>
+			<h1>Инвестируй в быстрорастущий бизнес</h1>
+			<div class="block-phone">
+				<div class="phone">+7 (495) 281 53 54</div>
+				<div class="work-mode">с 9<sup>00</sup> до 20<sup>00</sup>  /  пн-пт</div>
+			</div>
+		</div>
+	</header>
+	<!-- Stop header -->
+
+
+
+	<!-- Start block-nav -->
+	<div class="block-nav">
+		<div class="block-nav-inside">
+			<nav>
+				<ul>
+					<li><a href="index.shtml" class="active"><span>Калькулятор доходности</span><label></label></a></li>
+					<li><a href="aboutcompany.shtml"><span>О компании</span><label></label></a></li>
+					<li><a href="procent.shtml"><span>процентная ставка</span><label></label></a></li>
+					<li><a href="document.shtml"><span>Документы</span></a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<!-- End block-nav -->

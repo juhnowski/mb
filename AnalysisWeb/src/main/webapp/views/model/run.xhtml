@@ -1,0 +1,160 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+    <ui:define name="pageContent">
+    	<h:outputScript library="js/codemirror/lib" name="codemirror.js"></h:outputScript>
+    	<h:outputStylesheet library="js/codemirror/lib" name="codemirror.css"></h:outputStylesheet>
+    	<h:outputScript library="js/codemirror/mode/javascript/" name="javascript.js"></h:outputScript>
+    	<h:outputScript library="js/codemirror/addon/runmode" name="runmode.js"></h:outputScript>
+    	<h:outputScript library="js/codemirror/addon/runmode" name="colorize.js"></h:outputScript>    	
+        <h:form id="frm">
+        	<rich:messages globalOnly="true" />
+        	<h:panelGrid columns="2">
+      		
+	        	<h:panelGrid columns="2">
+	        		<h:outputText value="Состояние" />
+	        		<h:outputText value="#{runModel.model.activeStatusName}" />        	
+	        		<h:outputText value="Имя стратегии" />
+	        		<h:outputText value="#{runModel.model.target}" />
+	        		<h:outputText value="Версия" />
+	        		<h:outputText value="#{runModel.model.version}" />
+	        		<h:outputText value="Дата создания" />
+	        		<h:outputText value="#{runModel.model.dateCreate}" >
+	        			<f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+	        		</h:outputText>        		
+	        		<h:outputText value="Язык скрипта" />
+	        		<h:outputText value="#{runModel.model.mimeType}" />     
+	        		<h:outputText value="Продукт" />
+        		    <h:outputText value="#{runModel.model.product.name}" rendered="#{not empty runModel.model.product}" />       		   		
+	        	</h:panelGrid> 
+	        	<h:panelGroup id="pnlBody" style="display:block; width:1200px; heigth:900px; min-width:1200px; min-heigth:900px; max-width:1200px; max-heigth:900px; overflow: auto">
+	        		<h:inputTextarea id="txtBody" value="#{runModel.model.body}" ></h:inputTextarea><br/>
+	        		<h:inputHidden value="#{runModel.codeModified}" id="txtCodeModified" />
+	        		<h:commandButton value="Сохранить код" action="#{runModel.saveCode}" rendered="#{runModel.model.isActive == 2}"	/>
+	        	</h:panelGroup>        	
+       		</h:panelGrid>
+       	</h:form>
+       	<h:form id="frmEnter">
+        	<rich:panel header="Входные параметры">
+        		<h:panelGrid columns="2" columnClasses="top-valigned, top-valigned">
+        			<h:outputText value="Основные"/> <h:outputText value="По подсистемам"/>
+        			<h:panelGroup>
+		        		<h:selectOneRadio value="#{runModel.prmInSource}" layout="pageDirection" >
+		        			<f:selectItem itemLabel="Рассчитать для указанных ID" itemValue="#{1}"/>
+		        			<f:selectItem itemLabel="Взять из файлов XML" itemValue="#{2}"/>
+		        		</h:selectOneRadio>
+		        		<h:panelGrid columns="2">
+		        			<h:outputText value="Список ID для расчёта" />
+		        			<h:inputTextarea value="#{runModel.prmInIds}" />
+		        			<h:outputText value="Файлы XML" />
+		        			<h:panelGroup>
+		        				<rich:messages for="upload"/>
+					            <rich:fileUpload fileUploadListener="#{runModel.uploadXmlListener}" id="upload" acceptedTypes="xml"
+					                ontyperejected="alert('Допускаются только файлы XML');" immediateUpload="true" 
+					                addLabel="Добавить" clearAllLabel="Убрать все" clearLabel="Убрать" doneLabel="Готово" >
+					                <a4j:ajax event="uploadcomplete" execute="@none" render="infoInFiles" />
+					            </rich:fileUpload>
+					            <rich:dataTable id="infoInFiles" var="finfo" value="#{runModel.prmInFiles}">
+					            	<rich:column>
+					            		<f:facet name="header"><h:outputText value="Имя файла" /></f:facet>
+					            		<h:outputText value="#{finfo.name}" />
+					            	</rich:column>
+					            	<rich:column>
+					            		<f:facet name="header"><h:outputText value="Действия" /></f:facet>			            		
+					            	</rich:column>			            	
+					            </rich:dataTable>			                    			
+		        			</h:panelGroup>
+		        			<h:outputText value="Куда вывести результаты" />
+			        		<h:selectOneRadio value="#{runModel.prmInTarget}" layout="pageDirection" >
+			        			<f:selectItem itemLabel="Все в один файл XML" itemValue="#{2}"/>
+			        			<f:selectItem itemLabel="В отдельные файлы XML" itemValue="#{3}"/>
+			        		</h:selectOneRadio>      			
+		        		</h:panelGrid>	        		
+        			</h:panelGroup>
+        			<rich:tabPanel switchType="client">
+        				<rich:tab header="Текущая конфигурация">
+        					<h:panelGrid columns="1" id = "pnlCurConfig">
+        						<h:outputText value="#{runModel.currentConfig.description}"/>
+        						<h:outputText value="изменена" rendered="#{runModel.currentConfig.changed}"/>
+        						<h:panelGroup>
+        							<h:outputText value="Сохранить под именем:"/> <h:inputText value="#{runModel.currentConfig.description}" /> <a4j:commandButton value="сохранить" render="pnlCurConfig" actionListener="#{runModel.saveConfigLsn}" />
+        						</h:panelGroup>
+        					</h:panelGrid>
+	        				<rich:accordion switchType="client">
+	        					<rich:accordionItem name="raiVariables" header="Переменные">
+									<ui:include src="/views/model/include/include_vars.xhtml" >
+										<ui:param name="editCtl" value="#{runModel.editParamsCtl}" />
+									</ui:include>
+	        					</rich:accordionItem>
+		        				<a4j:repeat var="plc" value="#{runModel.pluginConfigs}">
+		        					<rich:accordionItem name="#{plc.pluginName}" header="#{plc.pluginName} - #{plc.plugin.systemDescription}">
+		        						<rich:tabPanel switchType="client">
+		        							<rich:tab header="Основные">
+				        						<ui:include src="/views/plugin/include_edit.xhtml" >
+				        							<ui:param name="editPlugCtl" value="#{runModel.editCtls[plc.pluginName]}" />
+				        						</ui:include>		        							
+		        							</rich:tab>
+		        							<rich:tab header="Дополнительные">
+				        						<ui:include src="/views/plugin/include_edit_ext.xhtml" >
+				        							<ui:param name="editPlugCtl" value="#{runModel.editCtls[plc.pluginName]}" />
+				        						</ui:include>			        							
+		        							</rich:tab>		        							
+		        						</rich:tabPanel>
+										<h:commandButton value="Сохранить изменения" action="#{runModel.editCtls[plc.pluginName].save}"></h:commandButton>
+										<h:commandButton value="Отмена" action="#{runModel.editCtls[plc.pluginName].cancel}" immediate="true"></h:commandButton>	        						
+		        					</rich:accordionItem>
+		        				</a4j:repeat>
+	        				</rich:accordion>        				
+        				</rich:tab>
+        				<rich:tab header="Все конфигурации">
+        					<h:dataTable var="cfg" value="#{runModel.configs}">
+        						<h:column>
+        							<h:outputText value="#{cfg.description}" />
+        						</h:column>
+        						<h:column>
+        							<a4j:commandButton value="загрузить" actionListener="#{runModel.loadConfigLsn}" render="pnlCurConfig">
+        								<f:attribute name="configKey" value="#{cfg.key}"/>
+        							</a4j:commandButton>
+        							<a4j:commandButton value="удалить" actionListener="#{runModel.removeConfigLsn}" render="pnlCurConfig">
+        								<f:attribute name="configKey" value="#{cfg.key}"/>
+        							</a4j:commandButton>
+        						</h:column>        						        						
+        					</h:dataTable>
+        				</rich:tab>        				
+        			</rich:tabPanel>
+        		</h:panelGrid>
+        	</rich:panel>     	
+        	<rich:panel header="Выполнение">
+        		<h:panelGroup id="pnlInProcess">
+        			<h:panelGrid columns="1">
+		                <h:panelGroup rendered="#{not runModel.executionInProgress}">
+		                    <a4j:commandButton value="Запустить" action="#{runModel.execute}" render="pnlInProcess" execute="@all" /> 
+		                </h:panelGroup> 
+		                <h:panelGroup rendered="#{runModel.executionInProgress}">
+				            <h:outputText value="#{runModel.currentIdx} / #{runModel.cntModels}"/>
+				            <h:commandButton value="Остановить" action="#{runModel.cancelExecution}" />			            		                
+		                </h:panelGroup>
+		                <h:panelGroup rendered="#{(not runModel.executionInProgress) and (runModel.resFileName != null)}">       			
+        					<h:commandLink action="#{runModel.downloadResult}" value="скачать результаты"></h:commandLink>
+        				</h:panelGroup>
+        			</h:panelGrid>
+        		</h:panelGroup>
+        	</rich:panel> 
+        	     	
+        	<h:commandButton value="Закрыть" action="#{runModel.close}"/>
+        </h:form>
+    	<h:form>
+        	<a4j:poll id="poll" interval="1000" enabled="true" render="poll,pnlInProcess" />
+    	</h:form>        
+        <script type="text/javascript">
+        var myCodeMirror = CodeMirror.fromTextArea(#{rich:element('txtBody')}, {
+            lineNumbers: true,
+            mode: "text/javascript"
+          });
+        </script>       
+    </ui:define>
+</ui:composition>

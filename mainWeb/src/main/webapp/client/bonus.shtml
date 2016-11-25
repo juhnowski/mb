@@ -1,0 +1,58 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/bonus_new.js"></script>
+</head>
+
+<body ng-controller="MainCtrl" ng-cloak>
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main ng-controller="BonusCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block td">
+                <h3 class="h3">Бонусные начисления</h3>
+
+                <div class="box-20">
+                    <table class="table-1 table-bonus-list">
+                        <tr ng-if="bonusInfo.history.length == 0">
+                            <td></td>
+                            <td>Отсутствует</td>
+                        </tr>
+
+                        <tr ng-repeat="history in bonusInfo.history">
+                            <td ng-bind="history.eventDate"></td>
+                            <td ng-switch on="history.operationName">
+                                <i class="ico ico--arrow-up-green" ng-switch-when="зачисление на счет"></i>
+                                <i class="ico ico--arrow-down-red" ng-switch-when="снятие со счета"></i>
+                            </td>
+                            <td ng-bind="history.amount"></td>
+                            <td ng-bind="history.bonusName"></td>
+                        </tr>
+                    </table>
+                </div>
+
+
+                <ul class="right-block__menu-top">
+                    <li class="active"><a href="/main/client/bonus.shtml">Начисления</a></li>
+                    <li><a href="/main/client/bonus-plus.shtml">Получить бонусы</a></li>
+                    <li><a href="/main/client/bonus-settings.shtml">Настройки бонусов</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+</body>
+</html>

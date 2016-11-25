@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+	>
+    <f:metadata>
+        <ui:insert name="metadata"/>
+    </f:metadata>
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:include src="styling.xhtml"/>
+        <h:form rendered="#{!(param['showmenu'] == '0')}">
+            <rich:toolbar height="26px">
+                <rich:menuItem label="Начало" action="#{menuCon.toHome}"/>
+                <rich:menuItem label="Стратегии" action="#{menuCon.toModel}"/>
+
+                <rich:dropDownMenu mode="ajax">
+                    <f:facet name="label">
+                        <h:outputText value="Настройки"/>
+                    </f:facet>
+                    <rich:menuItem label="Продукты" action="#{menuCon.toProducts}"/>
+                    <rich:menuItem label="Константы" action="#{menuCon.toListAll}"/>
+                    <rich:menuItem label="Действия" action="#{menuCon.toBizActions}"/>
+                    <rich:menuItem label="Партнеры" action="#{menuCon.toPartners}"/>
+                    <rich:menuItem label="AM правила" action="#{menuCon.toAntifraudRules}"/>
+                </rich:dropDownMenu>
+                <rich:dropDownMenu mode="ajax">
+                    <f:facet name="label">
+                        <h:outputText value="Выгрузить из БД"/>
+                    </f:facet>
+                    <rich:menuItem label="В csv" action="#{menuCon.toCsv}"/>
+                </rich:dropDownMenu>
+
+                <rich:dropDownMenu mode="ajax">
+                    <f:facet name="label">
+                        <h:outputText value="Процессы"/>
+                    </f:facet>
+                    <rich:menuItem label="Список" action="#{menuCon.toProcList}">
+                    </rich:menuItem>
+                    <rich:menuItem label="Загрузить...">
+                    </rich:menuItem>
+                    <rich:menuItem label="Удалить неиспользуемые">
+                    </rich:menuItem>
+                </rich:dropDownMenu>
+
+                <rich:menuItem label="Верификатор" action="#{menuCon.toVerify}"/>
+                <rich:menuItem label="Подсистемы" action="#{menuCon.toPlugins}"/>
+                <rich:dropDownMenu mode="ajax">
+                    <f:facet name="label">
+                        <h:outputText value="Справочники"/>
+                    </f:facet>
+                    <rich:menuItem label="Причины отказа" action="#{menuCon.toRefRefuse}"/>
+                    <rich:menuItem label="Регионы" action="#{menuCon.toRefRegion}"/>
+                    <rich:menuItem label="Стандартные справочники" action="#{menuCon.toRefSystem}"/>
+                    <rich:menuItem label="Чужие справочники" action="#{menuCon.toRefOther}"/>
+                    <rich:menuItem label="Организации" action="#{menuCon.toRefOrganizations}"/>
+                    <rich:menuItem label="События системы" action="#{menuCon.toRefEventCode}"/>
+                    <rich:menuItem label="Статусы кредитных заявок" action="#{menuCon.toRefCRequest}"/>
+                    <rich:menuItem label="Праздничные дни" action="#{menuCon.toHolidays}"/>
+                    <rich:menuItem label="Внутренний черный список" action="#{menuCon.toRefBlacklist}"/>
+                    <rich:menuItem label="Рабочие места" action="#{menuCon.toWorkplaces}"/>
+                    <rich:menuItem label="Антифрод - поля" action="#{menuCon.toAntifraudField}"/>
+                    <rich:menuItem label="Сравнение кредитов" action="#{menuCon.toCreditCompare}"/>
+                    <rich:menuItem label="Обновление справочника банков" action="#{menuCon.toUpdateRef}"/>
+                    <rich:menuItem label="Бонусы" action="#{menuCon.toBonusRef}"/>
+                </rich:dropDownMenu>
+                <rich:dropDownMenu mode="ajax">
+                    <f:facet name="label">
+                        <h:outputText value="КБ"/>
+                    </f:facet>
+                    <rich:menuItem label="Посмотреть запросы" action="#{menuCon.toRequests}"/>
+                    <rich:menuItem label="Разобрать заново запросы" action="#{menuCon.toParse}"/>
+                    <rich:menuItem label="Выгрузить" action="#{menuCon.toUploading}"/>
+                    <rich:menuItem label="Посмотреть выгрузки" action="#{menuCon.toListUploading}"/>
+                </rich:dropDownMenu>
+
+                <rich:menuItem label="Логи" action="#{menuCon.toLog}"/>
+                <rich:menuItem label="Сертификаты" action="#{menuCon.toCertificates}"/>
+                <rich:dropDownMenu mode="ajax">
+                    <f:facet name="label">
+                        <h:outputText value="Справка"/>
+                    </f:facet>
+                    <rich:menuItem label="Справка">
+                    </rich:menuItem>
+                    <rich:menuItem label="О приложении">
+                    </rich:menuItem>
+                </rich:dropDownMenu>
+                <rich:menuItem label="Выйти" action="#{userData.logout}"/>
+            </rich:toolbar>
+        </h:form>
+        <ui:insert name="pageContent"/>
+        <h:form>
+            <rich:popupPanel id="popupIndicator" modal="true" resizeable="true">
+                <f:facet name="header">
+                    <h:outputText value="Выполняется "/>
+                </f:facet>
+
+                <p align="center">Выполняется, ждите ...</p>
+
+                <p align="center"><h:graphicImage value="/resources/waitbig.gif"/></p>
+            </rich:popupPanel>
+        </h:form>
+    </h:body>
+</f:view>

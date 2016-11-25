@@ -1,0 +1,123 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="editRuleForm">
+            <rich:messages globalOnly="true"/>
+
+            <rich:panel header="Редактировать АМ правило">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Название"/>
+                    <h:inputText value="#{editRefAntifraudRules.rule.name}" size="100"
+                                 required="true" requiredMessage="Поле обязательно для заполнения"/>
+
+                    <h:outputText value="Название класса"/>
+                    <h:inputText value="#{editRefAntifraudRules.rule.entityName}" size="50"
+                                 required="true" requiredMessage="Поле обязательно для заполнения"/>
+
+                    <h:outputText value="Alias сущности"/>
+                    <h:inputText value="#{editRefAntifraudRules.rule.entityAlias}" size="50"/>
+
+                    <h:outputText value="Возвращаемая сущность"/>
+                    <h:inputText value="#{editRefAntifraudRules.rule.resultType}" size="50"/>
+
+                    <h:outputText value="Alias возвращаемой сущности"/>
+                    <h:inputText value="#{editRefAntifraudRules.rule.resultTypeAlias}" size="50"/>
+
+                    <h:outputText value="JOIN для возвращаемой сущности"/>
+                    <h:inputText value="#{editRefAntifraudRules.rule.resultJoin}" size="50"/>
+
+                    <h:outputText value="Код"/>
+                    <h:inputText value="#{editRefAntifraudRules.rule.code}"
+                                 required="true" requiredMessage="Поле обязательно для заполнения"/>
+
+                    <h:outputText value="Количество раз ищем"/>
+                    <h:inputText value="#{editRefAntifraudRules.rule.times}" converterMessage="Введите число"
+                                 required="true" requiredMessage="Поле обязательно для заполнения"/>
+
+                    <h:outputText value="Активное правило"/>
+                    <h:selectBooleanCheckbox value="#{editRefAntifraudRules.rule.isActive}"/>
+
+                    <h:outputText value="Проверяем только по этому человеку"/>
+                    <h:selectBooleanCheckbox value="#{editRefAntifraudRules.rule.checkSamePerson}"/>
+
+                    <h:outputText value="Проверка включает в себя и этого пользователя"/>
+                    <h:selectBooleanCheckbox value="#{editRefAntifraudRules.rule.includeSamePerson}"/>
+
+
+                    <h:outputText value="Параметры правила"/>
+                    <h:panelGroup id="paramsPanel">
+                        <rich:dataTable var="ruleParam" value="#{editRefAntifraudRules.paramsList}">
+                            <rich:column>
+                                <f:facet name="header">Название поля</f:facet>
+                                <h:inputText value="#{ruleParam.name}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Условие для запроса</f:facet>
+                                <h:inputText value="#{ruleParam.condition}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Описание</f:facet>
+                                <h:inputText value="#{ruleParam.description}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Тип данных</f:facet>
+                                <h:inputText value="#{ruleParam.dataType}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Строковое значение</f:facet>
+                                <h:inputText value="#{ruleParam.valueString}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Числовое значение</f:facet>
+                                <h:inputText value="#{ruleParam.valueInteger}" converterMessage="Введите число"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Вещественное значение</f:facet>
+                                <h:inputText value="#{ruleParam.valueFloat}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Значение даты</f:facet>
+                                <h:inputText value="#{ruleParam.valueDate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:inputText>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Параметр для запроса - 1, для ответа - 0</f:facet>
+                                <h:selectBooleanCheckbox value="#{ruleParam.forRequest}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Условие группировки</f:facet>
+                                <h:inputText value="#{ruleParam.groupCondition}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Условие для запроса</f:facet>
+                                <h:inputText value="#{ruleParam.groupIndex}"/>
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Действие</f:facet>
+
+                                <h:commandLink actionListener="#{editRefAntifraudRules.removeParam}"
+                                               onclick="return confirm('Удалить запись?');">
+                                    <f:attribute name="ruleParam" value="#{ruleParam}"/>
+                                    <a4j:ajax render="paramsPanel"/>
+                                    <h:graphicImage value="/resources/icons/delete.gif" title="удалить"/>
+                                </h:commandLink>
+                            </rich:column>
+                        </rich:dataTable>
+
+                        <a4j:commandButton value="Добавить" actionListener="#{editRefAntifraudRules.addParam}"
+                                           render="paramsPanel"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+
+                <h:commandButton value="Сохранить" action="#{editRefAntifraudRules.save}"/>
+                <h:commandButton value="Отмена" action="#{editRefAntifraudRules.cancel}" immediate="true"/>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

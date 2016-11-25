@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+    <ui:param name="top_selected_item" value="payment" />
+
+    <ui:define name="title">Manager console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form>
+        	<rich:tabPanel switchType="client" rendered="#{stateP.taskInfoCount > 0}" styleClass="table_small">
+        		<a4j:repeat var="taskinfo" value="#{stateP.taskInfos}">
+	        		<rich:tab header="#{taskinfo.description} (#{taskinfo.itemCount})">
+	        			<rich:dataTable var="wfo" value="#{stateP.tasks[taskinfo.name]}" rows="#{stateP.maxRows}">
+	        				<rich:column>
+	        					<f:facet name="header"><h:outputText value="Дата поступления" /></f:facet>
+	        					<h:outputText value="#{wfo.task.createTime}">
+	        						<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+	        					</h:outputText>
+	        				</rich:column>
+	        				<rich:column rendered="#{wfo.businessObject != null}">
+	        					<f:facet name="header"><h:outputText value="Номер платежа" /></f:facet>
+	        					<h:link outcome="edit">
+	        						<f:param name="paymentid" value="#{wfo.businessObjectId}" />
+	        						<h:outputText value="#{wfo.businessObject.amount}" />
+	        					</h:link>
+	        					
+	        				</rich:column>	        				
+	        			</rich:dataTable>
+	        			<h:link styleClass="button" value="посмотреть ещё" outcome="list">
+	        				<f:param name="taskDef" value="#{taskinfo.nameEscaped}" />
+	        				<f:param name="faces-redirect" value="true"/>
+	        			</h:link>
+	        		</rich:tab>        		
+        		</a4j:repeat>        	
+        	</rich:tabPanel>
+        	<h:panelGroup rendered="#{stateP.taskInfoCount == 0}">
+        		<h:outputText value="Нет ни одной задачи" styleClass="msg"/>
+        	</h:panelGroup>
+        </h:form>    
+        <h:form id="frmMain">
+            <ui:include src="inc_search.xhtml" />
+            <p></p>
+            <ui:include src="inc_search_result.xhtml" />
+        </h:form>
+    </ui:define>
+</ui:composition>

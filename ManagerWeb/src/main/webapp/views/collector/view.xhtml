@@ -1,0 +1,527 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+    <ui:param name="top_selected_item" value="collector"/>
+    <ui:define name="metadata">
+
+    </ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="frmView">
+            <rich:messages globalOnly="true" layout="table"/>
+            <rich:tabPanel>
+                <rich:tab header="Информация">
+                    <h:panelGroup layout="block" style="width: 100%;">
+                        <rich:panel header="Клиент" styleClass="layout">
+                            <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                                <h:outputText value="ФИО"/> <h:outputText
+                                    value="#{viewCollector.collector.peopleMain.peoplePersonalActive.fullName}"/>
+                                <h:outputText value="Документ"
+                                              rendered="#{viewCollector.collector.peopleMain.activePassport!=null}"/>
+                                <h:outputText
+                                        value="#{viewCollector.collector.peopleMain.activePassport.descriptionFull} "
+                                        rendered="#{viewCollector.collector.peopleMain.activePassport!=null}"/>
+                                <h:outputText value="Адрес прописки"
+                                              rendered="#{viewCollector.collector.peopleMain.registerAddress!=null}"/>
+                                <h:outputText value="#{viewCollector.collector.peopleMain.registerAddress.description} "
+                                              rendered="#{viewCollector.collector.peopleMain.registerAddress!=null}"/>
+                                <h:outputText value="Адрес проживания"
+                                              rendered="#{viewCollector.collector.peopleMain.registerAddress!=null}"/>
+                                <h:panelGroup rendered="#{viewCollector.collector.peopleMain.registerAddress!=null}">
+                                    <h:outputText
+                                            value="#{viewCollector.collector.peopleMain.registerAddress.description}"
+                                            rendered="#{viewCollector.collector.peopleMain.registerAddress.isSame}"/>
+                                    <h:outputText
+                                            value="#{viewCollector.collector.peopleMain.residentAddress.description}"
+                                            rendered="#{! viewCollector.collector.peopleMain.registerAddress.isSame}"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+                        </rich:panel>
+
+                        <rich:panel header="Контакты" styleClass="layout">
+                            <h:panelGrid columns="3" columnClasses="layout-field-name">
+                                <c:if test="#{viewCollector.collector.peopleMain.cellPhone.value != null}">
+                                    <h:outputText value="Мобильный телефон"/>
+                                    <h:outputText value="#{viewCollector.collector.peopleMain.cellPhone.value}"/>
+                                    <h:panelGroup>
+                                        <h:commandButton value="Позвонить" styleClass="button ml0"  onclick="alert('Был сделан звонок'); return false;"></h:commandButton>
+                                        <h:link outcome="/views/sms/edit?faces-redirect=true" styleClass="button ml0">
+                                            <f:param name="phoneNumber" value="#{viewCollector.collector.peopleMain.cellPhone.value}"/>
+                                            <f:param name="peopleMainID" value="#{viewCollector.collector.peopleMain.id}"/>
+                                            <f:param name="userID" value="#{viewCollector.collector.user.id}"/>
+                                            <f:param name="collectorID" value="#{viewCollector.collector.id}"/>
+                                            <h:outputText value="Отправить смс"/>
+                                        </h:link>
+                                    </h:panelGroup>
+                                </c:if>
+
+                                <c:if test="#{viewCollector.collector.peopleMain.homePhoneReg.value != null}">
+                                    <h:outputText value="Домашний телефон по адресу регистрации"/>
+                                    <h:outputText value="#{viewCollector.collector.peopleMain.homePhoneReg.value}"/>
+                                    <h:commandButton value="Позвонить" styleClass="button ml0"  onclick="alert('Был сделан звонок'); return false;"></h:commandButton>
+                                </c:if>
+
+                                <c:if test="#{viewCollector.collector.peopleMain.homePhone.value != null}">
+                                    <h:outputText value="Домашний телефон"/>
+                                    <h:outputText value="#{viewCollector.collector.peopleMain.homePhone.value}"/>
+                                    <h:commandButton value="Позвонить" styleClass="button ml0"  onclick="alert('Был сделан звонок'); return false;"></h:commandButton>
+                                </c:if>
+
+                                <c:if test="#{viewCollector.collector.peopleMain.workPhone.value != null}">
+                                    <h:outputText value="Рабочий телефон"/>
+                                    <h:outputText value="#{viewCollector.collector.peopleMain.workPhone.value}"/>
+                                    <h:commandButton value="Позвонить" styleClass="button ml0"  onclick="alert('Был сделан звонок'); return false;"></h:commandButton>
+                                </c:if>
+
+                                <c:if test="#{viewCollector.collector.peopleMain.email.value != null}">
+                                    <h:outputText value="Email"/>
+                                    <h:outputText value="#{viewCollector.collector.peopleMain.email.value}"/>
+                                    <h:link outcome="/views/email/edit?faces-redirect=true" styleClass="button ml0">
+                                        <f:param name="emailTo" value="#{viewCollector.collector.peopleMain.email.value}"/>
+                                        <f:param name="peopleMainID" value="#{viewCollector.collector.peopleMain.id}"/>
+                                        <f:param name="userID" value="#{viewCollector.collector.user.id}"/>
+                                        <f:param name="collectorID" value="#{viewCollector.collector.id}"/>
+                                        <h:outputText value="Написать письмо"/>
+                                    </h:link>
+                                </c:if>
+                                <c:if test="#{viewCollector.contactList.size() == 0}">
+                                    <h:outputText value=""/>
+                                    <h:commandButton value="Добавить контакт" styleClass="button ml0" onclick="#{rich:component('addContactPopup')}.show();return false;"/>
+                                    <h:outputText value=""/>
+                                </c:if>
+                            </h:panelGrid>
+                        </rich:panel>
+
+                        <c:if test="#{viewCollector.contactList.size() != 0}">
+                            <rich:panel header="Добавленные контакты" styleClass="layout">
+                                <h:panelGrid columns="3" columnClasses="layout-field-name">
+                                    <c:forEach items="#{viewCollector.contactList}" var="contact">
+                                        <h:outputText value="#{contact.contact.name}"/>
+                                        <h:outputText value="#{contact.value}"/>
+
+                                        <h:panelGroup rendered="#{contact.contact.codeInteger == 2}" >
+                                            <h:commandButton value="Позвонить" styleClass="button ml0"  onclick="alert('Был сделан звонок'); return false;"></h:commandButton>
+                                            <h:link outcome="/views/sms/edit?faces-redirect=true" styleClass="button ml0">
+                                                <f:param name="phoneNumber" value="#{contact.value}"/>
+                                                <f:param name="peopleMainID" value="#{viewCollector.collector.peopleMain.id}"/>
+                                                <f:param name="userID" value="#{viewCollector.collector.user.id}"/>
+                                                <f:param name="collectorID" value="#{viewCollector.collector.id}"/>
+                                                <h:outputText value="Отправить смс"/>
+                                            </h:link>
+                                        </h:panelGroup>
+                                        <h:link outcome="/views/email/edit?faces-redirect=true" styleClass="button ml0" rendered="#{contact.contact.codeInteger == 1}">
+                                            <f:param name="emailTo" value="#{contact.value}"/>
+                                            <f:param name="peopleMainID" value="#{viewCollector.collector.peopleMain.id}"/>
+                                            <f:param name="userID" value="#{viewCollector.collector.user.id}"/>
+                                            <f:param name="collectorID" value="#{viewCollector.collector.id}"/>
+                                            <h:outputText value="Написать письмо"/>
+                                        </h:link>
+                                    </c:forEach>
+
+                                    <h:outputText value=""/>
+                                    <h:commandButton value="Добавить контакт" styleClass="button ml0" onclick="#{rich:component('addContactPopup')}.show();return false;"/>
+                                    <h:outputText value=""/>
+                                </h:panelGrid>
+                            </rich:panel>
+                        </c:if>
+                    </h:panelGroup>
+
+                    <h:panelGroup layout="block" style="width: 100%">
+                        <rich:panel header="Заём" styleClass="layout">
+                            <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                                <h:outputText value="№ счета"/>
+                                <h:outputText value="#{viewCollector.credit.creditAccount}"/>
+
+                                <h:outputText value="Дата выдачи займа"/>
+                                <h:outputText value="#{viewCollector.credit.creditDataBeg}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                                <h:outputText value="Дата окончания по графику"/>
+                                <h:outputText value="#{viewCollector.credit.creditDataEnd}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                                <h:outputText value="Дата выплаты займа"
+                                              rendered="#{not empty viewCollector.credit.creditDataEndFact}"/>
+                                <h:outputText value="#{viewCollector.credit.creditDataEndFact}"
+                                              rendered="#{not empty viewCollector.credit.creditDataEndFact}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                                <h:outputText value="Статус займа"
+                                              rendered="#{not empty viewCollector.credit.creditStatus}"/>
+                                <h:outputText value="#{viewCollector.credit.creditStatus.name}"
+                                              rendered="#{not empty viewCollector.credit.creditStatus}"/>
+                                <h:outputText value="Сумма"/>
+                                <h:outputText value="#{viewCollector.credit.creditSum}">
+                                    <f:convertNumber pattern="############.00"/>
+                                </h:outputText>
+                                <h:outputText value="Валюта займа"
+                                              rendered="#{not empty viewCollector.credit.currency}"/>
+                                <h:outputText value="#{viewCollector.credit.currency.name}"
+                                              rendered="#{not empty viewCollector.credit.currency}"/>
+                                <h:outputText value="Сумма возврата"/>
+                                <h:outputText value="#{viewCollector.credit.creditSumBack}">
+                                    <f:convertNumber pattern="############.00"/>
+                                </h:outputText>
+                                <h:outputText value="Ставка"
+                                              rendered="#{not empty viewCollector.credit.creditPercent}"/>
+                                <h:outputText value="#{viewCollector.credit.creditPercent}"
+                                              rendered="#{not empty viewCollector.credit.creditPercent}">
+                                    <f:convertNumber type="percent" minFractionDigits="1"/>
+                                </h:outputText>
+                                <h:outputText value="Текущий долг"
+                                              rendered="#{not empty viewCollector.credit.currentDebt}"/>
+                                <h:outputText value="#{viewCollector.credit.currentDebt}"
+                                              rendered="#{not empty viewCollector.credit.currentDebt}">
+                                    <f:convertNumber pattern="############.00"/>
+                                </h:outputText>
+                                <h:outputText value="Текущий просроченный долг"
+                                              rendered="#{not empty viewCollector.credit.currentOverdueDebt}"/>
+                                <h:outputText value="#{viewCollector.credit.currentOverdueDebt}"
+                                              rendered="#{not empty viewCollector.credit.currentOverdueDebt}">
+                                    <f:convertNumber pattern="############.00"/>
+                                </h:outputText>
+                                <h:outputText value="Неиспользованный лимит"
+                                              rendered="#{not empty viewCollector.credit.creditLimitUnused}"/>
+                                <h:outputText value="#{viewCollector.credit.creditLimitUnused}"
+                                              rendered="#{not empty viewCollector.credit.creditLimitUnused}">
+                                    <f:convertNumber pattern="############.00"/>
+                                </h:outputText>
+                                <h:outputText value="Количество продлений"
+                                              rendered="#{not empty viewCollector.credit.creditLong}"/>
+                                <h:outputText value="#{viewCollector.credit.creditLong}"
+                                              rendered="#{not empty viewCollector.credit.creditLong}"/>
+
+                                <h:outputText value="Дней просрочки"
+                                              rendered="#{not empty viewCollector.credit.maxDelay}"/>
+                                <h:outputText value="#{viewCollector.credit.maxDelay}"
+                                              rendered="#{not empty viewCollector.credit.maxDelay}"/>
+                                <h:outputText value="Погашение за счет обеспечения"
+                                              rendered="#{not empty viewCollector.credit.creditMoneyBack}"/>
+                                <h:panelGroup rendered="#{not empty viewCollector.credit.creditMoneyBack}">
+                                    <h:outputText value="да" rendered="#{viewCollector.credit.creditMoneyBack==1}"/>
+                                    <h:outputText value="нет" rendered="#{! viewCollector.credit.creditMoneyBack==0}"/>
+                                </h:panelGroup>
+                                <h:outputText value="Закрыт?"/>
+                                <h:panelGroup>
+                                    <h:outputText value="да" rendered="#{viewCollector.credit.isOver}"/>
+                                    <h:outputText value="нет" rendered="#{! viewCollector.credit.isOver}"/>
+                                </h:panelGroup>
+
+                                <h:link outcome="/views/creditrequest/edit?faces-redirect=true" styleClass="button" target="_blank">
+                                    <f:param name="ccRequestId" value="#{viewCollector.creditRequestID}" />
+                                    <h:outputText value="Кредитная заявка"/>
+                                </h:link>
+
+                                <h:link outcome="/views/credit/edit?faces-redirect=true" styleClass="button" target="_blank">
+                                    <f:param name="creditid" value="#{viewCollector.credit.id}" />
+                                    <h:outputText value="Кредит клиента"/>
+                                </h:link>
+                            </h:panelGrid>
+                        </rich:panel>
+                        <rich:collapsiblePanel header="Отправленные смс" switchType="client" expanded="false"
+                                               styleClass="first" rendered="#{viewCollector.smsList.size() != 0}">
+                            <rich:dataTable id="smsTable"
+                                            value="#{viewCollector.smsList}"
+                                            var="sms"
+                                            selectionMode="single"
+                                            rows="20"
+                                            styleClass="table2">
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Дата отправки</f:facet>
+                                    <h:outputText value="#{sms.messageDate}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                                    </h:outputText>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Текст</f:facet>
+                                    <h:outputText value="#{sms.messageBody}">
+                                        <f:converter converterId="clearHtmlConverter"/>
+                                    </h:outputText>
+                                </rich:column>
+                            </rich:dataTable>
+                        </rich:collapsiblePanel>
+                        <rich:collapsiblePanel header="Отправленные письма" switchType="client" expanded="false"
+                                               styleClass="first" rendered="#{viewCollector.mailList.size() != 0}">
+                            <rich:dataTable id="messTable"
+                                            value="#{viewCollector.mailList}"
+                                            var="mes"
+                                            selectionMode="single"
+                                            rows="20"
+                                            styleClass="table2">
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Дата отправки</f:facet>
+                                    <h:outputText value="#{mes.messageDate}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                                    </h:outputText>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Тема</f:facet>
+                                    <h:outputText value="#{mes.messageHeader}"/>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Адрес отправления</f:facet>
+                                    <h:outputText value="#{mes.peopleContact != null ? mes.peopleContact.value : ''}"/>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Действия</f:facet>
+                                    <h:panelGrid columns="2">
+                                        <h:panelGroup >
+                                            <h:link outcome="/views/email/edit?faces-redirect=true" styleClass="open">
+                                                <f:param name="emailTo" value="#{mes.peopleContact != null ? mes.peopleContact.value : ''}"/>
+                                                <f:param name="peopleMainID" value="#{viewCollector.collector.peopleMain.id}"/>
+                                                <f:param name="userID" value="#{viewCollector.userCtl.user.id}"/>
+                                                <f:param name="collectorID" value="#{viewCollector.collector.id}"/>
+                                                <f:param name="messageID" value="#{mes.id}"/>
+                                            </h:link>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+                                </rich:column>
+                            </rich:dataTable>
+                        </rich:collapsiblePanel>
+                        <rich:collapsiblePanel header="Телефонные звонки" switchType="client" expanded="false"
+                                               styleClass="first" rendered="#{viewCollector.callsList.size() != 0}">
+                            <rich:dataTable id="phoneCallsTable"
+                                            value="#{viewCollector.callsList}"
+                                            var="call"
+                                            rows="20"
+                                            styleClass="table2 table3">
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                    <h:outputText value="входящий" rendered="#{not empty call.incoming and call.incoming}"/>
+                                    <h:outputText value="исходящий" rendered="#{not empty call.incoming and !call.incoming}"/>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">
+                                        <h:outputText value="Оператор"/>
+                                    </f:facet>
+                                    <h:outputText value="#{call.user.initials}"/>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">
+                                        <h:outputText value="Дата"/>
+                                    </f:facet>
+                                    <h:outputText value="#{call.callDataBeg}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                    </h:outputText>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">
+                                        <h:outputText value="Продолжительность"/>
+                                    </f:facet>
+                                    <h:outputText value="#{call.lengthHours} ч " rendered="#{not empty call.lengthHours}"/>
+                                    <h:outputText value="#{call.lengthMinutes} мин " rendered="#{not empty call.lengthMinutes}"/>
+                                    <h:outputText value="#{call.lengthSeconds} сек"/>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">
+                                        <h:outputText value="Номер"/>
+                                    </f:facet>
+                                    <h:outputText value="#{call.phone}"/>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">
+                                        <h:outputText value="Статус"/>
+                                    </f:facet>
+                                    <h:outputText value="#{call.status.name}"/>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">
+                                        <h:outputText value="Комментарий"/>
+                                    </f:facet>
+                                    <h:inputText value="#{call.comment}"/>
+                                </rich:column>
+                            </rich:dataTable>
+
+                            <a4j:commandButton actionListener="#{viewCollector.updateCalls}" value="Сохранить"
+                                               style="margin: 10px;" styleClass="button ml0"/>
+                        </rich:collapsiblePanel>
+                        <rich:collapsiblePanel header="Результаты обзвона" switchType="client" expanded="false"
+                                               styleClass="first" rendered="#{viewCollector.callResultList.size() != 0}">
+                            <rich:dataTable id="callTable"
+                                            value="#{viewCollector.callResultList}"
+                                            var="call"
+                                            selectionMode="single"
+                                            rows="20"
+                                            styleClass="table2">
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Дата звонка</f:facet>
+                                    <h:outputText value="#{call.dateCall}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                    </h:outputText>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Дата обещания</f:facet>
+                                    <h:outputText value="#{call.datePromise}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                    </h:outputText>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Дата следущего контакта</f:facet>
+                                    <h:outputText value="#{call.dateNextContact}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                    </h:outputText>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Комментарий</f:facet>
+                                    <h:outputText value="#{call.comment}"/>
+                                </rich:column>
+                                <rich:column headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Результат обзвона</f:facet>
+                                    <h:outputText value="#{call.resultType.name}"/>
+                                </rich:column>
+                            </rich:dataTable>
+                        </rich:collapsiblePanel>
+                    </h:panelGroup>
+                </rich:tab>
+                <rich:tab header="Посчитать">
+                    <h:panelGrid columns="2">
+                        <rich:panel header="Считаем для клиента" styleClass="layout">
+                            <h:panelGrid id="table_calc" columns="2" columnClasses="layout-field-name, top-valigned">
+                                <h:outputText value="На дату"/>
+                                <rich:calendar id="dbcred" value="#{viewCollector.dateCalc}"
+                                               buttonIcon="/resources/icons/calendarIcon.png" popup="true"
+                                               datePattern="dd.MM.yyyy" showWeeksBar="false" showWeekDaysBar="false"
+                                               enableManualInput="true" showApplyButton="false" cellWidth="24px"
+                                               cellHeight="22px" valueChangeListener="#{viewCollector.changeDate}">
+                                    <a4j:ajax event="change" execute="@this"/>
+                                </rich:calendar>
+                                <h:outputText value="Выберите опцию"/>
+                                <h:selectOneMenu value="#{viewCollector.calc}"
+                                                 valueChangeListener="#{viewCollector.changeCalcType}">
+                                    <f:selectItem itemLabel="Сумма платежа на дату" itemValue="1"/>
+                                    <f:selectItem itemLabel="Сумма платежа при продлении" itemValue="2"/>
+                                    <a4j:ajax event="change" execute="@this" render="table_calc"/>
+                                </h:selectOneMenu>
+
+                                <h:outputText value="До какой даты продляем" rendered="#{viewCollector.calc == 2}"/>
+                                <rich:calendar id="dnew" value="#{viewCollector.dateNew}"
+                                               buttonIcon="/resources/icons/calendarIcon.png" popup="true"
+                                               datePattern="dd.MM.yyyy" showWeeksBar="false" showWeekDaysBar="false"
+                                               enableManualInput="true" showApplyButton="false" cellWidth="24px"
+                                               cellHeight="22px" valueChangeListener="#{viewCollector.changeDateNew}"
+                                               rendered="#{viewCollector.calc == 2}">
+                                    <a4j:ajax event="change" execute="@this"/>
+                                </rich:calendar>
+                                <h:outputText value="Общая сумма"/>
+                                <h:outputText value="#{viewCollector.sumAll}">
+                                    <f:convertNumber pattern="############.##"/>
+                                </h:outputText>
+                                <h:outputText value="Основной долг"/>
+                                <h:outputText value="#{viewCollector.sumMain}">
+                                    <f:convertNumber pattern="############.##"/>
+                                </h:outputText>
+                                <h:outputText value="Сумма процентов"/>
+                                <h:outputText value="#{viewCollector.sumPercent}">
+                                    <f:convertNumber pattern="############.##"/>
+                                </h:outputText>
+                                <h:outputText value="Дней просрочки" rendered="#{viewCollector.daysOverdue != 0}"/>
+                                <h:outputText value="#{viewCollector.daysOverdue}"
+                                              rendered="#{viewCollector.daysOverdue!=0}"/>
+                                <h:outputText value="Штраф"
+                                              rendered="#{viewCollector.calc==1 and viewCollector.sumPenalty != 0}"/>
+                                <h:outputText value="#{viewCollector.sumPenalty}"
+                                              rendered="#{viewCollector.calc==1 and viewCollector.sumPenalty != 0}">
+                                    <f:convertNumber pattern="############.##"/>
+                                </h:outputText>
+                                <h:outputText value="Сумма процентов без штрафа"
+                                              rendered="#{viewCollector.calc==1 and viewCollector.sumPenalty != 0}"/>
+                                <h:outputText value="#{viewCollector.sumPercentWithoutPenalty}"
+                                              rendered="#{viewCollector.calc==1 and viewCollector.sumPenalty != 0}">
+                                    <f:convertNumber pattern="############.##"/>
+                                </h:outputText>
+                                <h:outputText id="txtlong" value="Максимально возможная дата продления "
+                                              rendered="#{viewCollector.calc==2}"/>
+                                <h:outputText value="#{viewCollector.dateLong}" rendered="#{viewCollector.calc == 2}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                                <h:outputText value="Сумма процентов к выплате" rendered="#{viewCollector.calc == 2}"/>
+                                <h:outputText value="#{viewCollector.sumPercentPay}"
+                                              rendered="#{viewCollector.calc == 2}">
+                                    <f:convertNumber pattern="############.##"/>
+                                </h:outputText>
+                                <h:outputText
+                                        value="По данному займу нет возможности сделать продление, сумма дней бывших продлений равна максимально допустимой"
+                                        rendered="#{viewCollector.credit.creditDataEnd == viewCollector.dateLong and viewCollector.calc == 2}"/>
+                                <h:outputText
+                                        value="На данную дату нет возможности сделать продление, продление возможно только из льготного периода просрочки"
+                                        rendered="#{daysOverdue>=14 and viewCollector.calc==2}"/>
+                            </h:panelGrid>
+                            <a4j:commandLink value="Посчитать" styleClass="button"
+                                             actionListener="#{viewCollector.recalc}"
+                                             immediate="true" render="table_calc">
+                            </a4j:commandLink>
+                        </rich:panel>
+                    </h:panelGrid>
+                </rich:tab>
+            </rich:tabPanel>
+
+            <h:panelGrid columns="3">
+                <h:link outcome="call_result?faces-redirect=true" styleClass="button">
+                    <f:param name="collectorID" value="#{viewCollector.collector.id}" />
+                    <c:if test="#{viewCollector.activeTask != null}">
+                        <f:param name="taskID" value="#{viewCollector.activeTask.id}" />
+                    </c:if>
+                    <h:outputText value="Внести результат переговоров с клиентом" rendered="#{viewCollector.activeTask == null}"/>
+                    <h:panelGroup layout="horizontal">
+                        <h:outputText value="Поставить выполнение по задаче #{viewCollector.activeTask.taskType.name} " rendered="#{viewCollector.activeTask != null}"/>
+                        <h:outputText value="#{viewCollector.activeTask.eventDate}" rendered="#{viewCollector.activeTask != null}"/>
+                    </h:panelGroup>
+                </h:link>
+                <h:commandButton value="Сменить статус кредита"
+                                 styleClass="button ml0" onclick="#{rich:component('changeStatusPopup')}.show();return false;"/>
+                <h:commandButton value="Закрыть" styleClass="button grey" action="#{viewCollector.close}"/>
+            </h:panelGrid>
+        </h:form>
+
+        <rich:popupPanel id="addContactPopup" modal="true"
+                         resizeable="false" header="Добавление контакта">
+            <h:form>
+                <h:panelGrid id="addContactGrid" columns="2" columnClasses="layout-field-name"
+                             styleClass="layout add-contact-form">
+                    <h:outputText value="Контакт" style="padding-bottom: 10px;"/>
+                    <h:inputText id="newContactValue" value="#{viewCollector.newContactValue}"/>
+                    <h:outputText value="Тип"/>
+                    <h:selectOneRadio id="newContactTypeSelect" value="#{viewCollector.newContactTypeID}"
+                                      valueChangeListener="#{viewCollector.changeContactType}">
+                        <a4j:ajax event="change" execute="@this" render="@form"/>
+                        <f:selectItem itemLabel="Email адрес" itemValue="1"/>
+                        <f:selectItem itemLabel="Телефон" itemValue="2"/>
+                    </h:selectOneRadio>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:commandButton value="Сохранить" actionListener="#{viewCollector.saveNewContact}"
+                                     styleClass="button ml0"
+                                     onclick="#{rich:component('addContactPopup')}.hide();return true;"/>
+                    <h:commandButton value="Отменить" styleClass="button ml0"
+                                     onclick="#{rich:component('addContactPopup')}.hide();return true;"/>
+                </h:panelGrid>
+                <rich:jQuery selector="#newContactValue" query="mask('+7 (999) 999-99-99')" rendered="#{viewCollector.newContactTypeID == 2}"/>
+            </h:form>
+        </rich:popupPanel>
+
+        <rich:popupPanel id="changeStatusPopup" modal="true" resizeable="false" header="Изменение статуса">
+            <h:form>
+                <h:panelGrid columns="2" columnClasses="layout-field-name"
+                             styleClass="layout add-contact-form">
+                    <h:outputText value="Статус" style="padding-bottom: 10px;"/>
+                    <h:selectOneMenu value="#{viewCollector.creditStatusID}">
+                        <f:selectItems value="#{viewCollector.creditStatusList}" var="vs" itemLabel="#{vs.name}"
+                                       itemValue="#{vs.codeInteger}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:commandButton value="Сохранить" action="#{viewCollector.changeStatus}"
+                                     styleClass="button ml0"
+                                     onclick="#{rich:component('changeStatusPopup')}.hide();return true;"/>
+                    <h:commandButton value="Отменить" styleClass="button ml0"
+                                     onclick="#{rich:component('changeStatusPopup')}.hide();return false;"/>
+                </h:panelGrid>
+            </h:form>
+        </rich:popupPanel>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,29 @@
+<a class="logo pull-left" href="/main/"></a>
+<a href="tel:88008004050" class="tel pull-right">8 800 800 40 50</a>
+
+<nav class="top-menu pull-right notsel">
+    <ul>
+        <li><a href="about.shtml">О нас</a></li>
+        <li><a href="faq.shtml">Вопросы-ответы</a></li>
+        <li><a href="contacts.shtml">Контакты</a></li>
+        <li><a class="login-show"><i class="ico ico--lk"></i>Личный кабинет</a></li>
+    </ul>
+</nav>
+<p class="header__time">с 7:00 до 21:00 мск / без выходных</p>
+<!--#if expr="$typePage = main" -->
+<ul class="steps-order">
+    <li>
+        <b>Оформите заявку</b>
+        Всего 5-7 минут
+    </li>
+    <li>
+        <b>Получите ответ</b>
+        В течении 1 минуты
+    </li>
+    <li>
+        <b>Получите деньги</b>
+        Мгновенно
+    </li>
+</ul>
+<!--#endif-->
+

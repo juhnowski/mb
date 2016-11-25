@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+	<ui:define name="metadata">
+	
+	</ui:define>
+    <ui:define name="pageContent">
+    	<h:outputScript library="js/codemirror/lib" name="codemirror.js"></h:outputScript>
+    	<h:outputStylesheet library="js/codemirror/lib" name="codemirror.css"></h:outputStylesheet>
+    	<h:outputScript library="js/codemirror/mode/javascript/" name="javascript.js"></h:outputScript>    
+        <h:form>
+        	<rich:messages />
+        	<h:panelGrid columns="2">
+        		<h:outputText value="Состояние" />	
+        		<h:outputText value="#{editModel.model.activeStatusName}" />        	
+        		<h:outputText value="Имя стратегии" />
+        		<h:outputText value="#{editModel.model.target}" />
+        		<h:outputText value="Версия" />
+        		<h:panelGroup>
+        			<h:inputText id="txtVersion" value="#{editModel.model.version}" required="true" requiredMessage="необходимо заполнить номер версии" />
+        		</h:panelGroup>
+        		
+        		<h:outputText value="Язык скрипта" />
+        		<h:selectOneMenu value="#{editModel.model.mimeType}" required="true" >
+        			<f:selectItems value="#{refs.scriptTypes}" />
+        		</h:selectOneMenu>  
+        		<h:outputText value="Продукт" />
+        		<h:selectOneMenu  value="#{editModel.model.product}"  converter="convertProd"  >
+			       <f:selectItems value="#{comrefs.products}" />						
+		        </h:selectOneMenu>       
+        	</h:panelGrid>
+        	<rich:tabPanel switchType="client">
+        		<rich:tab header="Скрипт стратегии">
+		        	<h:panelGroup style="display:block; width:1200px; heigth:900px; min-width:1200px; min-heigth:900px; max-width:1200px; max-heigth:900px; overflow: auto">
+		        		<h:inputTextarea id="txtBody" value="#{editModel.model.body}" ></h:inputTextarea>
+		        	</h:panelGroup>        		
+        		</rich:tab>
+        		<rich:tab header="Переменные в стратегии">
+					<ui:include src="/views/model/include/include_vars.xhtml" >
+						<ui:param name="editCtl" value="#{editModel.editParamsCtl}" />
+					</ui:include>        		
+        		</rich:tab>
+        	</rich:tabPanel>
+        	<h:commandButton value="Сохранить" action="#{editModel.save}"></h:commandButton>
+        	<h:commandButton value="Отмена" action="#{editModel.cancel}" immediate="true"></h:commandButton>
+        </h:form>
+        <script type="text/javascript">
+        var myCodeMirror = CodeMirror.fromTextArea(#{rich:element('txtBody')}, {
+            lineNumbers: true,
+            mode: "text/javascript"
+          });
+        </script>
+    </ui:define>
+</ui:composition>

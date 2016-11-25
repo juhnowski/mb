@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<h:panelGrid columns="2">
+			   <h:outputText value="№ запроса"/>
+			   <h:outputText value="#{viewReq.request.requestGuid}" />
+			   <h:outputText value="№ ответа"/>
+			   <h:outputText value="#{viewReq.request.responseGuid}" />
+			   <h:outputText value="Сообщение ответа"/>
+			   <h:outputText value="#{viewReq.request.responseMessage}" />
+			   <h:outputText value="Дата запроса"/>
+			   <h:outputText value="#{viewReq.request.requestDate}">
+			       <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+			   </h:outputText>
+			   <h:outputText value="Дата ответа"/>
+			   <h:outputText value="#{viewReq.request.responseDate}">
+			       <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+			   </h:outputText>
+			   <h:outputText value="Партнер"/>
+			   <h:outputText value="#{viewReq.request.partner.realName}" />
+			   <h:outputText value="Статус запроса" rendered="#{not empty viewReq.request.requestStatus}"/>
+			   <h:outputText value="#{viewReq.request.requestStatus.name}" rendered="#{not empty viewReq.request.requestStatus}"/>
+			   
+			   <h:outputText value="№ заявки" rendered="#{not empty viewReq.request.creditRequest}"/>
+			   <h:outputText value="#{viewReq.request.creditRequest.uniqueNomer}" rendered="#{not empty viewReq.request.creditRequest}"/>
+			   
+			   <h:outputText value="Ответ в виде xml" rendered="#{not empty viewReq.request.responseBodyString}"/>
+			   <h:commandButton value="Скачать (посмотреть)" action="#{viewReq.download}" rendered="#{not empty viewReq.request.responseBodyString}"/>
+			   
+			</h:panelGrid>
+			<h:commandButton value="Закрыть" action="#{viewReq.close}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

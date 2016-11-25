@@ -1,0 +1,44 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'repay'">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/modal.js"></script>
+</head>
+
+<body ng-controller="MainCtrl" ng-cloak>
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main>
+    <div class="center clr">
+
+        <!--#include file="include/_left-menu.shtml"-->
+
+        <div class="right-block">
+        </div>
+    </div>
+
+</main>
+
+<!--#include file="include/_footer.shtml"-->
+<div class="popup-ontime" id="popup-lovi-two">
+
+    <a href="javascript:PopUpHide()" class="close"></a>
+
+    <div class="popup-ontime-inside">
+        <h6 class="h6-error">Ошибка!</h6>
+        Платёж не прошёл, повторите попытку снова!
+    </div>
+</div>
+
+<div class="dark"></div>
+<script type="text/javascript">
+    app = angular.module('app', ['layout'])
+    popuplovi2();
+</script>
+</body>
+</html>

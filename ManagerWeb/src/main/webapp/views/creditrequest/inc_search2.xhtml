@@ -1,0 +1,126 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+	>
+
+    <rich:tabPanel switchType="client" styleClass="mb20" >
+       <rich:tab header="Краткий поиск">
+				 <h:panelGroup>
+				 	<ui:include src="/views/include/bar-saveload1.xhtml" >
+				 		<ui:param name="listMgr" value="#{listCRC.quickManager}" />
+				 		<ui:param name="barPrefix" value="quick" />
+				 	</ui:include>
+				 </h:panelGroup>             
+             <h:panelGroup id="pnlSearchQuick"  styleClass="search">
+         	 	<h:panelGrid columns="4" styleClass="table_search">
+	         	 	<h:outputText value="Фамилия" />
+	         	 	<h:outputText value="Имя" />
+	         	 	<h:outputText value="Номер заявки" />
+	         	 	<h:outputText value="Телефон" />
+	         	 	 
+	         	 	<h:inputText value="#{listCRC.quick.peopleSurname}"/> 
+	         	 	<h:inputText value="#{listCRC.quick.peopleName}"/> 
+	         	 	<h:inputText value="#{listCRC.quick.uniqueNomer}"/> 
+					<h:inputText value="#{listCRC.quick.peoplePhone}"/>	         	 	
+         	 	</h:panelGrid>
+         	 	
+				<a4j:commandButton value="Найти" action="#{listCRC.dummy}" actionListener="#{listCRC.searchQuickLsn}" render="pnlResults" execute="@form" styleClass="button" /> 
+				<a4j:commandButton value="Очистить" actionListener="#{listCRC.clearQuickLsn}" render="frmMain" execute="@form" styleClass="button grey" />         	 	             
+             </h:panelGroup>
+             
+           </rich:tab> 
+             
+            <rich:tab header="Расширенный поиск" >  
+				 <h:panelGroup>
+				 	<ui:include src="/views/include/bar-saveload1.xhtml" >
+				 		<ui:param name="listMgr" value="#{listCRC.dataManager}" />
+				 		<ui:param name="barPrefix" value="full" />
+				 	</ui:include>
+				 </h:panelGroup>           
+         	 <h:panelGroup id="pnlSearchFull"  styleClass="search">
+         	 	<h:panelGrid columns="4" styleClass="table_search">
+	         	 	<h:outputText value="Фамилия" />
+	         	 	<h:outputText value="Имя" />
+	         	 	<h:outputText value="Отчество" />
+	         	 	<h:outputText value="Серия и номер паспорта" />
+	         	 	 
+	         	 	<h:inputText value="#{listCRC.data.peopleSurname}"/> 
+	         	 	<h:inputText value="#{listCRC.data.peopleName}"/> 
+	         	 	<h:inputText value="#{listCRC.data.peopleMidname}"/> 
+	         	 	<h:panelGroup><h:inputText styleClass="serial_input" value="#{listCRC.data.docSeries}" /><h:outputText value="-" /><h:inputText styleClass="number_input" value="#{listCRC.data.docNomer}"/></h:panelGroup>
+
+					<h:outputText value="Эл.почта" /> 
+					<h:outputText value="Телефон" /> 
+					<h:outputText value="СНИЛС" /> 
+	         	 	<h:outputText value="ИНН" />
+	         	 	
+	         	 	<h:inputText value="#{listCRC.data.peopleEmail}"/>
+	         	 	<h:inputText value="#{listCRC.data.peoplePhone}"/>
+	         	 	<h:inputText value="#{listCRC.data.peopleSNILS}"/>
+	         	 	<h:inputText value="#{listCRC.data.peopleINN}"/>
+	         	 	
+	         	 	<h:outputText value="Номер заявки" />
+	         	 	<h:outputText value="Состояние" />
+	         	 	<h:outputText value="Дата поступления" />
+	         	 	<h:panelGroup/> 
+	         	 	          	 	
+         	 		<h:inputText value="#{listCRC.data.uniqueNomer}" />         	 		 
+         	 		<h:selectOneMenu value="#{listCRC.data.statusId}" >
+         	 			<f:selectItems value="#{refs.creditRequestStatusesNull}" />
+         	 		</h:selectOneMenu>         	 		 
+         	 		<h:panelGroup>
+         	 			<h:outputText value="с "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCRC.data.date.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" />
+         	 			<h:outputText value=" по "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCRC.data.date.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" />
+         	 		</h:panelGroup>
+         	 		<h:panelGroup/>
+         	 		
+         	 		<h:outputText value="Запрошенный срок кредита, дней" />
+         	 		<h:outputText value="Запрошенная сумма кредита" />
+         	 		<h:outputText value="Кредит выдан?" />
+         	 		<h:outputText value="Причина отказа" />
+         	 		 
+         	 		<h:panelGroup>
+         	 			<h:outputText value="от "/> <h:inputText value="#{listCRC.data.days.from}" styleClass="w66" />
+						<h:outputText value=" до "/> <h:inputText value="#{listCRC.data.days.to}" styleClass="w66" />        	 				
+         	 		</h:panelGroup> 
+         	 		<h:panelGroup>
+         	 			<h:outputText value="от "/> <h:inputText value="#{listCRC.data.sum.from}" styleClass="w66" />
+						<h:outputText value=" до "/> <h:inputText value="#{listCRC.data.sum.to}" styleClass="w66" />        	 				
+         	 		</h:panelGroup>           	 		 
+         	 		<h:selectOneMenu value="#{listCRC.data.accepted}">
+         	 			<f:selectItems value="#{refs.yesNoNull}" />
+         	 		</h:selectOneMenu> 
+					<h:selectOneMenu value="#{listCRC.data.rejectReasonId}" >
+						<f:selectItems value="#{refs.rejectReasonsTypeNull}" />						
+					</h:selectOneMenu> 
+					
+					<h:outputText value="Кредит просрочен?" />
+         	 		<h:outputText value="Плановая дата возврата" />         	 		
+         	 		<h:outputText value="Задача" />       	 		 
+         	 		<h:panelGroup/>
+         	 		 
+         	 		 <h:selectOneMenu value="#{listCRC.data.isover}">
+						<f:selectItems value="#{refs.yesNoNull}" />
+         	 		</h:selectOneMenu> 
+         	 		<h:panelGroup>
+         	 			<h:outputText value="с "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCRC.data.creditDateEnd.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" />
+         	 			<h:outputText value=" по "/> <rich:calendar styleClass="w76" buttonIcon="/resources/icons/calendarIcon.png" value="#{listCRC.data.creditDateEnd.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yy" />
+         	 		</h:panelGroup>
+         	 		
+         	 		<h:selectOneMenu value="#{listCRC.data.taskDefKey}">
+         	 			<f:selectItem itemLabel="-- любая --" itemValue="#{null}" />
+         	 			<f:selectItems var="df" value="#{listCRC.prmTaskDefValues}" itemLabel="#{df.description}" itemValue="#{df.name}" />
+         	 		</h:selectOneMenu>       	 		 
+         	 		<h:panelGroup/>
+       	 	
+         	 	</h:panelGrid>
+                  	 	       	 	
+             	<a4j:commandButton value="Найти" action="#{listCRC.dummy}" actionListener="#{listCRC.searchLsn}" render="pnlResults" execute="@form" styleClass="button" /> 
+             	<a4j:commandButton value="Очистить" actionListener="#{listCRC.clearLsn}" render="frmMain" execute="@form" styleClass="button grey" />
+             </h:panelGroup>
+     	
+     	</rich:tab>	      		
+   </rich:tabPanel>  	
+  
+</ui:composition>	

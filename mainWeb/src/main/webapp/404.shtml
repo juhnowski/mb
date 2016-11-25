@@ -1,0 +1,25 @@
+<!--#set var="typePage" value="page" -->
+<!--#include file="_head.shtml"-->
+	<title>Ошибкак 404</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+</head>
+
+<body class="p404">
+
+<header class="header clr">
+
+<!--#include file="_menu.shtml"-->
+
+</header>
+
+<main>
+
+	<article>
+		<h1>404</h1>
+		<p>Страница не найдена :(</p>
+	</article>
+
+</main>
+
+<!--#include file="_footer.shtml"-->

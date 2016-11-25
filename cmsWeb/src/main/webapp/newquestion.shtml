@@ -1,0 +1,107 @@
+<!--#include file="_header.shtml"-->
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-12">
+                <h2>Вопрос\Ответ</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="question.shtml">Вопросы и ответы</a>
+                    </li>
+                    <li class="active">
+                        <strong>Вопрос</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content">
+
+            <div class="row">
+
+                <div class="ibox-title">
+                    <h5>Основной контент</h5>
+                </div>
+
+                <div class="ibox-content m-b-md">
+
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Вопрос</label>
+
+                            <div class="col-sm-10">
+                                <input id="name" value="" class="form-control">
+                                <input id="code" type="hidden" value="" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Раздел</label>
+
+                            <div class="col-sm-10">
+                                <select class="form-control" id="idCategory">
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Ответ</label>
+
+                            <div class="col-sm-10"><textarea id="answer" class="form-control"></textarea></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Показать на главной странице</label>
+
+                            <div class="col-sm-10">
+                                <input type="checkbox" id="isMain" class="i-checks" >
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-2 control-label">Показать в footer</label>-->
+
+                            <!--<div class="col-sm-10">-->
+                                <!--<input type="checkbox" id="isFooter" class="i-checks" >-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button onclick="saveOneQuestion()" class="btn btn-primary pull-right m-l">Сохранить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                10GB из <strong>250GB</strong>
+            </div>
+            <div>
+                <strong>Copyright</strong> Credit Sputnik &copy; 2014-2015
+            </div>
+        </div>
+
+
+        <!--#include file="_footer.shtml"-->
+
+        <script type="text/javascript">
+            getQuestionById();
+
+
+            $('#questionPP').addClass('active');
+
+        </script>
+        </body>
+        </html>

@@ -1,0 +1,1767 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/template.xhtml">
+    <ui:param name="top_selected_item" value="creditrequest"/>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form id="frmEdit" prependId="false">
+            <rich:messages globalOnly="true" layout="table"/>
+            <rich:tabPanel switchType="client">
+                <rich:tab header="Действия" rendered="#{editCR.actionStates.size() > 0}">
+                    <a4j:repeat var="ast" value="#{editCR.actionTaskStates}">
+                        <ui:fragment rendered="#{ast.assigneeUserId == 0}">
+                            <div class="rf-p " id="divPnl">
+                                <div class="rf-p-hdr" id="hdrPnl"><h:outputText value="#{ast.definition.description}"/>
+                                </div>
+                                <a4j:region>
+                                    <h:panelGroup rendered="#{userData.user.admin}" styleClass="ques_list">
+                                        <h:outputText value="не назначена никому"/>
+                                        <a4j:commandButton styleClass="button" value="взять себе"
+                                                           actionListener="#{editCR.assignMeLsn}" immediate="true"
+                                                           execute="@this" render="@form">
+                                            <f:attribute name="wfotaskId" value="#{ast.taskId}"/>
+                                        </a4j:commandButton>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{! userData.user.admin}" styleClass="ques_list">
+                                        <h:outputText value="не назначена никому"/>
+                                        <a4j:commandButton styleClass="button" value="взять себе"
+                                                           actionListener="#{editCR.assignMeLsn}" immediate="true"
+                                                           execute="@this" render="@form">
+                                            <f:attribute name="wfotaskId" value="#{ast.taskId}"/>
+                                        </a4j:commandButton>
+                                    </h:panelGroup>
+                                </a4j:region>
+                            </div>
+                        </ui:fragment>
+                        <ui:fragment
+                                rendered="#{(ast.assigneeUserId != 0) and (ast.assigneeUserId != userData.user.id) }">
+                            <div class="rf-p " id="divPnl">
+                                <div class="rf-p-hdr" id="hdrPnl"><h:outputText value="#{ast.definition.description}"/>
+                                </div>
+                                <a4j:region>
+                                    <h:panelGroup rendered="#{userData.user.admin}">
+                                        <h:outputText value="Назначена другому"/>
+                                    </h:panelGroup>
+                                    <h:panelGroup rendered="#{! userData.user.admin}">
+                                        <h:outputText value="Назначена другому"/>
+                                    </h:panelGroup>
+                                </a4j:region>
+                            </div>
+                        </ui:fragment>
+                        <ui:fragment
+                                rendered="#{(ast.definition.stateName == 'taskVerificatorEdit') and (ast.assigneeUserId == userData.user.id)}">
+                            <ui:include src="/views/include/task/taskVerificatorEdit.xhtml">
+                                <ui:param name="currentState" value="#{ast}"/>
+                            </ui:include>
+                        </ui:fragment>
+                        <ui:fragment
+                                rendered="#{ast.definition.stateName == 'taskCreditDecision' and (ast.assigneeUserId == userData.user.id)}">
+                            <ui:include src="/views/include/task/taskCreditDecision.xhtml">
+                                <ui:param name="currentState" value="#{ast}"/>
+                            </ui:include>
+                        </ui:fragment>
+                        <ui:fragment
+                                rendered="#{(ast.definition.stateName == 'taskExecuteSingle') and (ast.definition.pluginName == 'verify') and (ast.assigneeUserId == userData.user.id)}">
+                            <c:set value="#{ast}" target="#{editTQA}" property="prmCurrentState"/>
+                            <ui:include src="/views/include/task/verify_taskExecuteSingle.xhtml">
+                                <ui:param name="currentState" value="#{ast}"/>
+                            </ui:include>
+                        </ui:fragment>
+                        <ui:fragment
+                                rendered="#{(ast.definition.stateName == 'taskSignAgreement') and (ast.assigneeUserId == userData.user.id)}">
+                            <c:set value="#{ast}" target="#{editSign}" property="prmCurrentState"/>
+                            <ui:include src="/views/include/task/taskSignOferta.xhtml">
+                                <ui:param name="currentState" value="#{ast}"/>
+                            </ui:include>
+                        </ui:fragment>
+                        <ui:fragment
+                                rendered="#{(ast.definition.stateName == 'taskHandleChangeRequest') and (ast.assigneeUserId == userData.user.id)}">
+                            <ui:include src="/views/include/task/taskHandleChangeRequest.xhtml">
+                                <ui:param name="currentState" value="#{ast}"/>
+                            </ui:include>
+                        </ui:fragment>
+                    </a4j:repeat>
+                </rich:tab>
+
+                <rich:tab header="Заявка">
+
+                    <h:panelGrid columns="2" columnClasses="top-valigned, top-valigned">
+                        <rich:panel header="Заявка" styleClass="layout block1 mt20">
+                            <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                                <h:outputText value="ID"/>
+                                <h:outputText value="#{editCR.creditRequest.id}"/>
+                                <h:outputText value="Номер"/>
+                                <h:outputText value="#{editCR.creditRequest.uniqueNomer}"/>
+                                <h:outputText value="Статус заявки"/>
+                                <h:outputText value="#{editCR.creditRequest.status.name}"/>
+                                <h:outputText value="Дата заполнения"/>
+                                <h:outputText value="#{editCR.creditRequest.dateContest}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:outputText>
+                                <h:outputText value="Ставка" rendered="#{userData.canViewCRData}"/>
+                                <h:outputText value="#{editCR.creditRequest.stake}" rendered="#{userData.canViewCRData}">
+                                    <f:convertNumber type="percent" minFractionDigits="1"/>
+                                </h:outputText>
+                                
+                                <h:outputText value="Сумма" rendered="#{userData.canViewCRData}"/> 
+                                <h:outputText value="#{editCR.creditRequest.creditSum}" rendered="#{userData.canViewCRData}"/>
+                                
+                                <h:outputText value="Срок в днях" rendered="#{userData.canViewCRData}"/> 
+                                <h:outputText value="#{editCR.creditRequest.creditDays}" rendered="#{userData.canViewCRData}"/>
+                                
+                                 <h:outputText value="Сумма запрашиваемая" rendered="#{userData.canViewCRData and editCR.creditRequest.creditSum!=editCR.creditRequest.creditSumInitial}"/> 
+                                <h:outputText value="#{editCR.creditRequest.creditSumInitial}" rendered="#{userData.canViewCRData and editCR.creditRequest.creditSum!=editCR.creditRequest.creditSumInitial}"/>
+                                
+                                <h:outputText value="Срок в днях запрашиваемый" rendered="#{userData.canViewCRData and editCR.creditRequest.creditDays!=editCR.creditRequest.creditDaysInitial}"/> 
+                                <h:outputText value="#{editCR.creditRequest.creditDaysInitial}" rendered="#{userData.canViewCRData and editCR.creditRequest.creditDays!=editCR.creditRequest.creditDaysInitial}"/>
+                                
+                                <h:outputText value="Регион подачи заявки" rendered="#{userData.canViewCRData and not empty editCR.creditRequest.region}"/> 
+                                <h:outputText value="#{editCR.creditRequest.region.name}" rendered="#{userData.canViewCRData and not empty editCR.creditRequest.region}"/>
+                                
+                                <h:outputText value="Дата принятия решения" rendered="#{userData.canViewCRData and not empty editCR.creditRequest.dateDecision}"/>
+                                <h:outputText value="#{editCR.creditRequest.dateDecision}" rendered="#{userData.canViewCRData and not empty editCR.creditRequest.dateDecision}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:outputText>
+                                    
+                                <h:outputText value="Способ принятия решения" rendered="#{userData.canViewCRData and not empty editCR.creditRequest.decisionWay}"/>
+                                <h:outputText value="#{editCR.creditRequest.decisionWay.name}" rendered="#{userData.canViewCRData and not empty editCR.creditRequest.decisionWay}"/>
+                                     
+                                         
+                                <h:outputText value="Хочет получить через"
+                                              rendered="#{userData.canViewCRData and not empty editCR.creditRequest.account.accountType}"/><h:outputText
+                                    value="#{editCR.creditRequest.account.accountType.name}"
+                                    rendered="#{userData.canViewCRData and not empty editCR.creditRequest.account.accountType}"/>
+
+                                <h:outputText value="Владелец карты"
+                                              rendered="#{userData.canViewCRData and not empty editCR.creditRequest.account.cardHolder}"/><h:outputText
+                                    value="#{editCR.creditRequest.account.cardHolder}"
+                                    rendered="#{userData.canViewCRData and not empty editCR.creditRequest.account.cardHolder}"/>
+                                <h:outputText value="Источник трафика"
+                                              rendered="#{userData.canViewCRData and editCR.creditRequest.behaviorsource!=null}"/>
+                                <h:outputText value="#{editCR.creditRequest.behaviorsource.paramvalue}"
+                                              rendered="#{userData.canViewCRData and editCR.creditRequest.behaviorsource!=null}"/>
+                                <h:outputText value="Комментарии" rendered="#{userData.canViewCRData and not empty editCR.creditRequest.comment}"/><h:outputText
+                                    value="#{editCR.creditRequest.comment}"
+                                    rendered="#{userData.canViewCRData and not empty editCR.creditRequest.comment}"/>
+                                <h:outputText value="Причина отказа"
+                                              rendered="#{userData.canViewCRData and editCR.creditRequest.rejectReason != null}"/>
+                                <h:outputText value="#{editCR.creditRequest.rejectReason.name}"
+                                              rendered="#{userData.canViewCRData and editCR.creditRequest.rejectReason != null}"/>
+                                <h:outputText value="Дата подписания оферты"
+                                              rendered="#{userData.canViewCRData and editCR.creditRequest.acceptedCredit != null}"/>
+                                <h:outputText value="#{editCR.creditRequest.dateSign}"
+                                              rendered="#{userData.canViewCRData and editCR.creditRequest.acceptedCredit != null}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:outputText>
+                                <h:outputText value="Оферта" rendered="#{editCR.creditRequest.acceptedCredit != null}"/>
+                                <h:commandButton styleClass="button" value="Посмотреть" action="#{editCR.downloadFile}"
+                                                 rendered="#{userData.canViewContacts and userData.canViewPassport and userData.canViewAddress and editCR.creditRequest.acceptedCredit != null}"/>
+                            </h:panelGrid>
+                          
+                        </rich:panel>
+
+                        <rich:panel header="Клиент" styleClass="layout block2 m2000">
+                            <h:panelGrid columns="2" columnClasses="layout-field-name, top-valigned">
+                                <h:outputText value="ФИО"/> 
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.peoplePersonalActive.surname} #{editCR.creditRequest.peopleMain.peoplePersonalActive.name} #{editCR.creditRequest.peopleMain.peoplePersonalActive.midname}"/>
+                                
+                                <h:outputText value="Дата рождения" />
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.peoplePersonalActive.birthDate}" >
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+
+                                                              
+                                <h:outputText value="Документ"
+                                              rendered="#{userData.canViewPassport and editCR.creditRequest.peopleMain.activePassport!=null}"/>
+                                <h:outputText
+                                        value="#{editCR.creditRequest.peopleMain.activePassport.descriptionFullWithCode} "
+                                        rendered="#{userData.canViewPassport and editCR.creditRequest.peopleMain.activePassport!=null}"/>
+
+                                <h:outputText value="ИНН" rendered="#{userData.canViewPassport and not empty editCR.creditRequest.peopleMain.inn}"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.inn}" rendered="#{userData.canViewPassport and not empty editCR.creditRequest.peopleMain.inn}"/>      
+                                
+                                <h:outputText value="СНИЛС" rendered="#{userData.canViewPassport and not empty editCR.creditRequest.peopleMain.snils}"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.snils}" rendered="#{userData.canViewPassport and not empty editCR.creditRequest.peopleMain.snils}"/>              
+                                
+                                <h:outputText value="Адрес прописки"
+                                              rendered="#{userData.canViewAddress and editCR.creditRequest.peopleMain.registerAddress!=null}"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.registerAddress.description} "
+                                              rendered="#{userData.canViewAddress and editCR.creditRequest.peopleMain.registerAddress!=null}"/>
+                                              
+                                <h:outputText value="Дата прописки"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.peopleMiscActive.realtyDate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+
+                                <h:outputText value="Адрес проживания"
+                                              rendered="#{userData.canViewAddress and editCR.creditRequest.peopleMain.registerAddress!=null}"/>
+                                <h:panelGroup rendered="#{userData.canViewAddress and editCR.creditRequest.peopleMain.registerAddress!=null}">
+                                    <h:outputText value="#{editCR.creditRequest.peopleMain.registerAddress.description}"
+                                                  rendered="#{editCR.creditRequest.peopleMain.registerAddress.isSame}"/>
+                                    <h:outputText value="#{editCR.creditRequest.peopleMain.residentAddress.description}"
+                                                  rendered="#{! editCR.creditRequest.peopleMain.registerAddress.isSame}"/>
+                                </h:panelGroup>
+
+                                <h:outputText value="Мобильный телефон" rendered="#{userData.canViewContacts}"/>
+                                <h:outputText
+                                    value="#{editCR.creditRequest.peopleMain.cellPhone.value}"
+                                    rendered="#{userData.canViewContacts}" />
+                                    
+                                <h:outputText value="Email" rendered="#{userData.canViewContacts}"/>
+                                <h:outputText
+                                    value="#{editCR.creditRequest.peopleMain.email.value}"
+                                    rendered="#{userData.canViewContacts}" />
+                                    
+                                <h:outputText value="Семейное положение"
+                                              rendered="#{editCR.creditRequest.peopleMain.peopleMiscActive!=null}"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.peopleMiscActive.marriage.name}"
+                                              rendered="#{editCR.creditRequest.peopleMain.peopleMiscActive!=null}"/>
+                                <h:outputText value="Количество детей"
+                                              rendered="#{editCR.creditRequest.peopleMain.peopleMiscActive!=null}"/>
+                                <h:panelGroup>
+                                    <h:outputText value="#{editCR.creditRequest.peopleMain.peopleMiscActive.children}"
+                                                  rendered="#{editCR.creditRequest.peopleMain.peopleMiscActive!=null}"/>
+                                </h:panelGroup>
+                               
+                                <h:outputText value="Супруг(а)"
+                                              rendered="#{editCR.creditRequest.peopleMain.spouseActive!=null}"/>
+                                <h:outputText
+                                        value="#{editCR.creditRequest.peopleMain.spouseActive.peopleMainSpouse.peoplePersonalActive.description}"
+                                        rendered="#{editCR.creditRequest.peopleMain.spouseActive!=null}"/>
+
+                            </h:panelGrid>
+                        </rich:panel>
+
+                        <h:panelGroup rendered="#{editCR.creditRequest.acceptedCredit == null}"
+                                      styleClass="layout block1">
+
+                        </h:panelGroup>
+
+                        <rich:panel header="Текущий заём" styleClass="layout block1 mb0"
+                                    rendered="#{editCR.creditRequest.acceptedCredit != null}">
+                            <h:panelGrid columns="2" rendered="#{editCR.creditRequest.acceptedCredit != null}"
+                                         columnClasses="layout-field-name, top-valigned">
+                                <h:outputText value="Номер займа"/>
+                                <h:outputText value="#{editCR.creditRequest.acceptedCredit.creditAccount}"/>
+                                <h:outputText value="Статус займа"/>
+                                <h:outputText value="#{editCR.creditRequest.acceptedCredit.creditStatus.name}"/>
+                                <h:outputText value="Дата начала"/>
+                                <h:outputText value="#{editCR.creditRequest.acceptedCredit.creditDataBeg}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                                <h:outputText value="Дата окончания по графику"/>
+                                <h:outputText value="#{editCR.creditRequest.acceptedCredit.creditDataEnd}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                                <h:outputText value="Сумма"/>
+                                <h:outputText value="#{editCR.creditRequest.acceptedCredit.creditSum}">
+                                    <f:convertNumber pattern="############.00"/>
+                                </h:outputText>
+                                <h:outputText value="Сумма возврата"/>
+                                <h:outputText value="#{editCR.creditRequest.acceptedCredit.creditSumBack}">
+                                    <f:convertNumber pattern="############.00"/>
+                                </h:outputText>
+                                <h:outputText value="Ставка"/>
+                                <h:outputText value="#{editCR.creditRequest.acceptedCredit.creditPercent}">
+                                    <f:convertNumber type="percent" minFractionDigits="1"/>
+                                </h:outputText>
+                                <h:outputText value="Закрыт?"/>
+                                <h:panelGroup>
+                                    <h:outputText value="да" rendered="#{editCR.creditRequest.acceptedCredit.isOver}"/>
+                                    <h:outputText value="нет"
+                                                  rendered="#{! editCR.creditRequest.acceptedCredit.isOver}"/>
+                                </h:panelGroup>
+                                <h:outputText value="Просрочен?"/>
+                                <h:panelGroup>
+                                    <h:outputText value="да"
+                                                  rendered="#{editCR.creditRequest.acceptedCredit.overdueNow}"/>
+                                    <h:outputText value="нет"
+                                                  rendered="#{! editCR.creditRequest.acceptedCredit.overdueNow}"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+
+                        </rich:panel>
+
+                        <rich:panel header="Текущая занятость" styleClass="layout block2 m2000"
+                                    rendered="#{userData.canViewEmployee and editCR.creditRequest.peopleMain.currentEmployment != null}">
+                            <h:panelGrid columns="2"
+                                         rendered="#{editCR.creditRequest.peopleMain.currentEmployment != null}"
+                                         columnClasses="layout-field-name, top-valigned">
+                                
+                                <h:outputText value="Доход"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.currentEmployment.salary}">
+                                    <f:convertNumber pattern="###########.00"/>
+                                </h:outputText>
+                                
+                                <h:outputText value="Дополнительный доход"
+                                              rendered="#{editCR.creditRequest.peopleMain.currentEmployment.extSalary!=null}"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.currentEmployment.extSalary}"
+                                              rendered="#{editCR.creditRequest.peopleMain.currentEmployment.extSalary!=null}">
+                                    <f:convertNumber pattern="###########.00"/>
+                                </h:outputText>
+                                
+                                <h:outputText value="Дата начала работы на текущей должности"
+                                              rendered="#{editCR.creditRequest.peopleMain.currentEmployment.dateStartWork!=null}"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.currentEmployment.dateStartWork}"
+                                              rendered="#{editCR.creditRequest.peopleMain.currentEmployment.dateStartWork!=null}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                                
+                                <h:outputText value="Вид деятельности" rendered="#{editCR.creditRequest.peopleMain.currentEmployment.typeWork != null}"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.currentEmployment.typeWork.name}"
+                                            rendered="#{editCR.creditRequest.peopleMain.currentEmployment.typeWork != null}"/>
+                                
+                                <h:outputText value="Вид профессиональной деятельности" rendered="#{editCR.creditRequest.peopleMain.currentEmployment.profession != null}"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.currentEmployment.profession.name}"
+                                            rendered="#{editCR.creditRequest.peopleMain.currentEmployment.profession != null}"/>
+                            
+                                <h:outputText value="Вид должности" rendered="#{editCR.creditRequest.peopleMain.currentEmployment.occupationId != null}"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.currentEmployment.occupationId.name}"
+                                            rendered="#{editCR.creditRequest.peopleMain.currentEmployment.occupationId != null}"/>
+                                            
+                                <h:outputText value="Место работы" rendered="#{userData.canViewWorkContacts and not empty editCR.creditRequest.peopleMain.currentEmployment.placeWork}"/> 
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.currentEmployment.placeWork}"
+                                    rendered="#{userData.canViewWorkContacts and not empty editCR.creditRequest.peopleMain.currentEmployment.placeWork}"/>
+                                
+                                <h:outputText value="Должность" rendered="#{userData.canViewContacts and not empty editCR.creditRequest.peopleMain.currentEmployment.occupation}"/> 
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.currentEmployment.occupation}" 
+                                    rendered="#{userData.canViewContacts and not empty editCR.creditRequest.peopleMain.currentEmployment.occupation}"/>
+                                
+                                <h:outputText value="Дата начала трудовой деятельности"
+                                              rendered="#{editCR.creditRequest.peopleMain.currentEmployment.experience!=null}"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.currentEmployment.experience}"
+                                              rendered="#{editCR.creditRequest.peopleMain.currentEmployment.experience!=null}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                                
+                                <h:outputText value="Образование" rendered="#{editCR.creditRequest.peopleMain.currentEmployment.education != null}"/>
+                                <h:outputText value="#{editCR.creditRequest.peopleMain.currentEmployment.education.name}"
+                                            rendered="#{editCR.creditRequest.peopleMain.currentEmployment.education != null}"/>
+                                
+                            </h:panelGrid>
+                        </rich:panel>
+                    </h:panelGrid>
+
+
+                    <rich:collapsiblePanel header="Персональные данные из всех источников" switchType="client"
+                                           expanded="false" styleClass="first" >
+
+                        <rich:dataTable id="ppls"
+                                        value="#{editCR.creditRequest.peopleMain.peoplePersonal}"
+                                        var="ppl" rows="20"
+                                        styleClass="table2 table3">
+                            <rich:column width="214" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Фамилия, имя, отчество"/>
+                                </f:facet>
+                                <h:outputText value="#{ppl.surname} #{ppl.name} #{ppl.midname}"/>
+                            </rich:column>
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата рождения"/>
+                                </f:facet>
+                                <h:outputText value="#{ppl.birthDate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="130" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Место рождения"/>
+                                </f:facet>
+                                <h:outputText value="#{ppl.birthPlace}"/>
+                            </rich:column>
+                            <rich:column width="105" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Актуальный?"/>
+                                </f:facet>
+                                <h:panelGroup>
+                                    <h:outputText value="да" rendered="#{ppl.isActive==1}"/>
+                                    <h:outputText value="нет" rendered="#{ppl.isActive==0}"/>
+                                </h:panelGroup>
+                            </rich:column>
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата начала"/>
+                                </f:facet>
+                                <h:outputText value="#{ppl.databeg}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата окончания"/>
+                                </f:facet>
+                                <h:outputText value="#{ppl.dataend}" rendered="#{pp.dataend!=null}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник получения"/>
+                                </f:facet>
+                                <h:outputText value="#{ppl.partner.realName}"/>
+                            </rich:column>
+
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Документы из всех источников" switchType="client" expanded="false"
+                                           rendered="#{editCR.creditRequest.peopleMain.hasDocuments!=0}">
+
+                        <rich:dataTable id="docs"
+                                        value="#{editCR.creditRequest.peopleMain.documents}"
+                                        var="doc"
+                                        rows="50"
+                                        styleClass="table2 table3">
+                            <rich:column width="534" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Документ"/>
+                                </f:facet>
+                                <h:outputText value="#{doc.descriptionFull}" rendered="#{userData.canViewPassport}"/>
+                            </rich:column>
+                            <rich:column width="105" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Актуальный?"/>
+                                </f:facet>
+                                <h:panelGroup>
+                                    <h:outputText value="да" rendered="#{doc.isActive==1}"/>
+                                    <h:outputText value="нет" rendered="#{doc.isActive==0}"/>
+                                </h:panelGroup>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Действительность"/>
+                                </f:facet>
+                                <h:outputText value="#{doc.reasonEnd.name}" rendered="#{not empty doc.reasonEnd}"/>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник получения"/>
+                                </f:facet>
+                                <h:outputText value="#{doc.partner.realName}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Адреса из всех источников" switchType="client" expanded="false"
+                                           rendered="#{editCR.creditRequest.peopleMain.hasAddresses!=0}">
+
+                        <rich:dataTable id="adrs"
+                                        value="#{editCR.creditRequest.peopleMain.addresses}"
+                                        var="adr"
+                                        rows="50"
+                                        styleClass="table2 table3">
+                            <rich:column width="264" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Адрес"/>
+                                </f:facet>
+                                <h:outputText value="#{adr.description}" rendered="#{userData.canViewAddress and (adr.addrtype.codeInteger==0 or adr.addrtype.codeInteger==1)}"/>
+                                <h:outputText value="#{adr.description}" rendered="#{userData.canViewWorkAddress and (adr.addrtype.codeInteger==2)}"/>
+
+                            </rich:column>
+                            <rich:column width="105" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Актуальный?"/>
+                                </f:facet>
+                                <h:panelGroup>
+                                    <h:outputText value="да" rendered="#{adr.isActive==1}"/>
+                                    <h:outputText value="нет" rendered="#{adr.isActive==0}"/>
+                                </h:panelGroup>
+                            </rich:column>
+                            <rich:column width="200" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Вид адреса"/>
+                                </f:facet>
+                                <h:panelGroup>
+                                    <h:outputText value="адрес регистрации" rendered="#{adr.addrtype.codeInteger==0}"/>
+                                    <h:outputText value="адрес проживания" rendered="#{adr.addrtype.codeInteger==1}"/>
+                                    <h:outputText value="адрес работы" rendered="#{adr.addrtype.codeInteger==2}"/>
+                                </h:panelGroup>
+                            </rich:column>
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата начала"/>
+                                </f:facet>
+                                <h:outputText value="#{adr.databeg}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата окончания"/>
+                                </f:facet>
+                                <h:outputText value="#{adr.dataend}" rendered="#{adr.dataend!=null}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник получения"/>
+                                </f:facet>
+                                <h:outputText value="#{adr.partner.realName}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Контакты из всех источников" switchType="client" expanded="false"
+                                           rendered="#{editCR.creditRequest.peopleMain.hasPeopleContacts!=0}">
+
+                        <rich:dataTable id="conts"
+                                        value="#{editCR.creditRequest.peopleMain.peopleContactsAll}"
+                                        var="cont"
+                                        rows="50"
+                                        styleClass="table2 table3">
+                            <rich:column width="280" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Контакт"/>
+                                </f:facet>
+                                <h:outputText value="#{cont.contact.name}"/>
+                            </rich:column>
+                            <rich:column width="154" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Значение"/>
+                                </f:facet>
+                                <h:outputText value="#{cont.value}" rendered="#{userData.canViewContacts}"/>
+                            </rich:column>
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Оператор"/>
+                                </f:facet>
+                                <h:outputText value="#{cont.operator}"/>
+                            </rich:column>
+                            <rich:column width="130" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Регион"/>
+                                </f:facet>
+                                <h:outputText value="#{cont.region}"/>
+                            </rich:column>
+                            <rich:column width="105" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Актуальный?"/>
+                                </f:facet>
+                                <h:panelGroup>
+                                    <h:outputText value="да" rendered="#{cont.isActive==1}"/>
+                                    <h:outputText value="нет" rendered="#{cont.isActive==0}"/>
+                                </h:panelGroup>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник получения"/>
+                                </f:facet>
+                                <h:outputText value="#{cont.partner.realName}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Занятость из всех источников" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewEmployee and editCR.creditRequest.peopleMain.hasEmploys!=0}">
+
+                        <rich:dataTable id="emps"
+                                        value="#{editCR.creditRequest.peopleMain.employs}"
+                                        var="emp"
+                                        rows="10"
+                                        styleClass="table2 table3">
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Зарплата"/>
+                                </f:facet>
+                                <h:outputText value="#{emp.salary}">
+                                    <f:convertNumber pattern="###########.00"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="200" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Занятость"/>
+                                </f:facet>
+                                <h:outputText value="#{emp.typeWork.name}"/>
+                            </rich:column>
+                            <rich:column width="170" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Проф.деятельность"/>
+                                </f:facet>
+                                <h:outputText value="#{emp.profession.name}"/>
+                            </rich:column>
+                            <rich:column width="169" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Образование"/>
+                                </f:facet>
+                                <h:outputText value="#{emp.education.name}"/>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Текущая занятость?"/>
+                                </f:facet>
+                                <h:panelGroup>
+                                    <h:outputText value="да" rendered="#{emp.current==1}"/>
+                                    <h:outputText value="нет" rendered="#{emp.current==0}"/>
+                                </h:panelGroup>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник получения"/>
+                                </f:facet>
+                                <h:outputText value="#{emp.partner.realName}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Подписанные клиентом документы" switchType="client" expanded="false"
+                                           rendered="#{editCR.creditRequest.hasOfficialDocuments!=0}">
+
+                        <rich:dataTable id="ofdocs"
+                                        value="#{editCR.creditRequest.officialDocuments}"
+                                        var="ofdoc"
+                                        rows="20"
+                                        styleClass="table2 table3">
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Номер подписанного документа"/>
+                                </f:facet>
+                                <h:outputText value="#{ofdoc.docNumber}"/>
+
+                            </rich:column>
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата подписанного документа"/>
+                                </f:facet>
+                                <h:outputText value="#{ofdoc.docDate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+
+                            </rich:column>
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Смс код подписи"/>
+                                </f:facet>
+                                <h:outputText value="#{ofdoc.smsCode}"/>
+
+                            </rich:column>
+                            <rich:column width="200" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Вид подписанного документа"/>
+                                </f:facet>
+                                <h:outputText value="#{ofdoc.documentType.name}"/>
+
+                            </rich:column>
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Действия"/>
+                                </f:facet>
+                                <h:commandLink styleClass="hlink" value="Посмотреть"
+                                               actionListener="#{editCR.downloadDocument}"
+                                               rendered="#{userData.canViewContacts and userData.canViewPassport and userData.canViewAddress and not empty ofdoc.docText}">
+                                    <f:attribute name="docid" value="#{ofdoc.id}"/>
+                                </h:commandLink>
+                            </rich:column>
+                        </rich:dataTable>
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Сканы документов" switchType="client" expanded="false"
+                                           rendered="#{editCR.creditRequest.peopleMain.hasDocumentMedia!=0}">
+
+                        <rich:dataTable id="medias"
+                                        value="#{editCR.creditRequest.peopleMain.documentMedia}"
+                                        var="media"
+                                        rows="20"
+                                        styleClass="table2 table3">
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Вид документа"/>
+                                </f:facet>
+                                <h:outputText value="#{media.scanType.name}"/>
+
+                            </rich:column>
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Действия"/>
+                                </f:facet>
+                                <h:commandLink styleClass="hlink" value="Посмотреть"
+                                               actionListener="#{editCR.downloadImage}"
+                                               rendered="#{userData.canViewPassport and media.mediaData != null}">
+                                    <f:attribute name="mediaid" value="#{media.id}"/>
+                                </h:commandLink>
+                            </rich:column>
+                        </rich:dataTable>
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Кредиты в системе" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewHistory and editCR.creditRequest.peopleMain.systemCredits.size()>0}">
+
+                        <rich:dataTable id="screds"
+                                        value="#{editCR.creditRequest.peopleMain.systemCredits}"
+                                        var="scred"
+                                        rows="100"
+                                        styleClass="table2 table3">
+                            <rich:column width="90" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{scred.creditDataBeg}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="90" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата окончания кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{scred.creditDataEnd}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Сумма кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{scred.creditSum}">
+                                    <f:convertNumber pattern="###########.##"/>
+                                </h:outputText>
+                            </rich:column>
+
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Текущий просроч долг"/>
+                                </f:facet>
+                                <h:outputText value="#{scred.currentOverdueDebt}">
+                                </h:outputText>
+                            </rich:column>
+                             <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Макс просроч долг"/>
+                                </f:facet>
+                                <h:outputText value="#{scred.maxOverdueDebt}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Статус кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{scred.creditStatus.name}"
+                                              rendered="#{not empty scred.creditStatus}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Вид кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{scred.creditType.name}" rendered="#{not empty scred.creditType}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Валюта кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{scred.currency.name}" rendered="#{not empty scred.currency}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Просроч. статус"/>
+                                </f:facet>
+                                <h:outputText value="#{scred.overdueState.name}"
+                                              rendered="#{not empty scred.overdueState}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="90" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Кредит выплачен"/>
+                                </f:facet>
+                                <h:panelGroup>
+                                    <h:outputText value="да" rendered="#{scred.isOver==true}"/>
+                                    <h:outputText value="нет" rendered="#{scred.isOver==false}"/>
+                                </h:panelGroup>
+                            </rich:column>
+                           <rich:column width="90" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата выплаты кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{scred.creditDataEndFact}" rendered="#{scred.creditDataEndFact!=null}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+                    
+                    <rich:collapsiblePanel header="Кредит, указанный в анкете клиентом" switchType="client" expanded="false"
+                                           rendered="#{editCR.creditRequest.peopleMain.clientCredits.size()>0}">
+
+                        <rich:dataTable id="ccreds"
+                                        value="#{editCR.creditRequest.peopleMain.clientCredits}"
+                                        var="ccred"
+                                        rows="100"
+                                        styleClass="table2 table3">
+                            <rich:column width="90" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{ccred.creditDataBeg}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="90" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата окончания кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{ccred.creditDataEnd}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Сумма кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{ccred.creditSum}">
+                                    <f:convertNumber pattern="###########.##"/>
+                                </h:outputText>
+                            </rich:column>
+
+                            
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Статус кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{ccred.creditStatus.name}"
+                                              rendered="#{not empty ccred.creditStatus}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Вид кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{ccred.creditType.name}" rendered="#{not empty ccred.creditType}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Валюта кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{ccred.currency.name}" rendered="#{not empty ccred.currency}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Просроч. статус"/>
+                                </f:facet>
+                                <h:outputText value="#{ccred.overdueState.name}"
+                                              rendered="#{not empty ccred.overdueState}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="90" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Кредит выплачен"/>
+                                </f:facet>
+                                <h:panelGroup rendered="#{ccred.isOver!=null}">
+                                    <h:outputText value="да" rendered="#{ccred.isOver==true}"/>
+                                    <h:outputText value="нет" rendered="#{ccred.isOver==false}"/>
+                                </h:panelGroup>
+                            </rich:column>
+                           <rich:column width="90" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата выплаты кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{ccred.creditDataEndFact}" rendered="#{ccred.creditDataEndFact!=null}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+                    
+                    <rich:collapsiblePanel header="Кредиты от партнеров" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewHistory and editCR.creditRequest.peopleMain.creditsCB.size()>0}">
+
+                        <rich:dataTable id="creds"
+                                        value="#{editCR.creditRequest.peopleMain.creditsCB}"
+                                        var="cred"
+                                        rows="100"
+                                        styleClass="table2 table3">
+                            <rich:column width="90" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{cred.creditDataBeg}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="90" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата окончания кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{cred.creditDataEnd}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Сумма кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{cred.creditSum}">
+                                    <f:convertNumber pattern="###########.##"/>
+                                </h:outputText>
+                            </rich:column>
+
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Текущий просроч долг"/>
+                                </f:facet>
+                                <h:outputText value="#{cred.currentOverdueDebt}">
+                                </h:outputText>
+                            </rich:column>
+                             <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Макс просроч долг"/>
+                                </f:facet>
+                                <h:outputText value="#{cred.maxOverdueDebt}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Статус кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{cred.creditStatus.name}"
+                                              rendered="#{not empty cred.creditStatus}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Вид кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{cred.creditType.name}" rendered="#{not empty cred.creditType}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Валюта кредита"/>
+                                </f:facet>
+                                <h:outputText value="#{cred.currency.name}" rendered="#{not empty cred.currency}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Просроч. статус"/>
+                                </f:facet>
+                                <h:outputText value="#{cred.overdueState.name}"
+                                              rendered="#{not empty cred.overdueState}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="90" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Кредит выплачен"/>
+                                </f:facet>
+                                <h:panelGroup>
+                                    <h:outputText value="да" rendered="#{cred.isOver==true}"/>
+                                    <h:outputText value="нет" rendered="#{cred.isOver==false}"/>
+                                </h:panelGroup>
+                            </rich:column>
+                            <rich:column width="90" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата актуальн"/>
+                                </f:facet>
+                                <h:outputText value="#{cred.dateLastUpdate}" rendered="#{not empty cred.dateLastUpdate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="189" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник информации"/>
+                                </f:facet>
+                                <h:outputText value="#{cred.partner.realName}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Суммарная информация по кредитам" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewSummary and editCR.creditRequest.hasSummary!=0}">
+
+                        <rich:dataTable id="summary"
+                                        value="#{editCR.creditRequest.summary}"
+                                        var="summar"
+                                        rows="100"
+                                        styleClass="table2 table3">
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата информации"/>
+                                </f:facet>
+                                <h:outputText value="#{summar.summaryDate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                             <rich:column width="250" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Вид информации"/>
+                                </f:facet>
+                                <h:outputText value="#{summar.fieldRef.description}"
+                                              rendered="#{not empty summar.fieldRef}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Значение"/>
+                                </f:facet>
+                                <h:outputText value="#{summar.value}"/>
+                            </rich:column>
+                            <rich:column width="239" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник информации"/>
+                                </f:facet>
+                                <h:outputText value="#{summar.partner.realName}"/>
+                            </rich:column>
+                        </rich:dataTable>
+                    </rich:collapsiblePanel>
+                    
+                    <rich:collapsiblePanel header="Черные списки" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewBlackList and editCR.creditRequest.peopleMain.hasBlacklists!=0}">
+
+                        <rich:dataTable id="blacks"
+                                        value="#{editCR.creditRequest.peopleMain.blackLists}"
+                                        var="black"
+                                        rows="20"
+                                        styleClass="table2 table3">
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата попадания"/>
+                                </f:facet>
+                                <h:outputText value="#{black.dataBeg}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="120" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата окончания"/>
+                                </f:facet>
+                                <h:outputText value="#{black.dataEnd}" rendered="#{not empty black.dataEnd}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="200" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Причина попадания"/>
+                                </f:facet>
+                                <h:outputText value="#{black.reason.name}" rendered="#{not empty black.reason}"/>
+                            </rich:column>
+                            <rich:column width="405" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="комментарий"/>
+                                </f:facet>
+                                <h:outputText value="#{black.comment}"/>
+                            </rich:column>
+
+                        </rich:dataTable>
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Служебная информация (логи)" switchType="client" expanded="false"
+                    	rendered="#{userData.canViewLog}">
+
+                        <rich:dataTable id="logs"
+                                        value="#{editCR.creditRequest.eventLogs}"
+                                        var="log"
+                                        rows="100"
+                                        styleClass="table2 table3">
+                            <rich:column width="415" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Событие"/>
+                                </f:facet>
+                                <h:outputText value="#{log.eventCode.name}"/>
+                            </rich:column>
+                            <rich:column width="136" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата события"/>
+                                </f:facet>
+                                <h:outputText value="#{log.eventTime}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="109" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Ip address"/>
+                                </f:facet>
+                                <h:outputText value="#{log.ipaddress}"/>
+                            </rich:column>
+                            <rich:column width="279" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дополнительная информация"/>
+                                </f:facet>
+                                <h:outputText value="#{log.description}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Антифрод - поля" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewAntiFraud and editCR.creditRequest.hasAntifraudFields!=0}">
+                        <div class="result_search">
+                            <rich:dataTable id="reqTable"
+                                            value="#{viewCR.creditRequest.antifraudFields}"
+                                            var="req"
+                                            selectionMode="single"
+                                            rows="20"
+                                            styleClass="table2 table3">
+                                <rich:column width="150" headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">
+                                        <h:outputText value="Дата изменения"/>
+                                    </f:facet>
+                                    <h:outputText value="#{req.createAt}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                    </h:outputText>
+                                </rich:column> <rich:column width="200" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">Название поля</f:facet>
+                                <h:outputText value="#{req.antifraudFieldType.description}"/>
+                            </rich:column>
+                                <rich:column width="400" headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Было</f:facet>
+                                    <h:outputText value="#{req.valueBefore}"/>
+                                </rich:column>
+                                <rich:column width="400" headerClass="th0" styleClass="td0">
+                                    <f:facet name="header">Стало</f:facet>
+                                    <h:outputText value="#{req.valueAfter}"/>
+                                </rich:column>
+                            </rich:dataTable>
+                        </div>
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Запросы к партнерам" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewRequest and editCR.creditRequest.hasRequests!=0}">
+
+                        <rich:dataTable id="requs"
+                                        value="#{editCR.creditRequest.requests}"
+                                        var="requ"
+                                        rows="50"
+                                        styleClass="table2 table3">
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата запроса"/>
+                                </f:facet>
+                                <h:outputText value="#{requ.requestDate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата ответа"/>
+                                </f:facet>
+                                <h:outputText value="#{requ.responseDate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="190" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Статус запроса"/>
+                                </f:facet>
+                                <h:outputText value="#{requ.requestStatus.name}"
+                                              rendered="#{not empty requ.requestStatus}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="190" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Сообщение от сервиса"/>
+                                </f:facet>
+                                <h:outputText value="#{requ.responseMessage}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="259" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник информации"/>
+                                </f:facet>
+                                <h:outputText value="#{requ.partner.realName}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Скоринговые оценки" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewScoring and editCR.creditRequest.hasScorings!=0}">
+
+                        <rich:dataTable id="scors"
+                                        value="#{editCR.creditRequest.scorings}"
+                                        var="scor"
+                                        rows="50"
+                                        styleClass="table2 table3">
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата скоринга"/>
+                                </f:facet>
+                                <h:outputText value="#{scor.scoringDate}" rendered="#{not empty scor.scoringDate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="130" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Оценка"/>
+                                </f:facet>
+                                <h:outputText value="#{scor.score}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="250" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Вид скоринга"/>
+                                </f:facet>
+                                <h:outputText value="#{scor.scoreModel.name}" rendered="#{not empty scor.scoreModel}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="250" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дополнительная информация"/>
+                                </f:facet>
+                                <h:outputText value="#{scor.comment}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="309" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник информации"/>
+                                </f:facet>
+                                <h:outputText value="#{scor.partner.realName}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Долги" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewDebt and editCR.creditRequest.peopleMain.hasDebts!=0}">
+
+                        <rich:dataTable id="dbts"
+                                        value="#{editCR.creditRequest.peopleMain.debts}"
+                                        var="dbt"
+                                        rows="50"
+                                        styleClass="table2 table3">
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата долга"/>
+                                </f:facet>
+                                <h:outputText value="#{dbt.dateDebt}" rendered="#{not empty dbt.dateDebt}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="130" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Сумма"/>
+                                </f:facet>
+                                <h:outputText value="#{dbt.amount}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Куда передан"/>
+                                </f:facet>
+                                <h:outputText value="#{dbt.authorityId.name}" rendered="#{not empty dbt.authorityId}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата решения"/>
+                                </f:facet>
+                                <h:outputText value="#{dbt.dateDecision}" rendered="#{not empty dbt.dateDecision}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Номер решения"/>
+                                </f:facet>
+                                <h:outputText value="#{dbt.debtNumber}"/>
+                            </rich:column>
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Название долга"/>
+                                </f:facet>
+                                <h:outputText value="#{dbt.nameDebt}"/>
+                            </rich:column>
+                            <rich:column width="159" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Решение текстом"/>
+                                </f:facet>
+                                <h:outputText value="#{dbt.comment}" />
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник информации"/>
+                                </f:facet>
+                                <h:outputText value="#{dbt.partner.realName}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Негативная информация" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewNegative and editCR.creditRequest.peopleMain.hasNegatives!=0}">
+
+                        <rich:dataTable id="negs"
+                                        value="#{editCR.creditRequest.peopleMain.negatives}"
+                                        var="neg"
+                                        rows="50"
+                                        styleClass="table2 table3">
+                            <rich:column width="130" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Год"/>
+                                </f:facet>
+                                <h:outputText value="#{neg.yearArticle}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="500" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Статья"/>
+                                </f:facet>
+                                <h:outputText value="#{neg.articleId.name}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="309" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник информации"/>
+                                </f:facet>
+                                <h:outputText value="#{neg.partner.realName}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Платежи за телефон" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewPhonePay and editCR.creditRequest.hasPhoneSummary!=0}">
+
+                        <rich:dataTable id="psumms"
+                                        value="#{editCR.creditRequest.phoneSummary}"
+                                        var="psumm"
+                                        rows="20"
+                                        styleClass="table2 table3">
+                             <rich:column width="180" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Вид отчета"/>
+                                </f:facet>
+                                <h:outputText value="#{psumm.paymentType.name}" rendered="#{not empty psumm.paymentType}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Период"/>
+                                </f:facet>
+                                <h:outputText value="#{psumm.paymentPeriodType.name}" rendered="#{not empty psumm.paymentPeriodType}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="450" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Оплаты"/>
+                                </f:facet>
+                                <h:outputText value="#{psumm.payDescription}" >
+                                </h:outputText>
+                            </rich:column>
+                             <rich:column width="100" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Количество периодов суммирования платежей"/>
+                                </f:facet>
+                                <h:outputText value="#{psumm.periodCount}" >
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="209" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник информации"/>
+                                </f:facet>
+                                <h:outputText value="#{psumm.partner.realName}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+                    
+                    <rich:collapsiblePanel header="Информация о поведении пользователей" switchType="client"
+                                           expanded="false" rendered="#{userData.canViewBehavior and editCR.creditRequest.hasPeoplebehaviors!=0}">
+
+                        <rich:dataTable id="behs"
+                                        value="#{editCR.creditRequest.peoplebehaviors}"
+                                        var="beh"
+                                        rows="20"
+                                        styleClass="table2 table3">
+                            <rich:column width="130" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Параметр"/>
+                                </f:facet>
+                                <h:outputText value="#{beh.parameter.name}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="339" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Данные: "/>
+                                </f:facet>
+                                <h:outputText value="#{beh.paramvaluedate}" rendered="#{not empty beh.paramvaluedate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                                <h:outputText value="#{beh.paramvaluelong}" rendered="#{not empty beh.paramvaluelong}"/>
+
+                                <h:outputText value="#{beh.paramvalue}" rendered="#{not empty beh.paramvalue}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Переменные из стратегии" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewVariables and editCR.listMisc.size()!=0}">
+
+                        <rich:dataTable id="mvars"
+                                        value="#{editCR.listMisc}"
+                                        var="mvar"
+                                        rows="100"
+                                        styleClass="table2 table3">
+                            <rich:column width="230" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Параметр"/>
+                                </f:facet>
+                                <h:outputText value="#{mvar.name}"/>
+
+                            </rich:column>
+                            <rich:column width="239" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Значение: "/>
+                                </f:facet>
+                                <h:outputText value="#{mvar.value}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Верификация" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewVerify and editCR.creditRequest.hasVerif!=0}">
+
+                        <rich:dataTable id="ver"
+                                        value="#{editCR.creditRequest.verif}"
+                                        var="vers"
+                                        rows="20"
+                                        styleClass="table2 table3">
+                            <rich:column width="130" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата верификации: "/>
+                                </f:facet>
+                                <h:outputText value="#{vers.verificationDate}"
+                                              rendered="#{not empty vers.verificationDate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="150" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Источник информации: "/>
+                                </f:facet>
+                                <h:outputText value="#{vers.partner.realName}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="130" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Балл верификации: "/>
+                                </f:facet>
+                                <h:outputText value="#{vers.verificationScore}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="200" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Текст верификации: "/>
+                                </f:facet>
+                                <h:outputText value="#{vers.verificationText}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="130" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Балл валидации: "/>
+                                </f:facet>
+                                <h:outputText value="#{vers.validationScore}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="200" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Текст валидации: "/>
+                                </f:facet>
+                                <h:outputText value="#{vers.validationText}">
+                                </h:outputText>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                     <rich:collapsiblePanel header="Ответы на вопросы верификатора" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewVerify and editCR.creditRequest.hasAnswers!=0}">
+
+                        <rich:dataTable id="anws"
+                                        value="#{editCR.creditRequest.answers}"
+                                        var="ans"
+                                        rows="50"
+                                        styleClass="table2 table3">
+                            <rich:column width="200" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Статус вопроса: "/>
+                                </f:facet>
+                                <h:outputText value="еще не задавали" rendered="#{ans.answerStatus==0}"/>
+                                <h:outputText value="отказался отвечать" rendered="#{ans.answerStatus==1}"/>
+                                <h:outputText value="дан ответ" rendered="#{ans.answerStatus==2}"/>
+                            </rich:column>
+                            <rich:column width="200" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Вопрос: "/>
+                                </f:facet>
+                                <h:outputText value="#{ans.question.questionText}">
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column width="200" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Ответ: "/>
+                                </f:facet>
+                                <h:outputText value="#{ans.answerValueDate}"
+                                              rendered="#{not empty ans.answerValueDate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:outputText>
+                                <h:outputText value="#{ans.answerValueNumber}"
+                                              rendered="#{not empty ans.answerValueNumber}"/>
+                                <h:outputText value="#{ans.answerValueMoney}"
+                                              rendered="#{not empty ans.answerValueMoney}">
+                                    <f:convertNumber pattern="###########.##"/>
+                                </h:outputText>
+                                <h:outputText value="#{ans.answerValueString}"
+                                              rendered="#{not empty ans.answerValueString}"/>
+                                <h:outputText value="#{refs.getRefText(ans.answerValueRef)}"
+                                              rendered="#{not empty ans.answerValueRef}"/>
+                            </rich:column>
+                             <rich:column width="339" headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Комментарий: "/>
+                                </f:facet>
+                                <h:outputText value="#{ans.comment}">
+                                </h:outputText>
+                            </rich:column>
+                        </rich:dataTable>
+
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Звонки" switchType="client" expanded="false" rendered="#{not empty editCR.callList}">
+                        <rich:dataTable id="calls"
+                                        value="#{editCR.callList}"
+                                        var="call"
+                                        rows="100"
+                                        styleClass="table2 table3">
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                                <h:outputText value="входящий" rendered="#{not empty call.incoming and call.incoming}"/>
+                                <h:outputText value="исходящий" rendered="#{not empty call.incoming and !call.incoming}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Оператор"/>
+                                </f:facet>
+                                <h:outputText value="#{call.user.initials}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Дата"/>
+                                </f:facet>
+                                <h:outputText value="#{call.callDataBeg}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:outputText>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Продолжительность"/>
+                                </f:facet>
+                                <h:outputText value="#{call.lengthHours} ч " rendered="#{not empty call.lengthHours}"/>
+                                <h:outputText value="#{call.lengthMinutes} мин " rendered="#{not empty call.lengthMinutes}"/>
+                                <h:outputText value="#{call.lengthSeconds} сек"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Номер"/>
+                                </f:facet>
+                                <h:outputText value="#{call.phone}" rendered="#{userData.canViewContacts}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Статус"/>
+                                </f:facet>
+                                <h:outputText value="#{call.status.name}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Комментарий"/>
+                                </f:facet>
+                                <h:inputText value="#{call.comment}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                        <a4j:commandButton actionListener="#{editCR.updateCalls}" value="Сохранить"
+                                           style="margin: 10px;" styleClass="button ml0"/>
+                    </rich:collapsiblePanel>
+
+					<rich:collapsiblePanel header="Переменные из стратегии новые" switchType="client" expanded="false"
+						rendered="#{userData.canViewVariables}">
+                        <rich:dataTable var="vvr" rows="100" value="#{editCR.lastCalcValues}" styleClass="table2 table3">
+								 <rich:column width="400" headerClass="th0" styleClass="td0">
+									<f:facet name="header">
+										<h:outputText value="Переменная" />
+									</f:facet>
+									<h:outputText value="#{vvr['name']}" />
+								 </rich:column>
+								 <rich:column width="400" headerClass="th0" styleClass="td0">
+									<f:facet name="header">
+										<h:outputText value="Описание" />
+									</f:facet>
+									<h:outputText value="#{vvr['description']}" />
+								 </rich:column>
+								 <rich:column width="250" headerClass="th0" styleClass="td0">
+									<f:facet name="header">
+										<h:outputText value="Значение" />
+									</f:facet>
+									<h:outputText value="#{vvr['dataValue']}" />
+								 </rich:column>
+							</rich:dataTable>
+					</rich:collapsiblePanel>          
+                </rich:tab>
+
+                <rich:tab header="АМ система" rendered="#{userData.canViewAntiFraud}">
+                    <rich:collapsiblePanel header="Сработавшие внутренние правила" switchType="client" expanded="false"
+                                           rendered="#{userData.canViewAntiFraud and editCR.creditRequest.hasSystemSuspicions > 0}">
+                        <rich:dataTable id="antifraudSystemSuspicions"
+                                        value="#{editCR.creditRequest.antifraudSystemSuspicions}"
+                                        var="suspicion" rows="20" styleClass="table2 table3">
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Название правила"/>
+                                </f:facet>
+                                <h:outputText value="#{suspicion.internalRule.name}" rendered="#{not empty suspicion.internalRule}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="ФИО подавшего заявку"/>
+                                </f:facet>
+                                <h:link outcome="/views/customer/edit" target="_blank">
+                                    <f:param name="peopleid" value="#{suspicion.peopleMainId.id}"/>
+                                    <h:outputText
+                                            value="#{suspicion.peopleMainId.peoplePersonalActive.surname} #{suspicion.peopleMainId.peoplePersonalActive.name} #{suspicion.peopleMainId.peoplePersonalActive.midname}"/>
+                                </h:link>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="ФИО второго человека"/>
+                                </f:facet>
+                                <h:link outcome="/views/customer/edit" target="_blank" rendered="#{not empty suspicion.secondPeople}">
+                                    <f:param name="peopleid" value="#{suspicion.secondPeople.id}"/>
+                                    <h:outputText
+                                            value="#{suspicion.secondPeople.peoplePersonalActive.surname} #{suspicion.secondPeople.peoplePersonalActive.name} #{suspicion.secondPeople.peoplePersonalActive.midname}"/>
+                                </h:link>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Заявки второго"/>
+                                </f:facet>
+
+                                <ui:repeat value="#{suspicion.secondPeople.creditreq}" var="creditreq" rendered="#{not empty suspicion.secondPeople }">
+                                    <h:link outcome="edit" target="_blank">
+                                        <f:param name="ccRequestId" value="#{creditreq.id}"/>
+                                        <h:outputText value="#{creditreq.uniqueNomer}"/>
+                                        <br/>
+                                    </h:link>
+                                </ui:repeat>
+                            </rich:column>
+                        </rich:dataTable>
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Сработавшие правила Хантера" switchType="client" expanded="false"
+                                           rendered="#{editCR.creditRequest.hasHunterSuspicions > 0}">
+                        <rich:dataTable id="antifraudHunterSuspicions"
+                                        value="#{editCR.creditRequest.antifraudHunterSuspicions}"
+                                        var="suspicion" rows="20" styleClass="table2 table3">
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Название правила"/>
+                                </f:facet>
+                                <h:outputText value="#{suspicion.rule.name}" rendered="#{not empty suspicion.rule}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="ФИО Подавшего заявку"/>
+                                </f:facet>
+                                <h:link outcome="/views/customer/edit" target="_blank">
+                                    <f:param name="peopleid" value="#{suspicion.peopleMainId.id}"/>
+                                    <h:outputText
+                                            value="#{suspicion.peopleMainId.peoplePersonalActive.surname} #{suspicion.peopleMainId.peoplePersonalActive.name} #{suspicion.peopleMainId.peoplePersonalActive.midname}"/>
+                                </h:link>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Оценка"/>
+                                </f:facet>
+                                <h:outputText
+                                        value="#{suspicion.score}"/>
+                            </rich:column>
+                        </rich:dataTable>
+                    </rich:collapsiblePanel>
+
+                    <rich:collapsiblePanel header="Мошеннические сущности" switchType="client" expanded="true">
+                        <rich:dataTable id="antifraudOccasions"
+                                        value="#{editCR.itemKeys}"
+                                        var="occasion" rows="20" styleClass="table2 table3">
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Название"/>
+                                </f:facet>
+                                <h:outputText value="#{occasion.hunterObject.name}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Статус"/>
+                                </f:facet>
+                                <h:outputText value="#{occasion.status.name}" rendered="#{editCR.antifraudOccasionsMap[occasion]}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Комментарий"/>
+                                </f:facet>
+                                <h:inputText value="#{occasion.comment}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Добавил"/>
+                                </f:facet>
+                                <h:outputText value="#{occasion.user.peopleMain.peoplePersonalActive.initials}" rendered="#{editCR.antifraudOccasionsMap[occasion]}"/>
+                            </rich:column>
+                            <rich:column headerClass="th0" styleClass="td0">
+                                <f:facet name="header">
+                                    <h:outputText value="Отметить"/>
+                                </f:facet>
+                                <h:selectBooleanCheckbox value="#{editCR.antifraudOccasionsMap[occasion]}"/>
+                            </rich:column>
+                        </rich:dataTable>
+
+                        <a4j:commandButton actionListener="#{editCR.updateOccasions}" value="Сохранить"
+                                           render="antifraudOccasions" style="margin: 10px;" styleClass="button ml0"/>
+                    </rich:collapsiblePanel>
+                </rich:tab>
+            </rich:tabPanel>
+            <h:panelGroup>
+                <h:commandButton value="Закрыть" styleClass="button ml0" action="#{editCR.cancel}"/>
+
+               <a4j:commandButton value="РС" styleClass="button ml0" action="#{editCR.callRS}"
+                                   render="requs creds ver summary" rendered="#{userData.user.admin}"/>
+
+                <a4j:commandButton value="ОКБ кредиты" styleClass="button ml0" action="#{editCR.callCais}"
+                                   render="requs creds scors summary" rendered="#{userData.user.admin}"/>
+
+                <a4j:commandButton value="IDV" styleClass="button ml0" action="#{editCR.callIdv}"
+                                   render="requs ver" rendered="#{userData.user.admin}"/>
+
+                <a4j:commandButton value="Hunter" styleClass="button ml0" action="#{editCR.callHunter}"
+                                   rendered="#{userData.user.admin}"/>
+                                   
+                <a4j:commandButton value="Equifax" styleClass="button ml0" action="#{editCR.callEquifax}"
+                                   render="requs scors creds summary" rendered="#{userData.user.admin}"/>
+
+                <a4j:commandButton value="НБКИ" styleClass="button ml0" action="#{editCR.callNbki}" 
+                                   render="requs creds summary scors" rendered="#{userData.user.admin}"/>
+                                   
+                <a4j:commandButton value="Социохаб" styleClass="button ml0" action="#{editCR.callSociohub}" 
+                                   render="requs scors ppls adrs" rendered="#{userData.user.admin}"/>                   
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>

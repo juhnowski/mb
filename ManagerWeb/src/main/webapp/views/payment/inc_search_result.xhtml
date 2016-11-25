@@ -1,0 +1,117 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+			<h:panelGroup id="pnlResults" styleClass="div">
+				<h:panelGroup id="cnt" styleClass="total_result">
+					<h:outputText value="Найдено " /><b><h:outputText value="#{listPaymentsController.model.rowCount} платежей" /></b>					
+				</h:panelGroup>	
+				<rich:dataTable id="reqTable"
+		                         value="#{listPaymentsController.model}"
+		                         var="payment"
+		                          styleClass="table2"
+		                         selectionMode="single"
+		                         rows="20"
+		                         sortPriority="#{listPaymentsController.model.sortPriorities}">
+                    <rich:column headerClass="th0" styleClass="td0">
+                        <f:facet name="header">
+                            <a4j:commandLink execute="@this" value="Дата" render="reqTable"
+	                            action="#{listPaymentsController.model.sort}">
+	                            <f:param name="sortProperty" value="createDate" />
+	                        </a4j:commandLink>
+	                        <h:graphicImage value="/resources/icons/tables/down_icon.gif" rendered="#{listPaymentsController.model.sortsOrders['createDate']=='descending'}" />
+	                        <h:graphicImage value="/resources/icons/tables/up_icon.gif" rendered="#{listPaymentsController.model.sortsOrders['createDate']=='ascending'}" />	            
+                        </f:facet>
+                        <h:outputText value="#{payment.createDate}">
+                            <f:convertDateTime pattern="dd.MM.yyyy"/>
+                        </h:outputText>
+                    </rich:column>
+                    <rich:column headerClass="th0" styleClass="td0">
+                        <f:facet name="header">
+                            <a4j:commandLink execute="@this" value="Дата проведения" render="reqTable"
+	                            action="#{listPaymentsController.model.sort}">
+	                            <f:param name="sortProperty" value="processDate" />
+	                        </a4j:commandLink>
+	                        <h:graphicImage value="/resources/icons/tables/down_icon.gif" rendered="#{listPaymentsController.model.sortsOrders['processDate']=='descending'}" />
+	                        <h:graphicImage value="/resources/icons/tables/up_icon.gif" rendered="#{listPaymentsController.model.sortsOrders['processDate']=='ascending'}" />	            
+                        </f:facet>
+                        <h:outputText value="#{payment.processDate}">
+                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm"/>
+                        </h:outputText>
+                    </rich:column>
+                    <rich:column headerClass="th0" styleClass="td0">
+                        <f:facet name="header">Клиент</f:facet>
+                        <h:outputText value="#{payment.credit.creditRequest.peopleMain.peoplePersonalActive.fullName}"/>
+                    </rich:column>
+                    <rich:column headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Сумма</f:facet>
+	                	<h:outputText value="#{payment.amount}">
+	                	  <f:convertNumber pattern="############.00" />
+	                	</h:outputText>  
+	                </rich:column>
+                    <rich:column headerClass="th0" styleClass="td0">
+                        <f:facet name="header">Партнёр</f:facet>
+                        <h:outputText value="#{payment.partner == null ? '' : payment.partner.realName}"/>
+                    </rich:column>
+                    <rich:column headerClass="th0" styleClass="td0">
+                        <f:facet name="header">Направление</f:facet>
+                        <h:outputText value="#{payment.paymentType.name}"/>
+                    </rich:column>
+                    <rich:column headerClass="th0" styleClass="td0">
+                        <f:facet name="header">Статус</f:facet>
+                        <h:outputText value="#{msg['payment.status.'.concat(payment.status)]}"/>
+                    </rich:column>
+
+	                <rich:column headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	                		<h:outputText value="Действия" />
+	                		<br/>
+	                        <a4j:commandLink execute="@this" value="сбросить" render="reqTable"
+	                            action="#{listPaymentsController.model.reset}">
+	                        </a4j:commandLink>                		
+	            		</f:facet> 
+	                	<h:panelGrid columns="3">
+                            <h:panelGroup >
+                                <h:link outcome="view?faces-redirect=true" styleClass="open">
+                                    <f:param name="id" value="#{payment.id}" />
+                                </h:link>
+                            </h:panelGroup>
+							<h:panelGroup >
+								<h:link onclick="alert('Был сделан звонок'); return false;" styleClass="phone">
+									<f:param name="ccRequestId" value="#{req.id}" />
+								</h:link>
+							</h:panelGroup>
+							<h:panelGroup >
+								<a4j:commandButton value="" actionListener="#{actP.setCurrentLsn}" render="pnlActions" oncomplete="#{rich:component('pnlActions')}.show(); return false;" styleClass="edit">
+									<f:attribute name="prmBusinessObjectId" value="#{payment.id}" />
+								</a4j:commandButton>
+							</h:panelGroup>							
+						</h:panelGrid>
+	                </rich:column>		
+	                <f:facet name="footer">
+	                	<rich:dataScroller />
+	                </f:facet>
+	          	</rich:dataTable>				
+			</h:panelGroup>	
+			
+		    <rich:popupPanel id="pnlActions" autosized="true" modal="true" moveable="true" resizeable="false" followByScroll="true" styleClass="alert_up" header="действия" headerClass="grad_bb_h2">
+		    			    			    	
+		    	<h:dataTable var="act" value="#{actP.actions}" >
+		    		<h:column>
+		    			<h:link rendered="#{act.link}" outcome="#{act.linkOutcome}" styleClass="submit">
+		    				<f:param name="prmBusinessObjectId" value="#{actP.prmBusinessObjectId}" styleClass="submit"/>	
+		    				<f:param name="faces-redirect" value="#{act.redirect?true:false}" />
+		    				<f:param name="actionDef" value="#{act.action.asString}" />	    				
+		    				<h:outputText value="#{act.action.name}"/>	
+		    			</h:link>
+		    			<h:commandLink rendered="#{! act.link}" value="#{act.action.name}" actionListener="#{actP.executeLsn}" onclick="javascript:#{act.confirmScript}" styleClass="submit">
+		    				<f:attribute name="prmBusinessObjectId" value="#{actP.prmBusinessObjectId}"/>
+		    				<f:attribute name="actionDef" value="#{act.action.asString}"/>
+		    				<a4j:ajax render="@all" />
+		    			</h:commandLink>
+		    		</h:column>
+		    	</h:dataTable>
+		    	<br/>   
+		        <h:outputLink onclick="#{rich:component('pnlActions')}.hide(); return false;" value="#" styleClass="submit">Закрыть</h:outputLink>
+		    </rich:popupPanel>			
+</ui:composition>

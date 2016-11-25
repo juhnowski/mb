@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<h:panelGrid columns="2">
+			   <h:outputText value="Событие"/>
+			   <h:outputText value="#{viewLog.event.eventCode.name}" rendered="#{not empty viewLog.event.eventCode}"/>
+			   <h:outputText value="Пользователь" rendered="#{not empty viewLog.event.user}"/>
+			   <h:outputText value="#{viewLog.event.user.peopleMain.peoplePersonalActive.surname}" rendered="#{not empty viewLog.event.user}"/>
+			   <h:outputText value="Время события"/>
+			   <h:outputText value="#{viewLog.event.eventTime}">
+			       <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+			   </h:outputText>
+			   <h:outputText value="Описание" rendered="#{not empty viewLog.event.description}"/>
+			   <h:outputText value="#{viewLog.event.description}" rendered="#{not empty viewLog.event.description}"/>
+			   <h:outputText value="ОС клиента" rendered="#{not empty viewLog.event.os}"/>
+			   <h:outputText value="#{viewLog.event.os}" rendered="#{not empty viewLog.event.os}"/>
+			   <h:outputText value="Браузер клиента" rendered="#{not empty viewLog.event.browser}"/>
+			   <h:outputText value="#{viewLog.event.browser}" rendered="#{not empty viewLog.event.browser}"/>
+			   <h:outputText value="Место нахождения клиента" rendered="#{not empty viewLog.event.geoPlace}"/>
+			   <h:outputText value="#{viewLog.event.geoPlace}" rendered="#{not empty viewLog.event.geoPlace}"/>
+			   <h:outputText value="User-agent клиента" rendered="#{not empty viewLog.event.userAgent}"/>
+			   <h:outputText value="#{viewLog.event.userAgent}" rendered="#{not empty viewLog.event.userAgent}"/>
+			   <h:outputText value="№ заявки" rendered="#{not empty viewLog.event.creditRequest}"/>
+			   <h:outputText value="#{viewLog.event.creditRequest.uniqueNomer}" rendered="#{not empty viewLog.event.creditRequest}"/>
+			</h:panelGrid>
+			<h:commandButton value="Закрыть" action="#{viewLog.close}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

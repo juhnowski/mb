@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CMS</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Morris -->
+    <link href="css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <!-- Tags Input -->
+
+    <link href="css/plugins/tags-input/jquery.tagsinput.min.css" rel="stylesheet">
+
+    <!-- Fancy box -->
+    <link href="js/plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
+
+    <!-- Summernote-->
+    <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
+
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+
+    <link href="css/plugins/codrops/component.css" rel="stylesheet">
+    <link href="css/plugins/codrops/normalize.css" rel="stylesheet">
+    <link href="css/plugins/codrops/demo.css" rel="stylesheet">
+
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element text-center"><img alt="" class="img-circle" src="img/logo.png" width="48"></div>
+                </li>
+                <!--<li id="main">
+                    <a href="main.shtml"><i class="fa fa-home"></i> <span class="nav-label">Главная</span></a>
+                </li>-->
+                <!--<li id="anketa">-->
+                    <!--<a href="anketa.shtml"><i class="fa fa-file-text"></i> <span class="nav-label">Анкета</span></a>-->
+                <!--</li>-->
+                <!--<li id="news">
+                    <a href="news.shtml"><i class="fa fa-rss-square"></i> <span class="nav-label">Новости</span> </a>
+                </li>-->
+                <li id="questionPP">
+                    <a href="question.shtml"><i class="fa fa-comments"></i> <span class="nav-label">Вопросы и ответы</a>
+                </li>
+                <li id="politics">
+                    <a href="politics.shtml"><i class="fa fa-copyright"></i> <span class="nav-label">Соглашения и правила</span> </a>
+                </li>
+                <li id="contacts">
+                    <a href="contacts.shtml"><i class="fa fa-envelope"></i> <span class="nav-label">Контакты</span></a>
+                </li>
+				<li id="aboutme">
+                    <a href="aboutme.shtml"><i class="fa fa-group"></i> <span class="nav-label">О нас</span></a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <a href="rest/login/logout"><i class="fa fa-sign-out"></i> Выход</a>
+                    </li>
+                </ul>
+
+            </nav>
+        </div>

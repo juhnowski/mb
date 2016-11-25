@@ -1,0 +1,64 @@
+<!--left main menu-->
+<div class="left-block td">
+    <h3 class="h3">Займы</h3>
+    <ul>
+        <li ng-class="{active : page == 'overview'}">
+            <a href="overview.shtml">
+                Мой заем<i class="ico arrow-right-white-3" ng-if="page == 'overview'"></i>
+            </a>
+        </li>
+        <li ng-class="{active : page == 'repay'}">
+            <a href="repay.shtml">
+                Погасить заем<i class="ico arrow-right-white-3" ng-if="page == 'repay'"></i>
+            </a>
+        </li>
+        <li ng-class="{active : page == 'prolong'}">
+            <a href="prolong.shtml">
+                Продлить заем<i class="ico arrow-right-white-3" ng-if="page == 'prolong'"></i>
+            </a>
+        </li>
+        <li ng-class="{active : page == 'credit_history'}">
+            <a href="credit_history.shtml">
+                История займов<i class="ico arrow-right-white-3" ng-if="page == 'credit_history'"></i>
+            </a>
+        </li>
+        <li ng-class="{active : page == 'request_history'}">
+            <a href="request_history.shtml">
+                История заявок<i class="ico arrow-right-white-3" ng-if="page == 'request_history'"></i>
+            </a>
+        </li>
+        <li ng-class="{active : page == 'documents'}">
+            <a href="documents.shtml">
+                Подписанные документы<i class="ico arrow-right-white-3" ng-if="page == 'documents'"></i>
+            </a>
+        </li>
+    </ul>
+
+    <div class="gree-block-btn">
+        <a href="newcredit.shtml" class="btn btn--green">Новый заем</a>
+    </div>
+
+    <div class="balance-block">
+        <p>
+            <a href="bonus.shtml" class="bonus-show">
+                Бонусы: <b ng-bind="(bonus * 1).toFixed(0)"></b>
+            </a>
+        </p>
+        <p>
+            <a class="balance-show ng-binding" href="balance.shtml">
+                Счет: <b><span ng-bind="(savings * 1).toFixed(0)"></span> <i>руб.</i></b>
+            </a>
+        </p>
+    </div>
+
+    <div class="support-block">
+        <a class="img support-show"><img src="/main/img/support.png" alt=""></a>
+        <h3>Есть вопросы?</h3>
+        <p><a href="/main/"><i class="ico ico--arrow-right-green"></i>Войти в чат</a></p>
+    </div>
+</div>
+
+
+<script>
+    $('.loan_part').addClass('active')
+</script>

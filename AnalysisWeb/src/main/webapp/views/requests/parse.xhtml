@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+     <ui:define name="title">Business analysis console</ui:define>
+
+     <ui:define name="pageContent">
+     <h:form id="frmReq">
+    		
+    			
+    			<h:panelGrid id="table_req" columns="2">
+    			    <h:outputText value="Партнер" />
+    				<h:panelGroup>
+    				   <h:selectOneMenu id="typeId" value="#{parseReq.partnerId}" required="true" valueChangeListener="#{parseReq.changePartner}">
+         	             <f:selectItem itemValue="0" itemLabel="--выберите КБ--" />
+         	             <f:selectItem itemValue="13" itemLabel="Русский стандарт" />
+		   		         <f:selectItem itemValue="4" itemLabel="Эквифакс"  />
+		   		         <f:selectItem itemValue="5" itemLabel="ОКБ - кредитные истории"  />
+		   		          <a4j:ajax event="change" execute="@this"  />
+		   	           </h:selectOneMenu>
+    				   <rich:messages for="typeId" />
+    				</h:panelGroup> 
+    				
+    			</h:panelGrid>
+    			<h:panelGroup id="pnlParse">
+    			    <h:panelGroup rendered="#{parseReq.requestCurrent==0 or parseReq.requestCurrent==parseReq.requestsSize}">
+    			        <a4j:commandButton  id="kb" value="Разобрать запросы" render="pnlParse" execute="@all"/>
+    			    </h:panelGroup>    
+    			    <h:outputText value="#{parseReq.requestCurrent} / #{parseReq.requestsSize}"/>
+    			</h:panelGroup>
+         </h:form>
+         <h:form>
+        	<a4j:poll id="poll" interval="500" enabled="true" render="poll,pnlParse" />
+    	</h:form>      
+     </ui:define>
+</ui:composition>
+

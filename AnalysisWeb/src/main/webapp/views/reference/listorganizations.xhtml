@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmMain" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			
+			 <h:panelGroup id="pnlFull">
+         	    <h:outputText value="Поиск" />
+         	    <h:panelGrid columns="2">
+         	    <h:outputText value="Название" />
+         	    <h:inputText id="nam" value="#{listRefOrganizations.name}"/>
+         	    <h:outputText value="Инн" />
+         	    <h:inputText id="inn" value="#{listRefOrganizations.inn}"/>
+         	    <h:outputText value="Кпп" />
+         	    <h:inputText id="kpp" value="#{listRefOrganizations.kpp}"/>
+         	    <h:outputText value="Огрн" />
+         	    <h:inputText id="ogrn" value="#{listRefOrganizations.ogrn}"/>
+         	    <h:outputText value="Телефон" />
+         	    <h:inputText id="phone" value="#{listRefOrganizations.phone}"/>
+         	    <h:outputText value="Email" />
+         	    <h:inputText id="email" value="#{listRefOrganizations.email}"/>
+         	    <h:outputText value="Запись активна" />
+         	    <h:selectOneMenu value="#{listRefOrganizations.isActive}">
+        			<f:selectItems value="#{comrefs.yesNoNull}" />
+        		</h:selectOneMenu>
+        		
+         	    </h:panelGrid>
+             	<a4j:commandButton value="Найти" actionListener="#{listRefOrganizations.searchLsn}" render="pnlResults" /> <a4j:commandButton value="Очистить" actionListener="#{listRefOrganizations.clearLsn}" render="frmMain" />
+             </h:panelGroup>
+    		<p></p>		
+			<h:panelGroup id="pnlResults">
+				<h:panelGroup>
+					<h:outputText value="Найдено #{listRefOrganizations.model.rowCount} организаций" />
+				</h:panelGroup>	
+				<rich:extendedDataTable id="reqTable"
+		                         value="#{listRefOrganizations.model}"               
+		                         var="ref" rows="20"
+		                         selectionMode="single" >
+		                
+		                 <rich:column width="400">
+		                	<f:facet name="header">название</f:facet>
+		                	<h:outputText value="#{ref.name}"/>
+		                </rich:column>
+		                <rich:column width="100">
+		                	<f:facet name="header">инн</f:facet>
+		                	<h:outputText value="#{ref.inn}"/>
+		                </rich:column>	
+		               
+		                <rich:column width="100">
+		                	<f:facet name="header">телефон</f:facet>
+		                	<h:outputText value="#{ref.phone}"/>
+		                </rich:column>	
+		                <rich:column width="100">
+		                	<f:facet name="header">email</f:facet>
+		                	<h:outputText value="#{ref.email}"/>
+		                </rich:column>
+		                <rich:column width="100">
+		                	<f:facet name="header">активность</f:facet>
+		                	<h:panelGroup>
+		                	  <h:outputText value="активная запись" rendered="#{ref.isActive==1}"/>
+		                	  <h:outputText value="архивная запись" rendered="#{ref.isActive==0}"/>
+		                	</h:panelGroup>
+		                </rich:column>
+		                <rich:column width="60">
+		                	<f:facet name="header">действия</f:facet>
+		                	<h:panelGrid columns="1">          		
+								<h:panelGroup >
+									<h:link outcome="editorganizations?faces-redirect=true" >
+										<f:param name="refid" value="#{ref.id}" />
+										<h:graphicImage value="/resources/icons/edit.gif" title="редактировать" />
+									</h:link>
+								</h:panelGroup>
+								
+							</h:panelGrid> 
+		                </rich:column>	
+		                <f:facet name="footer">
+	                	  <rich:dataScroller />
+	                   </f:facet>	                	                
+		          	</rich:extendedDataTable>				
+			</h:panelGroup>
+			
+        </h:form>
+    </ui:define>
+</ui:composition>

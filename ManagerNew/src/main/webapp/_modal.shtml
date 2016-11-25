@@ -1,0 +1,80 @@
+
+	
+
+	<!-- Start modalin -->
+	<div class="modalin" id="popupin">
+		<div class="insert-line"></div>
+
+		<div class="modalin-circle"></div>
+
+		<div class="modalin-blockinpt">
+			<label></label>
+			<input type="text" placeholder="Логин" onblur="if (this.placeholder=='') this.placeholder='Логин';" onfocus="if (this.placeholder=='Логин') this.placeholder='';">
+		</div>
+
+
+		<div class="modalin-blockinpt-two">
+			<label></label>
+			<input type="text" placeholder="Пароль" onblur="if (this.placeholder=='') this.placeholder='Пароль';" onfocus="if (this.placeholder=='Пароль') this.placeholder='';">
+			<input type="submit" value="">
+		</div>
+
+
+		<div class="remember-forgot">
+			<div class="remember">
+
+				<div class="checkboxes">
+					<div class="check">
+						<input type="checkbox" value="jQuery" />
+					</div>
+					Запомнить меня
+				</div>
+
+			</div>
+
+			<div class="forgot">
+				Забыли пароль?
+			</div>
+		</div>
+
+	</div>
+	<!-- End modalin -->
+
+
+
+
+
+
+
+
+
+
+	<!-- Start modalout -->
+	<div class="modalout" id="popup">
+		<div class="insert-line"></div>
+		<a href="" class="close"></a>
+
+		<h5>Выйти из системы</h5>
+
+		<div class="modalout-text">
+			<h6>Вы уверены, что хотите выйти из системы?</h6>
+			<span>
+				Если не производить никаких действий, сеанс будет
+				завершён через <span><label id="RealButton">60</label> сек</span>
+			</span>
+		</div>
+
+		<div class="modal-button">
+			<a href="" class="mb-left">Отменить</a>
+			<a href="#" onclick="logout(); return false;" class="mb-right">Выйти</a>
+		</div>
+
+	</div>
+	<!-- End modalout -->
+
+
+	<div class="dark"></div>
+
+
+
+

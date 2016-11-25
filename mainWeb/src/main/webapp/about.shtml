@@ -1,0 +1,54 @@
+<!--#set var="typePage" value="page" -->
+<!--#include file="_head.shtml"-->
+	<title>О компании</title>
+	<meta name="description" content="О компании">
+	<meta name="keywords" content="">
+</head>
+
+<body class="about">
+
+<header class="header clr">
+<div class="center">
+	
+<!--#include file="_menu.shtml"-->
+   <h1 class="header__h1">Мобифинанс – ваш надежный финансовый партнер</h1>
+
+</div>
+<!--/div-->
+</header>
+
+<main>
+ <article>
+  <div class="center clr">
+   <div class="about-block">
+    <p id="company"/>
+   </div>
+  </div>
+ </article>
+ <aside class="block-best">
+  <div class="center clr">
+   <h3>Наши преимущества</h3>
+   <ol>
+    <li>
+     <h4>Мы проще</h4>
+     <p id="simply"/>
+    </li>
+    <li>
+     <h4>Мы быстрее</h4>
+     <p id="quickly"/>
+    </li>
+    <li>
+     <h4>Мы выгоднее</h4>
+     <p id="responsibility"/>
+    </li>
+   </ol>
+  </div>
+ </aside>
+</main>
+
+<!--#include file="_footer.shtml"-->
+<script type="text/javascript">
+	$(document).ready(function(){
+		initCMSData('about');
+	});
+</script>

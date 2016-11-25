@@ -1,0 +1,141 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" >
+			<h:panelGroup id="pnlResults" styleClass="div">
+				<h:panelGroup id="cnt" styleClass="total_result" >
+					<h:outputText value="Найдено " /><b><h:outputText value="#{listCR.model.rowCount} заявок" /></b>					
+				</h:panelGroup>	
+			    <div class="table2">
+				<rich:dataTable id="reqTable"
+		                         value="#{listCR.model}"               
+		                         var="req"
+		                         selectionMode="single"
+		                         rows="20"
+		                         footerClass="dn"
+		                         sortPriority="#{listCR.model.sortPriorities}" 
+		                         rendered="#{listCR.model.rowCount>0}">
+	                <rich:column width="138" headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Номер</f:facet>
+	                	<h:link outcome="edit?faces-redirect=true" rendered="#{not empty req.dateContest}">
+	                		<f:param name="ccRequestId" value="#{req.id}" />
+	                	    <h:outputText value="#{req.uniqueNomer}"/>
+	                	</h:link>   
+	                </rich:column>			                
+	                <rich:column selfSorted="false" sortOrder="#{listCR.model.sortsOrders['Status']}" sortType="custom" width="150" headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	                        <a4j:commandLink execute="@this" value="Состояние" render="reqTable"
+	                            action="#{listCR.model.sort}">
+	                            <f:param name="sortProperty" value="Status" />
+	                        </a4j:commandLink>
+	                        <h:graphicImage value="/resources/icons/tables/down_icon.gif" rendered="#{listCR.model.sortsOrders['Status']=='descending'}" />
+	                        <h:graphicImage value="/resources/icons/tables/up_icon.gif" rendered="#{listCR.model.sortsOrders['Status']=='ascending'}" />	            		
+	            		</f:facet> 	                	
+	                	<h:outputText value="#{req.status.name}"/>
+	                </rich:column>	
+	                <rich:column selfSorted="false" sortOrder="#{listCR.model.sortsOrders['DateContest']}" sortType="custom" width="86" headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	                        <a4j:commandLink execute="@this" value="Дата подачи" render="reqTable"
+	                            action="#{listCR.model.sort}">
+	                            <f:param name="sortProperty" value="DateContest" />
+	                        </a4j:commandLink>
+	                        <h:graphicImage value="/resources/icons/tables/down_icon.gif" rendered="#{listCR.model.sortsOrders['DateContest']=='descending'}" />
+	                        <h:graphicImage value="/resources/icons/tables/up_icon.gif" rendered="#{listCR.model.sortsOrders['DateContest']=='ascending'}" />	            		
+	            		</f:facet> 	                	
+	                	<h:outputText value="#{req.dateContest}">
+	                		<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+	                	</h:outputText>
+	                </rich:column>	
+	                <rich:column  width="86" headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	                        Дата принятия решения
+	            		</f:facet> 	                	
+	                	<h:outputText value="#{req.dateDecision}" rendered="#{not empty req.dateDecision}">
+	                		<f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+	                	</h:outputText>
+	                </rich:column>	
+	                <rich:column width="261" headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Клиент</f:facet>
+	                	<h:outputText value="#{req.peopleMain.peoplePersonalActive.surname} #{req.peopleMain.peoplePersonalActive.name} #{req.peopleMain.peoplePersonalActive.midname}"/>
+	                </rich:column>
+	                <rich:column width="60" headerClass="th0" styleClass="td0">
+	                	<f:facet name="header">Ставка</f:facet>
+	                	<h:outputText value="#{req.stake}"/>
+	                </rich:column>
+	                <rich:column selfSorted="false" sortOrder="#{listCR.model.sortsOrders['CreditSum']}" sortType="custom" width="72" headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	                        <a4j:commandLink execute="@this" value="Сумма кредита" render="reqTable"
+	                            action="#{listCR.model.sort}">
+	                            <f:param name="sortProperty" value="CreditSum" />
+	                        </a4j:commandLink>
+	                        <h:graphicImage value="/resources/icons/tables/down_icon.gif" rendered="#{listCR.model.sortsOrders['CreditSum']=='descending'}" />
+	                        <h:graphicImage value="/resources/icons/tables/up_icon.gif" rendered="#{listCR.model.sortsOrders['CreditSum']=='ascending'}" />	            		
+	            		</f:facet> 	                	
+	                	<h:outputText value="#{req.creditSum}"/>
+	                </rich:column>		
+	                <rich:column selfSorted="false" sortOrder="#{listCR.model.sortsOrders['CreditDays']}" sortType="custom" width="72" headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	                        <a4j:commandLink execute="@this" value="Срок кредита, дней" render="reqTable"
+	                            action="#{listCR.model.sort}">
+	                            <f:param name="sortProperty" value="CreditDays" />
+	                        </a4j:commandLink>
+	                        <h:graphicImage value="/resources/icons/tables/down_icon.gif" rendered="#{listCR.model.sortsOrders['CreditDays']=='descending'}" />
+	                        <h:graphicImage value="/resources/icons/tables/up_icon.gif" rendered="#{listCR.model.sortsOrders['CreditDays']=='ascending'}" />	            		
+	            		</f:facet>	                	
+	                	<h:outputText value="#{req.creditDays}"/>
+	                </rich:column>		                                		                		                
+	                <rich:column width="100" headerClass="th0" styleClass="td0">
+	            		<f:facet name="header">
+	                		<h:outputText value="Действия" />
+	                		<br/>
+	                        <a4j:commandLink execute="@this" value="сбросить" render="reqTable"
+	                            action="#{listCR.model.reset}">
+	                        </a4j:commandLink>                		
+	            		</f:facet> 
+	                	<h:panelGrid columns="5">          		
+							<h:panelGroup >
+								<h:link outcome="edit?faces-redirect=true" rendered="#{not empty req.dateContest}" styleClass="open">
+									<f:param name="ccRequestId" value="#{req.id}" />
+								</h:link>
+							</h:panelGroup>
+							<h:panelGroup >
+								<h:link onclick="alert('Был сделан звонок'); return false;" rendered="#{not empty req.dateContest}" styleClass="phone">
+									<f:param name="ccRequestId" value="#{req.id}" />
+								</h:link>
+							</h:panelGroup>
+							<h:panelGroup >
+								<a4j:commandButton value="" actionListener="#{actCR.setCurrentLsn}" render="pnlActions" oncomplete="#{rich:component('pnlActions')}.show(); return false;" styleClass="edit">
+									<f:attribute name="prmBusinessObjectId" value="#{req.id}" />
+								</a4j:commandButton>
+							</h:panelGroup>
+				     	</h:panelGrid> 
+	                </rich:column>		
+	                <f:facet name="footer">
+	                	<rich:dataScroller rendered="#{listCR.model.rowCount>0}"/>
+	                </f:facet>
+	              
+	          	</rich:dataTable>	
+	          	  </div>			
+			</h:panelGroup>	
+			
+		    <rich:popupPanel id="pnlActions" autosized="true" modal="true" moveable="true" resizeable="false" followByScroll="true" styleClass="alert_up" header="действия" headerClass="grad_bb_h2">
+		    			    			    	
+		    	<h:dataTable var="act" value="#{actCR.actions}" >
+		    		<h:column>
+		    			<h:link rendered="#{act.link}" outcome="#{act.linkOutcome}" styleClass="submit">
+		    				<f:param name="prmBusinessObjectId" value="#{actCR.prmBusinessObjectId}" styleClass="submit"/>	
+		    				<f:param name="faces-redirect" value="#{act.redirect?true:false}" />
+		    				<f:param name="actionDef" value="#{act.action.asString}" />	    				
+		    				<h:outputText value="#{act.action.name}"/>	
+		    			</h:link>
+		    			<h:commandLink rendered="#{! act.link}" value="#{act.action.name}" actionListener="#{actCR.executeLsn}" onclick="javascript:#{act.confirmScript}" styleClass="submit">
+		    				<f:attribute name="prmBusinessObjectId" value="#{actCR.prmBusinessObjectId}"/>
+		    				<f:attribute name="actionDef" value="#{act.action.asString}"/>
+		    				<a4j:ajax render="@all" />
+		    			</h:commandLink>
+		    		</h:column>
+		    	</h:dataTable>
+		    	<br/>   
+		        <h:outputLink onclick="#{rich:component('pnlActions')}.hide(); return false;" value="#" styleClass="submit">Закрыть</h:outputLink>
+		    </rich:popupPanel>			
+</ui:composition>

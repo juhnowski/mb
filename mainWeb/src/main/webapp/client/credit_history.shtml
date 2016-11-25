@@ -1,0 +1,100 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app" ng-init="page = 'credit_history'">
+
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/credit_history.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+
+<!--#include file="include/_header.shtml"-->
+
+<main ng-controller="HistoryCtrl">
+    <div class="center clr table w100p">
+        <div class="tr">
+            <!--#include file="include/_left-menu.shtml"-->
+
+            <div class="right-block td">
+                <h3 class="h3">История займов</h3>
+                <div class="box-20">
+                    <ul class="history-loan">
+                        <li ng-if="credits.length == 0">
+                            <a class="history-loan__head">
+                                История займов пуста
+                            </a>
+                        </li>
+
+                        <li ng-repeat="credit in credits">
+                            <a class="history-loan__head">
+                                <span class="history-loan__head-numer" ng-bind="credit.creditAccount"></span>
+                                <span class="ico ico--arrow-right-green-v2"></span>
+                                <span class="history-loan__head-text"
+                                      ng-bind-template="{{ credit.creditsum }} руб. / {{ credit.creditdatabeg }}">
+                                </span>
+                                <span class="ico ico--arrow-down"></span>
+                                <span class="ico ico--arrow-up"></span>
+                            </a>
+                            <div class="history-loan__body">
+                                <div class="history-loan__body-tab clr">
+                                    <a class="active history-loan__info">Информация</a>
+                                    <a class="history-loan__payments">Платежи</a>
+                                </div>
+                                <div class="history-loan__body-table history-loan__body-info">
+                                    <table class="table-2">
+                                        <tbody>
+                                        <tr>
+                                            <td>Ваша сумма</td>
+                                            <td ng-bind-template="{{ credit.creditsum }} руб."></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Процент</td>
+                                            <td ng-bind-template="{{ credit.creditsumback - credit.creditsum }} руб."></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Сумма к возврату</td>
+                                            <td ng-bind-template="{{ credit.creditsumback }} руб."></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Дата выдачи</td>
+                                            <td ng-bind="credit.creditdatabeg"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Дата возврата</td>
+                                            <td ng-bind="credit.creditdataendfact"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Дата возврата по графику</td>
+                                            <td ng-bind="credit.creditdataend"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="history-loan__body-table history-loan__body-payments hide">
+                                    <table class="table-2" ng-repeat-start="payment in credit.payments">
+                                        <tr>
+                                            <td>Дата платежа</td>
+                                            <td ng-bind="payment.processDate"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Сумма платежа</td>
+                                            <td ng-bind-template="{{ payment.amount }} руб."></td>
+                                        </tr>
+                                    </table>
+                                    <hr style="margin-top: 10px;margin-bottom: 10px;" ng-repeat-end ng-if="$middle || $first"/>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!--#include file="include/_footer.shtml"-->
+
+</body>
+</html>

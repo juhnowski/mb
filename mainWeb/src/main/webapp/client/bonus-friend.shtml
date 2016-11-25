@@ -1,0 +1,100 @@
+<!--#set var="typePage" value="lk" -->
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <!--#include file="include/_head.shtml"-->
+
+    <script src="js/bonus_new.js"></script>
+</head>
+
+<body ng-controller="MainCtrl" ng-cloak>
+
+
+<!--#include file="include/_header.shtml"-->
+
+
+<main ng-controller="BonusCtrl">
+    <div class="center clr">
+
+        <!--#include file="include/_left-menu-bonus.shtml"-->
+
+        <div class="right-block">
+
+            <h3 class="h3">Пригласить друга</h3>
+
+            <div class="accruals">
+
+                <div class="center-box add_friend">
+                    Приглашай своих друзей и когда один из них получит первый <br>заем, вам будет зачислено 60 000
+                    бонусов.
+                    <form name="friendForm">
+                        <input placeholder="Имя друга" class="input" name="firstName"
+                               ng-model="newFriend.firstName"
+                               ng-required="true"
+                               ng-pattern="/^[\u0410-\u044f]*$/"
+                               ng-class="{'input-error' : isInvalid(friendForm.firstName)}">
+                            <span class="error-input-message" ng-if="isInvalid(friendForm.firstName)">
+                                Имя должно состоять только из русских символов
+                            </span>
+                        <input placeholder="Фамилия друга" class="input" name="lastName"
+                               ng-model="newFriend.lastName"
+                               ng-required="true"
+                               ng-pattern="/^[\u0410-\u044f]*$/"
+                               ng-class="{'input-error' : isInvalid(friendForm.lastName)}">
+                            <span class="error-input-message" ng-if="isInvalid(friendForm.lastName)">
+                                Фамилия должна состоять только из русских символов
+                            </span>
+                        <input placeholder="E-mail друга" type="email" class="input" name="email"
+                               ng-model-options="{ updateOn: 'blur' }"
+                               ng-model="newFriend.email"
+                               ng-required="!phoneRequired"
+                               ng-pattern="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i"
+                               ng-class="{'input-error' : isInvalid(friendForm.email)}">
+                            <span class="error-input-message" ng-if="isInvalid(friendForm.email)">
+                                E-mail имеет неверный формат
+                            </span>
+
+                        <input placeholder="Телефон друга" type="tel" class="input" name="phone"
+                               ng-model="newFriend.phone"
+                               ng-required="phoneRequired"
+                               ng-class="{'input-error' : isInvalid(friendForm.phone)}">
+                            <span class="error-input-message" ng-if="isInvalid(friendForm.phone)">
+                                Телефон имеет неверный формат
+                            </span>
+                        <button class="btn hover-white" ng-click="invite(newFriend)" ng-if="!sendBtnDisable"><span>пригласить друга</span>
+                        </button>
+                        <img src="/main/images/ajax-loader.gif" ng-if="sendBtnDisable"/>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="right-block" ng-if="bonusInfo.friends.length != 0">
+
+            <h3 class="h3">История приглашений</h3>
+
+            <div class="box-20">
+
+                <table class="table-1">
+                    <tr ng-repeat="friend in bonusInfo.friends">
+                        <td><i class="ico i-number-3"></i></td>
+                        <td><span ng-bind="friend.firstName"></span>&nbsp;<span ng-bind="friend.lastName"></span></td>
+                        <td ng-bind="friend.email"></td>
+                        <td ng-bind="friend.phone"></td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!--#include file="include/_footer.shtml"-->
+
+</body>
+</html>

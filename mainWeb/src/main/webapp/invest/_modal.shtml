@@ -1,0 +1,25 @@
+<!-- Start modal-registration -->
+<div class="b-popup" id="popup">
+
+	<a href="javascript:PopUpHide()" class="close">X</a>
+
+	<div class="modal-form">
+		<form>
+			<input name="" type="text" placeholder="Ваш Email" onblur="if (this.placeholder=='') this.placeholder='Ваш Email';" onfocus="if (this.placeholder=='Ваш Email') this.placeholder='';">
+			<input name="" type="password" placeholder="Пароль" onblur="if (this.placeholder=='') this.placeholder='Пароль';" onfocus="if (this.placeholder=='Пароль') this.placeholder='';">
+			<input name="" type="text" placeholder="Подтвердить пароль" onblur="if (this.placeholder=='') this.placeholder='Подтвердить пароль';" onfocus="if (this.placeholder=='Подтвердить пароль') this.placeholder='';">
+
+			<input name="" type="submit" value="Войти в систему">
+		</form>
+	</div>
+
+</div>
+<!-- End modal-registration -->
+
+
+
+<div class="dark"></div>
+
+
+
+

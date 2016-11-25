@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	>
+
+	<a4j:repeat var="actDef" value="#{currentCtl.stdActionsDefs}">
+	   	<h:commandButton value="#{actDef.name}" styleClass="button ml0" actionListener="#{currentCtl.stdActionLsn}" onclick="if (window.confirm('Выполнить?')) { #{rich:component('popupIndicator')}.show();return true; } else { return false;}">
+	   		<f:attribute name="signalRef" value="#{actDef.signalRef}" />
+	   		<f:attribute name="actionDef" value="#{actDef.asString}" />
+			<a4j:ajax render="@form"/>
+	    </h:commandButton>		
+	</a4j:repeat>
+	
+   	<a4j:repeat var="act" value="#{currentCtl.actionsBO}">
+		<h:link rendered="#{act.link}" outcome="#{act.linkOutcome}" styleClass="button ml0">
+			<f:param name="prmBusinessObjectId" value="#{currentCtl.prmBusinessObjectId}" />	
+			<f:param name="faces-redirect" value="#{act.redirect?true:false}" />
+			<f:param name="actionDef" value="#{act.action.asString}" />	    				
+			<h:outputText value="#{act.action.name}"/>	
+		</h:link>
+		<h:commandButton rendered="#{! act.link}" value="#{act.action.name}" actionListener="#{currentCtl.executeBOLsn}" onclick="if (window.confirm('Выполнить?')) { #{rich:component('popupIndicator')}.show();return true; } else { return false;}" styleClass="button ml0">
+			<f:attribute name="prmBusinessObjectId" value="#{currentCtl.prmBusinessObjectId}"/>
+			<f:attribute name="actionDef" value="#{act.action.asString}"/>
+			<a4j:ajax render="@all" />
+		</h:commandButton>
+   	</a4j:repeat>	
+</ui:composition>	

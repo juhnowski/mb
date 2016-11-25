@@ -1,0 +1,22 @@
+.lk, .lk .table {
+    margin-top: 0;
+}
+
+.lk .send_form.actions .submit.grey {
+    width: 100px;
+}
+
+.rf-msg {
+    color: #F00;
+    font-family: 'Myriad Pro', MyriadPro-Regular;
+    font-size: 11px;
+    display: block;
+}
+
+td.data-header, td.data-content {
+    vertical-align: top;
+}
+
+.global-err {
+    margin-left: 20px;
+}

@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+        <h:form>
+            <h:outputLabel value="Внешние подсистемы:" />
+            <rich:dataTable var="plg" value="#{viewPlugIndex.support.pluginConfigs}">
+            	<rich:column>
+            		<f:facet name="header"><h:outputText value="Имя" /></f:facet>
+            		<h:panelGroup rendered="#{viewPlugIndex.changed[plg.pluginName]}">
+            			<h:outputText value=" изм " />
+            		</h:panelGroup>
+            		<h:outputText value="#{plg.pluginName}" />
+            	</rich:column>
+            	<rich:column>
+            		<f:facet name="header"><h:outputText value="Режим работы" /></f:facet>
+            		<h:outputText value="#{plg.executionModeName}" />
+            	</rich:column>               	
+            	<rich:column>
+            		<f:facet name="header"><h:outputText value="Режим запросов" /></f:facet>
+            		<h:outputText value="#{plg.modeName}" /><br/>
+            		<h:outputText value="#{plg.syncModeName}" />
+            	</rich:column>   
+            	<rich:column>
+            		<f:facet name="header"><h:outputText value="Интервал ожидания отправки пакета" /></f:facet>
+            		<h:outputText value="#{plg.packetInterval}" />
+            	</rich:column>
+            	<rich:column>
+            		<f:facet name="header"><h:outputText value="Интервал запросов ответа" /></f:facet>
+            		<h:outputText value="#{plg.asyncInterval}" />
+            	</rich:column>     
+            	<rich:column>
+            		<f:facet name="header"><h:outputText value="Интервал повторных запросов" /></f:facet>
+            		<h:outputText value="#{plg.retryInterval}" />
+            	</rich:column>            	        	   
+            	<rich:column>
+            		<f:facet name="header"><h:outputText value="Рабочий или заглушка" /></f:facet>
+            		<h:outputText value="рабочий" rendered="#{! plg.useFake}" />
+            		<h:outputText value="заглушка" rendered="#{plg.useFake}" />
+            	</rich:column> 
+            	<rich:column>
+            		<f:facet name="header"><h:outputText value="Рабочий EJB" /></f:facet>
+            		<h:outputText value="#{plg.workEJBName}" />
+            	</rich:column>
+            	<rich:column>
+            		<f:facet name="header"><h:outputText value="Заглушечный EJB" /></f:facet>
+            		<h:outputText value="#{plg.fakeEJBName}" />
+            	</rich:column>
+            	<rich:column>
+            		<f:facet name="header"><h:outputText value="Имя пподпроцесса" /></f:facet>
+            		<h:outputText value="стандартный" rendered="#{plg.defaultProcessName}" />
+            		<h:outputText value="#{plg.processName}" rendered="#{! plg.defaultProcessName}" />
+            	</rich:column>               	            	     
+            	<rich:column>
+            		<f:facet name="header"><h:outputText value="Действия" /></f:facet>
+            		<h:link outcome="edit">
+            			<f:param name="pluginName" value="#{plg.pluginName}" />
+            			<f:param name="faces-redirect" value="true" />
+            			<h:outputText value="изменить" />
+            		</h:link>
+            	</rich:column>     
+            	          	            	          	         	            	               	            	          	         	
+            </rich:dataTable>
+            
+            <h:commandButton action="#{viewPlugIndex.save}" value="Применить изменения" /> 
+            <h:commandButton action="#{viewPlugIndex.cancel}" value="Отменить изменения" />
+        </h:form>
+    </ui:define>
+</ui:composition>

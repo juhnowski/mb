@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:aui="http://liferay.com/faces/aui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	template="/templates/template.xhtml">
+	<ui:define name="metadata">
+    	
+	</ui:define>
+    <ui:define name="title">Business analysis console</ui:define>
+
+    <ui:define name="pageContent">
+		<h:form id="frmEdit" prependId="false">
+			<rich:messages globalOnly="true" layout="table" />
+			<h:panelGroup id="pnlFull">
+         	    <h:outputText value="Поиск" />
+         	    <h:panelGrid columns="2">
+         	    <h:outputText value="Фамилия" />
+         	    <h:inputText  value="#{listLog.prmSurname}"/>
+         	    <h:outputText value="Номер заявки" />
+         	    <h:inputText  value="#{listLog.prmCrequestNumber}"/>
+         	    <h:outputText value="Браузер клиента" />
+         	    <h:inputText  value="#{listLog.prmBrowser}"/>
+         	    <h:outputText value="Операционная система клиента" />
+         	    <h:inputText  value="#{listLog.prmOs}"/>
+         	    <h:outputText value="IP-адрес клиента" />
+         	    <h:inputText  value="#{listLog.prmIpaddress}"/>         	    
+         	    <h:outputText value="Описание" />
+         	    <h:inputText  value="#{listLog.prmDescription}"/>
+         	    <h:outputText value="Место нахождения" />
+         	    <h:inputText  value="#{listLog.prmGeoPlace}"/>
+         	    <h:outputText value="Дата события с" />
+         	    <rich:calendar value="#{listLog.prmDate.from}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         	     <h:outputText value="Дата события по" />
+         	    <rich:calendar value="#{listLog.prmDate.to}" popup="true" enableManualInput="true" showApplyButton="false" datePattern="dd.MM.yyyy" />
+         		<h:outputText value="Вид события" />
+        		<h:selectOneMenu value="#{listLog.prmEventCode}">
+        			<f:selectItems value="#{comrefs.eventCodes}" />
+        		</h:selectOneMenu>
+        		<h:outputText value="Роль участника события" />
+        		<h:selectOneMenu value="#{listLog.prmRole}">
+        			<f:selectItems value="#{comrefs.roles}" />
+        		</h:selectOneMenu>
+         	    </h:panelGrid>
+             	<a4j:commandButton value="Найти" actionListener="#{listLog.searchLsn}" render="pnlResults" /> <a4j:commandButton value="Очистить" actionListener="#{listLog.clearLsn}" render="frmEdit" />
+             </h:panelGroup>
+    		<p></p>		
+				<h:panelGroup id="pnlResults">
+				<h:panelGroup>
+					<h:outputText value="Найдено #{listLog.model.rowCount} записей в логе" />
+				</h:panelGroup>	
+				<rich:extendedDataTable id="reqTable"
+		                         value="#{listLog.model}"               
+		                         var="ref"
+		                         selectionMode="single" rows="20">
+		               
+		                <rich:column width="50">
+		                	<f:facet name="header">ID</f:facet>
+		                	<h:link outcome="view?faces-redirect=true" >
+		                		<f:param name="refid" value="#{ref.id}" />
+		                		<h:outputText value="#{ref.id}"/>
+		                	</h:link>
+		                </rich:column>
+		                <rich:column width="300">
+		                	<f:facet name="header">Событие</f:facet>
+		                	<h:outputText value="#{ref.eventCode.name}"/>
+		                </rich:column>
+		                <rich:column width="150">
+		                	<f:facet name="header">Дата события</f:facet>
+		                	<h:outputText value="#{ref.eventTime}">
+		                	   <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss" />
+		                	</h:outputText> 
+		                </rich:column>
+		                <rich:column width="300">
+		                	<f:facet name="header">Описание</f:facet>
+		                	<h:outputText value="#{ref.description}"/>
+		                </rich:column>
+		                 <f:facet name="footer">	
+		                    <rich:dataScroller/>
+		                </f:facet>
+		         </rich:extendedDataTable>
+		     </h:panelGroup>           
+        </h:form>
+    </ui:define>
+</ui:composition>
